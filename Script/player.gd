@@ -2,7 +2,21 @@ extends CharacterBody2D
 
 const SPEED = 130.0
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
+var has_torch = false
+var held_torch = null
 
+func _ready() -> void:
+	for torch in get_tree().get_nodes_in_group("torches"):
+		torch.connect("torch_picked_up", Callable(self, "_on_Torch_picked_up"))
+
+func _on_torch_picked_up(torch_node):
+	if not has_torch:
+		held_torch = torch_node
+		has_torch = true
+		held_torch.get_parent().remove_child(held_torch)
+		add_child(held_torch)
+		held_torch.position = Vector2(0, 10)
+		
 func _physics_process(delta):
 	var input_vector = Vector2.ZERO
 	
