@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=4 uid="uid://ybt1ieyx8pn4"]
 
-[ext_resource type="Texture2D" uid="uid://dqqntcn261ki" path="res://Tileset/PNG/walls_floor.png" id="1_7uypk"]
-[ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Tileset/PNG/decorative_cracks_floor.png" id="2_7uypk"]
-[ext_resource type="Texture2D" uid="uid://c458wuq3atrbr" path="res://Tileset/PNG/water_detilazation_v2.png" id="3_fl8lc"]
-[ext_resource type="Texture2D" uid="uid://drg54a5sbkmlg" path="res://Tileset/PNG/Water_coasts_animation.png" id="4_7s5b6"]
-[ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Tileset/PNG/water.png" id="5_t3xbl"]
+[ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Layout_map/Tileset/PNG/walls_floor.png" id="1_7uypk"]
+[ext_resource type="Texture2D" uid="uid://dy3nsaq7c3sqx" path="res://Assets/Layout_map/Tileset/PNG/decorative_cracks_floor.png" id="2_7uypk"]
+[ext_resource type="Texture2D" uid="uid://cwklj2edoqmk3" path="res://Assets/Layout_map/Tileset/PNG/water_detilazation_v2.png" id="3_fl8lc"]
+[ext_resource type="Texture2D" uid="uid://qesux6fbcpgb" path="res://Assets/Layout_map/Tileset/PNG/Water_coasts_animation.png" id="4_7s5b6"]
+[ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Assets/Layout_map/Tileset/PNG/water.png" id="5_t3xbl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("1_7uypk")

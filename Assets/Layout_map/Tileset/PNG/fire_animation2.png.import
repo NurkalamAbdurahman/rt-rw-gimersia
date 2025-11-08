@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca6vqmqrpbb3k"
-path="res://.godot/imported/water.png-262ed1c23be865a7bf5cbce700996ec8.ctex"
+uid="uid://cniev8pim0ao2"
+path="res://.godot/imported/fire_animation2.png-bd18dc6f44712fd7396f6361fb97d46d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Layout_map/Tileset/PNG/water.png"
-dest_files=["res://.godot/imported/water.png-262ed1c23be865a7bf5cbce700996ec8.ctex"]
+source_file="res://Assets/Layout_map/Tileset/PNG/fire_animation2.png"
+dest_files=["res://.godot/imported/fire_animation2.png-bd18dc6f44712fd7396f6361fb97d46d.ctex"]
 
 [params]
 

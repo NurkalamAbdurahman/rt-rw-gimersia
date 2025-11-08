@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca6vqmqrpbb3k"
-path="res://.godot/imported/water.png-262ed1c23be865a7bf5cbce700996ec8.ctex"
+uid="uid://c2rof7gjav073"
+path="res://.godot/imported/decorative_cracks_walls.png-77a7a257b9e459bf0fd1a8ff4498b294.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Layout_map/Tileset/PNG/water.png"
-dest_files=["res://.godot/imported/water.png-262ed1c23be865a7bf5cbce700996ec8.ctex"]
+source_file="res://Assets/Layout_map/Tileset/PNG/decorative_cracks_walls.png"
+dest_files=["res://.godot/imported/decorative_cracks_walls.png-77a7a257b9e459bf0fd1a8ff4498b294.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca6vqmqrpbb3k"
-path="res://.godot/imported/water.png-262ed1c23be865a7bf5cbce700996ec8.ctex"
+uid="uid://qesux6fbcpgb"
+path="res://.godot/imported/Water_coasts_animation.png-f71189d083c36757094ee1d3231991af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Layout_map/Tileset/PNG/water.png"
-dest_files=["res://.godot/imported/water.png-262ed1c23be865a7bf5cbce700996ec8.ctex"]
+source_file="res://Assets/Layout_map/Tileset/PNG/Water_coasts_animation.png"
+dest_files=["res://.godot/imported/Water_coasts_animation.png-f71189d083c36757094ee1d3231991af.ctex"]
 
 [params]
 
