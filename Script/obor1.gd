@@ -4,6 +4,7 @@ extends Node2D
 @onready var obor_hidup = $OborHidup
 @onready var area = $Area2D
 @onready var label = $Label
+@onready var point_light_2d: PointLight2D = $PointLight2D
 
 var player_in_area = false
 
@@ -19,6 +20,7 @@ func _process(_delta):
 func nyalakan_obor():	
 	obor_mati.visible = false
 	obor_hidup.visible = true
+	obor_hidup.play("obor_nyala")
 	label.visible = false
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

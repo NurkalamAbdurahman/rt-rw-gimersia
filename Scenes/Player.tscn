@@ -1,8 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://bed842dpwmt78"]
+[gd_scene load_steps=21 format=3 uid="uid://bed842dpwmt78"]
 
 [ext_resource type="Script" uid="uid://dlr5exw4c4cje" path="res://Script/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://840g0v61wiq1" path="res://Assets/Player/Tiny Swords (Free Pack)/Units/Blue Units/Lancer/Lancer_Idle.png" id="2_gntrk"]
 [ext_resource type="AudioStream" uid="uid://bxeh0bwgvhp13" path="res://Assets/Audio/stone-step.ogg" id="3_gntrk"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kyqiw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88kja"]
 atlas = ExtResource("2_gntrk")
@@ -99,10 +101,23 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_3d168"]
 radius = 26.076809
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kyqiw"]
+
+[sub_resource type="Gradient" id="Gradient_impyb"]
+offsets = PackedFloat32Array(0, 0.6, 0.7266667)
+colors = PackedColorArray(1, 1, 1, 1, 0.13636369, 0.13636369, 0.13636369, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gntrk"]
+gradient = SubResource("Gradient_impyb")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_kyqiw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_kyqiw")
 sprite_frames = SubResource("SpriteFrames_o8di4")
 autoplay = "default"
 frame = 3
@@ -112,9 +127,12 @@ frame_progress = 0.55031675
 position = Vector2(-1, 12)
 shape = SubResource("CircleShape2D_3d168")
 
-[node name="SFX_Run_Stone" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_gntrk")
-volume_db = 16.155
-pitch_scale = 1.6
-
-[node name="SFX_PickUp" type="AudioStreamPlayer2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="."]
+material = SubResource("ShaderMaterial_kyqiw")
+color = Color(0.84866434, 0.64032954, 0.3541621, 1)
+energy = 2.0
+range_item_cull_mask = 4
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_gntrk")
+offset = Vector2(0, 4)
+texture_scale = 4.98
