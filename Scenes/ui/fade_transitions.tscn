@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://di6o4afgl4ola"]
+
+[ext_resource type="Script" uid="uid://cuqd2v7n3svtn" path="res://Script/fade_transitions.gd" id="1_boupq"]
+
+[sub_resource type="Animation" id="Animation_t37hl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3ssey"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_boupq"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.98)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1waoh"]
+_data = {
+&"RESET": SubResource("Animation_t37hl"),
+&"fade_in": SubResource("Animation_3ssey"),
+&"fade_out": SubResource("Animation_boupq")
+}
+
+[node name="FadeTransitions" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_boupq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1waoh")
+}
+
+[node name="Fade_Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Fade_Timer" to="." method="_on_fade_timer_timeout"]
