@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+var gold = 100
+var potions = 0
+
 const SPEED = 130.0
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
 var has_torch = false
@@ -17,8 +20,9 @@ func _on_torch_picked_up(torch_node):
 		add_child(held_torch)
 		held_torch.position = Vector2(0, 10)
 		
-func _physics_process(delta):
+func _physics_process(delta):	
 	var input_vector = Vector2.ZERO
+	
 	
 	input_vector.x = Input.get_axis("left", "right")
 	input_vector.y = Input.get_axis("up", "down")
