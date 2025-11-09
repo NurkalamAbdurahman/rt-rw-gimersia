@@ -56,10 +56,10 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 65
+theme_override_constants/separation = 85
 
 [node name="Logo3" type="Sprite2D" parent="MarginContainer/VBoxContainer"]
-position = Vector2(303, 58)
+position = Vector2(365, 56)
 scale = Vector2(2, 2)
 texture = ExtResource("3_blk0r")
 
@@ -69,8 +69,8 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_constants/line_spacing = 40
 theme_override_fonts/font = ExtResource("4_o060j")
-theme_override_font_sizes/font_size = 64
-text = "RTRw Dungeons"
+theme_override_font_sizes/font_size = 42
+text = "Echoes of the Lost Dungeon"
 horizontal_alignment = 1
 vertical_alignment = 1
 
