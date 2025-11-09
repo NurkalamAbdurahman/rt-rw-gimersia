@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://lk1vqq6fhqj0"]
+[gd_scene load_steps=13 format=3 uid="uid://c8ok85jo1p2uu"]
 
-[ext_resource type="Script" uid="uid://cnw08k3snnn5k" path="res://Script/silver_chest.gd" id="1_p26g8"]
+[ext_resource type="Script" path="res://Script/silver_chest.gd" id="1_p26g8"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_p26g8"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_wx0bj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p26g8"]
 atlas = ExtResource("2_p26g8")
@@ -50,6 +51,9 @@ region = Rect2(135, 129, 19, 21)
 [sub_resource type="CircleShape2D" id="CircleShape2D_wx0bj"]
 radius = 16.03122
 
+[sub_resource type="LabelSettings" id="LabelSettings_x8474"]
+font = ExtResource("3_wx0bj")
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_p26g8")
 
@@ -71,16 +75,15 @@ texture = SubResource("AtlasTexture_t81yx")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 shape = SubResource("CircleShape2D_wx0bj")
 
 [node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -56.0
-offset_right = 59.0
-offset_bottom = 12.0
-theme_override_font_sizes/font_size = 8
-text = "Klik 'E' untuk membuka Chest"
+offset_left = -42.0
+offset_top = -23.0
+offset_right = 50.0
+offset_bottom = -11.0
+text = "Klik 'E' untuk membuka"
+label_settings = SubResource("LabelSettings_x8474")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

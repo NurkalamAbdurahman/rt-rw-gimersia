@@ -20,7 +20,7 @@ theme_override_constants/margin_top = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 13
+theme_override_constants/separation = 20
 
 [node name="Health" parent="MarginContainer/VBoxContainer" instance=ExtResource("7_0jl3m")]
 layout_mode = 2

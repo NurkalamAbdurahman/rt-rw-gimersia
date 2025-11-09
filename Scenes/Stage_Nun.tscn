@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://qmcmo1p4u7xh"]
+[gd_scene load_steps=31 format=4 uid="uid://qmcmo1p4u7xh"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_mwf0k"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_osjhk"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="10_rfl0i"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="11_vgcxa"]
 [ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="12_osjhk"]
+[ext_resource type="PackedScene" uid="uid://c8ok85jo1p2uu" path="res://Scenes/silver_chest.tscn" id="13_7yjry"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("1_mwf0k")
@@ -3235,4 +3236,15 @@ position = Vector2(699, 18)
 navigation_polygon = SubResource("NavigationPolygon_3qrq3")
 
 [node name="Hud" parent="." instance=ExtResource("12_osjhk")]
-visible = false
+
+[node name="Chest" type="Node2D" parent="."]
+position = Vector2(389.99997, -692.00006)
+scale = Vector2(1.3344294, 1.6611495)
+
+[node name="silverchest3" parent="Chest" instance=ExtResource("13_7yjry")]
+position = Vector2(1137.565, 22.273773)
+
+[node name="silverchest" parent="Chest" instance=ExtResource("13_7yjry")]
+
+[node name="silverchest2" parent="Chest" instance=ExtResource("13_7yjry")]
+position = Vector2(321.48578, 440.65875)

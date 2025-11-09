@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=29 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_xsupj"]
 [ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="2_lxiaw"]
@@ -9,8 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Assets/Tileset/PNG/water.png" id="5_8bydp"]
 [ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="6_lxiaw"]
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="6_o8lv2"]
-[ext_resource type="PackedScene" path="res://Scenes/pause.tscn" id="10_ekqoy"]
-[ext_resource type="PackedScene" path="res://Scenes/silver_chest.tscn" id="11_o8lv2"]
+[ext_resource type="PackedScene" uid="uid://c8ok85jo1p2uu" path="res://Scenes/silver_chest.tscn" id="11_o8lv2"]
 [ext_resource type="PackedScene" uid="uid://bc7u8wio8ton8" path="res://Scenes/obor.tscn" id="12_ekqoy"]
 [ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="13_vvkh1"]
 
@@ -3208,13 +3207,12 @@ color = Color(0.051970966, 0.05197096, 0.05197095, 1)
 z_index = 10
 position = Vector2(80, 72)
 scale = Vector2(0.3, 0.3)
-collision_layer = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
-[node name="PointLight2D" type="PointLight2D" parent="Player2"]
+[node name="PointLight2D2" type="PointLight2D" parent="Player2"]
 material = SubResource("ShaderMaterial_8bydp")
 color = Color(0.84866434, 0.64032954, 0.3541621, 1)
 energy = 2.0

@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://bc7u8wio8ton8"]
+[gd_scene load_steps=21 format=3 uid="uid://bc7u8wio8ton8"]
 
 [ext_resource type="Script" uid="uid://crs7bhgys52b0" path="res://Script/obor1.gd" id="1_edvta"]
 [ext_resource type="Texture2D" uid="uid://cue52pwga756s" path="res://Assets/Tileset/PNG/Tileset_obormati.png" id="2_gl8ki"]
 [ext_resource type="Texture2D" uid="uid://c0o84jn0wlynf" path="res://Assets/Tileset/PNG/fire_animation.png" id="3_osaon"]
 [ext_resource type="AudioStream" uid="uid://bhaxy57sivl8m" path="res://Assets/Audio/torch-on.ogg" id="4_gl8ki"]
-[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="4_vccmd"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="4_vccmd"]
 [ext_resource type="AudioStream" uid="uid://brjl6r6o4oion" path="res://Assets/Audio/torch-burning.ogg" id="5_osaon"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vccmd"]
@@ -94,6 +94,9 @@ fill_to = Vector2(0, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_k2m5n"]
 radius = 14.3178215
 
+[sub_resource type="LabelSettings" id="LabelSettings_vccmd"]
+font = ExtResource("4_vccmd")
+
 [node name="Obor" type="Node2D"]
 
 [node name="Obor3" type="Node2D" parent="."]
@@ -134,13 +137,14 @@ debug_color = Color(0.53403425, 0.4183036, 0.98430794, 0.41960785)
 
 [node name="Label" type="Label" parent="Obor3"]
 texture_filter = 1
-offset_left = -5.0
+offset_left = -41.0
 offset_top = -27.0
-offset_right = 2.0
-offset_bottom = -15.0
-theme_override_fonts/font = ExtResource("4_vccmd")
-theme_override_font_sizes/font_size = 10
-text = "e"
+offset_right = 36.0
+offset_bottom = -7.0
+text = "TEKAN [e] UNTUK NYALA"
+label_settings = SubResource("LabelSettings_vccmd")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SFX_TorchOn" type="AudioStreamPlayer2D" parent="Obor3"]
 stream = ExtResource("4_gl8ki")
