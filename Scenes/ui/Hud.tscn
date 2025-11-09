@@ -1,8 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dawyh7xl0svwt"]
+[gd_scene load_steps=6 format=3 uid="uid://dawyh7xl0svwt"]
 
 [ext_resource type="Script" uid="uid://befld0wic10r3" path="res://Script/hud.gd" id="1_1usb2"]
-[ext_resource type="PackedScene" uid="uid://vwk6ybioq51w" path="res://Scenes/ui/Health_Bar.tscn" id="1_lskfp"]
-[ext_resource type="Texture2D" uid="uid://b4nkmq4vk4m1u" path="res://Assets/collecitions/ui/pixil-frame-0.png" id="1_so6r4"]
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
 [ext_resource type="PackedScene" uid="uid://dcw7aevagshe5" path="res://Scenes/ui/Silver_Key.tscn" id="4_0jl3m"]
 [ext_resource type="PackedScene" uid="uid://cfbgos7kse1lm" path="res://Scenes/ui/Golden_Key.tscn" id="4_lskfp"]
@@ -12,41 +10,34 @@
 script = ExtResource("1_1usb2")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-offset_left = 72.0
-offset_top = 56.0
-offset_right = 157.0
-offset_bottom = 81.0
+offset_left = -38.999992
+offset_top = -40.0
+offset_right = 46.000015
+offset_bottom = -15.0
 scale = Vector2(5, 5)
 pivot_offset = Vector2(-10, -10)
 size_flags_horizontal = 4
-
-[node name="PixilFrame0" type="Sprite2D" parent="MarginContainer"]
-position = Vector2(43.333332, 50.666664)
-scale = Vector2(4.666667, 4.666667)
-texture = ExtResource("1_so6r4")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+theme_override_constants/separation = 13
 
 [node name="Health" parent="MarginContainer/VBoxContainer" instance=ExtResource("7_0jl3m")]
 layout_mode = 2
 
-[node name="HealthBar" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_lskfp")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 1
+theme_override_constants/separation = 13
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="Coin" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_so6r4")]
+[node name="Coin" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_so6r4")]
 layout_mode = 2
 
-[node name="SilverKey" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_0jl3m")]
+[node name="SilverKey" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4_0jl3m")]
 layout_mode = 2
 
-[node name="GoldenKey" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_lskfp")]
+[node name="GoldenKey" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4_lskfp")]
 layout_mode = 2
 
 [node name="Damage" type="Button" parent="."]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfdassmwms4ij"
-path="res://.godot/imported/Coin.png-2048e1e541e4b3ddf43d030aa5356139.ctex"
+uid="uid://pdc3shaecesd"
+path="res://.godot/imported/Health_Bar.png-b613603bba9ee829c4de789d378daca5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/collecitions/Health/Coin.png"
-dest_files=["res://.godot/imported/Coin.png-2048e1e541e4b3ddf43d030aa5356139.ctex"]
+source_file="res://Assets/collecitions/Health/Health_Bar.png"
+dest_files=["res://.godot/imported/Health_Bar.png-b613603bba9ee829c4de789d378daca5.ctex"]
 
 [params]
 

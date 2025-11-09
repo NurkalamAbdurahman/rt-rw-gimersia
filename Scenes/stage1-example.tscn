@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=30 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_xsupj"]
 [ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="2_lxiaw"]
@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Assets/Tileset/PNG/water.png" id="5_8bydp"]
 [ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="6_lxiaw"]
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="6_o8lv2"]
-[ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/pause.tscn" id="10_ekqoy"]
-[ext_resource type="PackedScene" uid="uid://lk1vqq6fhqj0" path="res://Scenes/silver_chest.tscn" id="11_o8lv2"]
+[ext_resource type="PackedScene" path="res://Scenes/pause.tscn" id="10_ekqoy"]
+[ext_resource type="PackedScene" path="res://Scenes/silver_chest.tscn" id="11_o8lv2"]
 [ext_resource type="PackedScene" uid="uid://bc7u8wio8ton8" path="res://Scenes/obor.tscn" id="12_ekqoy"]
-[ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="12_vvkh1"]
+[ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="13_vvkh1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("1_xsupj")
@@ -3243,3 +3243,5 @@ position = Vector2(1137.565, 22.273773)
 
 [node name="silverchest2" parent="Chest" instance=ExtResource("11_o8lv2")]
 position = Vector2(321.48578, 440.65875)
+
+[node name="Hud" parent="." instance=ExtResource("13_vvkh1")]
