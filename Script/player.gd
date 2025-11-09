@@ -6,7 +6,6 @@ const SPEED = 130.0
 
 var has_torch = false
 var held_torch = null
-
 func _ready() -> void:
 	for torch in get_tree().get_nodes_in_group("torches"):
 		torch.connect("torch_picked_up", Callable(self, "_on_torch_picked_up"))

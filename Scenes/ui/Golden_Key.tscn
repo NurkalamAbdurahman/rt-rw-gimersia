@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfbgos7kse1lm"]
 
 [ext_resource type="Texture2D" uid="uid://3untjenf75ty" path="res://Assets/collecitions/Golden_Key/key.png" id="1_2qyps"]
-[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_2qyps"]
+[ext_resource type="Script" uid="uid://cihgpc6sghs2g" path="res://Script/golden_key.gd" id="1_le7j2"]
 
 [node name="GoldenKey" type="Control"]
 layout_mode = 3
@@ -10,6 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_le7j2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -18,13 +20,3 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_2qyps")
 region_enabled = true
 region_rect = Rect2(0, 0, 32.142883, 31.729454)
-
-[node name="Label" type="Label" parent="."]
-texture_filter = 1
-layout_mode = 0
-offset_left = 16.5
-offset_right = 22.5
-offset_bottom = 13.0
-theme_override_fonts/font = ExtResource("2_2qyps")
-theme_override_font_sizes/font_size = 11
-text = "0"
