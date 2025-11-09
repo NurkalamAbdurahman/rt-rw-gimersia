@@ -1,28 +1,33 @@
 extends CharacterBody2D
 
-
 const SPEED = 130.0
-const JUMP_VELOCITY = -300.0
-
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
+var has_torch = false
+var held_torch = null
 
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
+func _ready() -> void:
+	for torch in get_tree().get_nodes_in_group("torches"):
+		torch.connect("torch_picked_up", Callable(self, "_on_Torch_picked_up"))
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+func _on_torch_picked_up(torch_node):
+	if not has_torch:
+		held_torch = torch_node
+		has_torch = true
+		held_torch.get_parent().remove_child(held_torch)
+		add_child(held_torch)
+		held_torch.position = Vector2(0, 10)
+		
+func _physics_process(delta):
+	var input_vector = Vector2.ZERO
+	
+	input_vector.x = Input.get_axis("left", "right")
+	input_vector.y = Input.get_axis("up", "down")
+	
+	input_vector = input_vector.normalized()
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-		if direction == 1.0 :
-			player.flip_h = false
-		else :
-			player.flip_h = true
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	velocity = input_vector * SPEED
 	move_and_slide()
+
+	# Flip animasi kalau mau, optional
+	if input_vector.x != 0:
+		player.flip_h = input_vector.x < 0
