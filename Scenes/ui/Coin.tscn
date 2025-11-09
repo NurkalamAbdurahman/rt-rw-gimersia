@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://d30rdhwoxnw0c"]
+
+[ext_resource type="Script" uid="uid://btoadke66m5pk" path="res://Script/coin.gd" id="1_4d83j"]
+[ext_resource type="Texture2D" uid="uid://bdgj5upi0j6te" path="res://Assets/collecitions/Coin/Coin.png" id="1_a1a3o"]
+[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_a1a3o"]
+
+[node name="Coin" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4d83j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(7, 6)
+texture = ExtResource("1_a1a3o")
+region_enabled = true
+region_rect = Rect2(0, 0, 9.01454, 10.149114)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 22.0
+offset_bottom = 13.0
+theme_override_fonts/font = ExtResource("2_a1a3o")
+theme_override_font_sizes/font_size = 11
+text = "0"

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://ioubfens8e2"]
+
+[ext_resource type="Texture2D" uid="uid://tptfkcn854c1" path="res://Assets/collecitions/Arrow/Arrow.png" id="1_7q6sr"]
+[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_7q6sr"]
+
+[node name="Ammo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(7, 7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_7q6sr")
+region_enabled = true
+region_rect = Rect2(230.69826, 83.28102, 22.158615, 10.287926)
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 16.0
+offset_right = 22.0
+offset_bottom = 13.0
+theme_override_fonts/font = ExtResource("2_7q6sr")
+theme_override_font_sizes/font_size = 11
+text = "0"
