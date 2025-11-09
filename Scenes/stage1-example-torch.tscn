@@ -3430,7 +3430,7 @@ scale = Vector2(0.3, 0.3)
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
-[node name="PointLight2D" type="PointLight2D" parent="Player"]
+[node name="PointLight2D2" type="PointLight2D" parent="Player"]
 material = SubResource("ShaderMaterial_ekqoy")
 color = Color(0.84866434, 0.64032954, 0.3541621, 1)
 energy = 2.0
