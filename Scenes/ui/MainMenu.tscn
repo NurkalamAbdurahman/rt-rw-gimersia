@@ -79,6 +79,7 @@ texture_filter = 1
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.12347304, 0.12347304, 0.12347304, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.072842635, 0.072842635, 0.072842635, 1)
