@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://cfnodkdlocnwj"]
+[gd_scene load_steps=34 format=4 uid="uid://bngq50syd7x4h"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_s8s8v"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_dugo0"]
@@ -10,8 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://x8txpjfwo468" path="res://Assets/Tileset/PNG/fire_animation2.png" id="8_rapec"]
 [ext_resource type="Texture2D" uid="uid://c0o84jn0wlynf" path="res://Assets/Tileset/PNG/fire_animation.png" id="9_ykpfd"]
 [ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="10_7eyvr"]
+[ext_resource type="PackedScene" path="res://Scenes/torch.tscn" id="11_ay1se"]
+[ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res/Scenes/Player.tscn" id="12_aoo6g"]
+[ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="13_dugo0"]
 [ext_resource type="PackedScene" uid="uid://cv2xnq8w24twi" path="res://Scenes/torch.tscn" id="11_ay1se"]
-[ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="12_aoo6g"]
+[ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="13_dugo0"]
+[ext_resource type="PackedScene" uid="uid://b7lyu3uojql6b" path="res://Scenes/PlayerTest.tscn" id="13_wid4y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("1_s8s8v")
@@ -3349,9 +3353,6 @@ texture = ExtResource("10_7eyvr")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_x6813")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ekqoy"]
-size = Vector2(20, 50)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ekqoy"]
 
 [sub_resource type="Gradient" id="Gradient_impyb"]
@@ -3363,6 +3364,8 @@ gradient = SubResource("Gradient_impyb")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dugo0"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -3399,6 +3402,31 @@ scale = Vector2(0.5, 0.5)
 tile_map_data = PackedByteArray("AAAEAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAAMAAYAAAAAAAAAAAANAAYAAAAAAAAAAAAOAAYAAAAAAAAAAAAPAAYAAAAAAAAAAAAQAAYAAAAAAAAAAAARAAYAAAAAAAAAAAASAAYAAAAAAAAAAAATAAYAAAAAAAAAAAAUAAYAAAAAAAAAAAAVAAYAAAAAAAAAAAAWAAYAAAAAAAAAAAAXAAYAAAAAAAAAAAAYAAYAAAAAAAAAAAAZAAYAAAAAAAAAAAAaAAYAAAAAAAAAAAAbAAYAAAAAAAAAAAAcAAYAAAAAAAAAAAAdAAYAAAAAAAAAAAAeAAYAAAAAAAAAAAAhAAYAAAAAAAAAAAAgAAYAAAAAAAAAAAAfAAYAAAAAAAAAAAAiAAYAAAAAAAAAAAAjAAYAAAAAAAAAAAAkAAYAAAAAAAAAAAAlAAYAAAAAAAAAAAAmAAYAAAAAAAAAAAAnAAYAAAAAAAAAAAAoAAYAAAAAAAAAAAApAAYAAAAAAAAAAAAqAAYAAAAAAAAAAAArAAYAAAAAAAAAAAAsAAYAAAAAAAAAAAAtAAYAAAAAAAAAAAAuAAYAAAAAAAAAAAAvAAYAAAAAAAAAAAAwAAYAAAAAAAAAAAAxAAYAAAAAAAAAAAAyAAYAAAAAAAAAAAAzAAYAAAAAAAAAAAA0AAYAAAAAAAAAAAA1AAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAcAAAAAAAAAAAA2AAYAAAAAAAAAAAA3AAYAAAAAAAAAAAA4AAYAAAAAAAAAAAA5AAYAAAAAAAAAAAA6AAYAAAAAAAAAAAA7AAUAAAAAAAAAAAA8AAUAAAAAAAAAAAA9AAUAAAAAAAAAAAA+AAUAAAAAAAAAAAA/AAUAAAAAAAAAAABAAAUAAAAAAAAAAABBAAUAAAAAAAAAAABCAAUAAAAAAAAAAABDAAUAAAAAAAAAAABDAAYAAAAAAAAAAABCAAYAAAAAAAAAAABBAAYAAAAAAAAAAABAAAYAAAAAAAAAAAA/AAYAAAAAAAAAAAA+AAYAAAAAAAAAAAA9AAYAAAAAAAAAAAA8AAYAAAAAAAAAAAA7AAYAAAAAAAAAAABEAAYAAAAAAAAAAABFAAYAAAAAAAAAAABGAAYAAAAAAAAAAABHAAYAAAAAAAAAAABIAAYAAAAAAAAAAABJAAYAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_cdhhm")
 
+[node name="Goblin" parent="." instance=ExtResource("13_dugo0")]
+z_index = 2
+position = Vector2(747, 55)
+
+[node name="Player" parent="." instance=ExtResource("13_wid4y")]
+z_index = 1
+position = Vector2(254, 29)
+scale = Vector2(0.3, 0.3)
+collision_layer = 34
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-63.333344, 6.6666718)
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
+
+[node name="PointLight2D2" type="PointLight2D" parent="Player"]
+material = SubResource("ShaderMaterial_ekqoy")
+position = Vector2(-63.333344, 6.6666718)
+color = Color(0.84866434, 0.64032954, 0.3541621, 1)
+energy = 2.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_ekqoy")
+offset = Vector2(0, 4)
+texture_scale = 4.98
+
 [node name="Torch" parent="." instance=ExtResource("11_ay1se")]
 z_index = 5
 position = Vector2(209, 39)
@@ -3409,35 +3437,7 @@ z_index = 3
 position = Vector2(84, 42)
 scale = Vector2(0.3, 0.3)
 
-[node name="Torch3" parent="." instance=ExtResource("11_ay1se")]
-z_index = 3
-position = Vector2(384, 77)
-rotation = 1.5707964
-scale = Vector2(0.3, 0.3)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Torch3"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Torch3/StaticBody2D"]
-position = Vector2(0, 1.666748)
-shape = SubResource("RectangleShape2D_ekqoy")
-
-[node name="Player" parent="." instance=ExtResource("12_aoo6g")]
-z_index = 10
-position = Vector2(80, 72)
-scale = Vector2(0.3, 0.3)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(5, 5)
-position_smoothing_enabled = true
-
-[node name="PointLight2D" type="PointLight2D" parent="Player"]
-material = SubResource("ShaderMaterial_ekqoy")
-color = Color(0.84866434, 0.64032954, 0.3541621, 1)
-energy = 2.0
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_ekqoy")
-offset = Vector2(0, 4)
-texture_scale = 4.98
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.051970966, 0.05197096, 0.05197095, 1)
+
+[node name="Hud" parent="." instance=ExtResource("13_dugo0")]

@@ -1,0 +1,36 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://bpn4iow8g11g0"
+path="res://.godot/imported/Audiencia Portuguesa.otf-b4a07b49139705219e7d07ae0e691671.fontdata"
+
+[deps]
+
+source_file="res://Assets/Font/Audiencia Portuguesa.otf"
+dest_files=["res://.godot/imported/Audiencia Portuguesa.otf-b4a07b49139705219e7d07ae0e691671.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+disable_embedded_bitmaps=true
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+modulate_color_glyphs=false
+hinting=1
+subpixel_positioning=4
+keep_rounding_remainders=true
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}
