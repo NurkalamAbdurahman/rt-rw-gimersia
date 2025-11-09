@@ -3199,7 +3199,7 @@ position = Vector2(2385, -499)
 position = Vector2(2162, -499)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.051970966, 0.05197096, 0.05197095, 1)
+color = Color(0.14767182, 0.14767182, 0.14767176, 1)
 
 [node name="Player2" parent="." groups=["player"] instance=ExtResource("6_o8lv2")]
 z_index = 10
@@ -3210,11 +3210,10 @@ scale = Vector2(0.3, 0.3)
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
-[node name="PointLight2D" type="PointLight2D" parent="Player2"]
+[node name="PointLight2D2" type="PointLight2D" parent="Player2"]
 material = SubResource("ShaderMaterial_8bydp")
-color = Color(0.84866434, 0.64032954, 0.3541621, 1)
-energy = 2.0
-shadow_enabled = true
+color = Color(0.8677447, 0.6982762, 0.42521778, 1)
+energy = 1.5
 texture = SubResource("GradientTexture2D_o8lv2")
 offset = Vector2(0, 4)
 texture_scale = 4.98

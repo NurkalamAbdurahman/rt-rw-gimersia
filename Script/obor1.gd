@@ -19,6 +19,7 @@ func _process(_delta):
 func nyalakan_obor():	
 	obor_mati.visible = false
 	obor_hidup.visible = true
+	obor_hidup.play("obor_nyala")
 	label.visible = false
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
