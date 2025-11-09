@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://cfnodkdlocnwj"]
+[gd_scene load_steps=34 format=4 uid="uid://cfnodkdlocnwj"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_s8s8v"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_dugo0"]
@@ -3362,6 +3362,8 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dugo0"]
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Map" type="Node" parent="."]
@@ -3399,7 +3401,7 @@ tile_set = SubResource("TileSet_cdhhm")
 
 [node name="Goblin" parent="." instance=ExtResource("13_dugo0")]
 z_index = 2
-position = Vector2(405, 70)
+position = Vector2(747, 55)
 
 [node name="Player" parent="." instance=ExtResource("13_wid4y")]
 z_index = 1
@@ -3433,3 +3435,6 @@ scale = Vector2(0.3, 0.3)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.051970966, 0.05197096, 0.05197095, 1)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_dugo0")

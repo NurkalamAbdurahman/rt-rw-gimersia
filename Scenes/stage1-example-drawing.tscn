@@ -1,18 +1,19 @@
-[gd_scene load_steps=27 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=29 format=4 uid="uid://cflsc2t4ardlq"]
 
-[ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_xsupj"]
-[ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="2_lxiaw"]
-[ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_x6813"]
-[ext_resource type="Texture2D" uid="uid://b0708f36qjoxd" path="res://Assets/Tileset/PNG/Objects.png" id="3_cdhhm"]
-[ext_resource type="Texture2D" uid="uid://c458wuq3atrbr" path="res://Assets/Tileset/PNG/water_detilazation_v2.png" id="3_x6813"]
-[ext_resource type="Texture2D" uid="uid://drg54a5sbkmlg" path="res://Assets/Tileset/PNG/Water_coasts_animation.png" id="4_cdhhm"]
-[ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Assets/Tileset/PNG/water.png" id="5_8bydp"]
-[ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="6_lxiaw"]
-[ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="6_o8lv2"]
-[ext_resource type="PackedScene" uid="uid://bc7u8wio8ton8" path="res://Scenes/obor.tscn" id="12_ekqoy"]
+[ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_cnqko"]
+[ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_ccsdi"]
+[ext_resource type="Texture2D" uid="uid://b0708f36qjoxd" path="res://Assets/Tileset/PNG/Objects.png" id="3_p0fig"]
+[ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="4_d7k8l"]
+[ext_resource type="Texture2D" uid="uid://c458wuq3atrbr" path="res://Assets/Tileset/PNG/water_detilazation_v2.png" id="5_ye5yq"]
+[ext_resource type="Texture2D" uid="uid://drg54a5sbkmlg" path="res://Assets/Tileset/PNG/Water_coasts_animation.png" id="6_leb5h"]
+[ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Assets/Tileset/PNG/water.png" id="7_nf46h"]
+[ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="8_3a28l"]
+[ext_resource type="PackedScene" uid="uid://bc7u8wio8ton8" path="res://Scenes/obor.tscn" id="9_5dr1w"]
+[ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="10_osmn7"]
+[ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="11_w6ya4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
-texture = ExtResource("1_xsupj")
+texture = ExtResource("1_cnqko")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -295,7 +296,7 @@ texture = ExtResource("1_xsupj")
 12:22/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cdhhm"]
-texture = ExtResource("2_x6813")
+texture = ExtResource("2_ccsdi")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -413,10 +414,10 @@ texture = ExtResource("2_x6813")
 4:11/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8bydp"]
-texture = ExtResource("3_cdhhm")
+texture = ExtResource("3_p0fig")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sukju"]
-texture = ExtResource("2_lxiaw")
+texture = ExtResource("4_d7k8l")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -539,7 +540,7 @@ texture = ExtResource("2_lxiaw")
 7:14/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ni0n"]
-texture = ExtResource("3_x6813")
+texture = ExtResource("5_ye5yq")
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -1554,7 +1555,7 @@ texture = ExtResource("3_x6813")
 12:35/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nfnd6"]
-texture = ExtResource("4_cdhhm")
+texture = ExtResource("6_leb5h")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -2092,7 +2093,7 @@ texture = ExtResource("4_cdhhm")
 10:27/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o53l6"]
-texture = ExtResource("5_8bydp")
+texture = ExtResource("7_nf46h")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -2642,7 +2643,7 @@ sources/1 = SubResource("TileSetAtlasSource_cdhhm")
 sources/2 = SubResource("TileSetAtlasSource_8bydp")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o8lv2"]
-texture = ExtResource("3_cdhhm")
+texture = ExtResource("3_p0fig")
 0:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -2785,7 +2786,7 @@ texture = ExtResource("3_cdhhm")
 23:5/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ekqoy"]
-texture = ExtResource("1_xsupj")
+texture = ExtResource("1_cnqko")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -3072,7 +3073,7 @@ sources/0 = SubResource("TileSetAtlasSource_o8lv2")
 sources/1 = SubResource("TileSetAtlasSource_ekqoy")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x6813"]
-texture = ExtResource("6_lxiaw")
+texture = ExtResource("8_3a28l")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
@@ -3091,6 +3092,11 @@ gradient = SubResource("Gradient_impyb")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3qrq3"]
+vertices = PackedVector2Array(91.35156, 87.97656, 87.9375, 68.96875, 614.8594, 67.97656, 910.1797, 86.02344, 901.7031, -21.65625, 659.4375, -39.757813, 667.5781, -179.24219, 620.1406, -318.92188, 665.3125, -218.40625, 781.9531, -213.38281, 785.85156, -176.28125, 660.3281, -369, 366.7578, -369, 370.28906, -320.92188)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 5, 2, 7, 8), PackedInt32Array(9, 10, 6, 8), PackedInt32Array(11, 8, 7), PackedInt32Array(12, 11, 7, 13)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(76, 59, 605, 58, 610, -309, 361, -311, 356, -379, 670, -379, 675, -228, 791, -223, 797, -166, 677, -169, 670, -49, 911, -31, 921, 96, 83, 98)])
 
 [node name="Node2D" type="Node2D"]
 
@@ -3123,89 +3129,90 @@ tile_set = SubResource("TileSet_cdhhm")
 
 [node name="SceneObor" type="Node2D" parent="."]
 
-[node name="Obor" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(121, 45)
 
-[node name="Obor2" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor2" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(243, 45)
 
-[node name="Obor3" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor3" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(366, 45)
 
-[node name="Obor4" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor4" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(492, 44)
 
-[node name="Obor5" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor5" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(691, -51)
 
-[node name="Obor6" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor6" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(894, -51)
 
-[node name="Obor7" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor7" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(786, -243)
 
-[node name="Obor8" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor8" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(518, -387)
 
-[node name="Obor9" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor9" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(305, -387)
 
-[node name="Obor10" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor10" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(799, -403)
 
-[node name="Obor11" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor11" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(767, -835)
 
-[node name="Obor12" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor12" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(338, -707)
 
-[node name="Obor13" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor13" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(581, -707)
 
-[node name="Obor14" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor14" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(447, -707)
 
-[node name="Obor15" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor15" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(1101, -915)
 
-[node name="Obor16" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor16" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(1284, -915)
 
-[node name="Obor17" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor17" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(1315, -243)
 
-[node name="Obor18" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor18" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(1215, -19)
 
-[node name="Obor19" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor19" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(1423, -19)
 
-[node name="Obor20" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor20" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(1652, -595)
 
-[node name="Obor21" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor21" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(1808, -835)
 
-[node name="Obor22" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor22" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(1954, -675)
 
-[node name="Obor23" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor23" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(2094, -403)
 
-[node name="Obor24" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor24" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(2385, -499)
 
-[node name="Obor25" parent="SceneObor" instance=ExtResource("12_ekqoy")]
+[node name="Obor25" parent="SceneObor" instance=ExtResource("9_5dr1w")]
 position = Vector2(2162, -499)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.051970966, 0.05197096, 0.05197095, 1)
 
-[node name="Player2" parent="." groups=["Player"] instance=ExtResource("6_o8lv2")]
+[node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("10_osmn7")]
 z_index = 10
 position = Vector2(80, 72)
 scale = Vector2(0.3, 0.3)
-collision_layer = 2
+collision_layer = 3
+collision_mask = 5
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)
@@ -3219,3 +3226,9 @@ shadow_enabled = true
 texture = SubResource("GradientTexture2D_o8lv2")
 offset = Vector2(0, 4)
 texture_scale = 4.98
+
+[node name="Goblin" parent="." instance=ExtResource("11_w6ya4")]
+position = Vector2(699, 18)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_3qrq3")
