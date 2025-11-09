@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://c2cpu2r87h7ul"]
+[gd_scene load_steps=27 format=4 uid="uid://c2cpu2r87h7ul"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_wt1pj"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_vf5xq"]
@@ -3083,18 +3083,6 @@ texture = ExtResource("8_jhpmb")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_x6813")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8bydp"]
-
-[sub_resource type="Gradient" id="Gradient_3qrq3"]
-offsets = PackedFloat32Array(0, 0.6, 0.7266667)
-colors = PackedColorArray(1, 1, 1, 1, 0.13636369, 0.13636369, 0.13636369, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_o8lv2"]
-gradient = SubResource("Gradient_3qrq3")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0, 0)
-
 [node name="Node2D" type="Node2D"]
 
 [node name="Tile_Jalan" type="TileMapLayer" parent="."]
@@ -3202,27 +3190,15 @@ position = Vector2(2385, -499)
 position = Vector2(2162, -499)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.051970966, 0.05197096, 0.05197095, 1)
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("10_orxph")]
 z_index = 10
 position = Vector2(451, -601)
-scale = Vector2(0.3, 0.3)
-collision_layer = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
-
-[node name="PointLight2D2" type="PointLight2D" parent="Player2"]
-material = SubResource("ShaderMaterial_8bydp")
-color = Color(0.84866434, 0.64032954, 0.3541621, 1)
-energy = 2.0
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_o8lv2")
-offset = Vector2(0, 4)
-texture_scale = 4.98
 
 [node name="Goblin" parent="." instance=ExtResource("11_s4yrv")]
 position = Vector2(699, 18)
