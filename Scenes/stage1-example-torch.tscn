@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://cfnodkdlocnwj"]
+[gd_scene load_steps=34 format=4 uid="uid://bngq50syd7x4h"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_s8s8v"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_dugo0"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://x8txpjfwo468" path="res://Assets/Tileset/PNG/fire_animation2.png" id="8_rapec"]
 [ext_resource type="Texture2D" uid="uid://c0o84jn0wlynf" path="res://Assets/Tileset/PNG/fire_animation.png" id="9_ykpfd"]
 [ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="10_7eyvr"]
+[ext_resource type="PackedScene" path="res://Scenes/torch.tscn" id="11_ay1se"]
+[ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res/Scenes/Player.tscn" id="12_aoo6g"]
+[ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="13_dugo0"]
 [ext_resource type="PackedScene" uid="uid://cv2xnq8w24twi" path="res://Scenes/torch.tscn" id="11_ay1se"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="13_dugo0"]
 [ext_resource type="PackedScene" uid="uid://b7lyu3uojql6b" path="res://Scenes/PlayerTest.tscn" id="13_wid4y"]
@@ -3433,3 +3436,5 @@ scale = Vector2(0.3, 0.3)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.051970966, 0.05197096, 0.05197095, 1)
+
+[node name="Hud" parent="." instance=ExtResource("13_dugo0")]
