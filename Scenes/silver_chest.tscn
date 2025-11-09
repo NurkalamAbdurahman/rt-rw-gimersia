@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://lk1vqq6fhqj0"]
+[gd_scene load_steps=12 format=3 uid="uid://c8ok85jo1p2uu"]
 
 [ext_resource type="Script" uid="uid://cnw08k3snnn5k" path="res://Script/silver_chest.gd" id="1_p26g8"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_p26g8"]
+[ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="3_wx0bj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p26g8"]
 atlas = ExtResource("2_p26g8")
@@ -81,6 +82,10 @@ offset_right = 59.0
 offset_bottom = 12.0
 theme_override_font_sizes/font_size = 8
 text = "Klik 'E' untuk membuka Chest"
+
+[node name="SFX_ChestOpen" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_wx0bj")
+volume_db = 11.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
