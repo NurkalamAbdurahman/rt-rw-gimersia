@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=27 format=4 uid="uid://b0bymsk3lfk4a"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_xsupj"]
 [ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="2_lxiaw"]
