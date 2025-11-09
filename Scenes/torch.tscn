@@ -1,0 +1,98 @@
+[gd_scene load_steps=13 format=3 uid="uid://cv2xnq8w24twi"]
+
+[ext_resource type="Script" uid="uid://d06qb1nvfunye" path="res://Script/torch.gd" id="1_h1t0l"]
+[ext_resource type="Texture2D" uid="uid://djcudm6aqqogs" path="res://Assets/Torch/Torch Animated.png" id="1_wced7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1t0l"]
+atlas = ExtResource("1_wced7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_beu3c"]
+atlas = ExtResource("1_wced7")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spjw2"]
+atlas = ExtResource("1_wced7")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg6dd"]
+atlas = ExtResource("1_wced7")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ufd5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1t0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_beu3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spjw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg6dd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Shader" id="Shader_wced7"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_beu3c"]
+shader = SubResource("Shader_wced7")
+
+[sub_resource type="Gradient" id="Gradient_o8lv2"]
+offsets = PackedFloat32Array(0, 0.6, 0.7266667)
+colors = PackedColorArray(1, 1, 1, 1, 0.13636369, 0.13636369, 0.13636369, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wced7"]
+gradient = SubResource("Gradient_o8lv2")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1t0l"]
+size = Vector2(20, 39)
+
+[node name="Torch" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_h1t0l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7ufd5")
+autoplay = "default"
+frame_progress = 0.8167508
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 3
+material = SubResource("ShaderMaterial_beu3c")
+color = Color(0.84866434, 0.64032954, 0.3541621, 1)
+energy = 2.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_wced7")
+offset = Vector2(0, 4)
+texture_scale = 4.98
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 5.5)
+shape = SubResource("RectangleShape2D_h1t0l")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
