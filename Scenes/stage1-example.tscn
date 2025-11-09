@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=29 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_xsupj"]
 [ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="2_lxiaw"]
@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Assets/Tileset/PNG/water.png" id="5_8bydp"]
 [ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="6_lxiaw"]
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="6_o8lv2"]
-[ext_resource type="PackedScene" uid="uid://lk1vqq6fhqj0" path="res://Scenes/silver_chest.tscn" id="11_o8lv2"]
+[ext_resource type="PackedScene" path="res://Scenes/silver_chest.tscn" id="11_o8lv2"]
 [ext_resource type="PackedScene" uid="uid://bc7u8wio8ton8" path="res://Scenes/obor.tscn" id="12_ekqoy"]
+[ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="12_vvkh1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("1_xsupj")
@@ -3094,7 +3095,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
 [node name="Node2D" type="Node2D"]
-position = Vector2(48, 18)
+position = Vector2(-2215, 321)
 
 [node name="Tile_Jalan" type="TileMapLayer" parent="."]
 position = Vector2(14, 0.9999996)
@@ -3204,7 +3205,6 @@ position = Vector2(2385, -499)
 position = Vector2(2162, -499)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.14767182, 0.14767182, 0.14767176, 1)
 
 [node name="Player2" parent="." groups=["player"] instance=ExtResource("6_o8lv2")]
@@ -3229,3 +3229,9 @@ texture_scale = 4.98
 position = Vector2(359, -690)
 scale = Vector2(1.3774639, 1.3509456)
 metadata/_edit_lock_ = true
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_vvkh1")
+volume_db = 5.049
+autoplay = true
+parameters/looping = true
