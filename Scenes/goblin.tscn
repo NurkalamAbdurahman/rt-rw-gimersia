@@ -1460,7 +1460,7 @@ shape = SubResource("RectangleShape2D_gbw3e")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qgv2b")
 animation = &"hurt_down"
-frame_progress = 0.29137748
+frame_progress = 0.1106149
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -1474,5 +1474,7 @@ collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
 shape = SubResource("CircleShape2D_ep384")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [connection signal="body_entered" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_entered"]
