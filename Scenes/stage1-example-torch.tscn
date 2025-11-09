@@ -1,20 +1,20 @@
 [gd_scene load_steps=33 format=4 uid="uid://cfnodkdlocnwj"]
 
-[ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_xsupj"]
-[ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="2_lxiaw"]
-[ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_x6813"]
-[ext_resource type="Texture2D" uid="uid://b0708f36qjoxd" path="res://Assets/Tileset/PNG/Objects.png" id="3_cdhhm"]
-[ext_resource type="Texture2D" uid="uid://c458wuq3atrbr" path="res://Assets/Tileset/PNG/water_detilazation_v2.png" id="3_x6813"]
-[ext_resource type="Texture2D" uid="uid://drg54a5sbkmlg" path="res://Assets/Tileset/PNG/Water_coasts_animation.png" id="4_cdhhm"]
-[ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Assets/Tileset/PNG/water.png" id="5_8bydp"]
-[ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="6_lxiaw"]
-[ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="6_o8lv2"]
-[ext_resource type="Texture2D" uid="uid://x8txpjfwo468" path="res://Assets/Tileset/PNG/fire_animation2.png" id="8_o8lv2"]
-[ext_resource type="Texture2D" uid="uid://c0o84jn0wlynf" path="res://Assets/Tileset/PNG/fire_animation.png" id="9_ekqoy"]
-[ext_resource type="PackedScene" uid="uid://cv2xnq8w24twi" path="res://Scenes/torch.tscn" id="11_ekqoy"]
+[ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_s8s8v"]
+[ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_dugo0"]
+[ext_resource type="Texture2D" uid="uid://b0708f36qjoxd" path="res://Assets/Tileset/PNG/Objects.png" id="3_wid4y"]
+[ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="4_e78ku"]
+[ext_resource type="Texture2D" uid="uid://c458wuq3atrbr" path="res://Assets/Tileset/PNG/water_detilazation_v2.png" id="5_xdn17"]
+[ext_resource type="Texture2D" uid="uid://drg54a5sbkmlg" path="res://Assets/Tileset/PNG/Water_coasts_animation.png" id="6_2vpnw"]
+[ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Assets/Tileset/PNG/water.png" id="7_85u13"]
+[ext_resource type="Texture2D" uid="uid://x8txpjfwo468" path="res://Assets/Tileset/PNG/fire_animation2.png" id="8_rapec"]
+[ext_resource type="Texture2D" uid="uid://c0o84jn0wlynf" path="res://Assets/Tileset/PNG/fire_animation.png" id="9_ykpfd"]
+[ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="10_7eyvr"]
+[ext_resource type="PackedScene" uid="uid://cv2xnq8w24twi" path="res://Scenes/torch.tscn" id="11_ay1se"]
+[ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="12_aoo6g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
-texture = ExtResource("1_xsupj")
+texture = ExtResource("1_s8s8v")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -297,7 +297,7 @@ texture = ExtResource("1_xsupj")
 12:22/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cdhhm"]
-texture = ExtResource("2_x6813")
+texture = ExtResource("2_dugo0")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -415,10 +415,10 @@ texture = ExtResource("2_x6813")
 4:11/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8bydp"]
-texture = ExtResource("3_cdhhm")
+texture = ExtResource("3_wid4y")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sukju"]
-texture = ExtResource("2_lxiaw")
+texture = ExtResource("4_e78ku")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -541,7 +541,7 @@ texture = ExtResource("2_lxiaw")
 7:14/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ni0n"]
-texture = ExtResource("3_x6813")
+texture = ExtResource("5_xdn17")
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -1556,7 +1556,7 @@ texture = ExtResource("3_x6813")
 12:35/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nfnd6"]
-texture = ExtResource("4_cdhhm")
+texture = ExtResource("6_2vpnw")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -2094,7 +2094,7 @@ texture = ExtResource("4_cdhhm")
 10:27/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o53l6"]
-texture = ExtResource("5_8bydp")
+texture = ExtResource("7_85u13")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -2645,7 +2645,7 @@ sources/1 = SubResource("TileSetAtlasSource_cdhhm")
 sources/2 = SubResource("TileSetAtlasSource_8bydp")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o8lv2"]
-texture = ExtResource("3_cdhhm")
+texture = ExtResource("3_wid4y")
 0:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -2788,7 +2788,7 @@ texture = ExtResource("3_cdhhm")
 23:5/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ekqoy"]
-texture = ExtResource("1_xsupj")
+texture = ExtResource("1_s8s8v")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -3075,7 +3075,7 @@ sources/0 = SubResource("TileSetAtlasSource_o8lv2")
 sources/1 = SubResource("TileSetAtlasSource_ekqoy")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vvkh1"]
-texture = ExtResource("8_o8lv2")
+texture = ExtResource("8_rapec")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -3140,7 +3140,7 @@ texture = ExtResource("8_o8lv2")
 5:11/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qio3x"]
-texture = ExtResource("9_ekqoy")
+texture = ExtResource("9_ykpfd")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -3341,7 +3341,7 @@ sources/0 = SubResource("TileSetAtlasSource_vvkh1")
 sources/1 = SubResource("TileSetAtlasSource_qio3x")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x6813"]
-texture = ExtResource("6_lxiaw")
+texture = ExtResource("10_7eyvr")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
@@ -3354,12 +3354,12 @@ size = Vector2(20, 50)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ekqoy"]
 
-[sub_resource type="Gradient" id="Gradient_ekqoy"]
+[sub_resource type="Gradient" id="Gradient_impyb"]
 offsets = PackedFloat32Array(0, 0.6, 0.7266667)
 colors = PackedColorArray(1, 1, 1, 1, 0.13636369, 0.13636369, 0.13636369, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ekqoy"]
-gradient = SubResource("Gradient_ekqoy")
+gradient = SubResource("Gradient_impyb")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
@@ -3399,17 +3399,17 @@ scale = Vector2(0.5, 0.5)
 tile_map_data = PackedByteArray("AAAEAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAAMAAYAAAAAAAAAAAANAAYAAAAAAAAAAAAOAAYAAAAAAAAAAAAPAAYAAAAAAAAAAAAQAAYAAAAAAAAAAAARAAYAAAAAAAAAAAASAAYAAAAAAAAAAAATAAYAAAAAAAAAAAAUAAYAAAAAAAAAAAAVAAYAAAAAAAAAAAAWAAYAAAAAAAAAAAAXAAYAAAAAAAAAAAAYAAYAAAAAAAAAAAAZAAYAAAAAAAAAAAAaAAYAAAAAAAAAAAAbAAYAAAAAAAAAAAAcAAYAAAAAAAAAAAAdAAYAAAAAAAAAAAAeAAYAAAAAAAAAAAAhAAYAAAAAAAAAAAAgAAYAAAAAAAAAAAAfAAYAAAAAAAAAAAAiAAYAAAAAAAAAAAAjAAYAAAAAAAAAAAAkAAYAAAAAAAAAAAAlAAYAAAAAAAAAAAAmAAYAAAAAAAAAAAAnAAYAAAAAAAAAAAAoAAYAAAAAAAAAAAApAAYAAAAAAAAAAAAqAAYAAAAAAAAAAAArAAYAAAAAAAAAAAAsAAYAAAAAAAAAAAAtAAYAAAAAAAAAAAAuAAYAAAAAAAAAAAAvAAYAAAAAAAAAAAAwAAYAAAAAAAAAAAAxAAYAAAAAAAAAAAAyAAYAAAAAAAAAAAAzAAYAAAAAAAAAAAA0AAYAAAAAAAAAAAA1AAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAcAAAAAAAAAAAA2AAYAAAAAAAAAAAA3AAYAAAAAAAAAAAA4AAYAAAAAAAAAAAA5AAYAAAAAAAAAAAA6AAYAAAAAAAAAAAA7AAUAAAAAAAAAAAA8AAUAAAAAAAAAAAA9AAUAAAAAAAAAAAA+AAUAAAAAAAAAAAA/AAUAAAAAAAAAAABAAAUAAAAAAAAAAABBAAUAAAAAAAAAAABCAAUAAAAAAAAAAABDAAUAAAAAAAAAAABDAAYAAAAAAAAAAABCAAYAAAAAAAAAAABBAAYAAAAAAAAAAABAAAYAAAAAAAAAAAA/AAYAAAAAAAAAAAA+AAYAAAAAAAAAAAA9AAYAAAAAAAAAAAA8AAYAAAAAAAAAAAA7AAYAAAAAAAAAAABEAAYAAAAAAAAAAABFAAYAAAAAAAAAAABGAAYAAAAAAAAAAABHAAYAAAAAAAAAAABIAAYAAAAAAAAAAABJAAYAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_cdhhm")
 
-[node name="Torch" parent="." instance=ExtResource("11_ekqoy")]
+[node name="Torch" parent="." instance=ExtResource("11_ay1se")]
 z_index = 5
 position = Vector2(209, 39)
 scale = Vector2(0.3, 0.3)
 
-[node name="Torch2" parent="." instance=ExtResource("11_ekqoy")]
+[node name="Torch2" parent="." instance=ExtResource("11_ay1se")]
 z_index = 3
 position = Vector2(84, 42)
 scale = Vector2(0.3, 0.3)
 
-[node name="Torch3" parent="." instance=ExtResource("11_ekqoy")]
+[node name="Torch3" parent="." instance=ExtResource("11_ay1se")]
 z_index = 3
 position = Vector2(384, 77)
 rotation = 1.5707964
@@ -3421,7 +3421,7 @@ scale = Vector2(0.3, 0.3)
 position = Vector2(0, 1.666748)
 shape = SubResource("RectangleShape2D_ekqoy")
 
-[node name="Player" parent="." instance=ExtResource("6_o8lv2")]
+[node name="Player" parent="." instance=ExtResource("12_aoo6g")]
 z_index = 10
 position = Vector2(80, 72)
 scale = Vector2(0.3, 0.3)

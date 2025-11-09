@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cv2xnq8w24twi"]
+[gd_scene load_steps=13 format=3 uid="uid://cv2xnq8w24twi"]
 
 [ext_resource type="Script" uid="uid://d06qb1nvfunye" path="res://Script/torch.gd" id="1_h1t0l"]
 [ext_resource type="Texture2D" uid="uid://djcudm6aqqogs" path="res://Assets/Torch/Torch Animated.png" id="1_wced7"]
@@ -69,13 +69,17 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
-[node name="Torch" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1t0l"]
+size = Vector2(20, 39)
+
+[node name="Torch" type="Area2D"]
+collision_layer = 2
 script = ExtResource("1_h1t0l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7ufd5")
 autoplay = "default"
-frame_progress = 0.31468797
+frame_progress = 0.8167508
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 z_index = 3
@@ -86,3 +90,9 @@ shadow_enabled = true
 texture = SubResource("GradientTexture2D_wced7")
 offset = Vector2(0, 4)
 texture_scale = 4.98
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 5.5)
+shape = SubResource("RectangleShape2D_h1t0l")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

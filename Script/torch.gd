@@ -1,22 +1,36 @@
-extends Node2D
+extends Area2D
 
-@onready var sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+# Signal yang akan dipancarkan ketika item diambil
+signal picked_up(item)
 
-signal torch_picked_up(torch_node)
+# Ketika node lain memasuki area (overlap)
+func _on_body_entered(body):
+	# Cek apakah body yang masuk adalah pemain (CharacterBody2D).
+	# Ganti 'CharacterBody2D' jika node pemain Anda menggunakan jenis node lain (misalnya RigidBody2D).
+	if body is CharacterBody2D:
+		# Panggil fungsi untuk mengambil item
+		pick_up(body)
 
-var player_in_range
-
-func _on_Torch_body_entered(body):
-	if body.name == "Player":
-		player_in_range = true
-
-func _on_Torch_body_exited(body):
-	if player_in_range and Input.is_action_just_pressed("interract"):
-		if body.name == "Player":
-			player_in_range = false
-			
-func _process(delta: float) -> void:
-	if player_in_range and Input.is_action_just_pressed("interract"):
-		emit_signal("torch_picked_up", self)
-		set_process(false)
-		sprite_2d.visible = false
+func pick_up(player: CharacterBody2D):
+	# *** LANGKAH PENTING UNTUK REPARENTING ***
+	# 1. Lepaskan (remove) item ini dari induknya yang sekarang (misalnya: Main Scene/Level).
+	# Ini harus dilakukan sebelum menambahkan item sebagai anak (child) dari node lain.
+	get_parent().remove_child(self)
+	
+	# 2. Ubah induk item menjadi pemain (Reparenting).
+	# Ini akan membuat item mengikuti pemain secara otomatis.
+	player.add_child(self)
+	
+	# 3. Nonaktifkan CollisionShape agar tidak dapat diambil lagi/bertabrakan lagi.
+	# set_deferred digunakan untuk memastikan Godot melakukannya dengan aman di akhir frame.
+	$CollisionShape2D.set_deferred("disabled", true)
+	
+	# 4. Atur posisi item relatif terhadap pemain.
+	# Ganti Vector2(0, -30) untuk menyesuaikan posisi obor agar terlihat di tangan/di atas pemain.
+	self.position = Vector2(0, -30) 
+	
+	# 5. Memancarkan signal (Opsional, untuk logika Inventory/Game lainnya).
+	emit_signal("picked_up", self)
+	
+	# 6. Hentikan pemrosesan script (opsional, jika tidak ada logika lain yang dibutuhkan)
+	set_process(false)
