@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://djfaanx7iskrj" path="res://Scenes/pause.gd" id="1_o80xk"]
 
 [node name="Pause" type="Control"]
-process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

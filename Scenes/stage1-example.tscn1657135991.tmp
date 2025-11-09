@@ -3100,7 +3100,6 @@ position = Vector2(-2219, 323)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("10_ekqoy")]
-visible = false
 offset_left = 7.0
 offset_top = 5.0
 offset_right = 7.0

@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://djfaanx7iskrj" path="res://Scenes/pause.gd" id="1_o80xk"]
 
 [node name="Pause" type="Control"]
-process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,5 +50,4 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "quit"
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]
 [connection signal="toggled" from="PanelContainer/VBoxContainer/resume" to="." method="_on_resume_toggled"]
