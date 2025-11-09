@@ -137,11 +137,11 @@ debug_color = Color(0.53403425, 0.4183036, 0.98430794, 0.41960785)
 
 [node name="Label" type="Label" parent="Obor3"]
 texture_filter = 1
-offset_left = -41.0
+offset_left = -40.0
 offset_top = -27.0
-offset_right = 36.0
+offset_right = 37.0
 offset_bottom = -7.0
-text = "TEKAN [e] UNTUK NYALA"
+text = "PRESS [E] TO LIGHT"
 label_settings = SubResource("LabelSettings_vccmd")
 horizontal_alignment = 1
 vertical_alignment = 1
