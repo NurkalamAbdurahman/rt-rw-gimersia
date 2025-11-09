@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dlr5exw4c4cje" path="res://Script/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://840g0v61wiq1" path="res://Assets/Player/Tiny Swords (Free Pack)/Units/Blue Units/Lancer/Lancer_Idle.png" id="2_gntrk"]
 [ext_resource type="AudioStream" uid="uid://bxeh0bwgvhp13" path="res://Assets/Audio/stone-step.ogg" id="3_gntrk"]
+[ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="4_dewec"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kyqiw"]
 
@@ -146,9 +147,8 @@ stream = ExtResource("3_gntrk")
 volume_db = 16.155
 pitch_scale = 1.6
 
-[node name="AttackArea2D" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
-shape = SubResource("CircleShape2D_gntrk")
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_dewec")
+volume_db = 1.786
+autoplay = true
+parameters/looping = true
