@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4y2jyy56ggtp"]
+
+[ext_resource type="Script" uid="uid://cnn7fcqa5gof5" path="res://Script/item_card.gd" id="1_83eqe"]
+
+[node name="ItemCard" type="Panel"]
+script = ExtResource("1_83eqe")
+
+[node name="ItemImage" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemName" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ItemPrice" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="BuyButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
