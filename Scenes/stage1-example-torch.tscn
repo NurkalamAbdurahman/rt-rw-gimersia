@@ -3405,8 +3405,9 @@ position = Vector2(747, 55)
 
 [node name="Player" parent="." instance=ExtResource("13_wid4y")]
 z_index = 1
-position = Vector2(99, 70)
+position = Vector2(254, 29)
 scale = Vector2(0.3, 0.3)
+collision_layer = 34
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-63.333344, 6.6666718)
