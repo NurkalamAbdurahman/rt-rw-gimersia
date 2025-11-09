@@ -4,8 +4,8 @@ extends Node2D
 @onready var obor_hidup = $OborHidup
 @onready var area = $Area2D
 @onready var label = $Label
-@onready var point_light_2d: PointLight2D = $PointLight2D
 @onready var sfx_torch_on = $SFX_TorchOn
+@onready var point_light_2d: PointLight2D = $OborHidup/PointLight2D
 @onready var sfx_torch_burning = $SFX_TorchBurning  # 🔥 tambahkan ini
 
 var player_in_area = false

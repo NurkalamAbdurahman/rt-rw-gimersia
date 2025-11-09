@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://co11shrtf40bb" path="res://Script/main_menu.gd" id="1_4facs"]
 [ext_resource type="Texture2D" uid="uid://dv8muw0qwxgvb" path="res://Assets/Tileset/PNG/decorative_cracks_coasts_animation.png" id="2_h3tiw"]
-[ext_resource type="Texture2D" uid="uid://yxqnlvey3vwx" path="res://Assets/collecitions/Logo_Main_Menu/Logo3.png" id="3_blk0r"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="4_blk0r"]
 [ext_resource type="PackedScene" uid="uid://di6o4afgl4ola" path="res://Scenes/ui/fade_transitions.tscn" id="4_h3tiw"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="4_o060j"]
 
@@ -46,22 +46,20 @@ color = Color(0, 0, 0, 0.7490196)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = -287.0
+offset_right = 381.0
+grow_vertical = 0
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 85
-
-[node name="Logo3" type="Sprite2D" parent="MarginContainer/VBoxContainer"]
-position = Vector2(365, 56)
-scale = Vector2(2, 2)
-texture = ExtResource("3_blk0r")
+theme_override_constants/separation = 50
 
 [node name="RTRw Dungeons" type="Label" parent="MarginContainer/VBoxContainer"]
 texture_filter = 1
@@ -70,15 +68,41 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_constants/line_spacing = 40
 theme_override_fonts/font = ExtResource("4_o060j")
 theme_override_font_sizes/font_size = 42
-text = "Echoes of the Lost Dungeon"
-horizontal_alignment = 1
+text = "Echoes of the Lost
+Dungeon"
 vertical_alignment = 1
 
-[node name="Start" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Start" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 texture_filter = 1
 clip_contents = true
 layout_mode = 2
-size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.9999998, 0.5379799, 0.12918994, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.62763757, 0.31600076, 1.92523e-07, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/align_to_largest_stylebox = 10
+theme_override_constants/line_spacing = 10
+theme_override_fonts/font = ExtResource("4_blk0r")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_blk0r")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_o060j")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8774k")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_v2r0b")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ibf7x")
+text = "Start Game"
+alignment = 0
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+texture_filter = 1
+clip_contents = true
+layout_mode = 2
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.12347304, 0.12347304, 0.12347304, 1)
@@ -86,14 +110,15 @@ theme_override_colors/font_hover_pressed_color = Color(0.072842635, 0.072842635,
 theme_override_constants/outline_size = 4
 theme_override_constants/align_to_largest_stylebox = 10
 theme_override_constants/line_spacing = 10
-theme_override_fonts/font = ExtResource("4_o060j")
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("4_blk0r")
+theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxEmpty_blk0r")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_o060j")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_8774k")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_v2r0b")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ibf7x")
-text = "Start Game"
+text = "Quit"
+alignment = 0
 
 [node name="FadeTransitions" parent="." instance=ExtResource("4_h3tiw")]
 layout_mode = 0
