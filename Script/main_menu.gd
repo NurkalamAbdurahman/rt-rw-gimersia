@@ -12,6 +12,6 @@ func _on_start_pressed():
 	var fade_scene = preload("res://Scenes/ui/fade_transitions.tscn").instantiate()
 	get_tree().root.add_child(fade_scene)
 
-	# Jalankan fade-out dulu, baru pindah ke stage1
+	# Jalankan fade-out dulu, baru pindah ke stage1ss
 	await fade_scene.fade_out()
-	get_tree().change_scene_to_file("res://Scenes/stage1.tscn")
+	get_tree().change_scene_to_file("res://Scenes/stage1-example.tscn")
