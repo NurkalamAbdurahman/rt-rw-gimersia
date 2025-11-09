@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://lk1vqq6fhqj0"]
+
+[ext_resource type="Script" uid="uid://cnw08k3snnn5k" path="res://Script/silver_chest.gd" id="1_p26g8"]
+[ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_p26g8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p26g8"]
+atlas = ExtResource("2_p26g8")
+region = Rect2(135, 129, 19, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx0bj"]
+atlas = ExtResource("2_p26g8")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8474"]
+atlas = ExtResource("2_p26g8")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b067n"]
+atlas = ExtResource("2_p26g8")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kawk"]
+atlas = ExtResource("2_p26g8")
+region = Rect2(128, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jawdr"]
+atlas = ExtResource("2_p26g8")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t81yx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wx0bj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8474")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b067n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kawk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jawdr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wx0bj"]
+radius = 16.03122
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_p26g8")
+
+[node name="silver_chest" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_p26g8")
+
+[node name="silver_chest_openanimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 5)
+sprite_frames = SubResource("SpriteFrames_t81yx")
+frame_progress = 0.11545763
+
+[node name="silver_chest_open" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_p26g8")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_wx0bj")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -56.0
+offset_right = 59.0
+offset_bottom = 12.0
+theme_override_font_sizes/font_size = 8
+text = "Klik 'E' untuk membuka Chest"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
