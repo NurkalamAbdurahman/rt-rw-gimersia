@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://bc7u8wio8ton8"]
+
+[ext_resource type="Script" uid="uid://crs7bhgys52b0" path="res://Script/obor1.gd" id="1_edvta"]
+[ext_resource type="Texture2D" uid="uid://cue52pwga756s" path="res://Assets/Tileset/PNG/Tileset_obormati.png" id="2_gl8ki"]
+[ext_resource type="Texture2D" uid="uid://c0o84jn0wlynf" path="res://Assets/Tileset/PNG/fire_animation.png" id="3_osaon"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vccmd"]
+atlas = ExtResource("2_gl8ki")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5ti6"]
+atlas = ExtResource("3_osaon")
+region = Rect2(39, 7, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k2m5n"]
+radius = 14.3178215
+
+[node name="Obor" type="Node2D"]
+
+[node name="Obor3" type="Node2D" parent="."]
+position = Vector2(2, 2)
+script = ExtResource("1_edvta")
+
+[node name="OborMati" type="Sprite2D" parent="Obor3"]
+texture = SubResource("AtlasTexture_vccmd")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 32)
+
+[node name="OborHidup" type="Sprite2D" parent="Obor3"]
+visible = false
+position = Vector2(-2, -9)
+texture = SubResource("AtlasTexture_e5ti6")
+
+[node name="Area2D" type="Area2D" parent="Obor3"]
+position = Vector2(-2, -2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obor3/Area2D"]
+shape = SubResource("CircleShape2D_k2m5n")
+debug_color = Color(0.53403425, 0.4183036, 0.98430794, 0.41960785)
+
+[node name="Label" type="Label" parent="Obor3"]
+visible = false
+offset_left = -73.0
+offset_right = 78.0
+offset_bottom = 14.0
+theme_override_font_sizes/font_size = 10
+text = "Klik 'E' untuk menyalakan Obor"
+
+[connection signal="body_entered" from="Obor3/Area2D" to="Obor3" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Obor3/Area2D" to="Obor3" method="_on_area_2d_body_exited"]
