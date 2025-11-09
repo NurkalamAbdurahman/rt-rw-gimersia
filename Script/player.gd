@@ -3,6 +3,9 @@ extends CharacterBody2D
 const SPEED = 130.0
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sfx_run: AudioStreamPlayer2D = $SFX_Run_Stone
+var invincible := false
+var invincible_time := 0.4   # bebas, 0.3–0.6 detik bagus
+
 
 var has_torch = false
 var held_torch = null
@@ -41,3 +44,32 @@ func _physics_process(delta):
 		# Kalau diam, stop
 		if sfx_run.playing:
 			sfx_run.stop()
+
+func take_damage(amount: int = 1):
+	if invincible:
+		return
+	
+	invincible = true
+	
+	# Kurangi darah
+	var new_health = GameData.health - amount
+	GameData.set_health(new_health)
+	print("Player health:", GameData.health)
+
+	# Efek kena hit (optional)
+	if has_node("AnimatedSprite2D"):
+		$AnimatedSprite2D.play("hurt")
+		flash_red()
+
+	# Delay sebelum bisa kena hit lagi
+	await get_tree().create_timer(invincible_time).timeout
+	invincible = false
+	
+	if GameData.health <= 1:
+		get_tree().reload_current_scene()
+		GameData.health = 7
+
+func flash_red():
+	$AnimatedSprite2D.modulate = Color(1, 0.4, 0.4)
+	await get_tree().create_timer(0.15).timeout
+	$AnimatedSprite2D.modulate = Color(1, 1, 1)

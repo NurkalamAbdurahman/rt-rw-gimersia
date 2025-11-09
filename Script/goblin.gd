@@ -363,8 +363,7 @@ func perform_attack():
 	var bodies = attack_area.get_overlapping_bodies()
 	for body in bodies:
 		if body.has_method("take_damage"):
-			body.take_damage(10)
-
+			body.take_damage(1)
 # ============ HURT STATE ============
 func handle_hurt(delta):
 	velocity = velocity * 0.9

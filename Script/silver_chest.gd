@@ -46,6 +46,10 @@ func buka_chest():
 	anim_sprite.animation = "open"
 	anim_sprite.play()
 
+	var reward = randi_range(1, 10)
+	GameData.add_coin(reward)
+	print("Chest reward:", reward)
+
 	# Tunggu sampai animasi selesai
 	await anim_sprite.animation_finished
 
