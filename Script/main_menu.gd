@@ -14,4 +14,4 @@ func _on_start_pressed():
 
 	# Jalankan fade-out dulu, baru pindah ke stage1ss
 	await fade_scene.fade_out()
-	get_tree().change_scene_to_file("res://Scenes/stage1-example.tscn")
+	get_tree().change_scene_to_file("res://Scenes/STAGE_1.tscn")
