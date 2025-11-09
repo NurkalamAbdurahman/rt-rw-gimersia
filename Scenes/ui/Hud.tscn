@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://dawyh7xl0svwt"]
+
+[ext_resource type="PackedScene" uid="uid://vwk6ybioq51w" path="res://Scenes/ui/Health_Bar.tscn" id="1_lskfp"]
+[ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
+[ext_resource type="PackedScene" uid="uid://ioubfens8e2" path="res://Scenes/ui/Ammo.tscn" id="3_1usb2"]
+[ext_resource type="PackedScene" uid="uid://dcw7aevagshe5" path="res://Scenes/ui/Silver_Key.tscn" id="4_0jl3m"]
+[ext_resource type="PackedScene" uid="uid://cfbgos7kse1lm" path="res://Scenes/ui/Golden_Key.tscn" id="4_lskfp"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_so6r4"]
+
+[node name="Hud" type="CanvasLayer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 85.0
+offset_bottom = 25.0
+scale = Vector2(3, 3)
+pivot_offset = Vector2(-10, -10)
+size_flags_horizontal = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer"]
+position = Vector2(-2.666667, 5.666667)
+scale = Vector2(90.97135, 23.776394)
+texture = SubResource("ImageTexture_so6r4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HealthBar" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_lskfp")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Coin" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_so6r4")]
+layout_mode = 2
+
+[node name="SilverKey" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_0jl3m")]
+layout_mode = 2
+
+[node name="GoldenKey" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_lskfp")]
+layout_mode = 2
+
+[node name="Ammo" parent="." instance=ExtResource("3_1usb2")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
+scale = Vector2(1.0117582, 0.9940611)
