@@ -103,19 +103,21 @@ region_enabled = true
 region_rect = Rect2(0, 0, 16, 32)
 
 [node name="OborHidup" type="AnimatedSprite2D" parent="Obor3"]
+visible = false
 position = Vector2(-1, -8)
 sprite_frames = SubResource("SpriteFrames_5wmu6")
 animation = &"obor_nyala"
-frame_progress = 0.4961639
+frame_progress = 0.96365404
 
-[node name="PointLight2D" type="PointLight2D" parent="Obor3"]
+[node name="PointLight2D" type="PointLight2D" parent="Obor3/OborHidup"]
 z_index = 3
 material = SubResource("ShaderMaterial_edvta")
-position = Vector2(-2, -9)
+position = Vector2(-1, -1)
 color = Color(0.84866434, 0.64032954, 0.3541621, 1)
 energy = 1.17
 range_z_min = -1025
 shadow_enabled = true
+shadow_item_cull_mask = 4
 texture = SubResource("GradientTexture2D_gl8ki")
 offset = Vector2(0, 4)
 texture_scale = 2.73

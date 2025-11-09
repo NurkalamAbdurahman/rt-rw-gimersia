@@ -4,6 +4,7 @@ extends Node2D
 @onready var obor_hidup = $OborHidup
 @onready var area = $Area2D
 @onready var label = $Label
+@onready var point_light_2d: PointLight2D = $PointLight2D
 
 var player_in_area = false
 

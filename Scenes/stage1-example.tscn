@@ -3202,6 +3202,7 @@ position = Vector2(2162, -499)
 color = Color(0.14767182, 0.14767182, 0.14767176, 1)
 
 [node name="Player2" parent="." groups=["player"] instance=ExtResource("6_o8lv2")]
+light_mask = 0
 z_index = 10
 position = Vector2(80, 72)
 scale = Vector2(0.3, 0.3)
