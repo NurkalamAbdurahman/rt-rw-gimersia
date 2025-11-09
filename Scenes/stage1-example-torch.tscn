@@ -3365,6 +3365,8 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dugo0"]
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Map" type="Node" parent="."]
@@ -3402,12 +3404,13 @@ tile_set = SubResource("TileSet_cdhhm")
 
 [node name="Goblin" parent="." instance=ExtResource("13_dugo0")]
 z_index = 2
-position = Vector2(405, 70)
+position = Vector2(747, 55)
 
 [node name="Player" parent="." instance=ExtResource("13_wid4y")]
 z_index = 1
-position = Vector2(99, 70)
+position = Vector2(254, 29)
 scale = Vector2(0.3, 0.3)
+collision_layer = 34
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-63.333344, 6.6666718)

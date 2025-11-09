@@ -4,6 +4,11 @@ extends CharacterBody2D
 @onready var detection_area: Area2D = $DetectionArea2D
 @onready var attack_area: Area2D = $AttackArea2D
 
+# Raycasts untuk deteksi tembok
+var wall_raycast: RayCast2D
+var left_raycast: RayCast2D
+var right_raycast: RayCast2D
+
 # Speed settings
 @export var patrol_speed = 30.0
 @export var chase_speed = 80.0
@@ -14,6 +19,10 @@ extends CharacterBody2D
 @export var detection_radius = 150.0
 @export var attack_range = 40.0
 
+# AI settings
+@export var wall_check_distance = 30.0
+@export var stuck_threshold = 5.0  # Jika gerak kurang dari ini, dianggap stuck
+
 # State machine
 enum State { IDLE, PATROL, CHASE, ATTACK, HURT }
 var current_state = State.IDLE
@@ -23,15 +32,21 @@ var last_direction = Vector2.DOWN
 var idle_timer = 0.0
 var patrol_timer = 0.0
 var attack_cooldown = 0.0
+var stuck_timer = 0.0
 
 # Targets
 var target_position = Vector2.ZERO
 var player = null
 var patrol_center = Vector2.ZERO
+var last_position = Vector2.ZERO
 
 func _ready():
 	randomize()
 	patrol_center = global_position
+	last_position = global_position
+	
+	# Setup raycasts untuk deteksi tembok
+	setup_raycasts()
 	
 	# Setup detection area
 	if not detection_area:
@@ -56,13 +71,51 @@ func _ready():
 		attack_area.add_child(collision)
 		add_child(attack_area)
 	
+	# SOLUSI: Tambahkan collision exception untuk player
+	call_deferred("setup_player_exception")
+	
 	change_to_idle()
 
+func setup_player_exception():
+	# Cari player dan tambahkan sebagai exception
+	var players = get_tree().get_nodes_in_group("Player")
+	for p in players:
+		if p is CharacterBody2D:
+			add_collision_exception_with(p)  # Goblin tidak collision dengan player
+			p.add_collision_exception_with(self)  # Player tidak collision dengan goblin
+			print("Added collision exception with player")
+
+func setup_raycasts():
+	# Raycast depan
+	wall_raycast = RayCast2D.new()
+	wall_raycast.enabled = true
+	wall_raycast.exclude_parent = true
+	wall_raycast.target_position = Vector2(wall_check_distance, 0)
+	wall_raycast.collision_mask = 1  # Layer 1 = environment/walls
+	add_child(wall_raycast)
+	
+	# Raycast kiri
+	left_raycast = RayCast2D.new()
+	left_raycast.enabled = true
+	left_raycast.exclude_parent = true
+	left_raycast.target_position = Vector2(-wall_check_distance * 0.7, 0)
+	left_raycast.collision_mask = 1
+	add_child(left_raycast)
+	
+	# Raycast kanan
+	right_raycast = RayCast2D.new()
+	right_raycast.enabled = true
+	right_raycast.exclude_parent = true
+	right_raycast.target_position = Vector2(wall_check_distance * 0.7, 0)
+	right_raycast.collision_mask = 1
+	add_child(right_raycast)
+
 func _physics_process(delta):
-	# Debug
-	if player and is_instance_valid(player):
-		var dist = global_position.distance_to(player.global_position)
-		print("Distance to player: ", dist, " | State: ", State.keys()[current_state])
+	# Update raycasts sesuai arah gerak
+	update_raycasts()
+	
+	# Cek apakah stuck
+	check_if_stuck(delta)
 	
 	# Update cooldowns
 	if attack_cooldown > 0:
@@ -81,6 +134,67 @@ func _physics_process(delta):
 		State.HURT:
 			handle_hurt(delta)
 
+func update_raycasts():
+	# Rotate raycast sesuai arah last_direction
+	if last_direction.length() > 0.1:
+		var angle = last_direction.angle()
+		wall_raycast.target_position = Vector2(wall_check_distance, 0).rotated(angle)
+		left_raycast.target_position = Vector2(-wall_check_distance * 0.7, 0).rotated(angle)
+		right_raycast.target_position = Vector2(wall_check_distance * 0.7, 0).rotated(angle)
+
+func check_if_stuck(delta):
+	# Cek apakah posisi hampir tidak berubah
+	var distance_moved = global_position.distance_to(last_position)
+	
+	if distance_moved < stuck_threshold:
+		stuck_timer += delta
+		
+		# Kalau stuck lebih dari 1 detik, pick target baru
+		if stuck_timer > 1.0:
+			print("Goblin stuck! Picking new target")
+			if current_state == State.PATROL:
+				pick_patrol_target()
+			stuck_timer = 0.0
+	else:
+		stuck_timer = 0.0
+	
+	last_position = global_position
+
+func is_wall_ahead() -> bool:
+	# Cek apakah ada tembok di depan
+	return wall_raycast.is_colliding()
+
+func get_clear_direction() -> Vector2:
+	# Cari arah yang tidak ada tembok
+	var directions = [
+		last_direction,  # Arah sekarang
+		last_direction.rotated(PI / 4),  # 45 derajat kanan
+		last_direction.rotated(-PI / 4),  # 45 derajat kiri
+		last_direction.rotated(PI / 2),  # 90 derajat kanan
+		last_direction.rotated(-PI / 2),  # 90 derajat kiri
+		-last_direction  # Balik arah
+	]
+	
+	for dir in directions:
+		if is_direction_clear(dir):
+			return dir
+	
+	# Kalau semua arah tertutup, pick random
+	return Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+
+func is_direction_clear(direction: Vector2) -> bool:
+	# Test raycast ke arah tertentu
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsRayQueryParameters2D.create(
+		global_position,
+		global_position + direction * wall_check_distance
+	)
+	query.exclude = [self]
+	query.collision_mask = 1
+	
+	var result = space_state.intersect_ray(query)
+	return result.is_empty()
+
 # ============ IDLE STATE ============
 func handle_idle(delta):
 	velocity = Vector2.ZERO
@@ -88,7 +202,6 @@ func handle_idle(delta):
 	
 	play_animation("idle")
 	
-	# PERBAIKAN: Cek player setiap frame, bukan hanya saat timer habis
 	if player and is_instance_valid(player):
 		change_to_chase()
 		return
@@ -105,7 +218,21 @@ func change_to_idle():
 func handle_patrol(delta):
 	patrol_timer -= delta
 	
+	# CEK TEMBOK DI DEPAN
+	if is_wall_ahead():
+		print("Wall detected ahead! Changing direction")
+		last_direction = get_clear_direction()
+		pick_patrol_target()
+		return
+	
 	var direction = (target_position - global_position).normalized()
+	
+	# Cek apakah arah menuju target ada tembok
+	if not is_direction_clear(direction):
+		print("Path to target blocked! Finding new target")
+		pick_patrol_target()
+		return
+	
 	velocity = direction * patrol_speed
 	last_direction = direction
 	
@@ -122,50 +249,74 @@ func change_to_patrol():
 	patrol_timer = randf_range(2.0, 5.0)
 
 func pick_patrol_target():
-	# Patrol around center point
-	var random_offset = Vector2(
-		randf_range(-wander_range, wander_range),
-		randf_range(-wander_range, wander_range)
-	)
-	target_position = patrol_center + random_offset
+	var max_attempts = 10
+	var valid_target = false
+	
+	for i in range(max_attempts):
+		# Generate random target
+		var random_offset = Vector2(
+			randf_range(-wander_range, wander_range),
+			randf_range(-wander_range, wander_range)
+		)
+		var potential_target = patrol_center + random_offset
+		
+		# Check if path is clear
+		if is_direction_clear((potential_target - global_position).normalized()):
+			target_position = potential_target
+			valid_target = true
+			print("Found valid patrol target")
+			break
+	
+	# Fallback: pick direction yang clear
+	if not valid_target:
+		var clear_dir = get_clear_direction()
+		target_position = global_position + clear_dir * wander_range * 0.5
+		print("Using clear direction for patrol")
 
 # ============ CHASE STATE ============
 func handle_chase(delta):
 	if not player or not is_instance_valid(player):
-		print("Player lost in chase!")
 		change_to_idle()
 		return
 	
 	var distance_to_player = global_position.distance_to(player.global_position)
-	print("Chasing! Distance: ", distance_to_player)
 	
 	# Too far, return to patrol
 	if distance_to_player > detection_radius * 1.2:
-		print("Player too far!")
 		player = null
 		change_to_idle()
 		return
 	
 	# Close enough to attack
 	if distance_to_player < attack_range:
-		print("Attack range!")
 		change_to_attack()
 		return
 	
-	# Chase the player
+	# Chase direction
 	var direction = (player.global_position - global_position).normalized()
+	
+	# SMART CHASE: Kalau ada tembok di depan, cari jalan memutar
+	if is_wall_ahead():
+		print("Wall blocking chase! Finding alternate path")
+		
+		# Coba kiri atau kanan
+		if not left_raycast.is_colliding():
+			direction = direction.rotated(-PI / 4)  # Belok kiri
+		elif not right_raycast.is_colliding():
+			direction = direction.rotated(PI / 4)  # Belok kanan
+		else:
+			# Kalau kiri kanan tertutup, cari arah clear
+			direction = get_clear_direction()
+	
 	velocity = direction * chase_speed
 	last_direction = direction
 	
-	print("Velocity: ", velocity)
-	
 	play_animation("run")
 	move_and_slide()
-	
-	print("After move_and_slide, position: ", global_position)
 
 func change_to_chase():
 	current_state = State.CHASE
+	print("Changed to CHASE state")
 
 # ============ ATTACK STATE ============
 func handle_attack(delta):
@@ -180,40 +331,43 @@ func handle_attack(delta):
 		change_to_chase()
 		return
 	
-	# Move slowly towards player while attacking
-	var direction = (player.global_position - global_position).normalized()
-	velocity = direction * attack_speed
-	last_direction = direction
+	# Kalau terlalu dekat, mundur sedikit
+	var too_close_distance = 20.0
+	if distance_to_player < too_close_distance:
+		var push_away = (global_position - player.global_position).normalized()
+		velocity = push_away * attack_speed * 0.5
+	else:
+		# Move slowly towards player while attacking
+		var direction = (player.global_position - global_position).normalized()
+		velocity = direction * attack_speed
+	
+	last_direction = (player.global_position - global_position).normalized()
 	
 	# Attack animation
 	if attack_cooldown <= 0:
 		play_animation("attack")
-		attack_cooldown = 1.0  # Attack every 1 second
+		attack_cooldown = 1.0
 		perform_attack()
 	else:
-		# Between attacks, use walk_attack animation
 		play_animation("walk_attack")
 	
 	move_and_slide()
 
 func change_to_attack():
 	current_state = State.ATTACK
-	attack_cooldown = 0.5  # First attack delay
+	attack_cooldown = 0.5
 
 func perform_attack():
-	# Here you can add damage to player
 	print("Goblin attacks!")
 	
-	# Check if player is in attack range
 	var bodies = attack_area.get_overlapping_bodies()
 	for body in bodies:
 		if body.has_method("take_damage"):
-			body.take_damage(10)  # Deal 10 damage
+			body.take_damage(10)
 
 # ============ HURT STATE ============
 func handle_hurt(delta):
-	# Play hurt animation once
-	velocity = velocity * 0.9  # Slow down
+	velocity = velocity * 0.9
 	move_and_slide()
 
 func take_damage(amount: int):
@@ -228,7 +382,6 @@ func take_damage(amount: int):
 		var knockback_dir = (global_position - player.global_position).normalized()
 		velocity = knockback_dir * 150
 	
-	# Return to chase after hurt animation
 	await get_tree().create_timer(0.5).timeout
 	if player and is_instance_valid(player):
 		change_to_chase()
@@ -240,18 +393,15 @@ func play_animation(anim_type: String):
 	var direction_suffix = get_direction_suffix(last_direction)
 	var anim_name = anim_type + direction_suffix
 	
-	# Cek apakah animasi ada
 	if not animated_sprite.sprite_frames.has_animation(anim_name):
-		print("WARNING: Animation not found: ", anim_name)
 		return
 	
-	# Only play if different animation
 	if animated_sprite.animation != anim_name:
 		animated_sprite.play(anim_name)
 
 func get_direction_suffix(direction: Vector2) -> String:
 	if direction.length() < 0.1:
-		return "_down"  # Default
+		return "_down"
 	
 	if abs(direction.x) > abs(direction.y):
 		return "_right" if direction.x > 0 else "_left"
@@ -260,20 +410,13 @@ func get_direction_suffix(direction: Vector2) -> String:
 
 # ============ DETECTION ============
 func _on_detection_body_entered(body):
-	print("Body entered detection: ", body.name)
-	print("Body groups: ", body.get_groups())  # Cek grup yang dimiliki
-	
 	if body.is_in_group("Player"):
 		print("Player detected!")
 		player = body
 		change_to_chase()
-		print("Changed to CHASE state")
-	else:
-		print("Body is NOT in Player group!")
 
 func _on_detection_body_exited(body):
 	if body == player:
-		# Player left detection area
 		if current_state == State.CHASE:
 			player = null
 			change_to_idle()

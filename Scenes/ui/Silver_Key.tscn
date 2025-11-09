@@ -11,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_ulmji")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -24,8 +25,9 @@ region_rect = Rect2(0, 0, 11.587631, 8.26976)
 texture_filter = 1
 layout_mode = 0
 offset_left = 16.0
-offset_right = 22.0
-offset_bottom = 13.0
+offset_top = 2.0
+offset_right = 23.0
+offset_bottom = 15.0
 theme_override_fonts/font = ExtResource("2_cwuuh")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 9
 text = "0"
