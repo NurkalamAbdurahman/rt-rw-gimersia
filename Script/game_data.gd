@@ -7,6 +7,7 @@ var max_health: int = 7
 var coins: int = 30
 var silver_keys: int = 0
 var golden_keys: int = 0 
+var skull_keys: int = 0 
 var pity: int = 0
 var max_pity: int = 3
 var potion: int = 0
@@ -33,6 +34,10 @@ func check_if_max_health():
 
 func add_golden_key(amount: int = 1):
 	golden_keys += amount
+	emit_signal("stats_updated")
+	
+func add_skull_key(amount: int = 1):
+	skull_keys += amount
 	emit_signal("stats_updated")
 	
 func add_silver_key(amount: int = 1):
