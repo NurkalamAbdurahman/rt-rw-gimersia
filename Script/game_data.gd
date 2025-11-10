@@ -13,6 +13,7 @@ var max_pity: int = 3
 var potion: int = 0
 var chest_states = {}
 var enemy_states = {}
+var next_spawn_location: String = ""
 
 func set_enemy_killed(enemy_id: String):
 	enemy_states[enemy_id] = true

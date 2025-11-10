@@ -93,4 +93,5 @@ func buka_pintu():
 	duration_timer.stop()
 	wait_timer.stop()
 	print("[SISTEM] Pintu dibuka. Timer dihentikan.")
+	GameData.next_spawn_location = "IRON_DOOR_EXIT"
 	get_tree().change_scene_to_file("res://Scenes/maze-01.tscn")
