@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6kw6qafwkcs"]
+
+[ext_resource type="Texture2D" uid="uid://cypa1rs53eyne" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/merchant_1/Idle.png" id="1_41cyd"]
+[ext_resource type="Script" uid="uid://4vi1lnwcglty" path="res://Script/potion_seller.gd" id="1_d3sby"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3sby"]
+atlas = ExtResource("1_41cyd")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnpmp"]
+atlas = ExtResource("1_41cyd")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mkl6"]
+atlas = ExtResource("1_41cyd")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycit1"]
+atlas = ExtResource("1_41cyd")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fx8p8"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_d3sby")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_mnpmp")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_3mkl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycit1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7aigl"]
+radius = 19.0
+height = 64.0
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_d3sby")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fx8p8")
+frame_progress = 0.80177695
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 28)
+shape = SubResource("CapsuleShape2D_7aigl")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 12.0
+offset_top = -29.0
+offset_right = 89.0
+offset_bottom = -6.0
+text = "npc seller"

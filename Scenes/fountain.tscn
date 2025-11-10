@@ -1,0 +1,168 @@
+[gd_scene load_steps=37 format=3 uid="uid://ddgarey275ybr"]
+
+[ext_resource type="Texture2D" uid="uid://043oxiu18lqa" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation01.png" id="1_d8nhw"]
+[ext_resource type="Script" uid="uid://7fff2l3k0j17" path="res://Script/fountain.gd" id="1_j3ial"]
+[ext_resource type="Texture2D" uid="uid://47jshmbcbhpe" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation02.png" id="2_r6cmv"]
+[ext_resource type="Texture2D" uid="uid://k6bkcky6gxhk" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation03.png" id="3_j3ial"]
+[ext_resource type="Texture2D" uid="uid://wk07q31uvltk" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation04.png" id="4_okcdl"]
+[ext_resource type="Texture2D" uid="uid://b6tditp1nase" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation05.png" id="5_jxcgc"]
+[ext_resource type="Texture2D" uid="uid://bff0ol48sebqu" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation06.png" id="6_nabbm"]
+[ext_resource type="Texture2D" uid="uid://d1ny3lg0wgjep" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation07.png" id="7_uame5"]
+[ext_resource type="Texture2D" uid="uid://bssrtrx4hpvx6" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation08.png" id="8_t46xb"]
+[ext_resource type="Texture2D" uid="uid://cnvdw3ejy7lpv" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation09.png" id="9_sex2w"]
+[ext_resource type="Texture2D" uid="uid://b44sm5jn8f302" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation10.png" id="10_jq8c6"]
+[ext_resource type="Texture2D" uid="uid://ynlqewkxvyh3" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation11.png" id="11_pa1dy"]
+[ext_resource type="Texture2D" uid="uid://ev5loi0813cu" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation12.png" id="12_ojgq6"]
+[ext_resource type="Texture2D" uid="uid://cc1cvpi6x4l3s" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation13.png" id="13_aajfb"]
+[ext_resource type="Texture2D" uid="uid://dv3srgfanxp3n" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation14.png" id="14_aa715"]
+[ext_resource type="Texture2D" uid="uid://b8eq7q30dro20" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation15.png" id="15_jcec2"]
+[ext_resource type="Texture2D" uid="uid://fnhpmwudcse7" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation16.png" id="16_axgg1"]
+[ext_resource type="Texture2D" uid="uid://del8y2aom6xc" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation17.png" id="17_1j7r2"]
+[ext_resource type="Texture2D" uid="uid://ds5cc44smr6hb" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation18.png" id="18_ot8at"]
+[ext_resource type="Texture2D" uid="uid://0hh8mg3pyq2g" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation19.png" id="19_smi4c"]
+[ext_resource type="Texture2D" uid="uid://ioe65v100ima" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation20.png" id="20_pknxv"]
+[ext_resource type="Texture2D" uid="uid://dasruqo1myxf4" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation21.png" id="21_2wg4i"]
+[ext_resource type="Texture2D" uid="uid://cgeb6dk8d1gvt" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation22.png" id="22_qc4ss"]
+[ext_resource type="Texture2D" uid="uid://cg7blbshv7kpf" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation23.png" id="23_tjlf6"]
+[ext_resource type="Texture2D" uid="uid://dmwi80jxjmko" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation24.png" id="24_gtjco"]
+[ext_resource type="Texture2D" uid="uid://wxhifxamiwjq" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation25.png" id="25_5ehwj"]
+[ext_resource type="Texture2D" uid="uid://btori3e5g7kfw" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation26.png" id="26_78eyd"]
+[ext_resource type="Texture2D" uid="uid://tmvqwj444dnc" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation27.png" id="27_mv7hm"]
+[ext_resource type="Texture2D" uid="uid://v7qg6hy4dgs2" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation28.png" id="28_5pw7s"]
+[ext_resource type="Texture2D" uid="uid://btqup611h4ab7" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation29.png" id="29_bk0kf"]
+[ext_resource type="Texture2D" uid="uid://cl71q4rxhwg7r" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation30.png" id="30_vo2i7"]
+[ext_resource type="Texture2D" uid="uid://btpbx43w2vls6" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation31.png" id="31_ug418"]
+[ext_resource type="Texture2D" uid="uid://c0ey5ae6hc384" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation32.png" id="32_i4x07"]
+[ext_resource type="AudioStream" uid="uid://1477hfhqd11p" path="res://Assets/Tileset/asset_bonus_stage/SOUND/fountain-water-cave-65418.mp3" id="33_r6cmv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4x8nv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_d8nhw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_r6cmv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_j3ial")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_okcdl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jxcgc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nabbm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_uame5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_t46xb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_sex2w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_jq8c6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_pa1dy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ojgq6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_aajfb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_aa715")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_jcec2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_axgg1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_1j7r2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ot8at")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_smi4c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_pknxv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_2wg4i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_qc4ss")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_tjlf6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_gtjco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_5ehwj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_78eyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_mv7hm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_5pw7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_bk0kf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_vo2i7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_ug418")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_i4x07")
+}],
+"loop": true,
+"name": &"default",
+"speed": 31.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8nhw"]
+radius = 60.0
+height = 228.0
+
+[node name="Fountain" type="Area2D"]
+script = ExtResource("1_j3ial")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4x8nv")
+autoplay = "default"
+frame_progress = 0.49332562
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+physics_interpolation_mode = 1
+position = Vector2(1, 59)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_d8nhw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("33_r6cmv")
+autoplay = true
+max_distance = 150.0
+parameters/looping = true
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
