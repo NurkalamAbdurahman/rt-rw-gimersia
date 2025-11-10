@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://c2cpu2r87h7ul"]
+[gd_scene load_steps=31 format=4 uid="uid://c2cpu2r87h7ul"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_wt1pj"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_vf5xq"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://hcwksn5mwp0f" path="res://Scenes/gold_chest.tscn" id="14_ve7iy"]
 [ext_resource type="PackedScene" uid="uid://dg0s64uj6ywq1" path="res://Scenes/pintu_stage_1.tscn" id="15_vqnvt"]
 [ext_resource type="PackedScene" uid="uid://dkri7l8pcp7lv" path="res://Scenes/hidden_to_maze.tscn" id="16_3uqpk"]
+[ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="17_jhh4t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ve7iy"]
 texture = ExtResource("1_wt1pj")
@@ -3193,12 +3194,11 @@ position = Vector2(2385, -499)
 position = Vector2(2162, -499)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.051970966, 0.05197096, 0.05197095, 1)
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("10_orxph")]
 z_index = 10
-position = Vector2(451, -601)
+position = Vector2(338, 71)
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)
@@ -3243,3 +3243,15 @@ position = Vector2(482, -706)
 
 [node name="HiddenToMaze" parent="." instance=ExtResource("16_3uqpk")]
 position = Vector2(528, -702)
+
+[node name="Goblin2" parent="." instance=ExtResource("17_jhh4t")]
+position = Vector2(946, -864)
+
+[node name="Goblin3" parent="." instance=ExtResource("11_s4yrv")]
+position = Vector2(716, -199)
+
+[node name="Goblin4" parent="." instance=ExtResource("17_jhh4t")]
+position = Vector2(756, -555)
+
+[node name="Goblin5" parent="." instance=ExtResource("11_s4yrv")]
+position = Vector2(1370, -544)
