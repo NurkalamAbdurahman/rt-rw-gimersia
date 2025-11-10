@@ -3220,18 +3220,23 @@ position = Vector2(402, -651)
 
 [node name="SilverChest3" parent="." instance=ExtResource("13_vf5xq")]
 position = Vector2(365, -644)
+chest_id = "SceneA_Chest_2"
 
 [node name="SilverChest4" parent="." instance=ExtResource("13_vf5xq")]
 position = Vector2(341, -608)
+chest_id = "SceneA_Chest_3"
 
 [node name="SilverChest5" parent="." instance=ExtResource("13_vf5xq")]
 position = Vector2(346, -574)
+chest_id = "SceneA_Chest_4"
 
 [node name="SilverChest6" parent="." instance=ExtResource("13_vf5xq")]
 position = Vector2(376, -549)
+chest_id = "SceneA_Chest_7"
 
 [node name="SilverChest7" parent="." instance=ExtResource("13_vf5xq")]
 position = Vector2(420, -551)
+chest_id = "SceneA_Chest_5"
 
 [node name="Pintu_stage1" parent="." instance=ExtResource("15_vqnvt")]
 position = Vector2(482, -706)

@@ -11,6 +11,24 @@ var skull_keys: int = 0
 var pity: int = 0
 var max_pity: int = 3
 var potion: int = 0
+var chest_states = {}
+var enemy_states = {}
+
+func set_enemy_killed(enemy_id: String):
+	enemy_states[enemy_id] = true
+	print("STATUS PERSISTED: Enemy ", enemy_id, " sudah mati.")
+
+# Fungsi untuk mengecek apakah enemy sudah mati sebelumnya
+func is_enemy_killed(enemy_id: String) -> bool:
+	return enemy_states.get(enemy_id, false) # Defaultnya false (belum mati)
+
+func set_chest_opened(chest_id: String):
+	chest_states[chest_id] = true
+	print("STATUS PERSISTED: Chest ", chest_id, " sudah dibuka.")
+
+# Fungsi untuk mengecek apakah chest sudah dibuka sebelumnya
+func is_chest_opened(chest_id: String) -> bool:
+	return chest_states.get(chest_id, false)
 
 func set_health(value: int):
 	health = clamp(value, 0, 100)
