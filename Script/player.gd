@@ -198,18 +198,6 @@ func flash_red():
 
 var map_scene_instance = null
 
-func _input(event):
-	if event.is_action_pressed("open_map"):
-		var map_scene = load("res://Scenes/map_editor.tscn").instantiate()
-		get_tree().root.add_child(map_scene)
-
-		if map_scene is Control:
-			map_scene.set_anchors_preset(Control.PRESET_CENTER)
-			map_scene.scale = Vector2(0.8, 0.8)
-			map_scene.position = Vector2(0, 0)
-
-		map_scene.z_index = 999
-		map_scene.owner = null
 
 
 func _on_Button_Map_pressed() -> void:
