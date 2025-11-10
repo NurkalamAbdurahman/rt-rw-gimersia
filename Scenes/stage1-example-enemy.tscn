@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://c2cpu2r87h7ul"]
+[gd_scene load_steps=28 format=4 uid="uid://c2cpu2r87h7ul"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_wt1pj"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_vf5xq"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="11_s4yrv"]
 [ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="12_d42jm"]
 [ext_resource type="PackedScene" uid="uid://lk1vqq6fhqj0" path="res://Scenes/silver_chest.tscn" id="13_vf5xq"]
+[ext_resource type="PackedScene" uid="uid://hcwksn5mwp0f" path="res://Scenes/gold_chest.tscn" id="14_ve7iy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("1_wt1pj")
@@ -3207,4 +3208,25 @@ position = Vector2(699, 18)
 [node name="Hud" parent="." instance=ExtResource("12_d42jm")]
 
 [node name="SilverChest" parent="." instance=ExtResource("13_vf5xq")]
-position = Vector2(446, -654)
+position = Vector2(440, -651)
+
+[node name="gold_chest" parent="." instance=ExtResource("14_ve7iy")]
+position = Vector2(504, -652)
+
+[node name="SilverChest2" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(402, -651)
+
+[node name="SilverChest3" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(365, -644)
+
+[node name="SilverChest4" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(341, -608)
+
+[node name="SilverChest5" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(346, -574)
+
+[node name="SilverChest6" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(376, -549)
+
+[node name="SilverChest7" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(420, -551)
