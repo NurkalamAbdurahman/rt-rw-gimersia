@@ -3,6 +3,7 @@ extends CharacterBody2D
 const SPEED = 130.0
 const ATTACK_DURATION = 0.25
 const ATTACK_OFFSET = 25.0
+@onready var map_editor_ui: Control = $MapEditorLayer/MapEditorUI
 
 # --- ONREADY VARIAN ---
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
@@ -162,6 +163,8 @@ func take_damage(amount: int = 1):
 	
 	invincible = true
 	
+	map_editor_ui.close()
+	
 	var new_health = GameData.health - amount
 	GameData.set_health(new_health)
 	print("Player health:", GameData.health)
@@ -186,7 +189,7 @@ func take_damage(amount: int = 1):
 		Engine.time_scale = 1.0
 		
 		get_tree().reload_current_scene()
-		GameData.health = 7
+		GameData.health = 6
 		
 		return
 

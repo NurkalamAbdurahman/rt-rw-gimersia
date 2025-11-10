@@ -9,6 +9,7 @@ extends Node2D
 
 var player_in_area = false
 var chest_opened = false
+var skullkey = 1
 
 func _ready():
 	tertutup.visible = true
@@ -64,6 +65,7 @@ func buka_chest():
 
 	var reward = randi_range(15, 25)
 	GameData.add_coin(reward)
+	GameData.add_skull_key(skullkey)
 	print("Chest reward:", reward)
 
 	await anim_sprite.animation_finished
