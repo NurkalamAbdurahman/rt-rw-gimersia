@@ -4231,6 +4231,15 @@ scale = Vector2(0.7, 0.7)
 tile_map_data = PackedByteArray("AAAeAPb/AAA2ABIAAAAeAPf/AAA2ABMAAAAeAPj/AAA2ABQAAAAfAPb/AAA3ABIAAAAfAPf/AAA3ABMAAAAfAPj/AAA3ABQAAAAgAPb/AAA4ABIAAAAgAPf/AAA4ABMAAAAgAPj/AAA4ABQAAAA=")
 tile_set = SubResource("TileSet_crv71")
 
+[node name="Player" parent="." instance=ExtResource("16_f0ka1")]
+z_index = 10
+position = Vector2(136, 106)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(3.333313, 0)
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
+
 [node name="Green_screen16x16" type="TileMapLayer" parent="."]
 visible = false
 position = Vector2(1, 1)
