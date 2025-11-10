@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://deme7515b5q7k"]
+[gd_scene load_steps=7 format=3 uid="uid://ikr7k4l3byk4"]
 
 [ext_resource type="Script" uid="uid://kegqrdgkg40e" path="res://Script/pintu_balik.gd" id="1_seoxi"]
 [ext_resource type="Texture2D" uid="uid://bi3swdffd66v1" path="res://Assets/Tileset/PNG/Pintu_Gembok.png" id="2_c535x"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_c535x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4dh1d"]
 atlas = ExtResource("2_c535x")
@@ -9,6 +10,10 @@ region = Rect2(68, 66, 25, 20)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_seoxi"]
 radius = 14.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_4dh1d"]
+font = ExtResource("3_c535x")
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="PintuBalik" type="Node2D"]
 script = ExtResource("1_seoxi")
@@ -23,12 +28,13 @@ visible = false
 shape = SubResource("CircleShape2D_seoxi")
 
 [node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -56.0
-offset_right = 59.0
-offset_bottom = 12.0
+offset_left = -36.0
+offset_top = -27.0
+offset_right = 38.0
+offset_bottom = -15.0
 theme_override_font_sizes/font_size = 8
-text = "Klik 'E' untuk membuka Chest"
+text = "Press [e] to enter"
+label_settings = SubResource("LabelSettings_4dh1d")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
