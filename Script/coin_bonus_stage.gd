@@ -8,7 +8,6 @@ extends Control
 func _ready():
 	update_ui()
 	GameData.stats_updated.connect(update_ui)
-	GameData.add_coin(100)
 
 func update_ui():
 	coin_label.text = "Coins: " + str(GameData.coins)

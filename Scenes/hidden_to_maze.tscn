@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkri7l8pcp7lv"]
+
+[ext_resource type="Script" uid="uid://c0xtb37ft1nnq" path="res://Script/hidden_to_maze.gd" id="1_5otbc"]
+[ext_resource type="Texture2D" uid="uid://bi3swdffd66v1" path="res://Assets/Tileset/PNG/Pintu_Gembok.png" id="2_5ucqe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsuvx"]
+atlas = ExtResource("2_5ucqe")
+region = Rect2(68, 66, 25, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x6ehm"]
+radius = 24.020824
+
+[node name="HiddenToMaze" type="Node2D"]
+script = ExtResource("1_5otbc")
+
+[node name="Terkunci" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_gsuvx")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_x6ehm")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -56.0
+offset_right = 59.0
+offset_bottom = 12.0
+theme_override_font_sizes/font_size = 8
+text = "Klik 'E' untuk membuka Chest"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

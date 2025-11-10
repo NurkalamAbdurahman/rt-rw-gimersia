@@ -26,6 +26,7 @@ offset_bottom = 26.0
 text = "0"
 
 [node name="messageLable" type="Label" parent="."]
+z_index = 10
 layout_mode = 0
 offset_left = 611.0
 offset_top = 212.0

@@ -11,12 +11,12 @@ func _ready():
 func _on_body_entered(body):
 	if body.name == "Player":
 		player_in_range = true
-		ui.show_message("Press E", 1.5)
+		ui.show_message("Press E")
 
 func _on_body_exited(body):
 	if body.name == "Player":
 		player_in_range = false
-		ui.show_message("", 0.1)
+		ui.show_message("")
 
 func _process(_delta):
 	if player_in_range and Input.is_action_just_pressed("interract"): # pastikan "interact" = E

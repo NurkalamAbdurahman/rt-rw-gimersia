@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://c2cpu2r87h7ul"]
+[gd_scene load_steps=30 format=4 uid="uid://c2cpu2r87h7ul"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_wt1pj"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_vf5xq"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="12_d42jm"]
 [ext_resource type="PackedScene" uid="uid://lk1vqq6fhqj0" path="res://Scenes/silver_chest.tscn" id="13_vf5xq"]
 [ext_resource type="PackedScene" uid="uid://hcwksn5mwp0f" path="res://Scenes/gold_chest.tscn" id="14_ve7iy"]
+[ext_resource type="PackedScene" uid="uid://dg0s64uj6ywq1" path="res://Scenes/pintu_stage_1.tscn" id="15_vqnvt"]
+[ext_resource type="PackedScene" uid="uid://dkri7l8pcp7lv" path="res://Scenes/hidden_to_maze.tscn" id="16_3uqpk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ve7iy"]
 texture = ExtResource("1_wt1pj")
@@ -3191,6 +3193,7 @@ position = Vector2(2385, -499)
 position = Vector2(2162, -499)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.051970966, 0.05197096, 0.05197095, 1)
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("10_orxph")]
@@ -3229,3 +3232,9 @@ position = Vector2(376, -549)
 
 [node name="SilverChest7" parent="." instance=ExtResource("13_vf5xq")]
 position = Vector2(420, -551)
+
+[node name="Pintu_stage1" parent="." instance=ExtResource("15_vqnvt")]
+position = Vector2(482, -706)
+
+[node name="HiddenToMaze" parent="." instance=ExtResource("16_3uqpk")]
+position = Vector2(528, -702)
