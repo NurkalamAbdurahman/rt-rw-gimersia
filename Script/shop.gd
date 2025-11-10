@@ -1,7 +1,9 @@
-extends Control
+extends CanvasLayer
 
-@onready var buy_button: Button = $Panel/MarginContainer/VBoxContainer/VBoxContainer/buy_button
-@onready var close_button: Button = $Panel/MarginContainer/VBoxContainer/VBoxContainer/close_button
+@onready var buy_button: Button = $Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/buy_button
+@onready var close_button: Button = $Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/close_button
+
+
 
 var potion_price = 10
 var addition = 1

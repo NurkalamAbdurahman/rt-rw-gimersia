@@ -1,7 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://dd0i3qqmbayyp"]
+[gd_scene load_steps=6 format=3 uid="uid://dd0i3qqmbayyp"]
 
 [ext_resource type="Script" uid="uid://iao430porj00" path="res://Script/coin_bonus_stage.gd" id="1_hfwq6"]
-[ext_resource type="Texture2D" uid="uid://bdgj5upi0j6te" path="res://Assets/collecitions/Coin/Coin.png" id="1_mwacp"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_hfwq6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t5lkj"]
+font = ExtResource("2_hfwq6")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hfwq6"]
+font = ExtResource("2_hfwq6")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mq7hy"]
+font = ExtResource("2_hfwq6")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="coins_bonus" type="Control"]
 layout_mode = 3
@@ -10,28 +28,14 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_hfwq6")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(14, 13)
-scale = Vector2(2.1611114, 2.3333328)
-texture = ExtResource("1_mwacp")
-region_enabled = true
-region_rect = Rect2(-0.53290176, -0.24155426, 9.483459, 10.464476)
-
-[node name="coinLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 3.0
-offset_right = 69.0
-offset_bottom = 26.0
-text = "0"
-
 [node name="messageLable" type="Label" parent="."]
 z_index = 10
 layout_mode = 0
-offset_left = 611.0
-offset_top = 212.0
-offset_right = 651.0
-offset_bottom = 235.0
+offset_left = 670.0
+offset_top = 166.0
+offset_right = 710.0
+offset_bottom = 213.0
+label_settings = SubResource("LabelSettings_t5lkj")
 
 [node name="fountainMessage" type="Label" parent="."]
 layout_mode = 0
@@ -39,6 +43,7 @@ offset_left = 282.0
 offset_top = 121.0
 offset_right = 322.0
 offset_bottom = 144.0
+label_settings = SubResource("LabelSettings_hfwq6")
 
 [node name="zonkMessage" type="Label" parent="."]
 layout_mode = 0
@@ -47,3 +52,4 @@ offset_top = 110.0
 offset_right = 435.0
 offset_bottom = 133.0
 scale = Vector2(2, 2)
+label_settings = SubResource("LabelSettings_mq7hy")

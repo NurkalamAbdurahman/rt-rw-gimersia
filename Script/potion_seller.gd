@@ -34,7 +34,7 @@ func open_shop():
 	if shop_opened:
 		return
 
-	var shop_ui = preload("res://Scenes/PotionShop.tscn").instantiate()
+	var shop_ui = preload("res://Scenes/ui/shop.tscn").instantiate()
 	get_tree().root.add_child(shop_ui)
 	shop_opened = true
 	label.visible = false

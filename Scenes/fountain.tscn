@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ddgarey275ybr"]
+[gd_scene load_steps=49 format=3 uid="uid://ddgarey275ybr"]
 
 [ext_resource type="Texture2D" uid="uid://043oxiu18lqa" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation01.png" id="1_d8nhw"]
 [ext_resource type="Script" uid="uid://7fff2l3k0j17" path="res://Script/fountain.gd" id="1_j3ial"]
@@ -34,6 +34,32 @@
 [ext_resource type="Texture2D" uid="uid://btpbx43w2vls6" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation31.png" id="31_ug418"]
 [ext_resource type="Texture2D" uid="uid://c0ey5ae6hc384" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation32.png" id="32_i4x07"]
 [ext_resource type="AudioStream" uid="uid://1477hfhqd11p" path="res://Assets/Tileset/asset_bonus_stage/SOUND/fountain-water-cave-65418.mp3" id="33_r6cmv"]
+[ext_resource type="Texture2D" uid="uid://d2ylw0dpb7hu5" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/Fountain/fountain_v1_1.png" id="34_okcdl"]
+[ext_resource type="PackedScene" uid="uid://c6kbjwcejlcyo" path="res://Scenes/coin.tscn" id="36_jxcgc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okcdl"]
+atlas = ExtResource("34_okcdl")
+region = Rect2(0, 0, 64, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxcgc"]
+atlas = ExtResource("34_okcdl")
+region = Rect2(64, 0, 64, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nabbm"]
+atlas = ExtResource("34_okcdl")
+region = Rect2(0, 56, 64, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uame5"]
+atlas = ExtResource("34_okcdl")
+region = Rect2(64, 56, 64, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t46xb"]
+atlas = ExtResource("34_okcdl")
+region = Rect2(0, 112, 64, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sex2w"]
+atlas = ExtResource("34_okcdl")
+region = Rect2(64, 112, 64, 56)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4x8nv"]
 animations = [{
@@ -137,24 +163,103 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 31.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okcdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxcgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nabbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uame5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t46xb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sex2w")
+}],
+"loop": true,
+"name": &"pixel_fountain",
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8nhw"]
-radius = 90.0
+radius = 61.0
 height = 228.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_okcdl"]
+radius = 56.527023
+height = 221.59175
+
+[sub_resource type="Animation" id="Animation_nro84"]
+resource_name = "masuk ke  air"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(351, -70), Vector2(351, -50)]
+}
+
+[sub_resource type="Animation" id="Animation_bk808"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-26.000002, -43.000004), Vector2(-26.000002, 66)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yqbxo"]
+_data = {
+&"RESET": SubResource("Animation_bk808"),
+&"masuk ke  air": SubResource("Animation_nro84")
+}
 
 [node name="Fountain" type="Area2D"]
 script = ExtResource("1_j3ial")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 41)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_4x8nv")
-autoplay = "default"
-frame_progress = 0.49332562
+animation = &"pixel_fountain"
+autoplay = "pixel_fountain"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 physics_interpolation_mode = 1
-position = Vector2(1, 59)
+visible = false
+position = Vector2(1, 62)
 rotation = 1.5707964
+scale = Vector2(-0.9906765, 0.6137413)
 shape = SubResource("CapsuleShape2D_d8nhw")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -163,9 +268,26 @@ autoplay = true
 max_distance = 150.0
 parameters/looping = true
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+rotation = -1.5707963
+scale = Vector2(0.9906765, -0.6137413)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-62.583496, -1.6293588)
+shape = SubResource("CapsuleShape2D_okcdl")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Coin" parent="." instance=ExtResource("36_jxcgc")]
+position = Vector2(-26.000002, -43.000004)
+scale = Vector2(2, 2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Coin")
+libraries = {
+&"": SubResource("AnimationLibrary_yqbxo")
+}
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
