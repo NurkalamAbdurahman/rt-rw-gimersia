@@ -429,7 +429,10 @@ func die():
 	queue_free()
 
 func try_drop_item():
-	var drop_chance = 0.50  # 50% drop rate
+	var reward = randi_range(1, 5)
+	GameData.add_coin(reward)
+	print("Chest reward:", reward)
+	var drop_chance = 1  # 50% drop rate
 	if randf() <= drop_chance:
 		skyes += 1
 		GameData.add_silver_key(skyes)
