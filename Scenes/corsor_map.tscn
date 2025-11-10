@@ -1,64 +1,64 @@
-[gd_scene load_steps=39 format=3 uid="uid://bed842dpwmt78"]
+[gd_scene load_steps=30 format=3 uid="uid://b4sa46eorc4fn"]
 
-[ext_resource type="Script" uid="uid://dlr5exw4c4cje" path="res://Script/player.gd" id="1_kyqiw"]
-[ext_resource type="Texture2D" uid="uid://840g0v61wiq1" path="res://Assets/Player/Tiny Swords (Free Pack)/Units/Blue Units/Lancer/Lancer_Idle.png" id="2_gntrk"]
-[ext_resource type="AudioStream" uid="uid://bxeh0bwgvhp13" path="res://Assets/Audio/stone-step.ogg" id="3_gntrk"]
-[ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="4_dewec"]
-[ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="5_5ixxa"]
-[ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="6_52ee3"]
-[ext_resource type="Texture2D" uid="uid://cq3rmvweuh6a0" path="res://Assets/Map/Kertas_Map.png" id="6_megsn"]
-[ext_resource type="Script" uid="uid://dd46vb54hypi6" path="res://Scenes/button_back.gd" id="7_bhhdu"]
-[ext_resource type="Script" uid="uid://dudehcjnpv4rp" path="res://Scenes/draw_area.gd" id="7_megsn"]
-[ext_resource type="Texture2D" uid="uid://dhnususniv48j" path="res://Assets/Map/map-icon.png" id="9_yoq75"]
+[ext_resource type="Script" uid="uid://dlr5exw4c4cje" path="res://Script/player.gd" id="1_sh0jq"]
+[ext_resource type="Texture2D" uid="uid://840g0v61wiq1" path="res://Assets/Player/Tiny Swords (Free Pack)/Units/Blue Units/Lancer/Lancer_Idle.png" id="2_3wtgm"]
+[ext_resource type="AudioStream" uid="uid://bxeh0bwgvhp13" path="res://Assets/Audio/stone-step.ogg" id="3_sjt5s"]
+[ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="4_ka7t1"]
+[ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="5_8hash"]
+[ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="6_vi1i8"]
+[ext_resource type="Script" uid="uid://dudehcjnpv4rp" path="res://Scenes/draw_area.gd" id="7_8d07d"]
+[ext_resource type="Script" uid="uid://dd46vb54hypi6" path="res://Scenes/button_back.gd" id="8_b635b"]
+[ext_resource type="Texture2D" uid="uid://cqxreiyjysf0y" path="res://Assets/Map/cursor-map.png" id="9_8ej4v"]
+[ext_resource type="Script" uid="uid://ppn8m244rea8" path="res://Scenes/cursor_map.gd" id="10_3wtgm"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kyqiw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88kja"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(0, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_it8n0"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(320, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gbyq6"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(640, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbq55"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(960, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t38ji"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(1280, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbj7x"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(1600, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fxof2"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(1920, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_601d1"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(2240, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6d06k"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(2560, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p20bj"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(2880, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ancw4"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(3200, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ldn0"]
-atlas = ExtResource("2_gntrk")
+atlas = ExtResource("2_3wtgm")
 region = Rect2(3520, 0, 320, 320)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o8di4"]
@@ -120,28 +120,11 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1e7my"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1iu4k"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_arntx"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lslt6"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ulo2v"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ksbbd"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_glx4g"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yoq75"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_miouo"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o3h8g"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3wtgm"]
+size = Vector2(709, 370)
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_kyqiw")
+script = ExtResource("1_sh0jq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_kyqiw")
@@ -165,12 +148,12 @@ offset = Vector2(0, 4)
 texture_scale = 4.98
 
 [node name="SFX_Run_Stone" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_gntrk")
+stream = ExtResource("3_sjt5s")
 volume_db = 16.155
 pitch_scale = 1.6
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_dewec")
+stream = ExtResource("4_ka7t1")
 volume_db = 1.786
 autoplay = true
 parameters/looping = true
@@ -178,15 +161,23 @@ parameters/looping = true
 [node name="MapEditorLayer" type="CanvasLayer" parent="."]
 layer = 5
 
+[node name="Sprite2D" type="Sprite2D" parent="MapEditorLayer"]
+z_index = 4096
+position = Vector2(629, 316)
+scale = Vector2(0.03819722, 0.03521111)
+texture = ExtResource("9_8ej4v")
+offset = Vector2(440, 440)
+script = ExtResource("10_3wtgm")
+
 [node name="MapEditorUI" type="Control" parent="MapEditorLayer"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 400.0
 offset_bottom = 300.0
 mouse_filter = 2
-script = ExtResource("6_52ee3")
+script = ExtResource("6_vi1i8")
 
-[node name="ColorRect" type="TextureRect" parent="MapEditorLayer/MapEditorUI"]
+[node name="ColorRect" type="ColorRect" parent="MapEditorLayer/MapEditorUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -200,27 +191,24 @@ offset_bottom = 354.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("6_megsn")
 
 [node name="DrawArea" type="Node2D" parent="MapEditorLayer/MapEditorUI"]
-position = Vector2(203, 133)
-script = ExtResource("7_megsn")
+script = ExtResource("7_8d07d")
+
+[node name="Area2D" type="Area2D" parent="MapEditorLayer/MapEditorUI/DrawArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapEditorLayer/MapEditorUI/DrawArea/Area2D"]
+position = Vector2(558, 319)
+shape = SubResource("RectangleShape2D_3wtgm")
 
 [node name="Button_Back" type="Button" parent="MapEditorLayer/MapEditorUI"]
 layout_mode = 1
-offset_left = 855.0
-offset_top = 143.0
-offset_right = 900.0
-offset_bottom = 189.0
-theme_override_colors/font_color = Color(0.21929857, 0.06349551, 0.066092454, 1)
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = SubResource("StyleBoxEmpty_1e7my")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_1iu4k")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_arntx")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_lslt6")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ulo2v")
-text = "X"
-script = ExtResource("7_bhhdu")
+offset_left = 857.0
+offset_top = 142.0
+offset_right = 902.0
+offset_bottom = 173.0
+text = "Back"
+script = ExtResource("8_b635b")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -228,19 +216,10 @@ script = ExtResource("7_bhhdu")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -43.0
-offset_top = 0.99999976
-offset_right = -22.935059
+offset_left = -47.0
 offset_bottom = 31.0
 grow_horizontal = 0
-scale = Vector2(1.865, 1.865)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_ksbbd")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_glx4g")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_yoq75")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_miouo")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_o3h8g")
-icon = ExtResource("9_yoq75")
-script = ExtResource("5_5ixxa")
+text = "MAP"
+script = ExtResource("5_8hash")
 
 [connection signal="pressed" from="MapEditorLayer/MapEditorUI/Button_Back" to="MapEditorLayer/MapEditorUI" method="_on_button_back_pressed"]
-[connection signal="pressed" from="CanvasLayer/Button_Map" to="." method="_on_Button_Map_pressed"]
