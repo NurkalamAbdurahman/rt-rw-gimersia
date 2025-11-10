@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=28 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_w6c7r"]
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="2_lmh3y"]
@@ -3084,18 +3084,6 @@ texture = ExtResource("9_wvcai")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_vvkh1")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qa08f"]
-
-[sub_resource type="Gradient" id="Gradient_impyb"]
-offsets = PackedFloat32Array(0, 0.6, 0.7266667)
-colors = PackedColorArray(1, 1, 1, 1, 0.13636369, 0.13636369, 0.13636369, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hh0xf"]
-gradient = SubResource("Gradient_impyb")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0, 0)
-
 [node name="Node2D" type="Node2D"]
 position = Vector2(-2219, 323)
 
@@ -3212,6 +3200,7 @@ position = Vector2(2385, -499)
 position = Vector2(2162, -499)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.05197101, 0.051970944, 0.05197095, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -3229,21 +3218,10 @@ position = Vector2(321.48578, 440.65875)
 [node name="Player" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
 z_index = 10
 position = Vector2(81, 72)
-scale = Vector2(0.3, 0.3)
-collision_layer = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
-
-[node name="PointLight2D2" type="PointLight2D" parent="Player"]
-material = SubResource("ShaderMaterial_qa08f")
-color = Color(0.84866434, 0.64032954, 0.3541621, 1)
-energy = 2.0
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_hh0xf")
-offset = Vector2(0, 4)
-texture_scale = 4.98
 
 [node name="gold_chest" parent="." instance=ExtResource("13_lmh3y")]
 position = Vector2(2277, -483)

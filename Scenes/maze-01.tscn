@@ -4231,7 +4231,6 @@ tile_set = SubResource("TileSet_crv71")
 [node name="Player" parent="." instance=ExtResource("16_f0ka1")]
 z_index = 10
 position = Vector2(136, 106)
-scale = Vector2(0.2, 0.2)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(3.333313, 0)
@@ -4248,7 +4247,6 @@ tile_set = SubResource("TileSet_2vkx8")
 [node name="Fountain" parent="." instance=ExtResource("17_f0ka1")]
 position = Vector2(359.99997, -50.999996)
 scale = Vector2(0.19999999, 0.19999999)
-coin_cost = 10
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="Fountain"]
 visible = false
