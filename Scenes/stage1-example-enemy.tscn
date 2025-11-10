@@ -3201,7 +3201,7 @@ color = Color(0.051970966, 0.05197096, 0.05197095, 1)
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("10_orxph")]
 z_index = 10
-position = Vector2(529, -690)
+position = Vector2(646, -499)
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)
@@ -3254,7 +3254,7 @@ position = Vector2(946, -864)
 position = Vector2(716, -199)
 
 [node name="Goblin4" parent="." instance=ExtResource("17_jhh4t")]
-position = Vector2(756, -555)
+position = Vector2(759, -690)
 
 [node name="Goblin5" parent="." instance=ExtResource("11_s4yrv")]
 position = Vector2(1370, -544)
