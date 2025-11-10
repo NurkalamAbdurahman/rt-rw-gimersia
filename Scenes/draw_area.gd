@@ -13,7 +13,7 @@ func _ready():
 	set_process_input(false)
 	queue_redraw()
 	if color_rect:
-		canvas_size = color_rect.size
+		canvas_size = Vector2(669, 321)
 	else:
 		canvas_size = Vector2(400, 300)  # fallback kalau ColorRect tidak ditemukan
 

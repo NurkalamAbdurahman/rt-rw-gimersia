@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=3 uid="uid://bed842dpwmt78"]
+[gd_scene load_steps=148 format=3 uid="uid://bed842dpwmt78"]
 
 [ext_resource type="Script" uid="uid://dlr5exw4c4cje" path="res://Script/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://dm47x85acolmf" path="res://Assets/RPG_Hero/attack/attack_down_40x40.png" id="2_1iu4k"]
@@ -7,11 +7,17 @@
 [ext_resource type="Texture2D" uid="uid://bng5asex23m50" path="res://Assets/RPG_Hero/attack/attack_left_40x40.png" id="3_m0x7a"]
 [ext_resource type="Texture2D" uid="uid://dllkr6mlykwie" path="res://Assets/RPG_Hero/attack/attack_right_40x40.png" id="4_5v66d"]
 [ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="4_dewec"]
+[ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="5_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://bhifl4dg8yrus" path="res://Assets/RPG_Hero/attack/attack_up_40x40.png" id="5_x63xi"]
+[ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="6_52ee3"]
 [ext_resource type="Texture2D" uid="uid://w8vgtk80kw16" path="res://Assets/RPG_Hero/death/death_down_40x40.png" id="6_i2e8t"]
+[ext_resource type="Texture2D" uid="uid://cq3rmvweuh6a0" path="res://Assets/Map/Kertas_Map.png" id="6_megsn"]
+[ext_resource type="Script" uid="uid://dd46vb54hypi6" path="res://Scenes/button_back.gd" id="7_bhhdu"]
+[ext_resource type="Script" uid="uid://dudehcjnpv4rp" path="res://Scenes/draw_area.gd" id="7_megsn"]
 [ext_resource type="Texture2D" uid="uid://cqj6vq2loxlrw" path="res://Assets/RPG_Hero/death/death_left_40x40.png" id="7_qidb7"]
 [ext_resource type="Texture2D" uid="uid://crkjma2p15car" path="res://Assets/RPG_Hero/death/death_right_40x40.png" id="8_70hv0"]
 [ext_resource type="Texture2D" uid="uid://6yrumq3tvw5o" path="res://Assets/RPG_Hero/death/death_up_40x40.png" id="9_8flut"]
+[ext_resource type="Texture2D" uid="uid://dhnususniv48j" path="res://Assets/Map/map-icon.png" id="9_yoq75"]
 [ext_resource type="Texture2D" uid="uid://bjp3aj52njsdt" path="res://Assets/RPG_Hero/idle/idle_left_40x40.png" id="11_u7x0b"]
 [ext_resource type="Texture2D" uid="uid://bohxrrovb5uci" path="res://Assets/RPG_Hero/idle/idle_right_40x40.png" id="12_utwlt"]
 [ext_resource type="Texture2D" uid="uid://dj4l4t87cr27h" path="res://Assets/RPG_Hero/idle/idle_up_40x40.png" id="13_kih0c"]
@@ -19,12 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://cuu5bckr2on1a" path="res://Assets/RPG_Hero/run/run_left_40x40.png" id="15_c43xd"]
 [ext_resource type="Texture2D" uid="uid://bmxpi8ihqktrm" path="res://Assets/RPG_Hero/run/run_right_40x40.png" id="16_avx33"]
 [ext_resource type="Texture2D" uid="uid://6yi2igwemarr" path="res://Assets/RPG_Hero/run/run_up_40x40.png" id="17_rxg2u"]
-[ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="5_5ixxa"]
-[ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="6_52ee3"]
-[ext_resource type="Texture2D" uid="uid://cq3rmvweuh6a0" path="res://Assets/Map/Kertas_Map.png" id="6_megsn"]
-[ext_resource type="Script" uid="uid://dd46vb54hypi6" path="res://Scenes/button_back.gd" id="7_bhhdu"]
-[ext_resource type="Script" uid="uid://dudehcjnpv4rp" path="res://Scenes/draw_area.gd" id="7_megsn"]
-[ext_resource type="Texture2D" uid="uid://dhnususniv48j" path="res://Assets/Map/map-icon.png" id="9_yoq75"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kyqiw"]
 
@@ -940,14 +940,17 @@ shadow_item_cull_mask = 4
 texture = SubResource("GradientTexture2D_m0x7a")
 offset = Vector2(0, 4)
 texture_scale = 1.38
+
 [node name="MapEditorLayer" type="CanvasLayer" parent="."]
 layer = 5
 
 [node name="MapEditorUI" type="Control" parent="MapEditorLayer"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 400.0
-offset_bottom = 300.0
+offset_left = 38.0
+offset_top = 10.0
+offset_right = 438.0
+offset_bottom = 310.0
 mouse_filter = 2
 script = ExtResource("6_52ee3")
 
@@ -958,9 +961,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 3.0
+offset_left = -16.0
 offset_top = -17.0
-offset_right = 712.0
+offset_right = 693.0
 offset_bottom = 354.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -968,15 +971,15 @@ mouse_filter = 2
 texture = ExtResource("6_megsn")
 
 [node name="DrawArea" type="Node2D" parent="MapEditorLayer/MapEditorUI"]
-position = Vector2(203, 133)
+position = Vector2(204, 156)
 script = ExtResource("7_megsn")
 
 [node name="Button_Back" type="Button" parent="MapEditorLayer/MapEditorUI"]
 layout_mode = 1
-offset_left = 855.0
-offset_top = 143.0
-offset_right = 900.0
-offset_bottom = 189.0
+offset_left = 838.0
+offset_top = 147.0
+offset_right = 883.0
+offset_bottom = 193.0
 theme_override_colors/font_color = Color(0.21929857, 0.06349551, 0.066092454, 1)
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxEmpty_1e7my")
