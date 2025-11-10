@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
-# --- KONSTANTA ---
+var gold = 100
+var potions = 0
+
 const SPEED = 130.0
 const ATTACK_DURATION = 0.25
 const ATTACK_OFFSET = 25.0
@@ -59,6 +61,7 @@ func _physics_process(delta):
 		return
 	
 	var input_vector = Vector2.ZERO
+	
 	
 	input_vector.x = Input.get_axis("left", "right")
 	input_vector.y = Input.get_axis("up", "down")
