@@ -1,4 +1,4 @@
-[gd_scene load_steps=148 format=3 uid="uid://bed842dpwmt78"]
+[gd_scene load_steps=151 format=3 uid="uid://bed842dpwmt78"]
 
 [ext_resource type="Script" uid="uid://dlr5exw4c4cje" path="res://Script/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://dm47x85acolmf" path="res://Assets/RPG_Hero/attack/attack_down_40x40.png" id="2_1iu4k"]
@@ -6,7 +6,6 @@
 [ext_resource type="AudioStream" uid="uid://bxeh0bwgvhp13" path="res://Assets/Audio/stone-step.ogg" id="3_gntrk"]
 [ext_resource type="Texture2D" uid="uid://bng5asex23m50" path="res://Assets/RPG_Hero/attack/attack_left_40x40.png" id="3_m0x7a"]
 [ext_resource type="Texture2D" uid="uid://dllkr6mlykwie" path="res://Assets/RPG_Hero/attack/attack_right_40x40.png" id="4_5v66d"]
-[ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="4_dewec"]
 [ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="5_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://bhifl4dg8yrus" path="res://Assets/RPG_Hero/attack/attack_up_40x40.png" id="5_x63xi"]
 [ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="6_52ee3"]
@@ -25,6 +24,10 @@
 [ext_resource type="Texture2D" uid="uid://cuu5bckr2on1a" path="res://Assets/RPG_Hero/run/run_left_40x40.png" id="15_c43xd"]
 [ext_resource type="Texture2D" uid="uid://bmxpi8ihqktrm" path="res://Assets/RPG_Hero/run/run_right_40x40.png" id="16_avx33"]
 [ext_resource type="Texture2D" uid="uid://6yi2igwemarr" path="res://Assets/RPG_Hero/run/run_up_40x40.png" id="17_rxg2u"]
+[ext_resource type="AudioStream" uid="uid://bpcxmeiishxhk" path="res://Assets/Audio/player_attack.mp3" id="20_8flut"]
+[ext_resource type="AudioStream" uid="uid://by4u5eugjw1r4" path="res://Assets/Audio/hurt_attack_normal.mp3" id="20_u7x0b"]
+[ext_resource type="AudioStream" uid="uid://ci6pmesf82g8r" path="res://Assets/Audio/dead_character.mp3" id="21_utwlt"]
+[ext_resource type="AudioStream" uid="uid://brk5tbb4h7lkl" path="res://Assets/Audio/backsound_1.mp3" id="22_utwlt"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kyqiw"]
 
@@ -911,12 +914,26 @@ shape = SubResource("CircleShape2D_3d168")
 
 [node name="SFX_Run_Stone" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_gntrk")
-volume_db = 16.155
+volume_db = 8.077
 pitch_scale = 1.6
 
+[node name="SFX_Attack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_8flut")
+volume_db = 19.961
+
+[node name="SFX_Attacked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_u7x0b")
+volume_db = 11.883
+pitch_scale = 1.82
+
+[node name="SFX_Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_utwlt")
+volume_db = 13.903
+pitch_scale = 0.62
+
 [node name="BGM" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_dewec")
-volume_db = 1.786
+stream = ExtResource("22_utwlt")
+volume_db = 12.893
 autoplay = true
 parameters/looping = true
 

@@ -10,6 +10,9 @@ const ATTACK_OFFSET = 25.0
 @onready var sfx_run: AudioStreamPlayer2D = $SFX_Run_Stone
 @onready var attack_area: Area2D = $AttackArea2D
 @onready var attack_shape: CollisionShape2D = $AttackArea2D/CollisionShape2D
+@onready var sfx_attack: AudioStreamPlayer2D = $SFX_Attack
+@onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Attacked
+@onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
 
 # --- VARIABEL STATE ---
 var invincible := false
@@ -119,11 +122,13 @@ func attack():
 	sfx_run.stop()
 	
 	print("🗡️ Player attacking!")
+	sfx_attack.play()  # 🔊 mainkan suara serangan di sini
 	
 	# Atur Hitbox
 	var attack_position = last_direction * ATTACK_OFFSET
 	attack_shape.position = attack_position
 	attack_shape.disabled = false 
+
 	
 	# Mainkan Animasi
 	var attack_anim_name = "attack_%s" % current_anim_direction
@@ -169,6 +174,10 @@ func take_damage(amount: int = 1):
 	GameData.set_health(new_health)
 	print("Player health:", GameData.health)
 
+	# 🔊 Mainkan suara ketika player kena serangan
+	if sfx_attacked and not sfx_attacked.playing:
+		sfx_attacked.play()
+	
 	if has_node("AnimatedSprite2D"):
 		$AnimatedSprite2D.play("hurt")
 		flash_red()
@@ -180,6 +189,10 @@ func take_damage(amount: int = 1):
 	if new_health <= 1:
 		var death_anim_name = "death_%s" % current_anim_direction
 		$AnimatedSprite2D.play(death_anim_name)
+
+		# 🔊 Mainkan suara kematian di sini
+		if sfx_death:
+			sfx_death.play()
 		
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -192,6 +205,7 @@ func take_damage(amount: int = 1):
 		GameData.health = 6
 		
 		return
+
 
 func flash_red():
 	$AnimatedSprite2D.modulate = Color(1, 0.4, 0.4)
