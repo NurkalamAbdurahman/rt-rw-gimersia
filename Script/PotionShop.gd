@@ -12,7 +12,7 @@ func _ready():
 func _on_buy_pressed():
 	var ui = get_tree().root.get_node("bonus_stage/ui_coin/coins_bonus")
 	if GameData.coins >= potion_price:
-		GameData.coins -= potion_price
+		GameData.coins -= potion_price 
 		GameData.emit_signal("stats_updated") # beri tahu UI untuk update
 		ui.show_message("You bought a potion!", 2.0)
 	else:

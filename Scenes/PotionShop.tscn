@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1pfv7pnimyj0"]
+[gd_scene load_steps=4 format=3 uid="uid://c1pfv7pnimyj0"]
 
-[ext_resource type="Script" uid="uid://ch1bv2aa2qugi" path="res://Script/PotionShop.gd" id="1_m7ukw"]
+[ext_resource type="Script" uid="uid://dxiuh2nebbch5" path="res://Script/PotionShop.gd" id="1_m7ukw"]
+[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_aiim8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_m7ukw"]
-font_size = 8
+font = ExtResource("2_aiim8")
 
 [node name="PotionShop" type="Control"]
 layout_mode = 3

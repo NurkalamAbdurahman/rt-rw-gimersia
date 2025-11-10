@@ -145,7 +145,6 @@ height = 228.0
 
 [node name="Fountain" type="Area2D"]
 script = ExtResource("1_j3ial")
-coin_cost = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4x8nv")
@@ -154,7 +153,7 @@ frame_progress = 0.49332562
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 physics_interpolation_mode = 1
-position = Vector2(0, 61)
+position = Vector2(1, 59)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_d8nhw")
 

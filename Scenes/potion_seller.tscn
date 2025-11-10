@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://c6kw6qafwkcs"]
 
-[ext_resource type="Texture2D" uid="uid://cypa1rs53eyne" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/merchant_1/Idle.png" id="1_41cyd"]
-[ext_resource type="Script" uid="uid://4vi1lnwcglty" path="res://Script/potion_seller.gd" id="1_d3sby"]
+[ext_resource type="Texture2D" uid="uid://b7fbtc3hbq8rl" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/merchant_1/Idle.png" id="1_41cyd"]
+[ext_resource type="Script" uid="uid://bubwplgm24qpt" path="res://Script/potion_seller.gd" id="1_d3sby"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d3sby"]
 atlas = ExtResource("1_41cyd")
@@ -47,6 +47,7 @@ height = 64.0
 script = ExtResource("1_d3sby")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_fx8p8")
 frame_progress = 0.80177695
 
