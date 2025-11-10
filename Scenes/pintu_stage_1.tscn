@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dg0s64uj6ywq1"]
+[gd_scene load_steps=12 format=3 uid="uid://dg0s64uj6ywq1"]
 
+[ext_resource type="Script" uid="uid://dwbe4dlmdqib3" path="res://Script/pintu_stage_1.gd" id="1_lp2m2"]
 [ext_resource type="Texture2D" uid="uid://bi3swdffd66v1" path="res://Assets/Tileset/PNG/Pintu_Gembok.png" id="2_m0ohj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2kh73"]
@@ -57,6 +58,7 @@ region = Rect2(129, 96, 31, 31)
 radius = 24.020824
 
 [node name="Pintu_stage1" type="Node2D"]
+script = ExtResource("1_lp2m2")
 
 [node name="Terkunci" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_2kh73")
