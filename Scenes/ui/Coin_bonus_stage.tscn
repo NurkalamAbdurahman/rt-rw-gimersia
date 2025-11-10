@@ -38,3 +38,11 @@ offset_left = 282.0
 offset_top = 121.0
 offset_right = 322.0
 offset_bottom = 144.0
+
+[node name="zonkMessage" type="Label" parent="."]
+layout_mode = 0
+offset_left = 395.0
+offset_top = 110.0
+offset_right = 435.0
+offset_bottom = 133.0
+scale = Vector2(2, 2)

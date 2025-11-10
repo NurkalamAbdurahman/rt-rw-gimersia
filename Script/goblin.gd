@@ -23,6 +23,10 @@ var right_raycast: RayCast2D
 @export var wall_check_distance = 30.0
 @export var stuck_threshold = 5.0  # Jika gerak kurang dari ini, dianggap stuck
 
+@export var max_health = 5
+var is_dead = false
+var skyes = GameData.silver_keys
+
 # State machine
 enum State { IDLE, PATROL, CHASE, ATTACK, HURT }
 var current_state = State.IDLE
@@ -375,6 +379,9 @@ func take_damage(amount: int):
 	
 	current_state = State.HURT
 	play_animation("hurt")
+	max_health -= amount
+	if max_health <= 0:
+		die()
 	
 	# Knockback
 	if player and is_instance_valid(player):
@@ -386,6 +393,48 @@ func take_damage(amount: int):
 		change_to_chase()
 	else:
 		change_to_idle()
+
+func die():
+	is_dead = true
+	velocity = Vector2.ZERO
+	current_state = State.HURT
+	
+	print("Goblin died!")
+	
+	try_drop_item() 
+	
+	# Disable collision agar tidak menghalangi
+	collision_layer = 0
+	collision_mask = 0
+	
+	# Mainkan animasi death
+	var death_anim_name = "death" + get_direction_suffix(last_direction)
+	
+	# Cek apakah animasi death ada
+	if animated_sprite.sprite_frames.has_animation(death_anim_name):
+		animated_sprite.play(death_anim_name)
+		await animated_sprite.animation_finished
+	else:
+		# Fallback jika tidak ada animasi death
+		print("No death animation, using hurt animation")
+		play_animation("hurt")
+		await get_tree().create_timer(0.5).timeout
+	
+	# Fade out effect (opsional)
+	var tween = create_tween()
+	tween.tween_property(animated_sprite, "modulate:a", 0.0, 0.3)
+	await tween.finished
+	
+	# Hapus goblin dari scene
+	queue_free()
+
+func try_drop_item():
+	var drop_chance = 0.50  # 50% drop rate
+	if randf() <= drop_chance:
+		skyes += 1
+		GameData.add_silver_key(skyes)
+		print("Goblin dropped a Silver Key!")
+
 
 # ============ ANIMATION HELPER ============
 func play_animation(anim_type: String):
