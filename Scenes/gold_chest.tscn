@@ -1,0 +1,113 @@
+[gd_scene load_steps=16 format=3 uid="uid://hcwksn5mwp0f"]
+
+[ext_resource type="Texture2D" uid="uid://c7ofb03qfy7xn" path="res://Assets/Tileset/PNG/chest_gold.png" id="1_hjqxh"]
+[ext_resource type="Script" uid="uid://7of7rt1q8x2k" path="res://Scenes/gold_chest.gd" id="1_slpms"]
+[ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="2_slpms"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_n5d3i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5d3i"]
+atlas = ExtResource("1_hjqxh")
+region = Rect2(7, 132, 19, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhmrq"]
+atlas = ExtResource("1_hjqxh")
+region = Rect2(0, 128, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsnds"]
+atlas = ExtResource("1_hjqxh")
+region = Rect2(32, 128, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi1u1"]
+atlas = ExtResource("1_hjqxh")
+region = Rect2(64, 128, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cx1x2"]
+atlas = ExtResource("1_hjqxh")
+region = Rect2(96, 128, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jhfo"]
+atlas = ExtResource("1_hjqxh")
+region = Rect2(128, 128, 32, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ssjpi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhmrq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsnds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wi1u1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cx1x2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jhfo")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_liool"]
+atlas = ExtResource("1_hjqxh")
+region = Rect2(135, 129, 19, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slpms"]
+size = Vector2(23, 22)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dhmrq"]
+font = ExtResource("3_n5d3i")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5d3i"]
+size = Vector2(18, 13)
+
+[node name="gold_chest" type="StaticBody2D"]
+script = ExtResource("1_slpms")
+
+[node name="silver_chest" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_n5d3i")
+
+[node name="silver_chest_openanimation" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-1, 1)
+scale = Vector2(0.96875, 1)
+sprite_frames = SubResource("SpriteFrames_ssjpi")
+animation = &"open"
+frame = 4
+frame_progress = 1.0
+
+[node name="silver_chest_open" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+texture = SubResource("AtlasTexture_liool")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_slpms")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -56.0
+offset_right = 59.0
+offset_bottom = 12.0
+text = "Press 'e' to open"
+label_settings = SubResource("LabelSettings_dhmrq")
+autowrap_trim_flags = 0
+justification_flags = 0
+
+[node name="SFX_ChestOpen" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_slpms")
+volume_db = 11.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_n5d3i")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

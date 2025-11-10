@@ -9,7 +9,6 @@ extends Node2D
 
 var player_in_area = false
 var chest_opened = false
-var pityadd = 1
 
 func _ready():
 	tertutup.visible = true
@@ -36,13 +35,13 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		label.visible = false
 
 func cek_buka_chest():
-	if GameData.silver_keys > 0:
+	if GameData.golden_keys > 0:
 		# Punya silver key ✅
-		GameData.silver_keys -= 1
+		GameData.golden_keys -= 1
 		buka_chest()
 	else:
 		# Tidak punya ❌ → munculkan warning
-		label.text = "You need a Silver Key!"
+		label.text = "You need a Golden Key!"
 		label.visible = true
 		await get_tree().create_timer(1.3).timeout
 		if player_in_area and not chest_opened:
@@ -63,11 +62,8 @@ func buka_chest():
 	anim_sprite.animation = "open"
 	anim_sprite.play()
 
-	var reward = randi_range(3, 10)
+	var reward = randi_range(15, 25)
 	GameData.add_coin(reward)
-	GameData.add_pity(pityadd)
-	if GameData.pity == GameData.max_pity:
-		GameData.add_golden_key(pityadd)
 	print("Chest reward:", reward)
 
 	await anim_sprite.animation_finished
