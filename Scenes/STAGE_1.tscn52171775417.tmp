@@ -3226,17 +3226,17 @@ position = Vector2(1137.565, 22.273773)
 [node name="silverchest2" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(321.48578, 440.65875)
 
-[node name="Player" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
+[node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
 z_index = 10
-position = Vector2(81, 72)
+position = Vector2(80, 72)
 scale = Vector2(0.3, 0.3)
 collision_layer = 3
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
-[node name="PointLight2D2" type="PointLight2D" parent="Player"]
+[node name="PointLight2D2" type="PointLight2D" parent="Player2"]
 material = SubResource("ShaderMaterial_qa08f")
 color = Color(0.84866434, 0.64032954, 0.3541621, 1)
 energy = 2.0
@@ -3250,5 +3250,4 @@ position = Vector2(2277, -483)
 scale = Vector2(1.662591, 1.7165759)
 
 [node name="Pintu_stage1" parent="." instance=ExtResource("14_gpka1")]
-position = Vector2(1193.0001, -912)
-scale = Vector2(0.99466234, 0.9803493)
+position = Vector2(171, 49)
