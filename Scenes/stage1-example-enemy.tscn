@@ -3190,6 +3190,7 @@ position = Vector2(2385, -499)
 position = Vector2(2162, -499)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.051970966, 0.05197096, 0.05197095, 1)
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("10_orxph")]
@@ -3206,4 +3207,4 @@ position = Vector2(699, 18)
 [node name="Hud" parent="." instance=ExtResource("12_d42jm")]
 
 [node name="SilverChest" parent="." instance=ExtResource("13_vf5xq")]
-position = Vector2(446, -666)
+position = Vector2(446, -654)

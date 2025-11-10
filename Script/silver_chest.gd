@@ -62,7 +62,7 @@ func buka_chest():
 	anim_sprite.animation = "open"
 	anim_sprite.play()
 
-	var reward = randi_range(1, 10)
+	var reward = randi_range(3, 10)
 	GameData.add_coin(reward)
 	print("Chest reward:", reward)
 
