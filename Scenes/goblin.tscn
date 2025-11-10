@@ -1475,6 +1475,4 @@ collision_layer = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
 shape = SubResource("CircleShape2D_ep384")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-
 [connection signal="body_entered" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_entered"]

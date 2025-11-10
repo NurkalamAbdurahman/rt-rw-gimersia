@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8ok85jo1p2uu"]
+[gd_scene load_steps=13 format=3 uid="uid://lk1vqq6fhqj0"]
 
 [ext_resource type="Script" uid="uid://cnw08k3snnn5k" path="res://Script/silver_chest.gd" id="1_p26g8"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_p26g8"]
 [ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="3_wx0bj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8474"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p26g8"]
 atlas = ExtResource("2_p26g8")
@@ -48,11 +50,14 @@ animations = [{
 atlas = ExtResource("2_p26g8")
 region = Rect2(135, 129, 19, 21)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wx0bj"]
-radius = 16.03122
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wx0bj"]
+size = Vector2(25.5, 28.625)
 
-[node name="Node2D" type="Node2D"]
+[node name="SilverChest" type="StaticBody2D"]
 script = ExtResource("1_p26g8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_x8474")
 
 [node name="silver_chest" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_p26g8")
@@ -70,10 +75,11 @@ position = Vector2(0, -1)
 texture = SubResource("AtlasTexture_t81yx")
 
 [node name="Area2D" type="Area2D" parent="."]
+disable_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
-shape = SubResource("CircleShape2D_wx0bj")
+position = Vector2(0, -0.6875)
+shape = SubResource("RectangleShape2D_wx0bj")
 
 [node name="Label" type="Label" parent="."]
 visible = false
