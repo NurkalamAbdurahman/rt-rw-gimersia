@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://ca6vqmqrpbb3k" path="res://Assets/Tileset/PNG/water.png" id="5_8bydp"]
 [ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="6_lxiaw"]
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="6_o8lv2"]
-[ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/pause.tscn" id="10_ekqoy"]
-[ext_resource type="PackedScene" uid="uid://lk1vqq6fhqj0" path="res://Scenes/silver_chest.tscn" id="11_o8lv2"]
+[ext_resource type="PackedScene" path="res://Scenes/pause.tscn" id="10_ekqoy"]
+[ext_resource type="PackedScene" uid="uid://c8ok85jo1p2uu" path="res://Scenes/silver_chest.tscn" id="11_o8lv2"]
 [ext_resource type="PackedScene" uid="uid://bc7u8wio8ton8" path="res://Scenes/obor.tscn" id="12_ekqoy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
