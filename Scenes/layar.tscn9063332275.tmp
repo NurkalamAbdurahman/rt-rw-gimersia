@@ -1,0 +1,181 @@
+[gd_scene load_steps=21 format=3 uid="uid://b0nwjelarhu34"]
+
+[ext_resource type="Script" uid="uid://bx0rtj6uaspgl" path="res://Scenes/layar.gd" id="1_xlm7b"]
+[ext_resource type="Script" uid="uid://co11shrtf40bb" path="res://Script/main_menu.gd" id="2_8hlce"]
+[ext_resource type="Texture2D" uid="uid://it68n36bjh5v" path="res://Assets/collecitions/ui/mainmenu_pixel.png" id="3_4r5ef"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="4_v5qp7"]
+[ext_resource type="PackedScene" uid="uid://di6o4afgl4ola" path="res://Scenes/ui/fade_transitions.tscn" id="5_diglw"]
+[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="6_rnwj4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8hlce"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4r5ef"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v5qp7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_diglw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rnwj4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixtca"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b3woo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8tguu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_upvls"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ep6r0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ehbmx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nxkc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5dxnr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3af3k"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_xlm7b")
+
+[node name="Main Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_8hlce")
+
+[node name="TextureRect" type="TextureRect" parent="Main Menu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = -61.0
+offset_right = 1532.0
+offset_bottom = 965.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.73615676, 0.6769284)
+texture = ExtResource("3_4r5ef")
+
+[node name="MarginContainer" type="MarginContainer" parent="Main Menu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = 229.0
+offset_right = 343.0
+offset_bottom = 516.0
+grow_vertical = 0
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Menu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Start" type="Button" parent="Main Menu/MarginContainer/VBoxContainer/VBoxContainer"]
+texture_filter = 1
+clip_contents = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.77788156, 0.77788156, 0.7778816, 1)
+theme_override_colors/font_focus_color = Color(0.14239773, 0.12367482, 0.13303515, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/align_to_largest_stylebox = 10
+theme_override_constants/line_spacing = 10
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8hlce")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4r5ef")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v5qp7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_diglw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rnwj4")
+text = "Start Game"
+alignment = 0
+
+[node name="Quit" type="Button" parent="Main Menu/MarginContainer/VBoxContainer/VBoxContainer"]
+texture_filter = 1
+clip_contents = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7385896, 0.7385896, 0.7385896, 1)
+theme_override_colors/font_focus_color = Color(0.14239773, 0.12367482, 0.13303515, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/align_to_largest_stylebox = 10
+theme_override_constants/line_spacing = 10
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8hlce")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4r5ef")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v5qp7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_diglw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rnwj4")
+text = "Controls"
+alignment = 0
+
+[node name="FadeTransitions" parent="Main Menu" instance=ExtResource("5_diglw")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="TextEdit" type="TextEdit" parent="Main Menu"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 121.0
+offset_right = 923.0
+offset_bottom = 315.0
+theme_override_fonts/font = ExtResource("6_rnwj4")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ixtca")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b3woo")
+theme_override_styles/read_only = SubResource("StyleBoxTexture_8tguu")
+text = "ECHOES OF THE LOST
+DUNGEON"
+
+[node name="Panel" type="Panel" parent="Main Menu"]
+layout_mode = 0
+offset_left = 1002.0
+offset_top = 570.0
+offset_right = 1042.0
+offset_bottom = 610.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_upvls")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main Menu/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Main Menu/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ep6r0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ehbmx")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_2nxkc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_5dxnr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3af3k")
+text = "Credit"
+
+[connection signal="pressed" from="Main Menu/MarginContainer/VBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
