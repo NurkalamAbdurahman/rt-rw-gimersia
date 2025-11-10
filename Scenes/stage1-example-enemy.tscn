@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://c2cpu2r87h7ul"]
+[gd_scene load_steps=30 format=4 uid="uid://c2cpu2r87h7ul"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_wt1pj"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_vf5xq"]
@@ -13,8 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="11_s4yrv"]
 [ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="12_d42jm"]
 [ext_resource type="PackedScene" uid="uid://lk1vqq6fhqj0" path="res://Scenes/silver_chest.tscn" id="13_vf5xq"]
+[ext_resource type="PackedScene" uid="uid://hcwksn5mwp0f" path="res://Scenes/gold_chest.tscn" id="14_ve7iy"]
+[ext_resource type="PackedScene" uid="uid://dg0s64uj6ywq1" path="res://Scenes/pintu_stage_1.tscn" id="15_vqnvt"]
+[ext_resource type="PackedScene" uid="uid://dkri7l8pcp7lv" path="res://Scenes/hidden_to_maze.tscn" id="16_3uqpk"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ve7iy"]
 texture = ExtResource("1_wt1pj")
 0:0/0 = 0
 1:0/0 = 0
@@ -297,7 +300,7 @@ texture = ExtResource("1_wt1pj")
 11:22/0 = 0
 12:22/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cdhhm"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vqnvt"]
 texture = ExtResource("2_vf5xq")
 0:0/0 = 0
 1:0/0 = 0
@@ -415,10 +418,10 @@ texture = ExtResource("2_vf5xq")
 3:11/0 = 0
 4:11/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8bydp"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3uqpk"]
 texture = ExtResource("3_ve7iy")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sukju"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhh4t"]
 texture = ExtResource("4_vqnvt")
 0:0/0 = 0
 1:0/0 = 0
@@ -541,7 +544,7 @@ texture = ExtResource("4_vqnvt")
 6:14/0 = 0
 7:14/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ni0n"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_db5a6"]
 texture = ExtResource("5_3uqpk")
 1:0/0 = 0
 2:0/0 = 0
@@ -1556,7 +1559,7 @@ texture = ExtResource("5_3uqpk")
 11:35/0 = 0
 12:35/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nfnd6"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhpmb"]
 texture = ExtResource("6_jhh4t")
 0:0/0 = 0
 1:0/0 = 0
@@ -2094,7 +2097,7 @@ texture = ExtResource("6_jhh4t")
 9:27/0 = 0
 10:27/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o53l6"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lxnih"]
 texture = ExtResource("7_db5a6")
 0:0/0 = 0
 1:0/0 = 0
@@ -2636,15 +2639,15 @@ texture = ExtResource("7_db5a6")
 
 [sub_resource type="TileSet" id="TileSet_fl8lc"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_ixf22")
-sources/6 = SubResource("TileSetAtlasSource_sukju")
-sources/7 = SubResource("TileSetAtlasSource_3ni0n")
-sources/8 = SubResource("TileSetAtlasSource_nfnd6")
-sources/9 = SubResource("TileSetAtlasSource_o53l6")
-sources/1 = SubResource("TileSetAtlasSource_cdhhm")
-sources/2 = SubResource("TileSetAtlasSource_8bydp")
+sources/0 = SubResource("TileSetAtlasSource_ve7iy")
+sources/6 = SubResource("TileSetAtlasSource_jhh4t")
+sources/7 = SubResource("TileSetAtlasSource_db5a6")
+sources/8 = SubResource("TileSetAtlasSource_jhpmb")
+sources/9 = SubResource("TileSetAtlasSource_lxnih")
+sources/1 = SubResource("TileSetAtlasSource_vqnvt")
+sources/2 = SubResource("TileSetAtlasSource_3uqpk")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o8lv2"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_orxph"]
 texture = ExtResource("3_ve7iy")
 0:0/0 = 0
 2:0/0 = 0
@@ -2787,7 +2790,7 @@ texture = ExtResource("3_ve7iy")
 22:5/0 = 0
 23:5/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ekqoy"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s4yrv"]
 texture = ExtResource("1_wt1pj")
 0:0/0 = 0
 1:0/0 = 0
@@ -3071,17 +3074,17 @@ texture = ExtResource("1_wt1pj")
 12:22/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_ekqoy"]
-sources/0 = SubResource("TileSetAtlasSource_o8lv2")
-sources/1 = SubResource("TileSetAtlasSource_ekqoy")
+sources/0 = SubResource("TileSetAtlasSource_orxph")
+sources/1 = SubResource("TileSetAtlasSource_s4yrv")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x6813"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d42jm"]
 texture = ExtResource("8_jhpmb")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_cdhhm"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_x6813")
+sources/0 = SubResource("TileSetAtlasSource_d42jm")
 
 [node name="Node2D" type="Node2D"]
 
@@ -3207,4 +3210,36 @@ position = Vector2(699, 18)
 [node name="Hud" parent="." instance=ExtResource("12_d42jm")]
 
 [node name="SilverChest" parent="." instance=ExtResource("13_vf5xq")]
-position = Vector2(446, -654)
+position = Vector2(440, -651)
+
+[node name="gold_chest" parent="." instance=ExtResource("14_ve7iy")]
+position = Vector2(504, -652)
+
+[node name="SilverChest2" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(402, -651)
+
+[node name="SilverChest3" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(365, -644)
+chest_id = "SceneA_Chest_2"
+
+[node name="SilverChest4" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(341, -608)
+chest_id = "SceneA_Chest_3"
+
+[node name="SilverChest5" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(346, -574)
+chest_id = "SceneA_Chest_4"
+
+[node name="SilverChest6" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(376, -549)
+chest_id = "SceneA_Chest_7"
+
+[node name="SilverChest7" parent="." instance=ExtResource("13_vf5xq")]
+position = Vector2(420, -551)
+chest_id = "SceneA_Chest_5"
+
+[node name="Pintu_stage1" parent="." instance=ExtResource("15_vqnvt")]
+position = Vector2(482, -706)
+
+[node name="HiddenToMaze" parent="." instance=ExtResource("16_3uqpk")]
+position = Vector2(528, -702)

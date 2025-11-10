@@ -140,12 +140,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8nhw"]
-radius = 60.0
+radius = 90.0
 height = 228.0
 
 [node name="Fountain" type="Area2D"]
 script = ExtResource("1_j3ial")
-coin_cost = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4x8nv")
@@ -154,7 +153,7 @@ frame_progress = 0.49332562
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 physics_interpolation_mode = 1
-position = Vector2(0, 61)
+position = Vector2(1, 59)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_d8nhw")
 
@@ -167,3 +166,6 @@ parameters/looping = true
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

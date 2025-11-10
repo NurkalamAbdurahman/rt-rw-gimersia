@@ -3211,8 +3211,7 @@ color = Color(0.051970966, 0.05197096, 0.05197095, 1)
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("10_7v1me")]
 z_index = 10
 position = Vector2(80, 72)
-scale = Vector2(0.3, 0.3)
-collision_layer = 3
+scale = Vector2(0.8, 0.8)
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)

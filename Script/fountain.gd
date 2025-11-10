@@ -1,8 +1,8 @@
 extends Area2D
 
-@export var coin_cost: int = 1
 var player_in_range = false
-@onready var ui = get_tree().root.get_node("bonus_stage/ui_coin/coins_bonus") # sesuaikan path dengan scene kamu
+@onready var ui = get_tree().root.get_node("bonus_stage/ui_coin/coins_bonus") # sesuaikan path
+@onready var sfx_trompet = get_tree().root.get_node("bonus_stage/sfx_trompet") # node AudioStreamPlayer
 
 func _ready():
 	connect("body_entered", Callable(self, "_on_body_entered"))
@@ -11,40 +11,35 @@ func _ready():
 func _on_body_entered(body):
 	if body.name == "Player":
 		player_in_range = true
-		ui.show_message("Press E to throw a coin", 1.5)
+		ui.show_message("Press E")
 
 func _on_body_exited(body):
 	if body.name == "Player":
 		player_in_range = false
-		ui.show_message("", 0.1)
+		ui.show_message("")
 
 func _process(_delta):
-	if player_in_range and Input.is_action_just_pressed("interract"): # pastikan action "interact" = E
+	if player_in_range and Input.is_action_just_pressed("interract"): # pastikan "interact" = E
 		_throw_coin()
 
 func _throw_coin():
-	# Cek apakah player punya cukup koin untuk dikurangi
-	if GameData.coins < coin_cost:
-		ui.show_fountain_message("Not enough coins to throw!", 2.0)
+	if GameData.coins <= 0:
+		ui.show_fountain_message("You don't have any coins!", 2.0)
 		return
 
-	# Kurangi coin sesuai coin_cost
+	# Gunakan semua koin yang dimiliki player
+	var coin_cost = GameData.coins
 	GameData.coins -= coin_cost
 	GameData.emit_signal("stats_updated")
 
-	# Random reward
-	var roll = randf()
-	var message = ""
+	# Hasil hanya zonk
+	ui.show_fountain_message("ZONK! You threw away all your coins...", 3.0)
 
-	if roll < 0.5:
-		message = "ZONK! Nothing happened..."
-	elif roll < 0.8:
-		var bonus = randi_range(1, 100)
-		GameData.add_coin(bonus)
-		message = "Lucky! You found " + str(bonus) + " coins!"
-	else:
-		GameData.add_potion(1)
-		message = "You received a potion!"
+	# Karena koin jadi 0, tampilkan event Tahun Baru
+	if GameData.coins <= 0:
+		_show_new_year_event()
 
-	# Tampilkan pesan di UI
-	ui.show_fountain_message(message, 3.0)
+func _show_new_year_event():
+	ui.show_fountain_message("🎉 SELAMAT TAHUN BARU! 🎺", 4.0)
+	if sfx_trompet:
+		sfx_trompet.play()
