@@ -140,7 +140,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8nhw"]
-radius = 60.0
+radius = 90.0
 height = 228.0
 
 [node name="Fountain" type="Area2D"]
@@ -166,3 +166,6 @@ parameters/looping = true
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
