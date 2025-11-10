@@ -23,9 +23,11 @@ var right_raycast: RayCast2D
 @export var wall_check_distance = 30.0
 @export var stuck_threshold = 5.0  # Jika gerak kurang dari ini, dianggap stuck
 
+@export var enemy_id: String = "SceneA_Goblin_1"
+
 @export var max_health = 5
 var is_dead = false
-var skyes = GameData.silver_keys
+var skyes = 1
 
 # State machine
 enum State { IDLE, PATROL, CHASE, ATTACK, HURT }
@@ -49,6 +51,12 @@ func _ready():
 	patrol_center = global_position
 	last_position = global_position
 	
+	if GameData.is_enemy_killed(enemy_id):
+		# Jika statusnya TRUE (sudah mati), hapus musuh
+		print("Enemy ", enemy_id, " sudah dikalahkan sebelumnya. Menghapus...")
+		queue_free()
+		return # Keluar dari _ready agar tidak ada setup yang berjalan
+		
 	# Setup raycasts untuk deteksi tembok
 	setup_raycasts()
 	
@@ -399,6 +407,9 @@ func die():
 	velocity = Vector2.ZERO
 	current_state = State.HURT
 	
+	# --- SIMPAN STATUS PERSISTENCE SAAT MATI ---
+	GameData.set_enemy_killed(enemy_id)
+	
 	print("Goblin died!")
 	
 	try_drop_item() 
@@ -434,7 +445,6 @@ func try_drop_item():
 	print("Chest reward:", reward)
 	var drop_chance = 1  # 50% drop rate
 	if randf() <= drop_chance:
-		skyes += 1
 		GameData.add_silver_key(skyes)
 		print("Goblin dropped a Silver Key!")
 

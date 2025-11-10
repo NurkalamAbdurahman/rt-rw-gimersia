@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="RTRw_Gimersia"
-run/main_scene="uid://dyk5flw74fxys"
+run/main_scene="uid://b0nwjelarhu34"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameData="*res://Script/game_data.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [input]
 

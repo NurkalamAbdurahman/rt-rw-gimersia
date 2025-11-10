@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dyk5flw74fxys"]
+[gd_scene load_steps=20 format=3 uid="uid://dyk5flw74fxys"]
 
 [ext_resource type="Script" uid="uid://co11shrtf40bb" path="res://Script/main_menu.gd" id="1_4facs"]
-[ext_resource type="Texture2D" uid="uid://dv8muw0qwxgvb" path="res://Assets/Tileset/PNG/decorative_cracks_coasts_animation.png" id="2_h3tiw"]
+[ext_resource type="Texture2D" uid="uid://it68n36bjh5v" path="res://Assets/collecitions/ui/mainmenu_pixel.png" id="2_blk0r"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="4_blk0r"]
 [ext_resource type="PackedScene" uid="uid://di6o4afgl4ola" path="res://Scenes/ui/fade_transitions.tscn" id="4_h3tiw"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="4_o060j"]
@@ -15,6 +15,24 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v2r0b"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ibf7x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0yq4x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_25jfe"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_13upj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_13upj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lyggi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hs1yu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k24ts"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wv5ul"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s2wli"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -31,26 +49,24 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -33.0
+offset_top = -36.0
+offset_right = 414.0
+offset_bottom = 382.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_h3tiw")
-
-[node name="ColorRect" type="ColorRect" parent="TextureRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.7490196)
+scale = Vector2(0.73615676, 0.6769284)
+texture = ExtResource("2_blk0r")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -287.0
-offset_right = 381.0
+offset_left = -40.0
+offset_top = -381.0
+offset_right = 341.0
+offset_bottom = -94.0
 grow_vertical = 0
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_bottom = 100
@@ -60,20 +76,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 50
-
-[node name="RTRw Dungeons" type="Label" parent="MarginContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8346143, 0.8346143, 0.8346143, 1)
-theme_override_colors/font_shadow_color = Color(0.83137256, 0.6862745, 0.21568628, 1)
-theme_override_constants/line_spacing = 20
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_fonts/font = ExtResource("4_o060j")
-theme_override_font_sizes/font_size = 42
-text = "Echoes of the Lost
-Dungeon"
-vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -86,15 +88,15 @@ texture_filter = 1
 clip_contents = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.77788156, 0.77788156, 0.7778816, 1)
-theme_override_colors/font_focus_color = Color(0.83137256, 0.6862745, 0.21568628, 1)
-theme_override_colors/font_pressed_color = Color(0.83137256, 0.6862745, 0.21568628, 1)
-theme_override_colors/font_hover_color = Color(0.83137256, 0.6862745, 0.21568628, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.83137256, 0.6862745, 0.21568628, 1)
+theme_override_colors/font_focus_color = Color(0.14239773, 0.12367482, 0.13303515, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
 theme_override_constants/outline_size = 4
 theme_override_constants/align_to_largest_stylebox = 10
 theme_override_constants/line_spacing = 10
 theme_override_fonts/font = ExtResource("4_blk0r")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxEmpty_blk0r")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_o060j")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_8774k")
@@ -108,21 +110,21 @@ texture_filter = 1
 clip_contents = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7385896, 0.7385896, 0.7385896, 1)
-theme_override_colors/font_focus_color = Color(0.83137256, 0.6862745, 0.21568628, 1)
-theme_override_colors/font_pressed_color = Color(0.83137256, 0.6862745, 0.21568628, 1)
-theme_override_colors/font_hover_color = Color(0.83137256, 0.6862745, 0.21568628, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.83137256, 0.6862745, 0.21568628, 1)
+theme_override_colors/font_focus_color = Color(0.14239773, 0.12367482, 0.13303515, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
 theme_override_constants/outline_size = 4
 theme_override_constants/align_to_largest_stylebox = 10
 theme_override_constants/line_spacing = 10
 theme_override_fonts/font = ExtResource("4_blk0r")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxEmpty_blk0r")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_o060j")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_8774k")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_v2r0b")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ibf7x")
-text = "Quit"
+text = "Controls"
 alignment = 0
 
 [node name="FadeTransitions" parent="." instance=ExtResource("4_h3tiw")]
@@ -132,3 +134,44 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 121.0
+offset_right = 923.0
+offset_bottom = 315.0
+theme_override_fonts/font = ExtResource("4_o060j")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0yq4x")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_25jfe")
+theme_override_styles/read_only = SubResource("StyleBoxTexture_13upj")
+text = "ECHOES OF THE LOST
+DUNGEON"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 1018.0
+offset_top = 578.0
+offset_right = 1058.0
+offset_bottom = 618.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_13upj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_fonts/font = ExtResource("4_blk0r")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lyggi")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hs1yu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_k24ts")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wv5ul")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_s2wli")
+text = "Credit"

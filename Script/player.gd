@@ -3,12 +3,16 @@ extends CharacterBody2D
 const SPEED = 130.0
 const ATTACK_DURATION = 0.25
 const ATTACK_OFFSET = 25.0
+@onready var map_editor_ui: Control = $MapEditorLayer/MapEditorUI
 
 # --- ONREADY VARIAN ---
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sfx_run: AudioStreamPlayer2D = $SFX_Run_Stone
 @onready var attack_area: Area2D = $AttackArea2D
 @onready var attack_shape: CollisionShape2D = $AttackArea2D/CollisionShape2D
+@onready var sfx_attack: AudioStreamPlayer2D = $SFX_Attack
+@onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Attacked
+@onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
 
 # --- VARIABEL STATE ---
 var invincible := false
@@ -118,11 +122,13 @@ func attack():
 	sfx_run.stop()
 	
 	print("🗡️ Player attacking!")
+	sfx_attack.play()  # 🔊 mainkan suara serangan di sini
 	
 	# Atur Hitbox
 	var attack_position = last_direction * ATTACK_OFFSET
 	attack_shape.position = attack_position
 	attack_shape.disabled = false 
+
 	
 	# Mainkan Animasi
 	var attack_anim_name = "attack_%s" % current_anim_direction
@@ -162,10 +168,16 @@ func take_damage(amount: int = 1):
 	
 	invincible = true
 	
+	map_editor_ui.close()
+	
 	var new_health = GameData.health - amount
 	GameData.set_health(new_health)
 	print("Player health:", GameData.health)
 
+	# 🔊 Mainkan suara ketika player kena serangan
+	if sfx_attacked and not sfx_attacked.playing:
+		sfx_attacked.play()
+	
 	if has_node("AnimatedSprite2D"):
 		$AnimatedSprite2D.play("hurt")
 		flash_red()
@@ -177,6 +189,10 @@ func take_damage(amount: int = 1):
 	if new_health <= 1:
 		var death_anim_name = "death_%s" % current_anim_direction
 		$AnimatedSprite2D.play(death_anim_name)
+
+		# 🔊 Mainkan suara kematian di sini
+		if sfx_death:
+			sfx_death.play()
 		
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -186,9 +202,10 @@ func take_damage(amount: int = 1):
 		Engine.time_scale = 1.0
 		
 		get_tree().reload_current_scene()
-		GameData.health = 7
+		GameData.health = 6
 		
 		return
+
 
 func flash_red():
 	$AnimatedSprite2D.modulate = Color(1, 0.4, 0.4)
@@ -198,18 +215,6 @@ func flash_red():
 
 var map_scene_instance = null
 
-func _input(event):
-	if event.is_action_pressed("open_map"):
-		var map_scene = load("res://Scenes/map_editor.tscn").instantiate()
-		get_tree().root.add_child(map_scene)
-
-		if map_scene is Control:
-			map_scene.set_anchors_preset(Control.PRESET_CENTER)
-			map_scene.scale = Vector2(0.8, 0.8)
-			map_scene.position = Vector2(0, 0)
-
-		map_scene.z_index = 999
-		map_scene.owner = null
 
 
 func _on_Button_Map_pressed() -> void:
