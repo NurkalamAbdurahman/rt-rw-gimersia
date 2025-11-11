@@ -28,9 +28,6 @@ var current_anim_direction: String = "down"
 
 # --- FUNGSI INIT ---
 func _ready() -> void:
-	for torch in get_tree().get_nodes_in_group("torches"):
-		torch.connect("torch_picked_up", Callable(self, "_on_torch_picked_up"))
-		
 	attack_shape.disabled = true
 	
 	# PENTING: Tambahkan player ke group "Player"
@@ -41,14 +38,6 @@ func _ready() -> void:
 		print("✅ AttackArea2D found!")
 	else:
 		print("❌ AttackArea2D NOT FOUND!")
-
-func _on_torch_picked_up(torch_node):
-	if not has_torch:
-		held_torch = torch_node
-		has_torch = true
-		held_torch.get_parent().remove_child(held_torch)
-		add_child(held_torch)
-		held_torch.position = Vector2(0, 10)
 
 # --- FUNGSI FISIKA & INPUT ---
 func _physics_process(delta):
@@ -212,6 +201,8 @@ func take_damage(amount: int = 1):
 		await $AnimatedSprite2D.animation_finished
 		
 		Engine.time_scale = 1.0
+		
+		GameData.set_death(true)
 		
 		get_tree().reload_current_scene()
 		GameData.health = 6

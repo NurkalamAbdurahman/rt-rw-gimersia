@@ -9,8 +9,21 @@ extends Node2D
 @onready var point_light_2d: PointLight2D = $OborHidup/PointLight2D
 
 var player_in_area = false
+@export var torch_id: String = "Torch_1" # Ganti ini di setiap instance chest!
 
 func _ready():
+	# Cek apakah obor sudah dinyalakan
+	if GameData.is_torch_lighted(torch_id):
+		# Jika TRUE (Sudah dinyalakan sebelumnya)
+		print("Obor ", torch_id, " sudah dinyalakan sebelumnya.")
+		obor_mati.visible = false
+		obor_hidup.visible = true # Tampilkan yang menyala
+		obor_hidup.play("obor_nyala") # Putar animasi menyala (Opsional: Tambahkan ini)
+		sfx_torch_burning.play() # Putar suara (Opsional: Tambahkan ini)
+		label.visible = false
+		return # Keluar dari _ready, biarkan obor menyala
+		
+	# Jika FALSE (Belum dinyalakan)
 	obor_mati.visible = true
 	obor_hidup.visible = false
 	label.visible = false
@@ -21,6 +34,8 @@ func _process(_delta):
 		nyalakan_obor()
 
 func nyalakan_obor():
+	GameData.set_torch_lighted(torch_id)
+	print(GameData.torch_states)
 	obor_mati.visible = false
 	obor_hidup.visible = true
 	obor_hidup.play("obor_nyala")

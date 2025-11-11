@@ -14,8 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://lk1vqq6fhqj0" path="res://Scenes/silver_chest.tscn" id="11_jcn7v"]
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="12_s45d0"]
 [ext_resource type="PackedScene" uid="uid://hcwksn5mwp0f" path="res://Scenes/gold_chest.tscn" id="13_lmh3y"]
-[ext_resource type="PackedScene" uid="uid://d3upyn87bfdo0" path="res://Scenes/pintu_stage_1.tscn" id="14_gpka1"]
-[ext_resource type="PackedScene" uid="uid://djubpvo76vscy" path="res://Scenes/hidden_to_maze.tscn" id="15_juu8l"]
+[ext_resource type="PackedScene" uid="uid://dg0s64uj6ywq1" path="res://Scenes/pintu_stage_1.tscn" id="14_gpka1"]
+[ext_resource type="PackedScene" uid="uid://dkri7l8pcp7lv" path="res://Scenes/hidden_to_maze.tscn" id="15_juu8l"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="16_oof0y"]
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="17_ihc3j"]
 [ext_resource type="Script" uid="uid://dolu06d35tnho" path="res://Script/tutorial_welcome.gd" id="18_b8g7p"]
@@ -3171,75 +3171,98 @@ position = Vector2(217, 46)
 
 [node name="Obor3" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(340, 44)
+torch_id = "Torch_4"
 
 [node name="Obor4" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(492, 44)
+torch_id = "Torch_5"
 
 [node name="Obor5" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(691, -51)
+torch_id = "Torch_6"
 
 [node name="Obor6" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(894, -51)
+torch_id = "Torch_7"
 
 [node name="Obor7" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(786, -243)
+torch_id = "Torch_8"
 
 [node name="Obor8" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(518, -387)
+torch_id = "Torch_9"
 
 [node name="Obor9" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(305, -387)
+torch_id = "Torch_10"
 
 [node name="Obor10" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(799, -403)
+torch_id = "Torch_11"
 
 [node name="Obor11" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(767, -835)
+torch_id = "Torch_12"
 
 [node name="Obor12" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(338, -707)
+torch_id = "Torch_13"
 
 [node name="Obor13" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(581, -707)
+torch_id = "Torch_14"
 
 [node name="Obor14" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(447, -707)
+torch_id = "Torch_15"
 
 [node name="Obor15" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(1101, -915)
+torch_id = "Torch_16"
 
 [node name="Obor16" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(1284, -915)
+torch_id = "Torch_17"
 
 [node name="Obor17" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(1315, -243)
+torch_id = "Torch_18"
 
 [node name="Obor18" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(1215, -19)
+torch_id = "Torch_19"
 
 [node name="Obor19" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(1423, -19)
+torch_id = "Torch_20"
 
 [node name="Obor20" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(1652, -595)
+torch_id = "Torch_21"
 
 [node name="Obor21" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(1817, -836)
+torch_id = "Torch_22"
 
 [node name="Obor22" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(1954, -675)
+torch_id = "Torch_23"
 
 [node name="Obor23" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(2094, -403)
+torch_id = "Torch_24"
 
 [node name="Obor24" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(2385, -499)
+torch_id = "Torch_25"
 
 [node name="Obor25" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(2162, -499)
+torch_id = "Torch_26"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.05197101, 0.051970944, 0.05197095, 1)
+color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
 position = Vector2(389.99997, -692.00006)
@@ -3268,24 +3291,31 @@ position = Vector2(1174, -589)
 
 [node name="Obor" parent="." instance=ExtResource("10_xb33v")]
 position = Vector2(1145, -594)
+torch_id = "Torch_2"
 
 [node name="Obor2" parent="." instance=ExtResource("10_xb33v")]
 position = Vector2(1203, -595)
+torch_id = "Torch_3"
 
 [node name="Goblin" parent="." instance=ExtResource("16_oof0y")]
 position = Vector2(770, -738)
 
 [node name="Goblin2" parent="." instance=ExtResource("16_oof0y")]
 position = Vector2(1234, 46)
+enemy_id = "SceneA_Goblin_2"
 
 [node name="Goblin3" parent="." instance=ExtResource("16_oof0y")]
 position = Vector2(2300, -393)
+enemy_id = "SceneA_Goblin_3"
 
 [node name="Goblin4" parent="." instance=ExtResource("16_oof0y")]
 position = Vector2(316, -196)
+enemy_id = "SceneA_Goblin_4"
 
 [node name="Goblin5" parent="." instance=ExtResource("17_ihc3j")]
 position = Vector2(1195, -841)
+enemy_id = "SceneA_Goblin_5"
+max_health = 7
 
 [node name="tutorial_welcome" type="Area2D" parent="."]
 script = ExtResource("18_b8g7p")
@@ -3343,7 +3373,7 @@ shape = SubResource("RectangleShape2D_bugoh")
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
 z_index = 10
-position = Vector2(66, 50)
+position = Vector2(67, 69)
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)

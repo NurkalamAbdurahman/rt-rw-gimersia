@@ -111,7 +111,7 @@ func _input(event: InputEvent) -> void:
 			_move_confirm(1)
 
 		# Enter
-		elif event.is_action_pressed("ui_accept"):
+		elif event.is_action_pressed("resume"):
 			confirm_buttons[confirm_index].emit_signal("pressed")
 
 		return
@@ -124,7 +124,7 @@ func _input(event: InputEvent) -> void:
 		elif event.is_action_pressed("menu_down"):
 			_move_selection(1)
 
-		elif event.is_action_pressed("ui_accept"):
+		elif event.is_action_pressed("resume"):
 			buttons[selected_index].emit_signal("pressed")
 
 

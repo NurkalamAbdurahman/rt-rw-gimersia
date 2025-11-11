@@ -12,8 +12,10 @@ var pity: int = 0
 var max_pity: int = 3
 var potion: int = 0
 var chest_states = {}
+var torch_states = {}
 var enemy_states = {}
 var next_spawn_location: String = ""
+var has_dead: bool = false
 
 func set_enemy_killed(enemy_id: String):
 	enemy_states[enemy_id] = true
@@ -26,10 +28,17 @@ func is_enemy_killed(enemy_id: String) -> bool:
 func set_chest_opened(chest_id: String):
 	chest_states[chest_id] = true
 	print("STATUS PERSISTED: Chest ", chest_id, " sudah dibuka.")
-
 # Fungsi untuk mengecek apakah chest sudah dibuka sebelumnya
 func is_chest_opened(chest_id: String) -> bool:
 	return chest_states.get(chest_id, false)
+	
+func set_torch_lighted(torch_id: String):
+	torch_states[torch_id] = true
+	print("STATUS PERSISTED: Torch ", torch_id, " sudah dinyalakan.")
+
+func is_torch_lighted(torch_id: String) -> bool:
+	return torch_states.get(torch_id, false)
+
 
 func set_health(value: int):
 	health = clamp(value, 0, 100)
@@ -67,3 +76,6 @@ func add_pity(amount: int) :
 	pity += amount
 	print(pity)
 	emit_signal("stats_updated")
+
+func set_death(bool):
+	has_dead = true

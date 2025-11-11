@@ -97,25 +97,23 @@ radius = 14.3178215
 [sub_resource type="LabelSettings" id="LabelSettings_vccmd"]
 font = ExtResource("4_vccmd")
 
-[node name="Obor" type="Node2D"]
-
-[node name="Obor3" type="Node2D" parent="."]
+[node name="Obor3" type="Node2D"]
 position = Vector2(2, 2)
 script = ExtResource("1_edvta")
 
-[node name="OborMati" type="Sprite2D" parent="Obor3"]
+[node name="OborMati" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_vccmd")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 32)
 
-[node name="OborHidup" type="AnimatedSprite2D" parent="Obor3"]
+[node name="OborHidup" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(-1, -8)
 sprite_frames = SubResource("SpriteFrames_5wmu6")
 animation = &"obor_nyala"
 frame_progress = 0.96365404
 
-[node name="PointLight2D" type="PointLight2D" parent="Obor3/OborHidup"]
+[node name="PointLight2D" type="PointLight2D" parent="OborHidup"]
 z_index = 3
 material = SubResource("ShaderMaterial_edvta")
 position = Vector2(-1, -1)
@@ -128,14 +126,14 @@ texture = SubResource("GradientTexture2D_gl8ki")
 offset = Vector2(0, 4)
 texture_scale = 2.73
 
-[node name="Area2D" type="Area2D" parent="Obor3"]
+[node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-2, -2)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obor3/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_k2m5n")
 debug_color = Color(0.53403425, 0.4183036, 0.98430794, 0.41960785)
 
-[node name="Label" type="Label" parent="Obor3"]
+[node name="Label" type="Label" parent="."]
 texture_filter = 1
 offset_left = -40.0
 offset_top = -27.0
@@ -146,16 +144,18 @@ label_settings = SubResource("LabelSettings_vccmd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SFX_TorchOn" type="AudioStreamPlayer2D" parent="Obor3"]
+[node name="SFX_TorchOn" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_gl8ki")
 volume_db = 6.058
 pitch_scale = 0.7
 
-[node name="SFX_TorchBurning" type="AudioStreamPlayer2D" parent="Obor3"]
+[node name="SFX_TorchBurning" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_osaon")
 volume_db = 20.194
 max_distance = 64.0
 parameters/looping = true
 
-[connection signal="body_entered" from="Obor3/Area2D" to="Obor3" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Obor3/Area2D" to="Obor3" method="_on_area_2d_body_exited"]
+[node name="Obor" type="Node2D" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
