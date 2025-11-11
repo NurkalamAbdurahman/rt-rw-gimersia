@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 # ====================== NODE REFERENCES ======================
 @onready var start_game: Button = $MarginContainer/VBoxContainer/VBoxContainer/Start

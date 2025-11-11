@@ -20,6 +20,8 @@ var invincible_time := 0.4
 var has_torch = false
 var held_torch = null
 
+var is_locked: bool = false
+
 var last_direction: Vector2 = Vector2.DOWN
 var is_attacking: bool = false
 var current_anim_direction: String = "down" 
@@ -63,6 +65,10 @@ func _physics_process(delta):
 	
 	var input_vector = Vector2.ZERO
 	
+	if is_locked:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
 	
 	input_vector.x = Input.get_axis("left", "right")
 	input_vector.y = Input.get_axis("up", "down")
@@ -98,6 +104,12 @@ func _physics_process(delta):
 	else:
 		if sfx_run.playing:
 			sfx_run.stop()
+
+func lock_movement():
+	is_locked = true
+	
+func unlock_movement():
+	is_locked = false
 
 # --- FUNGSI ANIMASI ---
 func update_animation(input_vector: Vector2):

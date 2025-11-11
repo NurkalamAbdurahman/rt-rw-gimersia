@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dawyh7xl0svwt"]
+[gd_scene load_steps=8 format=3 uid="uid://dawyh7xl0svwt"]
 
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
 [ext_resource type="PackedScene" uid="uid://dcw7aevagshe5" path="res://Scenes/ui/Silver_Key.tscn" id="4_0jl3m"]
 [ext_resource type="PackedScene" uid="uid://cfbgos7kse1lm" path="res://Scenes/ui/Golden_Key.tscn" id="4_lskfp"]
-[ext_resource type="PackedScene" uid="uid://1vnkas3s3dt3" path="res://Scenes/ui/skull_Key.tscn" id="5_so6r4"]
+[ext_resource type="PackedScene" path="res://Scenes/ui/skull_Key.tscn" id="5_so6r4"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="6_1usb2"]
 [ext_resource type="PackedScene" uid="uid://bm3ddrutfeyyp" path="res://Scenes/ui/Health.tscn" id="7_0jl3m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0jl3m"]
+font = ExtResource("6_1usb2")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="Hud" type="CanvasLayer"]
 
@@ -58,3 +64,13 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="."]
+show_behind_parent = true
+z_index = 12
+offset_left = 374.0
+offset_top = 117.0
+offset_right = 808.0
+offset_bottom = 191.0
+label_settings = SubResource("LabelSettings_0jl3m")
+horizontal_alignment = 1

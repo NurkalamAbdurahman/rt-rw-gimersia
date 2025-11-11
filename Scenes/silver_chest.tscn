@@ -91,9 +91,9 @@ shape = SubResource("RectangleShape2D_wx0bj")
 [node name="Label" type="Label" parent="."]
 z_index = 12
 offset_left = -35.0
-offset_top = -27.0
+offset_top = -22.0
 offset_right = 38.0
-offset_bottom = -15.0
+offset_bottom = -10.0
 theme_override_font_sizes/font_size = 8
 text = "Press [e] to open"
 label_settings = SubResource("LabelSettings_b067n")
