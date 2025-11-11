@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cc42d5pig7030"]
 
-[ext_resource type="Script" uid="uid://blk5mpmc1i16x" path="res://Script/shop.gd" id="1_ovj2j"]
+[ext_resource type="Script" path="res://Script/shop.gd" id="1_ovj2j"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_ovj2j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jf40h"]
@@ -59,10 +59,14 @@ theme_override_constants/separation = 5
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_ovj2j")
+theme_override_font_sizes/font_size = 24
 text = "Buy Potion 10G"
 
 [node name="close_button" type="Button" parent="Control/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_ovj2j")
+theme_override_font_sizes/font_size = 24
 text = "Close"
