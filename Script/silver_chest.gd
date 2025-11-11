@@ -6,12 +6,23 @@ extends Node2D
 @onready var area: Area2D = $Area2D
 @onready var label: Label = $Label
 @onready var sfx_chest_open: AudioStreamPlayer2D = $SFX_ChestOpen
+@export var chest_id: String = "SceneA_Chest_1" # Ganti ini di setiap instance chest!
 
 var player_in_area = false
 var chest_opened = false
 var pityadd = 1
 
+# Chest.gd
+
 func _ready():
+	# --- PERIKSA PERSISTENCE DI _READY ---
+	if GameData.is_chest_opened(chest_id):
+		# Jika statusnya TRUE (sudah dibuka)
+		print("Chest ", chest_id, " sudah dibuka sebelumnya. Menghapus...")
+		queue_free() # Langsung hapus chest dari scene
+		return # Keluar dari _ready
+		
+	# Jika statusnya FALSE (belum dibuka), inisialisasi normal:
 	tertutup.visible = true
 	terbuka.visible = false
 	anim_sprite.visible = false
@@ -23,6 +34,8 @@ func _process(delta):
 	if player_in_area and not chest_opened:
 		if Input.is_action_just_pressed("e"):
 			cek_buka_chest()
+			
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not chest_opened:
@@ -55,6 +68,9 @@ func buka_chest():
 	label.visible = false
 	tertutup.visible = false
 	anim_sprite.visible = true
+	
+	# --- SIMPAN STATUS PERSISTENCE SAAT DIBUKA ---
+	GameData.set_chest_opened(chest_id)
 	
 	# 🔊 Sound effect
 	sfx_chest_open.play()

@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="21_23c0y"]
 [ext_resource type="AudioStream" uid="uid://daunkt4uuu71f" path="res://Assets/Audio/water_splash.ogg" id="21_b8a5a"]
 [ext_resource type="AudioStream" uid="uid://bwq6s4vkna3gr" path="res://Assets/Tileset/asset_bonus_stage/SOUND/sfx_trompet.mp3" id="22_2vkx8"]
-[ext_resource type="PackedScene" path="res://Scenes/pintu_balik.tscn" id="23_ay0bi"]
+[ext_resource type="PackedScene" uid="uid://deme7515b5q7k" path="res://Scenes/pintu_balik.tscn" id="23_ay0bi"]
 [ext_resource type="PackedScene" uid="uid://cc42d5pig7030" path="res://Scenes/ui/shop.tscn" id="23_tlp4x"]
 [ext_resource type="PackedScene" uid="uid://csfl8xj1ahryf" path="res://Scenes/confirm_popup.tscn" id="24_tlp4x"]
 
@@ -4261,7 +4261,7 @@ position = Vector2(469, 83)
 
 [node name="Player" parent="." groups=["Player", "player"] instance=ExtResource("16_f0ka1")]
 z_index = 10
-position = Vector2(361, 105)
+position = Vector2(469, 91)
 scale = Vector2(0.8, 0.8)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

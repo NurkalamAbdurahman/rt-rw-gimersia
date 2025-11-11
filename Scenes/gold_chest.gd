@@ -6,11 +6,19 @@ extends Node2D
 @onready var area: Area2D = $Area2D
 @onready var label: Label = $Label
 @onready var sfx_chest_open: AudioStreamPlayer2D = $SFX_ChestOpen
+@export var chest_id: String = "SceneAG_Chest_1" # Ganti ini di setiap instance chest!
 
 var player_in_area = false
 var chest_opened = false
+var skullkey = 1
 
 func _ready():
+	if GameData.is_chest_opened(chest_id):
+		# Jika statusnya TRUE (sudah dibuka)
+		print("Chest ", chest_id, " sudah dibuka sebelumnya. Menghapus...")
+		queue_free() # Langsung hapus chest dari scene
+		return # Keluar dari _ready
+		
 	tertutup.visible = true
 	terbuka.visible = false
 	anim_sprite.visible = false
@@ -55,6 +63,9 @@ func buka_chest():
 	tertutup.visible = false
 	anim_sprite.visible = true
 	
+	GameData.set_chest_opened(chest_id)
+
+	
 	# 🔊 Sound effect
 	sfx_chest_open.play()
 
@@ -64,6 +75,7 @@ func buka_chest():
 
 	var reward = randi_range(15, 25)
 	GameData.add_coin(reward)
+	GameData.add_skull_key(skullkey)
 	print("Chest reward:", reward)
 
 	await anim_sprite.animation_finished

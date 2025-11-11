@@ -81,7 +81,7 @@ func _on_quit_pressed():
 
 func _on_yes_pressed():
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://Scenes/ui/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/FIX/layar_MaenMenu.tscn")
 
 func _on_no_pressed():
 	confirm_panel.visible = false

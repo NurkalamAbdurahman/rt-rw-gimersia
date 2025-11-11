@@ -1,7 +1,6 @@
 extends Control
 
-@onready var start_game: Button = $MarginContainer/VBoxContainer/Start
-
+@onready var start_game: Button = $MarginContainer/VBoxContainer/VBoxContainer/Start
 func _ready():
 	start_game.pressed.connect(_on_start_pressed)
 
@@ -14,4 +13,4 @@ func _on_start_pressed():
 
 	# Jalankan fade-out dulu, baru pindah ke stage1ss
 	await fade_scene.fade_out()
-	get_tree().change_scene_to_file("res://Scenes/STAGE_1.tscn")
+	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_1.tscn")

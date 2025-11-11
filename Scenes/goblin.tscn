@@ -1,4 +1,4 @@
-[gd_scene load_steps=197 format=3 uid="uid://bylus0hm52lh"]
+[gd_scene load_steps=201 format=3 uid="uid://bylus0hm52lh"]
 
 [ext_resource type="Script" uid="uid://c5uevy3qpwr2v" path="res://Script/goblin.gd" id="1_7w5cp"]
 [ext_resource type="Texture2D" uid="uid://dh01d7k1ddf5j" path="res://Assets/Goblin/PNG/Orc1/With_shadow/orc1_idle_with_shadow.png" id="1_xm08b"]
@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://b4u48muwttvy" path="res://Assets/Goblin/PNG/Orc1/With_shadow/orc1_run_with_shadow.png" id="3_gbw3e"]
 [ext_resource type="Texture2D" uid="uid://b26ue70l2ppxi" path="res://Assets/Goblin/PNG/Orc1/With_shadow/orc1_run_attack_front_with_shadow.png" id="5_ajbjq"]
 [ext_resource type="Texture2D" uid="uid://c8rhuhdtocc5a" path="res://Assets/Goblin/PNG/Orc1/With_shadow/orc1_walk_attack_front _with_shadow.png" id="7_p60ou"]
+[ext_resource type="AudioStream" uid="uid://d0yk8tj8l4ri6" path="res://Assets/Audio/goblin_attack.mp3" id="9_wpiyv"]
+[ext_resource type="AudioStream" uid="uid://csmmxmgohkpoa" path="res://Assets/Audio/goblin_attacked.mp3" id="10_m25tm"]
+[ext_resource type="AudioStream" uid="uid://geybl7n2dcj2" path="res://Assets/Audio/goblin_death.mp3" id="11_hfpgn"]
+[ext_resource type="AudioStream" uid="uid://ctum02lfqmdi0" path="res://Assets/Audio/goblin_walk.mp3" id="12_deoj1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbw3e"]
 size = Vector2(23, 34)
@@ -1460,7 +1464,6 @@ shape = SubResource("RectangleShape2D_gbw3e")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qgv2b")
 animation = &"hurt_down"
-frame_progress = 0.1106149
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -1474,5 +1477,21 @@ collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
 shape = SubResource("CircleShape2D_ep384")
+
+[node name="SFX_Attack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_wpiyv")
+volume_db = 10.097
+
+[node name="SFX_Attacked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_m25tm")
+volume_db = 10.098
+
+[node name="SFX_Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_hfpgn")
+volume_db = 12.116
+
+[node name="SFX_Walk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_deoj1")
+volume_db = 9.087
 
 [connection signal="body_entered" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_entered"]

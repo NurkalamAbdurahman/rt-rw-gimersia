@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cnw08k3snnn5k" path="res://Script/silver_chest.gd" id="1_p26g8"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_p26g8"]
-[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_wx0bj"]
-[ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="4_x8474"]
+[ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="3_wx0bj"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_x8474"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8474"]
 size = Vector2(18, 14)
@@ -56,7 +56,8 @@ region = Rect2(135, 129, 19, 21)
 size = Vector2(25.5, 28.625)
 
 [sub_resource type="LabelSettings" id="LabelSettings_b067n"]
-font = ExtResource("3_wx0bj")
+font = ExtResource("3_x8474")
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="SilverChest" type="StaticBody2D"]
 script = ExtResource("1_p26g8")
@@ -88,15 +89,17 @@ position = Vector2(0, -0.6875)
 shape = SubResource("RectangleShape2D_wx0bj")
 
 [node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -53.0
-offset_right = 18.0
-offset_bottom = 12.0
-text = "Press 'e' to open"
+z_index = 12
+offset_left = -35.0
+offset_top = -27.0
+offset_right = 38.0
+offset_bottom = -15.0
+theme_override_font_sizes/font_size = 8
+text = "Press [e] to open"
 label_settings = SubResource("LabelSettings_b067n")
 
 [node name="SFX_ChestOpen" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_x8474")
+stream = ExtResource("3_wx0bj")
 volume_db = 11.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
