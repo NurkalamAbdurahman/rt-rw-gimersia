@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c6kw6qafwkcs"]
+[gd_scene load_steps=12 format=3 uid="uid://c6kw6qafwkcs"]
 
 [ext_resource type="Texture2D" uid="uid://b7fbtc3hbq8rl" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/merchant_1/Idle.png" id="1_41cyd"]
 [ext_resource type="Script" uid="uid://bubwplgm24qpt" path="res://Script/potion_seller.gd" id="1_d3sby"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_mnpmp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d3sby"]
 atlas = ExtResource("1_41cyd")
@@ -35,7 +36,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ycit1")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 4.0
 }]
 
@@ -43,13 +44,25 @@ animations = [{
 radius = 19.0
 height = 64.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_3mkl6"]
+font = ExtResource("3_mnpmp")
+font_size = 32
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mnpmp"]
+font = ExtResource("3_mnpmp")
+shadow_color = Color(0, 0, 0, 0.99607843)
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_d3sby")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_fx8p8")
-frame_progress = 0.80177695
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.34407806
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -58,8 +71,17 @@ position = Vector2(0, 28)
 shape = SubResource("CapsuleShape2D_7aigl")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 12.0
-offset_top = -29.0
-offset_right = 89.0
-offset_bottom = -6.0
-text = "npc seller"
+z_index = 1
+offset_left = 32.0
+offset_right = 74.0
+offset_bottom = 16.0
+label_settings = SubResource("LabelSettings_3mkl6")
+
+[node name="Label2" type="Label" parent="."]
+z_index = 11
+offset_left = -21.0
+offset_top = -26.0
+offset_right = 19.0
+offset_bottom = -3.0
+text = "NPC seller"
+label_settings = SubResource("LabelSettings_mnpmp")

@@ -1,82 +1,58 @@
 extends Node2D
 
-@onready var tertutup: Sprite2D = $silver_chest
-@onready var anim_sprite: AnimatedSprite2D = $silver_chest_openanimation
-@onready var terbuka: Sprite2D = $silver_chest_open
+@onready var terkunci : Sprite2D = $Terkunci
+@onready var anim_sprite: AnimatedSprite2D = $open_animation
+@onready var terbuka: Sprite2D = $Terbuka
 @onready var area: Area2D = $Area2D
 @onready var label: Label = $Label
-@onready var sfx_chest_open: AudioStreamPlayer2D = $SFX_ChestOpen
-@export var chest_id: String = "SceneAG_Chest_1" # Ganti ini di setiap instance chest!
 
 var player_in_area = false
 var chest_opened = false
-var skullkey = 1
 
 func _ready():
-	if GameData.is_chest_opened(chest_id):
-		# Jika statusnya TRUE (sudah dibuka)
-		print("Chest ", chest_id, " sudah dibuka sebelumnya. Menghapus...")
-		queue_free() # Langsung hapus chest dari scene
-		return # Keluar dari _ready
-		
-	tertutup.visible = true
+	terkunci.visible = true
 	terbuka.visible = false
 	anim_sprite.visible = false
 	anim_sprite.stop()
 	label.visible = false
-	sfx_chest_open.stop()
 
 func _process(delta):
 	if player_in_area and not chest_opened:
 		if Input.is_action_just_pressed("e"):
 			cek_buka_chest()
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not chest_opened:
 		player_in_area = true
-		label.text = "Press E to open"
 		label.visible = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player_in_area = false
 		label.visible = false
-
+		
 func cek_buka_chest():
-	if GameData.golden_keys > 0:
+	if GameData.skull_keys > 0:
 		# Punya silver key ✅
-		GameData.golden_keys -= 1
-		buka_chest()
+		GameData.skull_keys -= 1
+		buka_pintu()
 	else:
 		# Tidak punya ❌ → munculkan warning
-		label.text = "You need a Golden Key!"
+		label.text = "You need a skull Key!"
 		label.visible = true
 		await get_tree().create_timer(1.3).timeout
 		if player_in_area and not chest_opened:
 			label.text = "Press E to open"
 		else:
 			label.visible = false
-
-func buka_chest():    
+		
+func buka_pintu():
 	chest_opened = true
 	label.visible = false
-	tertutup.visible = false
+	terkunci.visible = false
 	anim_sprite.visible = true
-	
-	GameData.set_chest_opened(chest_id)
 
-	
-	# 🔊 Sound effect
-	sfx_chest_open.play()
-
-	# Mainkan animasi buka peti
 	anim_sprite.animation = "open"
 	anim_sprite.play()
-
-	var reward = randi_range(15, 25)
-	GameData.add_coin(reward)
-	GameData.add_skull_key(skullkey)
-	print("Chest reward:", reward)
 
 	await anim_sprite.animation_finished
 

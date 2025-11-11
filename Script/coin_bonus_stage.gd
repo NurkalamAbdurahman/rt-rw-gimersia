@@ -1,16 +1,8 @@
 extends Control
 
-@onready var coin_label = $coinLabel
 @onready var message_label = $messageLable
 @onready var fountain_label = $fountainMessage
-@onready var zonk_label = $zonkMessage
-
-func _ready():
-	update_ui()
-	GameData.stats_updated.connect(update_ui)
-
-func update_ui():
-	coin_label.text = "Coins: " + str(GameData.coins)
+@onready var zonk_label = $zonkMessagess
 
 func show_message(text: String, duration := 2.0):
 	message_label.text = text
