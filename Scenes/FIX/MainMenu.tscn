@@ -1,10 +1,14 @@
-[gd_scene load_steps=26 format=3 uid="uid://bfcl0tfdeiof6"]
+[gd_scene load_steps=30 format=3 uid="uid://bistqf1mdqee5"]
 
 [ext_resource type="Script" uid="uid://co11shrtf40bb" path="res://Script/main_menu.gd" id="1_khyyc"]
+[ext_resource type="AudioStream" uid="uid://dmllbtb7v0gya" path="res://Assets/Audio/start-button.mp3" id="2_1h88x"]
+[ext_resource type="AudioStream" uid="uid://ybocb4nd7p8q" path="res://Assets/Audio/click_better.mp3" id="2_4sxlf"]
 [ext_resource type="Texture2D" uid="uid://it68n36bjh5v" path="res://Assets/collecitions/ui/mainmenu_pixel.png" id="2_avb58"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="3_4sxlf"]
+[ext_resource type="AudioStream" uid="uid://mkee0pbwx7rb" path="res://Assets/Audio/click_button.mp3" id="3_ck2dw"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="4_ck2dw"]
-[ext_resource type="Script" uid="uid://cmp2ol5767gt" path="res://Script/control_gameplay.gd" id="5_sehva"]
+[ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="4_sehva"]
+[ext_resource type="Script" path="res://Script/control_gameplay.gd" id="5_sehva"]
 [ext_resource type="Texture2D" uid="uid://d0xvq7hthyv2s" path="res://Assets/For_scene/Control_Menu.png" id="6_1h88x"]
 [ext_resource type="PackedScene" uid="uid://di6o4afgl4ola" path="res://Scenes/ui/fade_transitions.tscn" id="7_oebvf"]
 [ext_resource type="VideoStream" uid="uid://ccxr4lbgva3o0" path="res://Assets/Video/Credit Akhir.ogv" id="8_avb58"]
@@ -51,6 +55,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_khyyc")
+
+[node name="SFX_Start" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_1h88x")
+volume_db = 12.893
+
+[node name="SFX_Button" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_4sxlf")
+volume_db = 12.893
+
+[node name="SFX_Hover" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ck2dw")
+volume_db = 12.893
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_sehva")
+volume_db = 12.893
+autoplay = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1

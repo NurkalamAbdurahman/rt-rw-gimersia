@@ -1481,17 +1481,22 @@ shape = SubResource("CircleShape2D_ep384")
 [node name="SFX_Attack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_wpiyv")
 volume_db = 10.097
+max_distance = 200.0
 
 [node name="SFX_Attacked" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_m25tm")
-volume_db = 10.098
+volume_db = 8.079
+max_distance = 200.0
 
 [node name="SFX_Death" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_hfpgn")
 volume_db = 12.116
+max_distance = 200.0
 
 [node name="SFX_Walk" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_deoj1")
 volume_db = 9.087
+pitch_scale = 1.2
+max_distance = 200.0
 
 [connection signal="body_entered" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_entered"]
