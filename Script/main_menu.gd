@@ -6,7 +6,9 @@ extends Control
 @onready var control_panel: Control = $Control
 @onready var creadit_button: Button = $MarginContainer2/Creadit
 @onready var creadit_panel: Control = $Creadit
-
+@onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
+@onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
+@onready var sfx_start: AudioStreamPlayer2D = $SFX_Start
 
 var selected_index: int = 0
 var buttons: Array[Button] = []
@@ -65,7 +67,13 @@ func _move_selection(direction: int) -> void:
 	elif selected_index >= buttons.size():
 		selected_index = 0
 
+	# 🔊 Mainkan sound effect
+	if sfx_hover.playing:
+		sfx_hover.stop()
+	sfx_hover.play()
+
 	_update_button_focus()
+
 
 
 
@@ -83,26 +91,28 @@ func _update_button_focus() -> void:
 
 
 func _on_start_pressed() -> void:
+	sfx_start.play()
 	print("Start pressed")
 	start_button.disabled = true
-
 	var fade_scene = preload("res://Scenes/ui/fade_transitions.tscn").instantiate()
 	get_tree().root.add_child(fade_scene)
 	await fade_scene.fade_out()
 	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_1.tscn")
 
 
-
 func _on_quit_pressed() -> void:
+	sfx_button.play()
 	print("Quit pressed")
 	get_tree().quit()
 
 
-
 func _on_control_pressed() -> void:
+	sfx_button.play()
 	print("Control Menu Opened")
 	control_panel.visible = true
 
+
 func _on_creadit_pressed() -> void:
+	sfx_button.play()
 	print("Creadit Menu Opened")
 	creadit_panel.visible = true

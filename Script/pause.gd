@@ -13,6 +13,10 @@ extends Control
 @onready var control_menu = $Control
 @onready var exit_control = $Control/Panel/HBoxContainer/exit
 
+@onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
+@onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
+
+
 # ========= NAVIGASI BUTTON PAUSE =========
 var buttons: Array[Button] = []
 var selected_index: int = 0
