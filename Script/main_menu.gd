@@ -10,6 +10,7 @@ extends Control
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
 @onready var sfx_start: AudioStreamPlayer2D = $SFX_Start
 @onready var bgm: AudioStreamPlayer2D = $BGM
+@onready var video_stream_player: VideoStreamPlayer = $Creadit/TextureRect/VideoStreamPlayer
 
 var selected_index: int = 0
 var buttons: Array[Button] = []
@@ -123,3 +124,4 @@ func _on_creadit_pressed() -> void:
 	sfx_button.play()
 	print("Creadit Menu Opened")
 	creadit_panel.visible = true
+	video_stream_player.play()
