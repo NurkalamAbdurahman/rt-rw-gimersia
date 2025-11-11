@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var area = $Area2D
 @onready var label = $Label
+@onready var sfx_open_shop = $SFX_OpenShop # ambil node AudioStreamPlayer2D
 
 var player_in_range = false
 var shop_opened = false
@@ -39,6 +40,10 @@ func open_shop():
 	shop_opened = true
 	label.visible = false
 	print("Shop opened")
+
+	# 🔊 Mainkan suara saat shop dibuka
+	if sfx_open_shop:
+		sfx_open_shop.play()
 
 	# Pause gerakan player
 	if player_ref and player_ref.has_method("set_process_input"):

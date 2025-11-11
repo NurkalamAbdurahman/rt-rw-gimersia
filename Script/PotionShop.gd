@@ -2,6 +2,7 @@ extends Control
 
 @onready var buy_button: Button = $Panel/MarginContainer/VBoxContainer/VBoxContainer/buy_button
 @onready var close_button: Button = $Panel/MarginContainer/VBoxContainer/VBoxContainer/close_button
+@onready var sfx_buy: AudioStreamPlayer2D = $SFX_BuyingItem
 
 var potion_price = 10
 var addition = 1
@@ -12,12 +13,18 @@ func _ready():
 
 func _on_buy_pressed():
 	var ui = get_tree().root.get_node("bonus_stage/ui_coin/coins_bonus")
+	
 	if GameData.coins >= potion_price:
-		GameData.coins -= potion_price 
+		GameData.coins -= potion_price
 		GameData.add_potion(addition)
 		GameData.check_if_max_health()
-		GameData.emit_signal("stats_updated") # beri tahu UI untuk update
+		GameData.emit_signal("stats_updated")
+		
 		ui.show_message("You bought a potion!", 2.0)
+		
+		# 🔊 Pasti mainkan SFX saat berhasil beli
+	
+		
 	else:
 		ui.show_message("Not enough gold!", 2.0)
 

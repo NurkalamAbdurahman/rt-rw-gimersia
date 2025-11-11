@@ -3,6 +3,11 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var detection_area: Area2D = $DetectionArea2D
 @onready var attack_area: Area2D = $AttackArea2D
+@onready var sfx_attack: AudioStreamPlayer2D = $SFX_Attack
+@onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Attacked
+@onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
+@onready var sfx_walk: AudioStreamPlayer2D = $SFX_Walk
+
 
 # Raycasts untuk deteksi tembok
 var wall_raycast: RayCast2D
@@ -211,8 +216,11 @@ func is_direction_clear(direction: Vector2) -> bool:
 func handle_idle(delta):
 	velocity = Vector2.ZERO
 	idle_timer -= delta
-	
 	play_animation("idle")
+
+	# 🔇 Matikan suara jalan
+	if sfx_walk and sfx_walk.playing:
+		sfx_walk.stop()
 	
 	if player and is_instance_valid(player):
 		change_to_chase()
@@ -230,18 +238,13 @@ func change_to_idle():
 func handle_patrol(delta):
 	patrol_timer -= delta
 	
-	# CEK TEMBOK DI DEPAN
 	if is_wall_ahead():
-		print("Wall detected ahead! Changing direction")
 		last_direction = get_clear_direction()
 		pick_patrol_target()
 		return
 	
 	var direction = (target_position - global_position).normalized()
-	
-	# Cek apakah arah menuju target ada tembok
 	if not is_direction_clear(direction):
-		print("Path to target blocked! Finding new target")
 		pick_patrol_target()
 		return
 	
@@ -250,8 +253,11 @@ func handle_patrol(delta):
 	
 	play_animation("walk")
 	move_and_slide()
+
+	# 🔊 Nyalakan suara jalan
+	if sfx_walk and not sfx_walk.playing:
+		sfx_walk.play()
 	
-	# Reached target or timer expired
 	if global_position.distance_to(target_position) < 10 or patrol_timer <= 0:
 		change_to_idle()
 
@@ -371,11 +377,15 @@ func change_to_attack():
 
 func perform_attack():
 	print("Goblin attacks!")
-	
+
+	if sfx_attack and not sfx_attack.playing:
+		sfx_attack.play()
+
 	var bodies = attack_area.get_overlapping_bodies()
 	for body in bodies:
 		if body.has_method("take_damage"):
 			body.take_damage(1)
+
 # ============ HURT STATE ============
 func handle_hurt(delta):
 	velocity = velocity * 0.9
@@ -384,12 +394,17 @@ func handle_hurt(delta):
 func take_damage(amount: int):
 	if current_state == State.HURT:
 		return
-	
+
 	current_state = State.HURT
+
+	if sfx_attacked and not sfx_attacked.playing:
+		sfx_attacked.play()
+
 	play_animation("hurt")
 	max_health -= amount
 	if max_health <= 0:
 		die()
+
 	
 	# Knockback
 	if player and is_instance_valid(player):
@@ -406,6 +421,13 @@ func die():
 	is_dead = true
 	velocity = Vector2.ZERO
 	current_state = State.HURT
+
+	if sfx_death:
+		sfx_death.play()
+
+	GameData.set_enemy_killed(enemy_id)
+	print("Goblin died!")
+
 	
 	# --- SIMPAN STATUS PERSISTENCE SAAT MATI ---
 	GameData.set_enemy_killed(enemy_id)

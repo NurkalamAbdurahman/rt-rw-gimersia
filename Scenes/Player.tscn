@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=3 uid="uid://bed842dpwmt78"]
+[gd_scene load_steps=153 format=3 uid="uid://bed842dpwmt78"]
 
 [ext_resource type="Script" uid="uid://dlr5exw4c4cje" path="res://Script/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://dm47x85acolmf" path="res://Assets/RPG_Hero/attack/attack_down_40x40.png" id="2_1iu4k"]
@@ -28,6 +28,8 @@
 [ext_resource type="AudioStream" uid="uid://by4u5eugjw1r4" path="res://Assets/Audio/hurt_attack_normal.mp3" id="20_u7x0b"]
 [ext_resource type="AudioStream" uid="uid://ci6pmesf82g8r" path="res://Assets/Audio/dead_character.mp3" id="21_utwlt"]
 [ext_resource type="AudioStream" uid="uid://brk5tbb4h7lkl" path="res://Assets/Audio/backsound_1.mp3" id="22_utwlt"]
+[ext_resource type="AudioStream" uid="uid://i6k4t3oe43ns" path="res://Assets/Audio/map-open.mp3" id="27_lyrkg"]
+[ext_resource type="AudioStream" uid="uid://cwac470g8qpso" path="res://Assets/Audio/map-close.mp3" id="28_c43xd"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kyqiw"]
 
@@ -1007,6 +1009,14 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_lslt6")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ulo2v")
 text = "X"
 script = ExtResource("7_bhhdu")
+
+[node name="SFX_MapOpen" type="AudioStreamPlayer2D" parent="MapEditorLayer/MapEditorUI"]
+stream = ExtResource("27_lyrkg")
+volume_db = 15.145
+
+[node name="SFX_MapClose" type="AudioStreamPlayer2D" parent="MapEditorLayer/MapEditorUI"]
+stream = ExtResource("28_c43xd")
+volume_db = 7.068
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1pfv7pnimyj0"]
+[gd_scene load_steps=5 format=3 uid="uid://c1pfv7pnimyj0"]
 
 [ext_resource type="Script" uid="uid://dxiuh2nebbch5" path="res://Script/PotionShop.gd" id="1_m7ukw"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_aiim8"]
+[ext_resource type="AudioStream" uid="uid://b4uechw4ub0t4" path="res://Assets/Audio/buying_item.mp3" id="3_rqqt7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_m7ukw"]
 font = ExtResource("2_aiim8")
@@ -64,5 +65,11 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Close"
+
+[node name="SFX_BuyingItem" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_rqqt7")
+volume_db = 5.0
+pitch_scale = 1.62
+max_distance = 9999.0
 
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/VBoxContainer/buy_button" to="." method="_on_button_buy_pressed"]
