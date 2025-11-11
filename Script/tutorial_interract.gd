@@ -3,8 +3,7 @@ extends Area2D
 # Array berisi teks yang akan ditampilkan secara berurutan
 const DIALOG_TEXTS = [
 	"Whenever you see a torch",
-	"You can press E on your \n keyboard to interract",
-    "Not Only A torch, \n but also a chest"
+	"You can press E on your \n keyboard to interact",
 ]
 @onready var static_body_2d: StaticBody2D = $"../tutorial_welcome/StaticBody2D"
 
