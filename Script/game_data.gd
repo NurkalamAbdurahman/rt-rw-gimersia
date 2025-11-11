@@ -79,3 +79,7 @@ func add_pity(amount: int) :
 
 func set_death(bool):
 	has_dead = true
+	
+
+func set_not_death(bool):
+	has_dead = false

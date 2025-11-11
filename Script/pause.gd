@@ -137,7 +137,10 @@ func _move_selection(dir: int) -> void:
 		selected_index = buttons.size() - 1
 	elif selected_index >= buttons.size():
 		selected_index = 0
-
+	
+	if sfx_hover.playing:
+		sfx_hover.stop()
+	sfx_hover.play()
 	_update_focus()
 
 
@@ -178,22 +181,26 @@ func _update_confirm_focus() -> void:
 # ======================== BUTTON FUNCTIONS =========================
 
 func _on_resume_pressed():
+	sfx_button.play()
 	get_tree().paused = false
 	visible = false
 
 func _on_controls_pressed():
+	sfx_button.play()
 	$Panel.visible = false
 	$TextEdit.visible = false
 	$TextureRect.visible = false
 	control_menu.visible = true
 
 func _on_exit_control_pressed():
+	sfx_button.play()
 	control_menu.visible = false
 	$Panel.visible = true
 	$TextEdit.visible = true
 	$TextureRect.visible = true
 
 func _on_quit_pressed():
+	sfx_button.play()
 	$Panel.visible = false
 	$TextEdit.visible = false
 	$TextureRect.visible = false
@@ -202,10 +209,14 @@ func _on_quit_pressed():
 	_update_confirm_focus()
 
 func _on_yes_pressed():
+	sfx_button.play()
 	get_tree().paused = false
+	GameData.set_not_death(false)
+	print(GameData.has_dead)
 	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
 
 func _on_no_pressed():
+	sfx_button.play()
 	confirm_panel.visible = false
 	$Panel.visible = true
 	$TextEdit.visible = true

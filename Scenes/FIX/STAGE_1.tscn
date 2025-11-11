@@ -3124,9 +3124,9 @@ script = ExtResource("1_ihc3j")
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Pause" parent="HUD" instance=ExtResource("1_w6c7r")]
-offset_left = 7.0
+offset_left = -1.0
 offset_top = 5.0
-offset_right = 7.0
+offset_right = -1.0
 offset_bottom = 5.0
 
 [node name="Tile_Jalan" type="TileMapLayer" parent="."]

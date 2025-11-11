@@ -89,6 +89,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o80xk")
 
+[node name="SFX_Button" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+process_priority = 5
+stream = ExtResource("7_m37m4")
+volume_db = 12.893
+max_distance = 40000.0
+
+[node name="SFX_Hover" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+process_priority = 5
+stream = ExtResource("8_arwdj")
+volume_db = 12.893
+max_distance = 4000.0
+
 [node name="TextEdit" type="TextEdit" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -439,14 +453,6 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_i556b")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_iyf37")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7xshp")
 text = "X"
-
-[node name="SFX_Button" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_m37m4")
-volume_db = 12.893
-
-[node name="SFX_Hover" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_arwdj")
-volume_db = 12.893
 
 [connection signal="pressed" from="Panel/VBoxContainer/resume" to="." method="_on_resume_pressed"]
 [connection signal="toggled" from="Panel/VBoxContainer/resume" to="." method="_on_resume_toggled"]
