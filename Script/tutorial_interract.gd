@@ -4,6 +4,8 @@ extends Area2D
 const DIALOG_TEXTS = [
 	"Whenever you see a torch",
 	"You can press E on your \n keyboard to interact",
+	"And press M to open map",
+	"You can start drawing \n your version of map"
 ]
 @onready var static_body_2d: StaticBody2D = $"../tutorial_welcome/StaticBody2D"
 

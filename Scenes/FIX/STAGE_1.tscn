@@ -1,5 +1,6 @@
-[gd_scene load_steps=28 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=45 format=4 uid="uid://d2fkbxfwnyw1c"]
 
+[ext_resource type="Script" uid="uid://bgnvhifq7g7kf" path="res://Script/stage_1.gd" id="1_ihc3j"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_w6c7r"]
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="2_lmh3y"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="3_gpka1"]
@@ -13,7 +14,15 @@
 [ext_resource type="PackedScene" uid="uid://lk1vqq6fhqj0" path="res://Scenes/silver_chest.tscn" id="11_jcn7v"]
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="12_s45d0"]
 [ext_resource type="PackedScene" uid="uid://hcwksn5mwp0f" path="res://Scenes/gold_chest.tscn" id="13_lmh3y"]
-[ext_resource type="PackedScene" uid="uid://dg0s64uj6ywq1" path="res://Scenes/pintu_stage_1.tscn" id="14_gpka1"]
+[ext_resource type="PackedScene" uid="uid://d3upyn87bfdo0" path="res://Scenes/pintu_stage_1.tscn" id="14_gpka1"]
+[ext_resource type="PackedScene" uid="uid://djubpvo76vscy" path="res://Scenes/hidden_to_maze.tscn" id="15_juu8l"]
+[ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="16_oof0y"]
+[ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="17_ihc3j"]
+[ext_resource type="Script" uid="uid://dolu06d35tnho" path="res://Script/tutorial_welcome.gd" id="18_b8g7p"]
+[ext_resource type="Script" uid="uid://c6aii2l1mb3o4" path="res://Script/tutorial_interract.gd" id="19_yk7o4"]
+[ext_resource type="Script" uid="uid://dtel1wuxbngfv" path="res://Script/tutorial_goal.gd" id="20_dswwp"]
+[ext_resource type="Script" uid="uid://b47oyukbqxraa" path="res://Script/tutorial_chest.gd" id="21_cx13s"]
+[ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="22_oof0y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("2_lmh3y")
@@ -3084,8 +3093,33 @@ texture = ExtResource("9_wvcai")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_vvkh1")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3x7lv"]
+radius = 18.973665
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6i5px"]
+size = Vector2(20, 59)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ab3l0"]
+radius = 18.973665
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r50df"]
+size = Vector2(20, 59)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e2qlx"]
+radius = 18.973665
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65dr2"]
+size = Vector2(20, 59)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0qf2j"]
+radius = 18.973665
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bugoh"]
+size = Vector2(20, 59)
+
 [node name="Node2D" type="Node2D"]
 position = Vector2(-2219, 323)
+script = ExtResource("1_ihc3j")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -3133,10 +3167,10 @@ tile_set = SubResource("TileSet_qio3x")
 [node name="SceneObor" type="Node2D" parent="."]
 
 [node name="Obor" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(121, 46)
+position = Vector2(217, 46)
 
 [node name="Obor3" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(307, 45)
+position = Vector2(340, 44)
 
 [node name="Obor4" parent="SceneObor" instance=ExtResource("10_xb33v")]
 position = Vector2(492, 44)
@@ -3215,17 +3249,11 @@ scale = Vector2(1.3344294, 1.6611495)
 position = Vector2(1137.565, 22.273773)
 
 [node name="silverchest" parent="Chest" instance=ExtResource("11_jcn7v")]
+chest_id = "SceneA_Chest_2"
 
 [node name="silverchest2" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(321.48578, 440.65875)
-
-[node name="Player" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
-z_index = 10
-position = Vector2(81, 72)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(5, 5)
-position_smoothing_enabled = true
+chest_id = "SceneA_Chest_3"
 
 [node name="gold_chest" parent="." instance=ExtResource("13_lmh3y")]
 position = Vector2(2277, -483)
@@ -3234,3 +3262,98 @@ scale = Vector2(1.662591, 1.7165759)
 [node name="Pintu_stage1" parent="." instance=ExtResource("14_gpka1")]
 position = Vector2(1193.0001, -912)
 scale = Vector2(0.99466234, 0.9803493)
+
+[node name="HiddenToMaze" parent="." instance=ExtResource("15_juu8l")]
+position = Vector2(1174, -589)
+
+[node name="Obor" parent="." instance=ExtResource("10_xb33v")]
+position = Vector2(1145, -594)
+
+[node name="Obor2" parent="." instance=ExtResource("10_xb33v")]
+position = Vector2(1203, -595)
+
+[node name="Goblin" parent="." instance=ExtResource("16_oof0y")]
+position = Vector2(770, -738)
+
+[node name="Goblin2" parent="." instance=ExtResource("16_oof0y")]
+position = Vector2(1234, 46)
+
+[node name="Goblin3" parent="." instance=ExtResource("16_oof0y")]
+position = Vector2(2300, -393)
+
+[node name="Goblin4" parent="." instance=ExtResource("16_oof0y")]
+position = Vector2(316, -196)
+
+[node name="Goblin5" parent="." instance=ExtResource("17_ihc3j")]
+position = Vector2(1195, -841)
+
+[node name="tutorial_welcome" type="Area2D" parent="."]
+script = ExtResource("18_b8g7p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorial_welcome"]
+position = Vector2(107, 72)
+shape = SubResource("CircleShape2D_3x7lv")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="tutorial_welcome"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorial_welcome/StaticBody2D"]
+position = Vector2(160, 63)
+shape = SubResource("RectangleShape2D_6i5px")
+
+[node name="tutorial_interract" type="Area2D" parent="."]
+script = ExtResource("19_yk7o4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorial_interract"]
+position = Vector2(226, 75)
+shape = SubResource("CircleShape2D_ab3l0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="tutorial_interract"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorial_interract/StaticBody2D"]
+position = Vector2(299, 60)
+shape = SubResource("RectangleShape2D_r50df")
+
+[node name="tutorial_goal" type="Area2D" parent="."]
+script = ExtResource("20_dswwp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorial_goal"]
+position = Vector2(552, 71)
+shape = SubResource("CircleShape2D_e2qlx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="tutorial_goal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorial_goal/StaticBody2D"]
+position = Vector2(595, 64)
+shape = SubResource("RectangleShape2D_65dr2")
+
+[node name="tutorial_chest" type="Area2D" parent="."]
+script = ExtResource("21_cx13s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorial_chest"]
+position = Vector2(374, 77)
+shape = SubResource("CircleShape2D_0qf2j")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="tutorial_chest"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorial_chest/StaticBody2D"]
+position = Vector2(440, 60)
+shape = SubResource("RectangleShape2D_bugoh")
+
+[node name="Hud" parent="." instance=ExtResource("22_oof0y")]
+
+[node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
+z_index = 10
+position = Vector2(66, 50)
+
+[node name="Camera2D" type="Camera2D" parent="Player2"]
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
+
+[connection signal="body_entered" from="tutorial_welcome" to="tutorial_welcome" method="_on_body_entered"]
+[connection signal="body_exited" from="tutorial_welcome" to="tutorial_welcome" method="_on_body_exited"]
+[connection signal="body_entered" from="tutorial_interract" to="tutorial_interract" method="_on_body_entered"]
+[connection signal="body_exited" from="tutorial_interract" to="tutorial_interract" method="_on_body_exited"]
+[connection signal="body_entered" from="tutorial_goal" to="tutorial_goal" method="_on_body_entered"]
+[connection signal="body_exited" from="tutorial_goal" to="tutorial_goal" method="_on_body_exited"]
+[connection signal="body_entered" from="tutorial_chest" to="tutorial_chest" method="_on_body_entered"]
+[connection signal="body_exited" from="tutorial_chest" to="tutorial_chest" method="_on_body_exited"]

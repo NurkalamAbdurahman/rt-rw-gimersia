@@ -9,17 +9,24 @@ extends Control
 @onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
 @onready var sfx_start: AudioStreamPlayer2D = $SFX_Start
+@onready var bgm: AudioStreamPlayer2D = $BGM
 
 var selected_index: int = 0
 var buttons: Array[Button] = []
 
-
-
+func load_and_loop(path) :
+	var new_stream = load(path)
+	if new_stream is AudioStreamOggVorbis:
+		new_stream.loop = true
+		bgm.stream = new_stream
+		bgm.play()
+	else:
+		print("gagal memuat file bukan ogg vorbis")
 
 func _ready() -> void:
 	# Semua tombol yang bisa dinavigasi dengan arrow keys
 	buttons = [start_button,creadit_button, quit_button, control_button]
-
+	load_and_loop("res://Assets/Audio/bgm.ogg")
 	# Disable auto focus & mouse
 	for btn in buttons:
 		btn.focus_mode = Control.FOCUS_NONE
@@ -39,10 +46,10 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_up"):
+	if event.is_action_pressed("menu_up"):
 		_move_selection(1)
 
-	elif event.is_action_pressed("ui_down"):
+	elif event.is_action_pressed("menu_down"):
 		_move_selection(-1)
 
 	elif event is InputEventKey and event.pressed:

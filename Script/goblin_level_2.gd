@@ -163,7 +163,6 @@ func check_if_stuck(delta):
 		
 		# Kalau stuck lebih dari 1 detik, pick target baru
 		if stuck_timer > 1.0:
-			print("Goblin stuck! Picking new target")
 			if current_state == State.PATROL:
 				pick_patrol_target()
 			stuck_timer = 0.0
@@ -232,7 +231,6 @@ func handle_patrol(delta):
 	
 	# CEK TEMBOK DI DEPAN
 	if is_wall_ahead():
-		print("Wall detected ahead! Changing direction")
 		last_direction = get_clear_direction()
 		pick_patrol_target()
 		return
@@ -241,7 +239,6 @@ func handle_patrol(delta):
 	
 	# Cek apakah arah menuju target ada tembok
 	if not is_direction_clear(direction):
-		print("Path to target blocked! Finding new target")
 		pick_patrol_target()
 		return
 	
@@ -276,14 +273,12 @@ func pick_patrol_target():
 		if is_direction_clear((potential_target - global_position).normalized()):
 			target_position = potential_target
 			valid_target = true
-			print("Found valid patrol target")
 			break
 	
 	# Fallback: pick direction yang clear
 	if not valid_target:
 		var clear_dir = get_clear_direction()
 		target_position = global_position + clear_dir * wander_range * 0.5
-		print("Using clear direction for patrol")
 
 # ============ CHASE STATE ============
 func handle_chase(delta):
@@ -309,7 +304,6 @@ func handle_chase(delta):
 	
 	# SMART CHASE: Kalau ada tembok di depan, cari jalan memutar
 	if is_wall_ahead():
-		print("Wall blocking chase! Finding alternate path")
 		
 		# Coba kiri atau kanan
 		if not left_raycast.is_colliding():

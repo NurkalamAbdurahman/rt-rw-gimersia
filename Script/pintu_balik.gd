@@ -27,4 +27,5 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		label.visible = false
 func buka_pintu():
 	label.visible = false
-	get_tree().change_scene_to_file("res://Scenes/stage1-example-enemy.tscn")
+	GameData.next_spawn_location = "IRON_DOOR_EXIT"
+	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_1.tscn")
