@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ca2s775rnfl2p"]
+[gd_scene load_steps=35 format=3 uid="uid://ca2s775rnfl2p"]
 
 [ext_resource type="Script" uid="uid://djfaanx7iskrj" path="res://Script/pause.gd" id="1_o80xk"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_5xxhp"]
@@ -11,25 +11,15 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5a6ek"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e0jm0"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hjawx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5a6ek"]
-bg_color = Color(0.14117648, 0.14901961, 0.19215687, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6lc7"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0jm0"]
-bg_color = Color(0.14117648, 0.14901961, 0.19215687, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gmqnw"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2vhw8"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x6kc3"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r7l8j"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_joncy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0pswh"]
 
@@ -51,19 +41,29 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_54e2h"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sgnhq"]
+[sub_resource type="LabelSettings" id="LabelSettings_sgnhq"]
+font = ExtResource("7_ohc50")
+font_size = 64
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ohc50"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m37m4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arwdj"]
-bg_color = Color(0.14117648, 0.14901961, 0.19215687, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xk5ra"]
-bg_color = Color(0.14117648, 0.14901961, 0.19215687, 1)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ha2cy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4dlu7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_404a0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwgve"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u31qx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6wt8y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owigg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jg61x"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_arwdj"]
 
@@ -128,9 +128,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -160.0
-offset_top = -97.0
+offset_top = -130.0
 offset_right = 159.0
-offset_bottom = 232.0
+offset_bottom = 199.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5a6ek")
@@ -142,10 +142,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -123.25
-offset_top = -146.25
-offset_right = 123.25
-offset_bottom = 146.25
+offset_left = -86.0
+offset_top = -81.375
+offset_right = 86.0
+offset_bottom = 81.375
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -153,33 +153,36 @@ size_flags_horizontal = 4
 [node name="resume" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ohc50")
-theme_override_font_sizes/font_size = 95
-theme_override_styles/normal = SubResource("StyleBoxEmpty_e0jm0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_5a6ek")
-theme_override_styles/hover = SubResource("StyleBoxFlat_e0jm0")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_2vhw8")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_r7l8j")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hjawx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_k6lc7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_gmqnw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_x6kc3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_joncy")
 text = "Resume"
+alignment = 0
 
 [node name="controls" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ohc50")
-theme_override_font_sizes/font_size = 91
+theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0pswh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3fojq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0pswh")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiib")
 text = "Controls"
+alignment = 0
 
 [node name="quit" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ohc50")
-theme_override_font_sizes/font_size = 95
+theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxEmpty_54e2h")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3fojq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0pswh")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiib")
 text = "Main Menu"
+alignment = 0
 
 [node name="Confirm" type="Control" parent="."]
 anchors_preset = 0
@@ -204,73 +207,52 @@ grow_vertical = 2
 scale = Vector2(0.9719178, 0.93608767)
 texture = ExtResource("4_alrov")
 
-[node name="TextEdit" type="TextEdit" parent="Confirm"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Confirm"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -189.0
-offset_top = -5.0
-offset_right = 196.0
-offset_bottom = 82.0
+offset_left = -162.0
+offset_top = -43.0
+offset_right = 162.0
+offset_bottom = 71.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_5xxhp")
-theme_override_font_sizes/font_size = 33
-theme_override_styles/normal = SubResource("StyleBoxEmpty_sgnhq")
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Confirm/VBoxContainer"]
+layout_mode = 2
 text = "Back to Main Menu?"
+label_settings = SubResource("LabelSettings_sgnhq")
 
-[node name="Panel" type="Panel" parent="Confirm"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -105.0
-offset_top = 39.0
-offset_right = 49.0
-offset_bottom = 136.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ohc50")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Confirm/Panel"]
-layout_mode = 0
-offset_left = -22.0
-offset_top = 5.0
-offset_right = 86.0
-offset_bottom = 62.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Confirm/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="ya" type="Button" parent="Confirm/Panel/HBoxContainer"]
+[node name="ya" type="Button" parent="Confirm/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ohc50")
-theme_override_font_sizes/font_size = 70
-theme_override_styles/normal = SubResource("StyleBoxEmpty_m37m4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_arwdj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xk5ra")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ha2cy")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ohc50")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_m37m4")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ha2cy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4dlu7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_404a0")
 text = "Yes"
 icon_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Confirm/Panel"]
-layout_mode = 0
-offset_left = 131.0
-offset_top = 5.0
-offset_right = 276.0
-offset_bottom = 62.0
-
-[node name="tidak" type="Button" parent="Confirm/Panel/HBoxContainer2"]
+[node name="tidak" type="Button" parent="Confirm/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ohc50")
-theme_override_font_sizes/font_size = 70
-theme_override_styles/normal = SubResource("StyleBoxEmpty_m37m4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_arwdj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xk5ra")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ha2cy")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qwgve")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_u31qx")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_6wt8y")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_owigg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jg61x")
 text = "No"
 icon_alignment = 1
 
