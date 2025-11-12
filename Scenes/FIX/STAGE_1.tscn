@@ -3272,7 +3272,6 @@ position = Vector2(2162, -499)
 torch_id = "Torch_26"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
