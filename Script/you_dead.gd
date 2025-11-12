@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var root_control: Control = $Control
 @onready var respawn: Button = $Control/Panel/MarginContainer/VBoxContainer/HBoxContainer/Respawn
-@onready var quit: Button = $Control/Panel/MarginContainer/VBoxContainer/HBoxContainer/Quit
+@onready var quit: Button = $"Control/Panel/MarginContainer/VBoxContainer/HBoxContainer/Main menu"
 @onready var panel: Panel = $Control/Panel
 
 signal respawn_pressed
