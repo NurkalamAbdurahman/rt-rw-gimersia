@@ -28,6 +28,10 @@ var last_direction: Vector2 = Vector2.DOWN
 var is_attacking: bool = false
 var current_anim_direction: String = "down" 
 
+var is_knocked_back: bool = false
+const KNOCKBACK_STRENGTH = 200.0 # Kecepatan dorongan
+const KNOCKBACK_DURATION = 0.2 # Durasi dorongan (detik)
+
 # --- FUNGSI INIT ---
 func _ready() -> void:
 	for torch in get_tree().get_nodes_in_group("torches"):
@@ -59,21 +63,29 @@ func _on_torch_picked_up(torch_node):
 
 # --- FUNGSI FISIKA & INPUT ---
 func _physics_process(delta):
-	if is_dead:  # ⬅️ Tambahan
+	if is_dead:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
 		
-	if GameData.health <= 1:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		return
+	# ⚠️ TIDAK PERLU CEK GameData.health di sini. Cukup andalkan is_dead.
+	# if GameData.health <= 1:
+	# 	velocity = Vector2.ZERO
+	# 	move_and_slide()
+	# 	return
 		
 	if is_attacking:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		update_animation(Vector2.ZERO)
 		return
+	
+	# >>> KNOCKBACK LOGIC <<<
+	if is_knocked_back:
+		# Pergerakan sudah diatur di take_damage, hanya perlu geser
+		move_and_slide()
+		return
+	# <<< END KNOCKBACK >>>
 	
 	var input_vector = Vector2.ZERO
 	
@@ -171,7 +183,8 @@ func attack():
 		
 		if enemy.has_method("take_damage") and enemy != self:
 			print("💥 Hitting enemy: ", enemy.name)
-			enemy.take_damage(1)
+			# ✅ PERBAIKAN: Kirim amount (1) dan posisi penyerang (global_position)
+			enemy.take_damage(1, global_position)
 	# ================================
 
 	# Tunggu Durasi Serangan
@@ -186,8 +199,8 @@ func attack():
 	update_animation(Vector2.ZERO)
 
 # --- FUNGSI KERUSAKAN ---
-func take_damage(amount):
-	if invincible or is_dead:  # ⬅️ Tambahan proteksi
+func take_damage(amount, damage_source_position: Vector2):
+	if invincible or is_dead: # ✅ Cek is_dead di awal
 		return
 
 	var new_health = GameData.health - amount
@@ -199,11 +212,31 @@ func take_damage(amount):
 
 	if new_health <= 1:
 		die()
+		return # ✅ PENTING: Segera keluar setelah memanggil die()
+		
+	# --- LOGIKA KNOCKBACK ---
+	# 1. Hitung arah dorongan (dari sumber damage ke pemain)
+	var knockback_direction = (global_position - damage_source_position).normalized()
+	
+	# 2. Terapkan velocity dan set state knockback
+	velocity = knockback_direction * KNOCKBACK_STRENGTH
+	is_knocked_back = true
+	is_attacking = false # Batalkan serangan jika sedang menyerang
+	sfx_run.stop()
+	
+	# 3. Nonaktifkan knockback setelah durasi
+	await get_tree().create_timer(KNOCKBACK_DURATION).timeout
+	
+	# Reset state dan velocity
+	if is_knocked_back and not is_dead: # ✅ Cek is_dead lagi sebelum reset
+		is_knocked_back = false
+		velocity = Vector2.ZERO
 
 func die():
 	if is_dead:
 		return
-	is_dead = true
+		
+	is_dead = true # ✅ Atur status mati segera
 	print("💀 Player died")
 
 	is_locked = true
@@ -231,12 +264,12 @@ func die():
 	var frames = player.sprite_frames
 	if frames.has_animation(death_anim_name):
 		player.play(death_anim_name)
+		await player.animation_finished
 	else:
-		print("⚠️ Tidak ada animasi", death_anim_name, "pakai default death_d")
+		print("⚠️ Tidak ada animasi", death_anim_name, "pakai default death_d. Menggunakan fallback timer.")
 		player.play("death_d")
-
-	# 🕐 Tunggu animasi selesai sebelum munculkan UI
-	await player.animation_finished
+		# ⏱️ Fallback timer: Tunggu 1.0 detik jika animasi bermasalah
+		await get_tree().create_timer(1.0).timeout 
 
 	# 🩸 Tampilkan UI "You Dead"
 	if you_dead_ui:
@@ -259,4 +292,4 @@ func flash_red():
 var map_scene_instance = null
 
 func _on_Button_Map_pressed() -> void:
-	pass # Replace with function body.
+	pass # Replace with function body.as
