@@ -23,6 +23,7 @@ func _ready() -> void:
 	_update_button_focus()
 
 func show_you_dead():
+	get_tree().paused = true
 	root_control.show()
 
 	if tween and tween.is_running():
@@ -62,6 +63,7 @@ func hide_you_dead():
 	root_control.hide()
 
 func _on_respawn_pressed():
+	get_tree().paused = false  # ▶️ Unpause game
 	await hide_you_dead()
 	emit_signal("respawn_pressed")
 
@@ -69,6 +71,7 @@ func _on_quit_pressed():
 	var fade_node = get_tree().root.get_node_or_null("ScreenFade")
 	if fade_node and fade_node.has_method("fade_out"):
 		await fade_node.fade_out()
+	GameData.reset()
 	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
 
 func _input(event: InputEvent) -> void:

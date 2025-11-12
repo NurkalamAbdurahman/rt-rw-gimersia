@@ -1,11 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://4mya8le2nvu5"]
+[gd_scene load_steps=15 format=3 uid="uid://4mya8le2nvu5"]
 
 [ext_resource type="Script" uid="uid://dgij4uoge0hw5" path="res://Script/you_dead.gd" id="1_g21t8"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="1_odlm0"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_g21t8"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g21t8"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_b8fca"]
 font = ExtResource("1_odlm0")
@@ -32,6 +29,7 @@ font_size = 64
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kgxcq"]
 
 [node name="YouDead" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_g21t8")
 
 [node name="Control" type="Control" parent="."]
@@ -50,7 +48,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_g21t8")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/Panel"]
 layout_mode = 1
