@@ -32,7 +32,7 @@ var right_raycast: RayCast2D
 @export var max_health = 10
 @onready var hud: Label = $"../Hud/Label"
 var is_dead = false
-var skyes = 0
+var skyes = 2
 
 # State machine
 enum State { IDLE, PATROL, CHASE, ATTACK, HURT }
