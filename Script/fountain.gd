@@ -2,7 +2,6 @@ extends Area2D
 
 var player_in_range = false
 var player_ref = null
-var is_popup_open = false  # ← Tambahan: penanda popup sedang terbuka
 
 @onready var ui = get_tree().root.get_node("bonus_stage/ui_coin/coins_bonus")
 @onready var sfx_trompet = get_tree().root.get_node("bonus_stage/sfx_trompet")
@@ -35,27 +34,27 @@ func _on_body_exited(body):
 
 
 func _process(_delta):
-	if player_in_range and not is_popup_open and Input.is_action_just_pressed("interract"):
+	if player_in_range and not GameData.is_popup_open and Input.is_action_just_pressed("interract"):
 		_show_confirm_popup()
 
 
 func _show_confirm_popup():
-	is_popup_open = true  # ← Tandai popup sedang aktif
+	GameData.is_popup_open = true # ← Tandai popup sedang aktif
 	_freeze_player(true)
 	
 	var popup = confirm_popup_scene.instantiate()
 	get_tree().current_scene.add_child(popup)
-	popup.show_popup("Are you sure?")
+	popup.show_popup("You need coins to confirm")
 	
 	popup.confirmed.connect(_on_popup_confirmed)
 	popup.cancelled.connect(_on_popup_cancelled)
-	popup.tree_exited.connect(func(): is_popup_open = false)  # ← Reset flag saat popup ditutup
+	popup.tree_exited.connect(func(): GameData.is_popup_open = false)  # ← Reset flag saat popup ditutup
 
 
 func _on_popup_confirmed():
 	_throw_coin()
 	_freeze_player(false)
-	is_popup_open = false  # ← Pastikan popup dianggap tertutup
+	GameData.is_popup_open = false  # ← Pastikan popup dianggap tertutup
 
 
 func _on_popup_cancelled():
@@ -63,7 +62,7 @@ func _on_popup_cancelled():
 		sfx_close.play()
 	ui.show_message("Cancelled.", 2.0)
 	_freeze_player(false)
-	is_popup_open = false  # ← Reset flag juga di sini
+	GameData.is_popup_open = false  # ← Reset flag juga di sini
 
 
 func _freeze_player(freeze: bool):

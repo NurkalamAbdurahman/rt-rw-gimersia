@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://hcwksn5mwp0f"]
+[gd_scene load_steps=17 format=3 uid="uid://hcwksn5mwp0f"]
 
 [ext_resource type="Texture2D" uid="uid://c7ofb03qfy7xn" path="res://Assets/Tileset/PNG/chest_gold.png" id="1_hjqxh"]
 [ext_resource type="Script" uid="uid://7of7rt1q8x2k" path="res://Scenes/gold_chest.gd" id="1_slpms"]
 [ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="2_slpms"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_n5d3i"]
+[ext_resource type="AudioStream" uid="uid://hei6fqspiwsb" path="res://Assets/Audio/door-closed-382707.ogg" id="5_dhmrq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n5d3i"]
 atlas = ExtResource("1_hjqxh")
@@ -109,6 +110,10 @@ volume_db = 11.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_n5d3i")
+
+[node name="SFX_ChestLocked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_dhmrq")
+volume_db = 11.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

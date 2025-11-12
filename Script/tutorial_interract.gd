@@ -12,6 +12,8 @@ const DIALOG_TEXTS = [
 # Path ke node Label pada Player (PASTIKAN INI BENAR)
 @onready var player_label: Label = $"../Hud/Label"
 @onready var player_2: CharacterBody2D = $"../Player2"
+@onready var suara_typing: AudioStreamPlayer2D = $"../Suara_Typing"
+
 
 # Status untuk memastikan trigger hanya terjadi sekali
 var triggered_once: bool = false
@@ -83,6 +85,7 @@ func show_next_dialog():
 # ----------------------------------------------------------------------
 
 func _start_typing():
+	suara_typing.play()
 	var current_text = DIALOG_TEXTS[current_text_index]
 	# Atur kecepatan pengetikan: 0.05 detik per huruf
 	type_timer.start(0.05) 
@@ -108,6 +111,7 @@ func _on_type_timer_timeout():
 # ----------------------------------------------------------------------
 
 func _on_delay_timer_timeout():
+	suara_typing.stop()
 	# Mulai fade out
 	var fade_out_tween = create_tween()
 	# Fade out cepat: 0.5 detik

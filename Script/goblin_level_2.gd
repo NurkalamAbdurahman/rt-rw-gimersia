@@ -379,17 +379,20 @@ func perform_attack():
 	var bodies = attack_area.get_overlapping_bodies()
 	for body in bodies:
 		if body.has_method("take_damage"):
-			body.take_damage(1)
+			body.take_damage(1, global_position)
 
 # ============ HURT STATE ============
 func handle_hurt(delta):
+	# Velocity di handle_hurt akan berkurang seiring waktu, mensimulasikan gesekan setelah knockback
 	velocity = velocity * 0.9
 	move_and_slide()
 
-func take_damage(amount: int):
-	if current_state == State.HURT:
+# ➡️ FUNGSI TAKE_DAMAGE DENGAN KNOCKBACK YANG DIPERBAIKI 💥
+func take_damage(amount: int, damage_source_position: Vector2):
+	if current_state == State.HURT or is_dead: # Tambah proteksi agar tidak double hit saat knockback
 		return
 
+	# Nonaktifkan serangan dan patrol saat terluka
 	current_state = State.HURT
 
 	if sfx_attacked and not sfx_attacked.playing:
@@ -397,20 +400,33 @@ func take_damage(amount: int):
 
 	play_animation("hurt")
 	max_health -= amount
+	
+	# 1. Hitung arah Knockback
+	# Arah dari penyerang (damage_source_position) ke Goblin (global_position)
+	var knockback_dir = (global_position - damage_source_position).normalized() 
+	
+	# 2. Terapkan Knockback Velocity
+	velocity = knockback_dir * 250 # Kekuatan knockback
+	
+	# Cek kematian setelah damage diterima
 	if max_health <= 0:
 		die()
-
+		return # Keluar jika mati
+		
+	move_and_slide()
 	
-	# Knockback
-	if player and is_instance_valid(player):
-		var knockback_dir = (global_position - player.global_position).normalized()
-		velocity = knockback_dir * 150
+	# 3. Tunggu durasi Knockback
+	await get_tree().create_timer(0.3).timeout # Durasi Knockback (0.3 detik)
 	
-	await get_tree().create_timer(0.5).timeout
+	# Reset velocity dan kembali ke state CHASE atau IDLE
+	velocity = Vector2.ZERO
+	
+	# Jika masih ada pemain yang dikejar, kembali mengejar
 	if player and is_instance_valid(player):
 		change_to_chase()
 	else:
 		change_to_idle()
+# ⬅️ AKHIR FUNGSI TAKE_DAMAGE YANG DIPERBAIKI
 
 func die():
 	is_dead = true

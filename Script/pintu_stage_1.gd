@@ -5,6 +5,7 @@ extends Node2D
 @onready var terbuka: Sprite2D = $Terbuka
 @onready var area: Area2D = $Area2D
 @onready var label: Label = $Label
+@onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
 
 var player_in_area = false
 var chest_opened = false
@@ -37,6 +38,7 @@ func cek_buka_chest():
 		buka_pintu()
 	else:
 		# Tidak punya ❌ → munculkan warning
+		sfx_chest_locked.play()
 		label.text = "You need a skull Key!"
 		label.visible = true
 		await get_tree().create_timer(1.3).timeout

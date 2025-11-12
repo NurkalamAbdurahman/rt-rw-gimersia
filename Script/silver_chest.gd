@@ -8,6 +8,7 @@ extends Node2D
 @onready var sfx_chest_open: AudioStreamPlayer2D = $SFX_ChestOpen
 @export var chest_id: String = "SceneA_Chest_1" # Ganti ini di setiap instance chest!
 @onready var hud: Label = $"../../Hud/Label"
+@onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
 
 var player_in_area = false
 var chest_opened = false
@@ -49,6 +50,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		player_in_area = false
 		label.visible = false
 
+
 func cek_buka_chest():
 	if GameData.silver_keys > 0:
 		# Punya silver key ✅
@@ -56,6 +58,7 @@ func cek_buka_chest():
 		buka_chest()
 	else:
 		# Tidak punya ❌ → munculkan warning
+		sfx_chest_locked.play()
 		label.text = "You need a Silver Key!"
 		label.visible = true
 		await get_tree().create_timer(1.3).timeout
@@ -63,6 +66,7 @@ func cek_buka_chest():
 			label.text = "Press E to open"
 		else:
 			label.visible = false
+
 
 func buka_chest():
 	chest_opened = true
