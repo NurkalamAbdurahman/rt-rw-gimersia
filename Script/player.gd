@@ -2,8 +2,9 @@ extends CharacterBody2D
 
 const SPEED = 130.0
 const ATTACK_DURATION = 0.25
-const ATTACK_OFFSET = 20.0
+const ATTACK_OFFSET = 25.0
 @onready var map_editor_ui: Control = $MapEditorLayer/MapEditorUI
+@onready var you_dead_ui: CanvasLayer = get_tree().get_current_scene().get_node("YouDead")
 
 # --- ONREADY VARIAN ---
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
@@ -19,6 +20,7 @@ var invincible := false
 var invincible_time := 0.4
 var has_torch = false
 var held_torch = null
+var is_dead: bool = false	
 
 var is_locked: bool = false
 
@@ -28,6 +30,9 @@ var current_anim_direction: String = "down"
 
 # --- FUNGSI INIT ---
 func _ready() -> void:
+	for torch in get_tree().get_nodes_in_group("torches"):
+		torch.connect("torch_picked_up", Callable(self, "_on_torch_picked_up"))
+		
 	attack_shape.disabled = true
 	
 	# PENTING: Tambahkan player ke group "Player"
@@ -38,9 +43,27 @@ func _ready() -> void:
 		print("✅ AttackArea2D found!")
 	else:
 		print("❌ AttackArea2D NOT FOUND!")
+	
+#	fungsi you dead
+	if you_dead_ui:
+		you_dead_ui.connect("respawn_pressed", Callable(self, "_on_respawn_selected"))
+
+
+func _on_torch_picked_up(torch_node):
+	if not has_torch:
+		held_torch = torch_node
+		has_torch = true
+		held_torch.get_parent().remove_child(held_torch)
+		add_child(held_torch)
+		held_torch.position = Vector2(0, 10)
 
 # --- FUNGSI FISIKA & INPUT ---
 func _physics_process(delta):
+	if is_dead:  # ⬅️ Tambahan
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+		
 	if GameData.health <= 1:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -164,61 +187,51 @@ func attack():
 
 # --- FUNGSI KERUSAKAN ---
 func take_damage(amount: int = 1):
-	if invincible:
+	if invincible or is_dead:  # ⬅️ Tambahan proteksi
 		return
-	
-	invincible = true
-	
-	map_editor_ui.close()
-	
+
 	var new_health = GameData.health - amount
 	GameData.set_health(new_health)
 	print("Player health:", GameData.health)
+	
+	GameData.health -= amount
+	flash_red()
 
-	# 🔊 Mainkan suara ketika player kena serangan
-	if sfx_attacked and not sfx_attacked.playing:
-		sfx_attacked.play()
-	
-	if has_node("AnimatedSprite2D"):
-		$AnimatedSprite2D.play("hurt")
-		flash_red()
-	
-	if new_health > 1:
-		await get_tree().create_timer(invincible_time).timeout
-		invincible = false
-	
-	if new_health <= 1:
-		var death_anim_name = "death_%s" % current_anim_direction
-		$AnimatedSprite2D.play(death_anim_name)
+	if new_health <= 0:
+		die()
 
-		# 🔊 Mainkan suara kematian di sini
-		if sfx_death:
-			sfx_death.play()
-		
-		velocity = Vector2.ZERO
-		move_and_slide()
-		
-		await $AnimatedSprite2D.animation_finished
-		
-		Engine.time_scale = 1.0
-		
-		GameData.set_death(true)
-		
-		get_tree().reload_current_scene()
-		GameData.health = 6
-		
+func die():
+	if is_dead:
+		print("Die called") 
 		return
+	is_dead = true
+	print("💀 Player died")
+	is_locked = true
+	velocity = Vector2.ZERO
+	move_and_slide()
+
+	if sfx_death:
+		sfx_death.play()
+
+	if you_dead_ui:
+		you_dead_ui.show_you_dead()
+
+func _on_respawn_selected():
+	print("⚡ Respawn pressed — respawn player!")
+	GameData.set_health(6)
+	GameData.set_death(false)
+	get_tree().reload_current_scene()
 
 
 func flash_red():
+	print("FLASH CALLED")  # Debug
 	$AnimatedSprite2D.modulate = Color(1, 0.4, 0.4)
 	await get_tree().create_timer(0.15).timeout
 	$AnimatedSprite2D.modulate = Color(1, 1, 1)
+
 			
 
 var map_scene_instance = null
-
-
 
 func _on_Button_Map_pressed() -> void:
 	pass # Replace with function body.

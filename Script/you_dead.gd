@@ -20,7 +20,7 @@ func _ready() -> void:
 	quit.pressed.connect(_on_quit_pressed)
 
 	buttons = [respawn, quit]
-	_update_button_focus()  # highlight awal
+	_update_button_focus()
 
 func show_you_dead():
 	root_control.show()
@@ -71,9 +71,6 @@ func _on_quit_pressed():
 		await fade_node.fade_out()
 	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
 
-# ==============================
-# 🔽 Navigasi Keyboard Section
-# ==============================
 func _input(event: InputEvent) -> void:
 	if not root_control.visible:
 		return
