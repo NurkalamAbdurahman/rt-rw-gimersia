@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="12_s45d0"]
 [ext_resource type="PackedScene" uid="uid://hcwksn5mwp0f" path="res://Scenes/gold_chest.tscn" id="13_lmh3y"]
 [ext_resource type="PackedScene" uid="uid://d3upyn87bfdo0" path="res://Scenes/pintu_stage_1.tscn" id="14_gpka1"]
-[ext_resource type="PackedScene" uid="uid://djubpvo76vscy" path="res://Scenes/hidden_to_maze.tscn" id="15_juu8l"]
+[ext_resource type="PackedScene" uid="uid://dkri7l8pcp7lv" path="res://Scenes/hidden_to_maze.tscn" id="15_juu8l"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="16_oof0y"]
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="17_ihc3j"]
 [ext_resource type="Script" uid="uid://dolu06d35tnho" path="res://Script/tutorial_welcome.gd" id="18_b8g7p"]
@@ -3272,6 +3272,7 @@ position = Vector2(2162, -499)
 torch_id = "Torch_26"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]

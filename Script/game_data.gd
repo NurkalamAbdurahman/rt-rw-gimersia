@@ -15,7 +15,7 @@ var chest_states = {}
 var torch_states = {}
 var enemy_states = {}
 var next_spawn_location: String = ""
-var has_dead: bool = true
+var has_dead: bool = false
 var is_popup_open: bool = false
 
 func set_enemy_killed(enemy_id: String):

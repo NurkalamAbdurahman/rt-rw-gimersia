@@ -60,3 +60,4 @@ func buka_pintu():
 
 	anim_sprite.visible = false
 	terbuka.visible = true
+	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
