@@ -12,6 +12,9 @@ extends Control
 @onready var bgm: AudioStreamPlayer2D = $BGM
 @onready var video_stream_player: VideoStreamPlayer = $Creadit/TextureRect/VideoStreamPlayer
 var is_panel_open: bool = false # <-- TAMBAHKAN INI
+@onready var stage_button: Button = $MarginContainer/VBoxContainer/VBoxContainer/Stage
+@onready var stage_level: Control = $StageLevel
+
 
 var selected_index: int = 0
 var buttons: Array[Button] = []
@@ -27,7 +30,7 @@ func load_and_loop(path) :
 
 func _ready() -> void:
 	# Semua tombol yang bisa dinavigasi dengan arrow keys
-	buttons = [start_button,creadit_button, quit_button, control_button]
+	buttons = [start_button, creadit_button, quit_button, control_button, stage_button]
 	load_and_loop("res://Assets/Audio/bgm.ogg")
 	# Disable auto focus & mouse
 	for btn in buttons:
@@ -39,6 +42,9 @@ func _ready() -> void:
 	quit_button.pressed.connect(_on_quit_pressed)
 	control_button.pressed.connect(_on_control_pressed)
 	creadit_button.pressed.connect(_on_creadit_pressed)
+	creadit_button.pressed.connect(_on_creadit_pressed)
+	stage_button.pressed.connect(_on_stage_pressed)
+	
 
 	# Indikasi fokus awal
 	_update_button_focus()
@@ -88,9 +94,6 @@ func _move_selection(direction: int) -> void:
 
 	_update_button_focus()
 
-
-
-
 func _update_button_focus() -> void:
 	for i in range(buttons.size()):
 		var btn = buttons[i]
@@ -126,6 +129,14 @@ func _on_control_pressed() -> void:
 	control_panel.visible = true
 	is_panel_open = true # <-- SET KE TRUE
 
+func _on_stage_pressed() -> void:
+	sfx_button.play()
+	print("Control Menu Opened")
+	stage_level.visible = true
+	is_panel_open = true # <-- SET KE TRUE
+
+
+
 
 func _on_creadit_pressed() -> void:
 	sfx_button.play()
@@ -134,10 +145,14 @@ func _on_creadit_pressed() -> void:
 	video_stream_player.play()
 	is_panel_open = true # <-- SET KE TRUE8
 
+
+
 # Hubungkan tombol "Close" atau "Back" di dalam control_panel/creadit_panel ke fungsi ini
 func _on_panel_closed() -> void:
 	control_panel.visible = false
 	creadit_panel.visible = false
+	stage_level.visible = false
+	
 	is_panel_open = false # <-- SET KEMBALI KE FALSE
 
 	# PENTING: Panggil fungsi ini jika kamu juga menutup panel dengan tombol "ESC"

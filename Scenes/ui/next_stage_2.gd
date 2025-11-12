@@ -1,7 +1,8 @@
 extends CanvasLayer
 
-@onready var next_stage_button: Button = $Control/VBoxContainer/VBoxContainer/Next_Stage_Button
-@onready var main_menu_button: Button = $Control/VBoxContainer/VBoxContainer/Main_Menu_Button
+@onready var next_stage_button: Button = $Control/Panel/VBoxContainer/VBoxContainer/Next_Stage_Button
+@onready var main_menu_button: Button = $Control/Panel/VBoxContainer/VBoxContainer/Main_Menu_Button
+
 @onready var root_control: Control = $Control
 @onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
