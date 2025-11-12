@@ -1,8 +1,9 @@
-[gd_scene load_steps=46 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=47 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="Script" uid="uid://bgnvhifq7g7kf" path="res://Script/stage_1.gd" id="1_ihc3j"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_w6c7r"]
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="2_lmh3y"]
+[ext_resource type="AudioStream" uid="uid://bf3bixkro868s" path="res://Assets/Audio/typewriter-typing-68696.ogg" id="2_yk7o4"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="3_gpka1"]
 [ext_resource type="Texture2D" uid="uid://b0708f36qjoxd" path="res://Assets/Tileset/PNG/Objects.png" id="4_qg42e"]
 [ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="5_ec0c7"]
@@ -14,8 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://lk1vqq6fhqj0" path="res://Scenes/silver_chest.tscn" id="11_jcn7v"]
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="12_s45d0"]
 [ext_resource type="PackedScene" uid="uid://hcwksn5mwp0f" path="res://Scenes/gold_chest.tscn" id="13_lmh3y"]
-[ext_resource type="PackedScene" uid="uid://dg0s64uj6ywq1" path="res://Scenes/pintu_stage_1.tscn" id="14_gpka1"]
-[ext_resource type="PackedScene" uid="uid://dkri7l8pcp7lv" path="res://Scenes/hidden_to_maze.tscn" id="15_juu8l"]
+[ext_resource type="PackedScene" uid="uid://d3upyn87bfdo0" path="res://Scenes/pintu_stage_1.tscn" id="14_gpka1"]
+[ext_resource type="PackedScene" uid="uid://djubpvo76vscy" path="res://Scenes/hidden_to_maze.tscn" id="15_juu8l"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="16_oof0y"]
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="17_ihc3j"]
 [ext_resource type="Script" uid="uid://dolu06d35tnho" path="res://Script/tutorial_welcome.gd" id="18_b8g7p"]
@@ -23,7 +24,7 @@
 [ext_resource type="Script" uid="uid://dtel1wuxbngfv" path="res://Script/tutorial_goal.gd" id="20_dswwp"]
 [ext_resource type="Script" uid="uid://b47oyukbqxraa" path="res://Script/tutorial_chest.gd" id="21_cx13s"]
 [ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="22_oof0y"]
-[ext_resource type="PackedScene" path="res://Scenes/ui/You_Dead.tscn" id="24_b8g7p"]
+[ext_resource type="PackedScene" uid="uid://4mya8le2nvu5" path="res://Scenes/ui/You_Dead.tscn" id="24_b8g7p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("2_lmh3y")
@@ -3122,6 +3123,14 @@ size = Vector2(20, 59)
 position = Vector2(-2219, 323)
 script = ExtResource("1_ihc3j")
 
+[node name="Suara_Typing" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(2, 0)
+scale = Vector2(1.0052633, 0.99984723)
+stream = ExtResource("2_yk7o4")
+volume_db = 24.0
+pitch_scale = 2.38
+parameters/looping = true
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Pause" parent="HUD" instance=ExtResource("1_w6c7r")]
@@ -3374,7 +3383,7 @@ shape = SubResource("RectangleShape2D_bugoh")
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
 z_index = 10
-position = Vector2(67, 57)
+position = Vector2(66, 57)
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)

@@ -11,6 +11,7 @@ func _ready():
 	draw_area.visible = false
 
 func open():
+	GameData.is_popup_open = true
 	visible = true
 	draw_area.visible = true
 	draw_area.set_drawing_enabled(true)
@@ -18,6 +19,7 @@ func open():
 		sfx_map_open.play()
 
 func close():
+	GameData.is_popup_open = false
 	visible = false
 	draw_area.visible = false
 	draw_area.set_drawing_enabled(false)

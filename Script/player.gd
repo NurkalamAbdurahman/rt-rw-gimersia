@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-const SPEED = 130.0
+const SPEED = 100.0
 const ATTACK_DURATION = 0.25
-const ATTACK_OFFSET = 25.0
+const ATTACK_OFFSET = 10.0
 @onready var map_editor_ui: Control = $MapEditorLayer/MapEditorUI
 @onready var you_dead_ui: CanvasLayer = get_tree().get_current_scene().get_node("YouDead")
 
@@ -28,6 +28,10 @@ var last_direction: Vector2 = Vector2.DOWN
 var is_attacking: bool = false
 var current_anim_direction: String = "down" 
 
+var is_knocked_back: bool = false
+const KNOCKBACK_STRENGTH = 200.0 # Kecepatan dorongan
+const KNOCKBACK_DURATION = 0.2 # Durasi dorongan (detik)
+
 # --- FUNGSI INIT ---
 func _ready() -> void:
 	for torch in get_tree().get_nodes_in_group("torches"):
@@ -48,7 +52,6 @@ func _ready() -> void:
 	if you_dead_ui:
 		you_dead_ui.connect("respawn_pressed", Callable(self, "_on_respawn_selected"))
 
-
 func _on_torch_picked_up(torch_node):
 	if not has_torch:
 		held_torch = torch_node
@@ -59,21 +62,29 @@ func _on_torch_picked_up(torch_node):
 
 # --- FUNGSI FISIKA & INPUT ---
 func _physics_process(delta):
-	if is_dead:  # ⬅️ Tambahan
+	if is_dead:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
 		
-	if GameData.health <= 1:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		return
+	# ⚠️ TIDAK PERLU CEK GameData.health di sini. Cukup andalkan is_dead.
+	# if GameData.health <= 1:
+	# 	velocity = Vector2.ZERO
+	# 	move_and_slide()
+	# 	return
 		
 	if is_attacking:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		update_animation(Vector2.ZERO)
 		return
+	
+	# >>> KNOCKBACK LOGIC <<<
+	if is_knocked_back:
+		# Pergerakan sudah diatur di take_damage, hanya perlu geser
+		move_and_slide()
+		return
+	# <<< END KNOCKBACK >>>
 	
 	var input_vector = Vector2.ZERO
 	
@@ -171,7 +182,8 @@ func attack():
 		
 		if enemy.has_method("take_damage") and enemy != self:
 			print("💥 Hitting enemy: ", enemy.name)
-			enemy.take_damage(1)
+			# ✅ PERBAIKAN: Kirim amount (1) dan posisi penyerang (global_position)
+			enemy.take_damage(1, global_position)
 	# ================================
 
 	# Tunggu Durasi Serangan
@@ -186,8 +198,9 @@ func attack():
 	update_animation(Vector2.ZERO)
 
 # --- FUNGSI KERUSAKAN ---
-func take_damage(amount):
-	if invincible or is_dead:  # ⬅️ Tambahan proteksi
+func take_damage(amount, damage_source_position: Vector2):
+	sfx_attacked.play()
+	if invincible or is_dead: # ✅ Cek is_dead di awal
 		return
 
 	var new_health = GameData.health - amount
@@ -199,13 +212,33 @@ func take_damage(amount):
 
 	if new_health <= 1:
 		die()
+		return # ✅ PENTING: Segera keluar setelah memanggil die()
+		
+	# --- LOGIKA KNOCKBACK ---
+	# 1. Hitung arah dorongan (dari sumber damage ke pemain)
+	var knockback_direction = (global_position - damage_source_position).normalized()
+	
+	# 2. Terapkan velocity dan set state knockback
+	velocity = knockback_direction * KNOCKBACK_STRENGTH
+	is_knocked_back = true
+	is_attacking = false # Batalkan serangan jika sedang menyerang
+	sfx_run.stop()
+	
+	# 3. Nonaktifkan knockback setelah durasi
+	await get_tree().create_timer(KNOCKBACK_DURATION).timeout
+	
+	# Reset state dan velocity
+	if is_knocked_back and not is_dead: # ✅ Cek is_dead lagi sebelum reset
+		is_knocked_back = false
+		velocity = Vector2.ZERO
 
 func die():
 	if is_dead:
-		print("Die called") 
 		return
-	is_dead = true
+		
+	is_dead = true # ✅ Atur status mati segera
 	print("💀 Player died")
+
 	is_locked = true
 	velocity = Vector2.ZERO
 	move_and_slide()
@@ -213,8 +246,35 @@ func die():
 	if sfx_death:
 		sfx_death.play()
 
+	# 🎬 Tentukan nama animasi sesuai arah
+	var death_anim_name = ""
+	match current_anim_direction:
+		"up":
+			death_anim_name = "death_up"
+		"down":
+			death_anim_name = "death_down"
+		"left":
+			death_anim_name = "death_left"
+		"right":
+			death_anim_name = "death_right"
+		_:
+			death_anim_name = "death_down"
+
+	# 🎞️ Cek apakah animasi tersebut ada di AnimatedSprite2D
+	var frames = player.sprite_frames
+	if frames.has_animation(death_anim_name):
+		player.play(death_anim_name)
+		await player.animation_finished
+	else:
+		print("⚠️ Tidak ada animasi", death_anim_name, "pakai default death_d. Menggunakan fallback timer.")
+		player.play("death_d")
+		# ⏱️ Fallback timer: Tunggu 1.0 detik jika animasi bermasalah
+		await get_tree().create_timer(1.0).timeout 
+
+	# 🩸 Tampilkan UI "You Dead"
 	if you_dead_ui:
 		you_dead_ui.show_you_dead()
+
 
 func _on_respawn_selected():
 	print("⚡ Respawn pressed — respawn player!")
@@ -232,4 +292,4 @@ func flash_red():
 var map_scene_instance = null
 
 func _on_Button_Map_pressed() -> void:
-	pass # Replace with function body.
+	pass # Replace with function body.as

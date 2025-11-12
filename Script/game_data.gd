@@ -3,7 +3,7 @@ extends Node
 signal stats_updated
 
 var health: int = 6
-var max_health: int = 7
+var max_health: int = 6
 var coins: int = 0
 var silver_keys: int = 0
 var golden_keys: int = 0
@@ -15,7 +15,8 @@ var chest_states = {}
 var torch_states = {}
 var enemy_states = {}
 var next_spawn_location: String = ""
-var has_dead: bool = false
+var has_dead: bool = true
+var is_popup_open: bool = false
 
 func set_enemy_killed(enemy_id: String):
 	enemy_states[enemy_id] = true

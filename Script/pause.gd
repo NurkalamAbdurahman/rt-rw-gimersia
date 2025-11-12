@@ -15,6 +15,8 @@ extends Control
 
 @onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
+@onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
+
 
 
 # ========= NAVIGASI BUTTON PAUSE =========
@@ -59,8 +61,10 @@ func _ready() -> void:
 
 
 func _process(delta):
-	if Input.is_action_just_pressed(pause_key):
+	# Cek apakah ada popup/shop aktif
+	if Input.is_action_just_pressed(pause_key) and not GameData.is_popup_open:
 		toggle_pause()
+
 
 
 func toggle_pause():
