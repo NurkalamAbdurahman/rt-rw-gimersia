@@ -66,10 +66,12 @@ func _on_button_pressed():
 		GameData.reset()
 		GameData.clear_data()
 		GameData.clear_torch()
+		GameData.set_finish_stage2()
 		#get_tree().change_scene_to_file("")
 	elif buttons[selected_index] == main_menu_button:
 		hide_popup()
 		GameData.reset()
 		GameData.clear_data()
 		GameData.clear_torch()
+		GameData.set_finish_stage2()
 		get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")

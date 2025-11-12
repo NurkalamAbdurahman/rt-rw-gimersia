@@ -153,12 +153,13 @@ func _update_button_focus() -> void:
 
 
 func _on_start_pressed() -> void:
-	sfx_button.play() # Gunakan SFX tombol biasa
-	print("Start Menu Pressed, opening Stage Level")
-	
-	# Tampilkan Stage Level
-	stage_level.visible = true
-	is_panel_open = true # Penting agar navigasi menu utama berhenti
+	sfx_start.play()
+	print("Start pressed")
+	start_button.disabled = true
+	var fade_scene = preload("res://Scenes/ui/fade_transitions.tscn").instantiate()
+	get_tree().root.add_child(fade_scene)
+	await fade_scene.fade_out()
+	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_1.tscn")
 
 
 func _on_quit_pressed() -> void:
