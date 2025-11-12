@@ -260,9 +260,6 @@ position = Vector2(1718, -82)
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
-[node name="YouDead" parent="." instance=ExtResource("9_r847v")]
-visible = false
-
 [node name="Pintu_stage1" parent="." instance=ExtResource("10_5koqb")]
 position = Vector2(1834, 1167)
 
@@ -299,3 +296,5 @@ enemy_id = "SceneA_Goblin_8"
 
 [node name="HiddenToMaze" parent="." instance=ExtResource("14_nk1b1")]
 position = Vector2(1406, 387)
+
+[node name="YouDead" parent="." instance=ExtResource("9_r847v")]
