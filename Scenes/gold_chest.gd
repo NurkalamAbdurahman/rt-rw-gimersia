@@ -7,6 +7,7 @@ extends Node2D
 @onready var label: Label = $Label
 @onready var sfx_chest_open: AudioStreamPlayer2D = $SFX_ChestOpen
 @export var chest_id: String = "SceneAG_Chest_1" # Ganti ini di setiap instance chest!
+@onready var hud: Label = $"../Hud/Label"
 
 var player_in_area = false
 var chest_opened = false
@@ -57,7 +58,7 @@ func cek_buka_chest():
 		else:
 			label.visible = false
 
-func buka_chest():    
+func buka_chest():
 	chest_opened = true
 	label.visible = false
 	tertutup.visible = false
@@ -75,10 +76,31 @@ func buka_chest():
 
 	var reward = randi_range(15, 25)
 	GameData.add_coin(reward)
-	GameData.add_skull_key(skullkey)
+	GameData.add_skull_key(skullkey) # <-- Dapat koin & kunci
 	print("Chest reward:", reward)
 
 	await anim_sprite.animation_finished
 
 	anim_sprite.visible = false
 	terbuka.visible = true
+
+	# --- INI BAGIAN YANG DIUBAH ---
+
+	# 1. Buat pesan untuk koin
+	var message = "You gained %s coins!" % reward
+	
+	# 2. Tambahkan pesan untuk kunci di baris baru (\n)
+	message += "\nYou received a Skull Key!"
+	
+	# 3. Atur teks label dengan pesan gabungan
+	hud.text = message
+	
+	# 4. Pastikan label visible DAN buat tidak transparan (alpha = 1.0)
+	hud.visible = true
+	hud.modulate.a = 1.0
+
+	# 5. Tunggu 3 detik (lebih lama sedikit agar 2 baris terbaca)
+	await get_tree().create_timer(3.0).timeout
+
+	# 6. Sembunyikan lagi labelnya
+	hud.modulate.a = 0.0

@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Attacked
 @onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
 @onready var sfx_walk: AudioStreamPlayer2D = $SFX_Walk
+@onready var hud: Label = $"../Hud/Label"
 
 
 # Raycasts untuk deteksi tembok
@@ -419,49 +420,85 @@ func die():
 	if sfx_death:
 		sfx_death.play()
 
-	GameData.set_enemy_killed(enemy_id)
-	print("Goblin died!")
-
+	# --- PENTING: HENTIKAN INTERAKSI SEGERA! ---
 	
-	# --- SIMPAN STATUS PERSISTENCE SAAT MATI ---
-	GameData.set_enemy_killed(enemy_id)
-	
-	print("Goblin died!")
-	
-	try_drop_item() 
-	
-	# Disable collision agar tidak menghalangi
 	collision_layer = 0
 	collision_mask = 0
+	wall_raycast.enabled = false
+	left_raycast.enabled = false
+	right_raycast.enabled = false
+	detection_area.set_deferred("monitoring", false)
+	attack_area.set_deferred("monitoring", false)
 	
+	# --- LOGIKA REWARD ---
+	
+	GameData.set_enemy_killed(enemy_id)
+	print("Goblin died and saved persistence!")
+	
+	var reward_message = try_drop_item() # Panggil dan dapatkan pesan reward
+	
+	# --- ANIMASI KEMATIAN ---
+
 	# Mainkan animasi death
 	var death_anim_name = "death" + get_direction_suffix(last_direction)
 	
-	# Cek apakah animasi death ada
 	if animated_sprite.sprite_frames.has_animation(death_anim_name):
 		animated_sprite.play(death_anim_name)
 		await animated_sprite.animation_finished
 	else:
-		# Fallback jika tidak ada animasi death
-		print("No death animation, using hurt animation")
 		play_animation("hurt")
 		await get_tree().create_timer(0.5).timeout
 	
-	# Fade out effect (opsional)
-	var tween = create_tween()
-	tween.tween_property(animated_sprite, "modulate:a", 0.0, 0.3)
-	await tween.finished
+	# =======================================================
+	# ➡️ PERBAIKAN UTAMA: HILANGKAN VISUAL MUSUH SEKARANG! 👻
+	# =======================================================
 	
-	# Hapus goblin dari scene
+	# Fade out musuh (membuatnya transparan/tidak terlihat)
+	var visual_fade_tween = create_tween()
+	visual_fade_tween.tween_property(animated_sprite, "modulate:a", 0.0, 0.3)
+	await visual_fade_tween.finished
+	
+	# --- TAMPIL PESAN DI HUD (Saat musuh sudah hilang) ---
+	
+	hud.text = reward_message
+	hud.visible = true
+	hud.modulate.a = 1.0
+	
+	var wait_duration = 2.0
+	if reward_message.contains("Silver Key"):
+		wait_duration = 3.0
+	
+	# Musuh sudah hilang dari sini, hanya notifikasi yang tampil
+	await get_tree().create_timer(wait_duration).timeout
+	
+	# Sembunyikan labelnya
+	hud.modulate.a = 0.0
+	
+	# --- PENGHAPUSAN AKHIR ---
+	# Hapus goblin dari scene setelah notifikasi selesai
 	queue_free()
 
-func try_drop_item():
+func try_drop_item() -> String:
 	var reward = randi_range(1, 5)
 	GameData.add_coin(reward)
-	print("Chest reward:", reward)
-	var drop_chance = 1  # 50% drop rate
+	
+	# Pesan koin adalah pesan dasar
+	var message = "You gained %s coins!" % reward
+	
+	var drop_chance = 1 # Ganti 1.0 menjadi 0.5 jika maksudmu 50%
+	var got_key = false
+	
 	if randf() <= drop_chance:
 		GameData.add_silver_key(skyes)
+		got_key = true
+		
+	print("Enemy reward:", reward, " | Dropped Key:", "")
+	
+	# Jika dapat kunci, tambahkan pesan ke baris baru
+	if got_key:
+		message += "\nYou received a Silver Key!"
+		
+	return message # <-- Kembalikan pesan reward
 
 
 # ============ ANIMATION HELPER ============

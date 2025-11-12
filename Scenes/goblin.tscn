@@ -1466,6 +1466,7 @@ sprite_frames = SubResource("SpriteFrames_qgv2b")
 animation = &"hurt_down"
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 

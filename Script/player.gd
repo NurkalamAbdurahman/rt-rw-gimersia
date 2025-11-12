@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 130.0
 const ATTACK_DURATION = 0.25
-const ATTACK_OFFSET = 25.0
+const ATTACK_OFFSET = 20.0
 @onready var map_editor_ui: Control = $MapEditorLayer/MapEditorUI
 
 # --- ONREADY VARIAN ---

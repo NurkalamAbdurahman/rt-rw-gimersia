@@ -7,6 +7,7 @@ extends Node2D
 @onready var label: Label = $Label
 @onready var sfx_chest_open: AudioStreamPlayer2D = $SFX_ChestOpen
 @export var chest_id: String = "SceneA_Chest_1" # Ganti ini di setiap instance chest!
+@onready var hud: Label = $"../../Hud/Label"
 
 var player_in_area = false
 var chest_opened = false
@@ -63,15 +64,15 @@ func cek_buka_chest():
 		else:
 			label.visible = false
 
-func buka_chest():    
+func buka_chest():
 	chest_opened = true
 	label.visible = false
 	tertutup.visible = false
 	anim_sprite.visible = true
-	
+
 	# --- SIMPAN STATUS PERSISTENCE SAAT DIBUKA ---
 	GameData.set_chest_opened(chest_id)
-	
+
 	# 🔊 Sound effect
 	sfx_chest_open.play()
 
@@ -79,14 +80,49 @@ func buka_chest():
 	anim_sprite.animation = "open"
 	anim_sprite.play()
 
+	# --- AWAL BAGIAN LOGIKA REWARD YANG DIUBAH ---
 	var reward = randi_range(3, 10)
 	GameData.add_coin(reward)
 	GameData.add_pity(pityadd)
+	
+	# 1. Buat "flag" untuk menandai apakah kita dapat kunci
+	var got_golden_key = false 
 	if GameData.pity == GameData.max_pity:
 		GameData.add_golden_key(pityadd)
-	print("Chest reward:", reward)
+		got_golden_key = true # <-- Set flag ini ke true!
+
+	print("Chest reward:", reward, " | Got Golden Key:", got_golden_key)
+	# --- AKHIR BAGIAN LOGIKA REWARD YANG DIUBAH ---
 
 	await anim_sprite.animation_finished
 
 	anim_sprite.visible = false
 	terbuka.visible = true
+
+	# --- AWAL BAGIAN TAMPIL PESAN YANG DIUBAH ---
+	
+	# 2. Buat pesan dasar (untuk koin)
+	var message = "You gained %s coins!" % reward
+	
+	# 3. JIKA dapat kunci emas (flag-nya true), tambahkan pesan kedua
+	if got_golden_key:
+		# \n artinya "buat baris baru"
+		message += "\nYou received a Golden Key!" 
+		
+	# 4. Atur teks label dengan pesan yang sudah kita buat
+	hud.text = message
+	
+	# 5. Tampilkan labelnya
+	hud.visible = true
+	hud.modulate.a = 1.0
+
+	# 6. Tentukan durasi tunggu (lebih lama jika ada 2 baris pesan)
+	var wait_duration = 2.0 # Durasi normal
+	if got_golden_key:
+		wait_duration = 3.5 # Durasi lebih lama untuk 2 baris
+	
+	await get_tree().create_timer(wait_duration).timeout
+
+	# 7. Sembunyikan lagi labelnya
+	hud.modulate.a = 0.0
+	# --- AKHIR BAGIAN TAMPIL PESAN YANG DIUBAH ---

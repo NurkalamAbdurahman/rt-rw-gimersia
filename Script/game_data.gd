@@ -4,8 +4,8 @@ signal stats_updated
 
 var health: int = 6
 var max_health: int = 7
-var coins: int = 10
-var silver_keys: int = 0
+var coins: int = 0
+var silver_keys: int = 3
 var golden_keys: int = 0
 var skull_keys: int = 0
 var pity: int = 0

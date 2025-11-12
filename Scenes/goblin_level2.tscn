@@ -1481,6 +1481,7 @@ shape = SubResource("CircleShape2D_ep384")
 [node name="SFX_Attack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_nq1p0")
 volume_db = 10.097
+max_distance = 4096.0
 
 [node name="SFX_Attacked" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_ewaq2")

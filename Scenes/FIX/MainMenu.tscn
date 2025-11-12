@@ -445,6 +445,5 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.45, 0.45)
 stream = ExtResource("8_avb58")
-autoplay = true
 expand = true
 loop = true
