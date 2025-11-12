@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=3 uid="uid://ka512j4tlhyh"]
+
+[ext_resource type="Script" uid="uid://daniqrgmjc07u" path="res://Scenes/ui/next_stage_3.gd" id="1_8hgh4"]
+[ext_resource type="AudioStream" uid="uid://ybocb4nd7p8q" path="res://Assets/Audio/click_better.mp3" id="2_wc8a4"]
+[ext_resource type="AudioStream" uid="uid://mkee0pbwx7rb" path="res://Assets/Audio/click_button.mp3" id="3_w5xjj"]
+[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="4_63alv"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="5_wyrp4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8hgh4"]
+font = ExtResource("4_63alv")
+font_size = 64
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wc8a4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w5xjj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_63alv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wyrp4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_28vgc"]
+
+[node name="NextStage" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_8hgh4")
+
+[node name="SFX_Button" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+process_priority = 5
+stream = ExtResource("2_wc8a4")
+volume_db = 12.893
+max_distance = 40000.0
+
+[node name="SFX_Hover" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+process_priority = 5
+stream = ExtResource("3_w5xjj")
+volume_db = 12.893
+max_distance = 4000.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -96.0
+offset_right = 300.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Stage" type="Label" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Stage Cleared!"
+label_settings = SubResource("LabelSettings_8hgh4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Next_Stage_Button" type="Button" parent="Control/Panel/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_wyrp4")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wc8a4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w5xjj")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_63alv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wyrp4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_28vgc")
+text = "Next Stage"
+alignment = 0
+
+[node name="Main_Menu_Button" type="Button" parent="Control/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_wyrp4")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wc8a4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w5xjj")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_63alv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wyrp4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_28vgc")
+text = "Main Menu
+"
+alignment = 0
