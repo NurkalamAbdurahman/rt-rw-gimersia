@@ -6,7 +6,7 @@ extends Node2D
 @onready var area: Area2D = $Area2D
 @onready var label: Label = $Label
 @onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
-@export var popup_scene: PackedScene = preload("res://Scenes/ui/Next_Stage.tscn")
+@export var popup_scene: PackedScene = preload("res://Scenes/ui/Next_Stage_2.tscn")
 
 var player_in_area = false
 var chest_opened = false

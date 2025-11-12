@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="13_nk1b1"]
 [ext_resource type="PackedScene" uid="uid://37b27rq7sxu0" path="res://Scenes/hidden_to_maze02.tscn" id="14_nk1b1"]
 [ext_resource type="PackedScene" uid="uid://dqlq2aviy3kk0" path="res://Scenes/pintu_stage_2.tscn" id="15_r847v"]
-[ext_resource type="PackedScene" uid="uid://ceaqube23cm8i" path="res://Scenes/ui/Next_Stage.tscn" id="16_5koqb"]
+[ext_resource type="PackedScene" uid="uid://cwst4tasxjw1r" path="res://Scenes/ui/Next_Stage_2.tscn" id="16_5koqb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c248w"]
 texture = ExtResource("1_rsbcv")
