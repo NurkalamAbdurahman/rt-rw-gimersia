@@ -11,10 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="7_jsvtg"]
 [ext_resource type="PackedScene" uid="uid://bed842dpwmt78" path="res://Scenes/Player.tscn" id="8_nk1b1"]
 [ext_resource type="PackedScene" uid="uid://4mya8le2nvu5" path="res://Scenes/ui/You_Dead.tscn" id="9_r847v"]
-[ext_resource type="PackedScene" uid="uid://d3upyn87bfdo0" path="res://Scenes/pintu_stage_1.tscn" id="10_5koqb"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="12_jsvtg"]
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="13_nk1b1"]
 [ext_resource type="PackedScene" uid="uid://37b27rq7sxu0" path="res://Scenes/hidden_to_maze02.tscn" id="14_nk1b1"]
+[ext_resource type="PackedScene" uid="uid://dqlq2aviy3kk0" path="res://Scenes/pintu_stage_2.tscn" id="15_r847v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c248w"]
 texture = ExtResource("1_rsbcv")
@@ -260,9 +260,6 @@ position = Vector2(1718, -82)
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
-[node name="Pintu_stage1" parent="." instance=ExtResource("10_5koqb")]
-position = Vector2(1834, 1167)
-
 [node name="Goblin" parent="." instance=ExtResource("12_jsvtg")]
 position = Vector2(588, -27)
 
@@ -298,3 +295,6 @@ enemy_id = "SceneA_Goblin_8"
 position = Vector2(1406, 387)
 
 [node name="YouDead" parent="." instance=ExtResource("9_r847v")]
+
+[node name="Pintu_stage1" parent="." instance=ExtResource("15_r847v")]
+position = Vector2(1833, 1167)
