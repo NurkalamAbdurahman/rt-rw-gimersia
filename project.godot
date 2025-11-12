@@ -21,6 +21,7 @@ GameData="*res://Script/game_data.gd"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [input]

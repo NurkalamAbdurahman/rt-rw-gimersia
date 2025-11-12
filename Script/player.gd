@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-const SPEED = 130.0
+const SPEED = 100.0
 const ATTACK_DURATION = 0.25
-const ATTACK_OFFSET = 25.0
+const ATTACK_OFFSET = 10.0
 @onready var map_editor_ui: Control = $MapEditorLayer/MapEditorUI
 @onready var you_dead_ui: CanvasLayer = get_tree().get_current_scene().get_node("YouDead")
 
@@ -51,7 +51,6 @@ func _ready() -> void:
 #	fungsi you dead
 	if you_dead_ui:
 		you_dead_ui.connect("respawn_pressed", Callable(self, "_on_respawn_selected"))
-
 
 func _on_torch_picked_up(torch_node):
 	if not has_torch:
@@ -200,6 +199,7 @@ func attack():
 
 # --- FUNGSI KERUSAKAN ---
 func take_damage(amount, damage_source_position: Vector2):
+	sfx_attacked.play()
 	if invincible or is_dead: # ✅ Cek is_dead di awal
 		return
 
