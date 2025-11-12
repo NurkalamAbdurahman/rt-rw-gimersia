@@ -23,6 +23,7 @@ func _ready() -> void:
 	_update_button_focus()
 
 func show_you_dead():
+	GameData.is_popup_open = true
 	get_tree().paused = true
 	root_control.show()
 
@@ -48,6 +49,7 @@ func show_you_dead():
 	_update_button_focus()
 
 func hide_you_dead():
+	GameData.is_popup_open = false
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()

@@ -32,6 +32,7 @@ func _process(delta):
 		open_shop()
 
 func open_shop():
+	GameData.is_popup_open = true
 	if shop_opened:
 		return
 
@@ -54,6 +55,7 @@ func open_shop():
 	shop_ui.connect("tree_exited", Callable(self, "_on_shop_closed"))
 
 func _on_shop_closed():
+	GameData.is_popup_open = false
 	print("Shop closed")
 	shop_opened = false
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://lk1vqq6fhqj0"]
+[gd_scene load_steps=16 format=3 uid="uid://lk1vqq6fhqj0"]
 
 [ext_resource type="Script" uid="uid://cnw08k3snnn5k" path="res://Script/silver_chest.gd" id="1_p26g8"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_p26g8"]
 [ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="3_wx0bj"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_x8474"]
+[ext_resource type="AudioStream" uid="uid://hei6fqspiwsb" path="res://Assets/Audio/door-closed-382707.ogg" id="5_b067n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8474"]
 size = Vector2(18, 14)
@@ -100,6 +101,10 @@ label_settings = SubResource("LabelSettings_b067n")
 
 [node name="SFX_ChestOpen" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_wx0bj")
+volume_db = 11.0
+
+[node name="SFX_ChestLocked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_b067n")
 volume_db = 11.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
