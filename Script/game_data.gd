@@ -7,7 +7,7 @@ var max_health: int = 6
 var coins: int = 0
 var silver_keys: int = 0
 var golden_keys: int = 0
-var skull_keys: int = 0
+var skull_keys: int = 1
 var pity: int = 0
 var max_pity: int = 3
 var potion: int = 0
@@ -15,7 +15,7 @@ var chest_states = {}
 var torch_states = {}
 var enemy_states = {}
 var next_spawn_location: String = ""
-var has_dead: bool = false
+var has_dead: bool = true
 var is_popup_open: bool = false
 var saved_strokes: Array = []
 var saved_brush_color: Color = Color.BLACK
@@ -23,6 +23,7 @@ var saved_brush_size: float = 2.0
 var is_finish_stage1 = false;
 var is_finish_stage2 = false;
 var is_finish_stage3 = false;
+var is_scene_changing: bool = false
 
 func set_finish_stage1():
 	is_finish_stage1 = true
@@ -48,7 +49,7 @@ func load_drawing_data() -> Dictionary:
 	}
 
 func clear_data():
-	saved_strokes.clear()
+	saved_strokes = []
 	saved_brush_color = Color.BLACK
 	saved_brush_size = 2.0
 

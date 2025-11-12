@@ -63,6 +63,7 @@ func _on_button_pressed():
 	sfx_button.play()
 	if buttons[selected_index] == next_stage_button:
 		hide_popup()
+		GameData.is_scene_changing = true
 		GameData.reset()
 		GameData.clear_data()
 		GameData.clear_torch()
@@ -70,6 +71,7 @@ func _on_button_pressed():
 		get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
 	elif buttons[selected_index] == main_menu_button:
 		hide_popup()
+		GameData.is_scene_changing = true
 		GameData.reset()
 		GameData.clear_data()
 		GameData.clear_torch()

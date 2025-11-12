@@ -68,6 +68,7 @@ func hide_you_dead():
 func _on_respawn_pressed():
 	get_tree().paused = false  # ▶️ Unpause game
 	await hide_you_dead()
+	GameData.set_death(true)
 	emit_signal("respawn_pressed")
 
 func _on_quit_pressed():

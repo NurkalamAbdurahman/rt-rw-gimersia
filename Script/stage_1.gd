@@ -13,7 +13,8 @@ const IRON_DOOR_SPAWN_POSITION = Vector2(-1045, -254)
 @onready var tutd: Area2D = $tutorial_chest
 
 func _ready():
-	
+	GameData.is_scene_changing = false
+
 	# 1. Periksa dari mana karakter datang (dari skrip Global.gd)
 	if GameData.next_spawn_location == "IRON_DOOR_EXIT":
 		

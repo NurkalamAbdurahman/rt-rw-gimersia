@@ -9,7 +9,8 @@ extends Node2D
 const IRON_DOOR_SPAWN_POSITION = Vector2(1406, 387) 
 
 func _ready():
-	
+	GameData.is_scene_changing = false
+
 	# 1. Periksa dari mana karakter datang (dari skrip Global.gd)
 	if GameData.next_spawn_location == "IRON_DOOR_EXIT":
 		

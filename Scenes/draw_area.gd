@@ -102,6 +102,7 @@ func undo_last_stroke():
 # Dipanggil saat scene ini akan diganti/dihapus (untuk menyimpan data)
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE or what == NOTIFICATION_EXIT_TREE:
-		# --- Menyimpan data ke Autoload ---
-		GameData.save_drawing_data(strokes, brush_color, brush_size)
-		print("Drawing data saved!")
+		# Hanya simpan data jika tidak sedang pindah scene
+		if not GameData.is_scene_changing:
+			GameData.save_drawing_data(strokes, brush_color, brush_size)
+			print("Drawing data saved!")

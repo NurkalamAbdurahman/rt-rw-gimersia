@@ -6,12 +6,17 @@ extends Node2D
 @onready var area: Area2D = $Area2D
 @onready var label: Label = $Label
 @onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
-@export var popup_scene: PackedScene = preload("res://Scenes/ui/Next_Stage_2.tscn")
+@export var popup_scene: PackedScene = preload("res://Scenes/ui/Next_Stage.tscn")
 
 var player_in_area = false
 var chest_opened = false
 
 func _ready():
+	if popup_scene == null:
+		push_error("⚠️ popup_scene masih null! Path mungkin salah atau belum di-assign.")
+	else:
+		print("✅ popup_scene loaded:", popup_scene.resource_path)
+
 	terkunci.visible = true
 	terbuka.visible = false
 	anim_sprite.visible = false
