@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8gl5bir71b47"]
+
+[ext_resource type="PackedScene" uid="uid://4mya8le2nvu5" path="res://Scenes/ui/You_Dead.tscn" id="1_0mliq"]
+[ext_resource type="Script" uid="uid://c44eflarsr3u4" path="res://Scenes/ui/test.gd" id="1_ketsd"]
+
+[node name="Test" type="Node2D"]
+script = ExtResource("1_ketsd")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 500.0
+offset_top = 302.0
+offset_right = 538.0
+offset_bottom = 333.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "test"
+
+[node name="YouDead" parent="." instance=ExtResource("1_0mliq")]
