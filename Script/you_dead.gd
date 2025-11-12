@@ -69,6 +69,7 @@ func _on_quit_pressed():
 	var fade_node = get_tree().root.get_node_or_null("ScreenFade")
 	if fade_node and fade_node.has_method("fade_out"):
 		await fade_node.fade_out()
+	GameData.reset()
 	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
 
 func _input(event: InputEvent) -> void:
