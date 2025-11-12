@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=4 uid="uid://dl8ysiup7jwhn"]
+[gd_scene load_steps=22 format=4 uid="uid://dl8ysiup7jwhn"]
 
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_e7ynj"]
+[ext_resource type="Script" uid="uid://bao1phb8sqr4e" path="res://Script/stage_2.gd" id="1_r847v"]
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_rsbcv"]
 [ext_resource type="Texture2D" uid="uid://b6v0o4hk1nun3" path="res://Assets/Tileset/PNG/walls.png" id="2_uuii6"]
 [ext_resource type="Texture2D" uid="uid://w6kb6vcw07lg" path="res://Assets/Tileset/PNG/Green_Colosion.png" id="3_x1rkt"]
@@ -13,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://d3upyn87bfdo0" path="res://Scenes/pintu_stage_1.tscn" id="10_5koqb"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="12_jsvtg"]
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="13_nk1b1"]
+[ext_resource type="PackedScene" uid="uid://37b27rq7sxu0" path="res://Scenes/hidden_to_maze02.tscn" id="14_nk1b1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c248w"]
 texture = ExtResource("1_rsbcv")
@@ -97,6 +99,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_rnawo")
 
 [node name="STAGE_2" type="Node2D"]
+script = ExtResource("1_r847v")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -293,3 +296,6 @@ enemy_id = "SceneA_Goblin_7"
 [node name="Goblin8" parent="." instance=ExtResource("12_jsvtg")]
 position = Vector2(320, 701)
 enemy_id = "SceneA_Goblin_8"
+
+[node name="HiddenToMaze" parent="." instance=ExtResource("14_nk1b1")]
+position = Vector2(1406, 387)
