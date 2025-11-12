@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var respawn: Button = $Control/Panel/MarginContainer/VBoxContainer/HBoxContainer/Respawn
 @onready var quit: Button = $"Control/Panel/MarginContainer/VBoxContainer/HBoxContainer/Main menu"
 @onready var panel: Panel = $Control/Panel
+@onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
 
 signal respawn_pressed
 
@@ -100,6 +101,7 @@ func _update_button_focus() -> void:
 	for i in range(buttons.size()):
 		var btn = buttons[i]
 		if i == selected_index:
+			sfx_hover.play(8)
 			btn.modulate = Color(1.0, 0.84, 0.0) # Emas
 			btn.scale = Vector2(1.12, 1.12)
 		else:

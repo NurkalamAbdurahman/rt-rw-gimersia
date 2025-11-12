@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://4mya8le2nvu5"]
+[gd_scene load_steps=16 format=3 uid="uid://4mya8le2nvu5"]
 
 [ext_resource type="Script" uid="uid://dgij4uoge0hw5" path="res://Script/you_dead.gd" id="1_g21t8"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="1_odlm0"]
+[ext_resource type="AudioStream" uid="uid://mkee0pbwx7rb" path="res://Assets/Audio/click_button.mp3" id="2_b8fca"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_g21t8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_b8fca"]
@@ -31,6 +32,13 @@ font_size = 64
 [node name="YouDead" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_g21t8")
+
+[node name="SFX_Hover" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+process_priority = 5
+stream = ExtResource("2_b8fca")
+volume_db = 12.893
+max_distance = 4000.0
 
 [node name="Control" type="Control" parent="."]
 process_mode = 3

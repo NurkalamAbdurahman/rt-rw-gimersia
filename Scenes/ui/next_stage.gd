@@ -3,6 +3,8 @@ extends CanvasLayer
 @onready var next_stage_button: Button = $Control/VBoxContainer/VBoxContainer/Next_Stage_Button
 @onready var main_menu_button: Button = $Control/VBoxContainer/VBoxContainer/Main_Menu_Button
 @onready var root_control: Control = $Control
+@onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
+@onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
 
 var buttons: Array = []
 var selected_index: int = 0
@@ -49,6 +51,7 @@ func _update_button_focus() -> void:
 	for i in range(buttons.size()):
 		var btn = buttons[i]
 		if i == selected_index:
+			sfx_hover.play()
 			btn.add_theme_color_override("font_color", Color(1.0, 0.84, 0.0)) # teks emas
 			btn.scale = Vector2(1.12, 1.12)
 		else:
@@ -56,6 +59,7 @@ func _update_button_focus() -> void:
 			btn.scale = Vector2(1, 1)
 
 func _on_button_pressed():
+	sfx_button.play()
 	if buttons[selected_index] == next_stage_button:
 		hide_popup()
 		GameData.reset()

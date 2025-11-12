@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ceaqube23cm8i"]
+[gd_scene load_steps=12 format=3 uid="uid://ceaqube23cm8i"]
 
 [ext_resource type="Script" uid="uid://6ps3li0u4tt2" path="res://Scenes/ui/next_stage.gd" id="1_s0j4w"]
+[ext_resource type="AudioStream" uid="uid://ybocb4nd7p8q" path="res://Assets/Audio/click_better.mp3" id="2_s3ok7"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_sx43t"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_s3ok7"]
+[ext_resource type="AudioStream" uid="uid://mkee0pbwx7rb" path="res://Assets/Audio/click_button.mp3" id="3_s7msi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s7msi"]
 font = ExtResource("2_sx43t")
@@ -21,6 +23,20 @@ font_size = 64
 [node name="NextStage" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_s0j4w")
+
+[node name="SFX_Button" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+process_priority = 5
+stream = ExtResource("2_s3ok7")
+volume_db = 12.893
+max_distance = 40000.0
+
+[node name="SFX_Hover" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+process_priority = 5
+stream = ExtResource("3_s7msi")
+volume_db = 12.893
+max_distance = 4000.0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
