@@ -202,10 +202,10 @@ func take_damage(amount):
 
 func die():
 	if is_dead:
-		print("Die called") 
 		return
 	is_dead = true
 	print("💀 Player died")
+
 	is_locked = true
 	velocity = Vector2.ZERO
 	move_and_slide()
@@ -213,8 +213,35 @@ func die():
 	if sfx_death:
 		sfx_death.play()
 
+	# 🎬 Tentukan nama animasi sesuai arah
+	var death_anim_name = ""
+	match current_anim_direction:
+		"up":
+			death_anim_name = "death_up"
+		"down":
+			death_anim_name = "death_down"
+		"left":
+			death_anim_name = "death_left"
+		"right":
+			death_anim_name = "death_right"
+		_:
+			death_anim_name = "death_down"
+
+	# 🎞️ Cek apakah animasi tersebut ada di AnimatedSprite2D
+	var frames = player.sprite_frames
+	if frames.has_animation(death_anim_name):
+		player.play(death_anim_name)
+	else:
+		print("⚠️ Tidak ada animasi", death_anim_name, "pakai default death_d")
+		player.play("death_d")
+
+	# 🕐 Tunggu animasi selesai sebelum munculkan UI
+	await player.animation_finished
+
+	# 🩸 Tampilkan UI "You Dead"
 	if you_dead_ui:
 		you_dead_ui.show_you_dead()
+
 
 func _on_respawn_selected():
 	print("⚡ Respawn pressed — respawn player!")
