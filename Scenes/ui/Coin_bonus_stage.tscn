@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd0i3qqmbayyp"]
+[gd_scene load_steps=7 format=3 uid="uid://dd0i3qqmbayyp"]
 
 [ext_resource type="Script" uid="uid://iao430porj00" path="res://Script/coin_bonus_stage.gd" id="1_hfwq6"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_hfwq6"]
@@ -21,6 +21,11 @@ font = ExtResource("2_hfwq6")
 font_size = 64
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q2j4m"]
+font = ExtResource("2_hfwq6")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="coins_bonus" type="Control"]
 layout_mode = 3
@@ -54,3 +59,11 @@ offset_right = 435.0
 offset_bottom = 133.0
 scale = Vector2(2, 2)
 label_settings = SubResource("LabelSettings_mq7hy")
+
+[node name="messege_label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 220.0
+offset_right = 680.0
+offset_bottom = 267.0
+label_settings = SubResource("LabelSettings_q2j4m")

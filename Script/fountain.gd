@@ -23,14 +23,14 @@ func _on_body_entered(body):
 	if body.name == "Player":
 		player_in_range = true
 		player_ref = body
-		ui.show_message("Press E")
+		ui.show_message_e("Press E")
 
 
 func _on_body_exited(body):
 	if body.name == "Player":
 		player_in_range = false
 		player_ref = null
-		ui.show_message("")
+		ui.show_message_e("")
 
 
 func _process(_delta):
@@ -44,7 +44,7 @@ func _show_confirm_popup():
 	
 	var popup = confirm_popup_scene.instantiate()
 	get_tree().current_scene.add_child(popup)
-	popup.show_popup("You need coins to confirm")
+	popup.show_popup("You need coins\nto confirm")
 	
 	popup.confirmed.connect(_on_popup_confirmed)
 	popup.cancelled.connect(_on_popup_cancelled)
@@ -60,7 +60,6 @@ func _on_popup_confirmed():
 func _on_popup_cancelled():
 	if sfx_close:
 		sfx_close.play()
-	ui.show_message("Cancelled.", 2.0)
 	_freeze_player(false)
 	GameData.is_popup_open = false  # ← Reset flag juga di sini
 
