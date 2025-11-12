@@ -467,40 +467,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_ibf7x")
 text = "Credit"
 alignment = 0
 
-[node name="Creadit" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_sehva")
-
-[node name="TextureRect" type="TextureRect" parent="Creadit"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Creadit/TextureRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 0.99993896
-offset_top = 5.0
-offset_right = 1409.0
-offset_bottom = 797.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.45, 0.45)
-stream = ExtResource("8_avb58")
-expand = true
-loop = true
-
 [node name="StageLevel" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -541,6 +507,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 40
 
 [node name="stage1" type="Button" parent="StageLevel/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ck2dw")
 theme_override_font_sizes/font_size = 64
@@ -572,3 +539,37 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_mv3i6")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_yix33")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cosoe")
 text = "stage 3"
+
+[node name="Creadit" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_sehva")
+
+[node name="TextureRect" type="TextureRect" parent="Creadit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Creadit/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.99993896
+offset_top = 5.0
+offset_right = 1409.0
+offset_bottom = 797.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.45, 0.45)
+stream = ExtResource("8_avb58")
+expand = true
+loop = true

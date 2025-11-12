@@ -51,6 +51,8 @@ func cek_buka_chest():
 func buka_pintu():
 	if chest_opened:
 		return
+		
+	GameData.set_finish_stage2(true)
 
 	chest_opened = true
 	label.visible = false
