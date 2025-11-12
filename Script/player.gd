@@ -229,8 +229,6 @@ func flash_red():
 	await get_tree().create_timer(0.15).timeout
 	$AnimatedSprite2D.modulate = Color(1, 1, 1)
 
-			
-
 var map_scene_instance = null
 
 func _on_Button_Map_pressed() -> void:
