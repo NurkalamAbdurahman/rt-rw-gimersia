@@ -1,23 +1,28 @@
 extends CharacterBody2D
 
-var gold = 100
-var potions = 0
-
 const SPEED = 130.0
 const ATTACK_DURATION = 0.25
 const ATTACK_OFFSET = 25.0
+@onready var map_editor_ui: Control = $MapEditorLayer/MapEditorUI
+@onready var you_dead_ui: CanvasLayer = get_tree().get_current_scene().get_node("YouDead")
 
 # --- ONREADY VARIAN ---
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sfx_run: AudioStreamPlayer2D = $SFX_Run_Stone
 @onready var attack_area: Area2D = $AttackArea2D
 @onready var attack_shape: CollisionShape2D = $AttackArea2D/CollisionShape2D
+@onready var sfx_attack: AudioStreamPlayer2D = $SFX_Attack
+@onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Attacked
+@onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
 
 # --- VARIABEL STATE ---
 var invincible := false
 var invincible_time := 0.4
 var has_torch = false
 var held_torch = null
+var is_dead: bool = false	
+
+var is_locked: bool = false
 
 var last_direction: Vector2 = Vector2.DOWN
 var is_attacking: bool = false
@@ -38,6 +43,11 @@ func _ready() -> void:
 		print("✅ AttackArea2D found!")
 	else:
 		print("❌ AttackArea2D NOT FOUND!")
+	
+#	fungsi you dead
+	if you_dead_ui:
+		you_dead_ui.connect("respawn_pressed", Callable(self, "_on_respawn_selected"))
+
 
 func _on_torch_picked_up(torch_node):
 	if not has_torch:
@@ -49,6 +59,11 @@ func _on_torch_picked_up(torch_node):
 
 # --- FUNGSI FISIKA & INPUT ---
 func _physics_process(delta):
+	if is_dead:  # ⬅️ Tambahan
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+		
 	if GameData.health <= 1:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -62,6 +77,10 @@ func _physics_process(delta):
 	
 	var input_vector = Vector2.ZERO
 	
+	if is_locked:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
 	
 	input_vector.x = Input.get_axis("left", "right")
 	input_vector.y = Input.get_axis("up", "down")
@@ -98,6 +117,12 @@ func _physics_process(delta):
 		if sfx_run.playing:
 			sfx_run.stop()
 
+func lock_movement():
+	is_locked = true
+	
+func unlock_movement():
+	is_locked = false
+
 # --- FUNGSI ANIMASI ---
 func update_animation(input_vector: Vector2):
 	if is_attacking:
@@ -121,11 +146,13 @@ func attack():
 	sfx_run.stop()
 	
 	print("🗡️ Player attacking!")
+	sfx_attack.play()  # 🔊 mainkan suara serangan di sini
 	
 	# Atur Hitbox
 	var attack_position = last_direction * ATTACK_OFFSET
 	attack_shape.position = attack_position
 	attack_shape.disabled = false 
+
 	
 	# Mainkan Animasi
 	var attack_anim_name = "attack_%s" % current_anim_direction
@@ -159,41 +186,50 @@ func attack():
 	update_animation(Vector2.ZERO)
 
 # --- FUNGSI KERUSAKAN ---
-func take_damage(amount: int = 1):
-	if invincible:
+func take_damage(amount):
+	if invincible or is_dead:  # ⬅️ Tambahan proteksi
 		return
-	
-	invincible = true
-	
+
 	var new_health = GameData.health - amount
 	GameData.set_health(new_health)
 	print("Player health:", GameData.health)
+	map_editor_ui.close()
+	
+	flash_red()
 
-	if has_node("AnimatedSprite2D"):
-		$AnimatedSprite2D.play("hurt")
-		flash_red()
-	
-	if new_health > 1:
-		await get_tree().create_timer(invincible_time).timeout
-		invincible = false
-	
 	if new_health <= 1:
-		var death_anim_name = "death_%s" % current_anim_direction
-		$AnimatedSprite2D.play(death_anim_name)
-		
-		velocity = Vector2.ZERO
-		move_and_slide()
-		
-		await $AnimatedSprite2D.animation_finished
-		
-		Engine.time_scale = 1.0
-		
-		get_tree().reload_current_scene()
-		GameData.health = 7
-		
+		die()
+
+func die():
+	if is_dead:
+		print("Die called") 
 		return
+	is_dead = true
+	print("💀 Player died")
+	is_locked = true
+	velocity = Vector2.ZERO
+	move_and_slide()
+
+	if sfx_death:
+		sfx_death.play()
+
+	if you_dead_ui:
+		you_dead_ui.show_you_dead()
+
+func _on_respawn_selected():
+	print("⚡ Respawn pressed — respawn player!")
+	GameData.reset()
+	GameData.set_death(true)
+	get_tree().reload_current_scene()
+
 
 func flash_red():
+	print("FLASH CALLED")  # Debug
 	$AnimatedSprite2D.modulate = Color(1, 0.4, 0.4)
 	await get_tree().create_timer(0.15).timeout
 	$AnimatedSprite2D.modulate = Color(1, 1, 1)
+
+var map_scene_instance = null
+
+func _on_Button_Map_pressed() -> void:
+	pass # Replace with function body.

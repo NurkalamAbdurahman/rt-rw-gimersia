@@ -3,6 +3,12 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var detection_area: Area2D = $DetectionArea2D
 @onready var attack_area: Area2D = $AttackArea2D
+@onready var sfx_attack: AudioStreamPlayer2D = $SFX_Attack
+@onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Attacked
+@onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
+@onready var sfx_walk: AudioStreamPlayer2D = $SFX_Walk
+@onready var hud: Label = $"../Hud/Label"
+
 
 # Raycasts untuk deteksi tembok
 var wall_raycast: RayCast2D
@@ -23,9 +29,11 @@ var right_raycast: RayCast2D
 @export var wall_check_distance = 30.0
 @export var stuck_threshold = 5.0  # Jika gerak kurang dari ini, dianggap stuck
 
+@export var enemy_id: String = "SceneA_Goblin_1"
+
 @export var max_health = 5
 var is_dead = false
-var skyes = GameData.silver_keys
+var skyes = 1
 
 # State machine
 enum State { IDLE, PATROL, CHASE, ATTACK, HURT }
@@ -49,6 +57,12 @@ func _ready():
 	patrol_center = global_position
 	last_position = global_position
 	
+	if GameData.is_enemy_killed(enemy_id):
+		# Jika statusnya TRUE (sudah mati), hapus musuh
+		print("Enemy ", enemy_id, " sudah dikalahkan sebelumnya. Menghapus...")
+		queue_free()
+		return # Keluar dari _ready agar tidak ada setup yang berjalan
+		
 	# Setup raycasts untuk deteksi tembok
 	setup_raycasts()
 	
@@ -155,7 +169,6 @@ func check_if_stuck(delta):
 		
 		# Kalau stuck lebih dari 1 detik, pick target baru
 		if stuck_timer > 1.0:
-			print("Goblin stuck! Picking new target")
 			if current_state == State.PATROL:
 				pick_patrol_target()
 			stuck_timer = 0.0
@@ -203,8 +216,11 @@ func is_direction_clear(direction: Vector2) -> bool:
 func handle_idle(delta):
 	velocity = Vector2.ZERO
 	idle_timer -= delta
-	
 	play_animation("idle")
+
+	# 🔇 Matikan suara jalan
+	if sfx_walk and sfx_walk.playing:
+		sfx_walk.stop()
 	
 	if player and is_instance_valid(player):
 		change_to_chase()
@@ -222,18 +238,13 @@ func change_to_idle():
 func handle_patrol(delta):
 	patrol_timer -= delta
 	
-	# CEK TEMBOK DI DEPAN
 	if is_wall_ahead():
-		print("Wall detected ahead! Changing direction")
 		last_direction = get_clear_direction()
 		pick_patrol_target()
 		return
 	
 	var direction = (target_position - global_position).normalized()
-	
-	# Cek apakah arah menuju target ada tembok
 	if not is_direction_clear(direction):
-		print("Path to target blocked! Finding new target")
 		pick_patrol_target()
 		return
 	
@@ -242,8 +253,11 @@ func handle_patrol(delta):
 	
 	play_animation("walk")
 	move_and_slide()
+
+	# 🔊 Nyalakan suara jalan
+	if sfx_walk and not sfx_walk.playing:
+		sfx_walk.play()
 	
-	# Reached target or timer expired
 	if global_position.distance_to(target_position) < 10 or patrol_timer <= 0:
 		change_to_idle()
 
@@ -268,14 +282,12 @@ func pick_patrol_target():
 		if is_direction_clear((potential_target - global_position).normalized()):
 			target_position = potential_target
 			valid_target = true
-			print("Found valid patrol target")
 			break
 	
 	# Fallback: pick direction yang clear
 	if not valid_target:
 		var clear_dir = get_clear_direction()
 		target_position = global_position + clear_dir * wander_range * 0.5
-		print("Using clear direction for patrol")
 
 # ============ CHASE STATE ============
 func handle_chase(delta):
@@ -301,7 +313,6 @@ func handle_chase(delta):
 	
 	# SMART CHASE: Kalau ada tembok di depan, cari jalan memutar
 	if is_wall_ahead():
-		print("Wall blocking chase! Finding alternate path")
 		
 		# Coba kiri atau kanan
 		if not left_raycast.is_colliding():
@@ -320,7 +331,6 @@ func handle_chase(delta):
 
 func change_to_chase():
 	current_state = State.CHASE
-	print("Changed to CHASE state")
 
 # ============ ATTACK STATE ============
 func handle_attack(delta):
@@ -362,12 +372,15 @@ func change_to_attack():
 	attack_cooldown = 0.5
 
 func perform_attack():
-	print("Goblin attacks!")
-	
+
+	if sfx_attack and not sfx_attack.playing:
+		sfx_attack.play()
+
 	var bodies = attack_area.get_overlapping_bodies()
 	for body in bodies:
 		if body.has_method("take_damage"):
 			body.take_damage(1)
+
 # ============ HURT STATE ============
 func handle_hurt(delta):
 	velocity = velocity * 0.9
@@ -376,12 +389,17 @@ func handle_hurt(delta):
 func take_damage(amount: int):
 	if current_state == State.HURT:
 		return
-	
+
 	current_state = State.HURT
+
+	if sfx_attacked and not sfx_attacked.playing:
+		sfx_attacked.play()
+
 	play_animation("hurt")
 	max_health -= amount
 	if max_health <= 0:
 		die()
+
 	
 	# Knockback
 	if player and is_instance_valid(player):
@@ -398,42 +416,89 @@ func die():
 	is_dead = true
 	velocity = Vector2.ZERO
 	current_state = State.HURT
+
+	if sfx_death:
+		sfx_death.play()
+
+	# --- PENTING: HENTIKAN INTERAKSI SEGERA! ---
 	
-	print("Goblin died!")
-	
-	try_drop_item() 
-	
-	# Disable collision agar tidak menghalangi
 	collision_layer = 0
 	collision_mask = 0
+	wall_raycast.enabled = false
+	left_raycast.enabled = false
+	right_raycast.enabled = false
+	detection_area.set_deferred("monitoring", false)
+	attack_area.set_deferred("monitoring", false)
 	
+	# --- LOGIKA REWARD ---
+	
+	GameData.set_enemy_killed(enemy_id)
+	print("Goblin died and saved persistence!")
+	
+	var reward_message = try_drop_item() # Panggil dan dapatkan pesan reward
+	
+	# --- ANIMASI KEMATIAN ---
+
 	# Mainkan animasi death
 	var death_anim_name = "death" + get_direction_suffix(last_direction)
 	
-	# Cek apakah animasi death ada
 	if animated_sprite.sprite_frames.has_animation(death_anim_name):
 		animated_sprite.play(death_anim_name)
 		await animated_sprite.animation_finished
 	else:
-		# Fallback jika tidak ada animasi death
-		print("No death animation, using hurt animation")
 		play_animation("hurt")
 		await get_tree().create_timer(0.5).timeout
 	
-	# Fade out effect (opsional)
-	var tween = create_tween()
-	tween.tween_property(animated_sprite, "modulate:a", 0.0, 0.3)
-	await tween.finished
+	# =======================================================
+	# ➡️ PERBAIKAN UTAMA: HILANGKAN VISUAL MUSUH SEKARANG! 👻
+	# =======================================================
 	
-	# Hapus goblin dari scene
+	# Fade out musuh (membuatnya transparan/tidak terlihat)
+	var visual_fade_tween = create_tween()
+	visual_fade_tween.tween_property(animated_sprite, "modulate:a", 0.0, 0.3)
+	await visual_fade_tween.finished
+	
+	# --- TAMPIL PESAN DI HUD (Saat musuh sudah hilang) ---
+	
+	hud.text = reward_message
+	hud.visible = true
+	hud.modulate.a = 1.0
+	
+	var wait_duration = 2.0
+	if reward_message.contains("Silver Key"):
+		wait_duration = 3.0
+	
+	# Musuh sudah hilang dari sini, hanya notifikasi yang tampil
+	await get_tree().create_timer(wait_duration).timeout
+	
+	# Sembunyikan labelnya
+	hud.modulate.a = 0.0
+	
+	# --- PENGHAPUSAN AKHIR ---
+	# Hapus goblin dari scene setelah notifikasi selesai
 	queue_free()
 
-func try_drop_item():
-	var drop_chance = 0.50  # 50% drop rate
+func try_drop_item() -> String:
+	var reward = randi_range(1, 5)
+	GameData.add_coin(reward)
+	
+	# Pesan koin adalah pesan dasar
+	var message = "You gained %s coins!" % reward
+	
+	var drop_chance = 1 # Ganti 1.0 menjadi 0.5 jika maksudmu 50%
+	var got_key = false
+	
 	if randf() <= drop_chance:
-		skyes += 1
 		GameData.add_silver_key(skyes)
-		print("Goblin dropped a Silver Key!")
+		got_key = true
+		
+	print("Enemy reward:", reward, " | Dropped Key:", "")
+	
+	# Jika dapat kunci, tambahkan pesan ke baris baru
+	if got_key:
+		message += "\nYou received a Silver Key!"
+		
+	return message # <-- Kembalikan pesan reward
 
 
 # ============ ANIMATION HELPER ============

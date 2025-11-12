@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://djubpvo76vscy"]
+
+[ext_resource type="Script" path="res://Script/hidden_to_maze.gd" id="1_5otbc"]
+[ext_resource type="Texture2D" uid="uid://bi3swdffd66v1" path="res://Assets/Tileset/PNG/Pintu_Gembok.png" id="2_5ucqe"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_5ucqe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsuvx"]
+atlas = ExtResource("2_5ucqe")
+region = Rect2(68, 66, 25, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x6ehm"]
+radius = 24.020824
+
+[sub_resource type="LabelSettings" id="LabelSettings_gsuvx"]
+font = ExtResource("3_5ucqe")
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="HiddenToMaze" type="Node2D"]
+script = ExtResource("1_5otbc")
+
+[node name="Terkunci" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_gsuvx")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_x6ehm")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -38.0
+offset_top = -26.0
+offset_right = 36.0
+offset_bottom = -14.0
+theme_override_font_sizes/font_size = 8
+text = "press [e] to enter"
+label_settings = SubResource("LabelSettings_gsuvx")
+
+[node name="DurationTimer" type="Timer" parent="."]
+
+[node name="WaitTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

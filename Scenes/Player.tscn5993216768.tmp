@@ -1,0 +1,212 @@
+[gd_scene load_steps=27 format=3 uid="uid://bed842dpwmt78"]
+
+[ext_resource type="Script" uid="uid://dlr5exw4c4cje" path="res://Script/player.gd" id="1_kyqiw"]
+[ext_resource type="Texture2D" uid="uid://840g0v61wiq1" path="res://Assets/Player/Tiny Swords (Free Pack)/Units/Blue Units/Lancer/Lancer_Idle.png" id="2_gntrk"]
+[ext_resource type="AudioStream" uid="uid://bxeh0bwgvhp13" path="res://Assets/Audio/stone-step.ogg" id="3_gntrk"]
+[ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="4_dewec"]
+[ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="5_5ixxa"]
+[ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="6_52ee3"]
+[ext_resource type="Script" uid="uid://dd46vb54hypi6" path="res://Scenes/button_back.gd" id="7_bhhdu"]
+[ext_resource type="Script" uid="uid://dudehcjnpv4rp" path="res://Scenes/draw_area.gd" id="7_megsn"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kyqiw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88kja"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_it8n0"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbyq6"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbq55"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t38ji"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(1280, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbj7x"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(1600, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxof2"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(1920, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_601d1"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(2240, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6d06k"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(2560, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p20bj"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(2880, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ancw4"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(3200, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ldn0"]
+atlas = ExtResource("2_gntrk")
+region = Rect2(3520, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8di4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88kja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_it8n0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbyq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbq55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t38ji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbj7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxof2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_601d1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6d06k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p20bj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ancw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ldn0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3d168"]
+radius = 26.076809
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kyqiw"]
+
+[sub_resource type="Gradient" id="Gradient_impyb"]
+offsets = PackedFloat32Array(0, 0.6, 0.7266667)
+colors = PackedColorArray(1, 1, 1, 1, 0.13636369, 0.13636369, 0.13636369, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gntrk"]
+gradient = SubResource("Gradient_impyb")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_kyqiw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_kyqiw")
+sprite_frames = SubResource("SpriteFrames_o8di4")
+autoplay = "default"
+frame = 3
+frame_progress = 0.55031675
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 12)
+shape = SubResource("CircleShape2D_3d168")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+material = SubResource("ShaderMaterial_kyqiw")
+color = Color(0.84866434, 0.64032954, 0.3541621, 1)
+energy = 2.0
+range_item_cull_mask = 4
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_gntrk")
+offset = Vector2(0, 4)
+texture_scale = 4.98
+
+[node name="SFX_Run_Stone" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gntrk")
+volume_db = 16.155
+pitch_scale = 1.6
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_dewec")
+volume_db = 1.786
+autoplay = true
+parameters/looping = true
+
+[node name="MapEditorLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="MapEditorUI" type="Control" parent="MapEditorLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 300.0
+mouse_filter = 2
+script = ExtResource("6_52ee3")
+
+[node name="ColorRect" type="ColorRect" parent="MapEditorLayer/MapEditorUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -17.0
+offset_right = 712.0
+offset_bottom = 354.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DrawArea" type="Control" parent="MapEditorLayer/MapEditorUI"]
+anchors_preset = 0
+offset_left = 204.0
+offset_top = 134.0
+offset_right = 913.0
+offset_bottom = 503.0
+script = ExtResource("7_megsn")
+
+[node name="Button_Back" type="Button" parent="MapEditorLayer/MapEditorUI"]
+layout_mode = 1
+offset_left = 857.0
+offset_top = 142.0
+offset_right = 902.0
+offset_bottom = 173.0
+text = "Back"
+script = ExtResource("7_bhhdu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button_Map" type="Button" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -44.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "MAP"
+script = ExtResource("5_5ixxa")
+
+[connection signal="pressed" from="MapEditorLayer/MapEditorUI/Button_Back" to="MapEditorLayer/MapEditorUI" method="_on_button_back_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button_Map" to="." method="_on_Button_Map_pressed"]

@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://csfl8xj1ahryf"]
+
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="1_3fxx0"]
+[ext_resource type="Script" uid="uid://0uuyxs6pveb2" path="res://Script/confirm_popup.gd" id="1_m2vkn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m2vkn"]
+font = ExtResource("1_3fxx0")
+font_size = 64
+
+[node name="ConfirmPopup" type="CanvasLayer"]
+script = ExtResource("1_m2vkn")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -49.5
+offset_right = 104.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Are You Sure"
+label_settings = SubResource("LabelSettings_m2vkn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="no" type="Button" parent="Control/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_3fxx0")
+theme_override_font_sizes/font_size = 32
+text = "No"
+
+[node name="yes" type="Button" parent="Control/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_3fxx0")
+theme_override_font_sizes/font_size = 32
+text = "Yes"

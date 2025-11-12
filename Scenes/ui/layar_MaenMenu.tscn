@@ -1,0 +1,373 @@
+[gd_scene load_steps=27 format=3 uid="uid://b0nwjelarhu34"]
+
+[ext_resource type="Script" uid="uid://bx0rtj6uaspgl" path="res://Scenes/layar.gd" id="1_xlm7b"]
+[ext_resource type="Texture2D" uid="uid://it68n36bjh5v" path="res://Assets/collecitions/ui/mainmenu_pixel.png" id="3_4r5ef"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="4_v5qp7"]
+[ext_resource type="PackedScene" uid="uid://di6o4afgl4ola" path="res://Scenes/ui/fade_transitions.tscn" id="5_diglw"]
+[ext_resource type="Texture2D" uid="uid://d0xvq7hthyv2s" path="res://Assets/For_scene/Control_Menu.png" id="6_8hlce"]
+[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="6_rnwj4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8hlce"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4r5ef"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v5qp7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_diglw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rnwj4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixtca"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b3woo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_upvls"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ep6r0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ehbmx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nxkc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5dxnr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3af3k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8tguu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxvdv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sij4b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ffnhw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_566hk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h3nn4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hv36o"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xlm7b")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -9.000002
+offset_top = -21.0
+offset_right = 1550.0
+offset_bottom = 1005.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4324522, 0.4096927)
+texture = ExtResource("3_4r5ef")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = -379.0
+offset_right = 343.0
+offset_bottom = -92.0
+grow_vertical = 0
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Start" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+texture_filter = 1
+clip_contents = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.77788156, 0.77788156, 0.7778816, 1)
+theme_override_colors/font_focus_color = Color(0.14239773, 0.12367482, 0.13303515, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/align_to_largest_stylebox = 10
+theme_override_constants/line_spacing = 10
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8hlce")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4r5ef")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v5qp7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_diglw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rnwj4")
+text = "Start Game"
+alignment = 0
+
+[node name="Control" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+texture_filter = 1
+clip_contents = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7385896, 0.7385896, 0.7385896, 1)
+theme_override_colors/font_focus_color = Color(0.14239773, 0.12367482, 0.13303515, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/align_to_largest_stylebox = 10
+theme_override_constants/line_spacing = 10
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8hlce")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4r5ef")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v5qp7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_diglw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rnwj4")
+text = "Controls"
+alignment = 0
+
+[node name="TextEdit" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 119.0
+offset_right = 923.0
+offset_bottom = 313.0
+theme_override_fonts/normal_font = ExtResource("6_rnwj4")
+theme_override_font_sizes/normal_font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ixtca")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b3woo")
+text = "ECHOES OF THE LOST
+DUNGEON"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 1002.0
+offset_top = 570.0
+offset_right = 1042.0
+offset_bottom = 610.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_upvls")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.1254902, 0.13333334, 1)
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ep6r0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ehbmx")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_2nxkc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_5dxnr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3af3k")
+text = "Credit"
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -172.0
+offset_right = -23.0
+offset_bottom = -132.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -507.0
+offset_top = -172.99998
+offset_right = 773.0
+offset_bottom = 547.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8693515, 0.91011524)
+texture = ExtResource("6_8hlce")
+
+[node name="TextEdit" type="TextEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.18900001
+anchor_right = 0.5
+anchor_bottom = 0.18900001
+offset_left = -120.0
+offset_top = -21.560001
+offset_right = 225.0
+offset_bottom = 63.44
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_rnwj4")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8tguu")
+text = "Controls"
+
+[node name="TextEdit2" type="TextEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.18900001
+anchor_right = 0.5
+anchor_bottom = 0.18900001
+offset_left = -82.0
+offset_top = 101.44
+offset_right = 90.0
+offset_bottom = 183.44
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8tguu")
+text = "Movement"
+
+[node name="TextEdit3" type="TextEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.18900001
+anchor_right = 0.5
+anchor_bottom = 0.18900001
+offset_left = -81.0
+offset_top = 185.44
+offset_right = 91.0
+offset_bottom = 267.44
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8tguu")
+text = "Attack"
+
+[node name="TextEdit4" type="TextEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.18900001
+anchor_right = 0.5
+anchor_bottom = 0.18900001
+offset_left = -82.0
+offset_top = 264.44
+offset_right = 90.0
+offset_bottom = 346.44
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8tguu")
+text = "Open Map"
+
+[node name="TextEdit5" type="TextEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.18900001
+anchor_right = 0.5
+anchor_bottom = 0.18900001
+offset_left = 183.0
+offset_top = 81.44
+offset_right = 355.0
+offset_bottom = 163.44
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8tguu")
+text = "Interact"
+
+[node name="TextEdit6" type="TextEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.18900001
+anchor_right = 0.5
+anchor_bottom = 0.18900001
+offset_left = 185.0
+offset_top = 150.44
+offset_right = 357.0
+offset_bottom = 232.44
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8tguu")
+text = "Pause"
+
+[node name="TextEdit7" type="TextEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.18900001
+anchor_right = 0.5
+anchor_bottom = 0.18900001
+offset_left = 187.0
+offset_top = 248.44
+offset_right = 359.0
+offset_bottom = 330.44
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_v5qp7")
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8tguu")
+text = "Click & draw"
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -97.0
+offset_right = 159.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qxvdv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 503.0
+offset_top = 42.0
+offset_right = 543.0
+offset_bottom = 89.0
+
+[node name="exit" type="Button" parent="Control/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sij4b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ffnhw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_566hk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_h3nn4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hv36o")
+text = "X"
+
+[node name="FadeTransitions" parent="." instance=ExtResource("5_diglw")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]

@@ -3211,14 +3211,13 @@ color = Color(0.051970966, 0.05197096, 0.05197095, 1)
 z_index = 10
 position = Vector2(80, 72)
 scale = Vector2(0.3, 0.3)
-collision_layer = 3
 collision_mask = 5
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
-[node name="PointLight2D" type="PointLight2D" parent="Player2"]
+[node name="PointLight2D2" type="PointLight2D" parent="Player2"]
 material = SubResource("ShaderMaterial_8bydp")
 color = Color(0.84866434, 0.64032954, 0.3541621, 1)
 energy = 2.0
