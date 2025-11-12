@@ -74,6 +74,7 @@ func _on_quit_pressed():
 	if fade_node and fade_node.has_method("fade_out"):
 		await fade_node.fade_out()
 	GameData.reset()
+	GameData.clear_data()
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
 

@@ -17,6 +17,28 @@ var enemy_states = {}
 var next_spawn_location: String = ""
 var has_dead: bool = false
 var is_popup_open: bool = false
+var saved_strokes: Array = []
+var saved_brush_color: Color = Color.BLACK
+var saved_brush_size: float = 2.0
+
+# Fungsi untuk menyimpan data yang dikirim dari Node2D gambar
+func save_drawing_data(strokes_to_save: Array, color: Color, size: float):
+	saved_strokes = strokes_to_save.duplicate(true) # Penting: Gunakan duplicate(true)
+	saved_brush_color = color
+	saved_brush_size = size
+
+# Fungsi untuk mengambil data saat Node2D gambar dimuat
+func load_drawing_data() -> Dictionary:
+	return {
+		"strokes": saved_strokes.duplicate(true),
+		"color": saved_brush_color,
+		"size": saved_brush_size
+	}
+
+func clear_data():
+	saved_strokes.clear()
+	saved_brush_color = Color.BLACK
+	saved_brush_size = 2.0
 
 func set_enemy_killed(enemy_id: String):
 	enemy_states[enemy_id] = true
