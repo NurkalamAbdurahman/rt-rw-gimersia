@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://d3upyn87bfdo0"]
 
-[ext_resource type="Script" path="res://Script/pintu_stage_1.gd" id="1_lp2m2"]
+[ext_resource type="Script" uid="uid://dwbe4dlmdqib3" path="res://Script/pintu_stage_1.gd" id="1_lp2m2"]
 [ext_resource type="Texture2D" uid="uid://bi3swdffd66v1" path="res://Assets/Tileset/PNG/Pintu_Gembok.png" id="2_m0ohj"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_m0ohj"]
 [ext_resource type="AudioStream" uid="uid://hei6fqspiwsb" path="res://Assets/Audio/door-closed-382707.ogg" id="4_2kh73"]
@@ -64,6 +64,7 @@ font = ExtResource("3_m0ohj")
 shadow_color = Color(0, 0, 0, 1)
 
 [node name="Pintu_stage1" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_lp2m2")
 
 [node name="Terkunci" type="Sprite2D" parent="."]

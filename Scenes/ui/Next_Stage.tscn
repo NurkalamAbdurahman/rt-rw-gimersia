@@ -19,6 +19,7 @@ font_size = 64
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1f4s4"]
 
 [node name="NextStage" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_s0j4w")
 
 [node name="Control" type="Control" parent="."]

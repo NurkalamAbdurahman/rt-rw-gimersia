@@ -6,6 +6,7 @@ extends Node2D
 @onready var area: Area2D = $Area2D
 @onready var label: Label = $Label
 @onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
+@export var popup_scene: PackedScene = preload("res://Scenes/ui/Next_Stage.tscn")
 
 var player_in_area = false
 var chest_opened = false
@@ -48,11 +49,13 @@ func cek_buka_chest():
 			label.visible = false
 		
 func buka_pintu():
+	if chest_opened:
+		return
+
 	chest_opened = true
 	label.visible = false
 	terkunci.visible = false
 	anim_sprite.visible = true
-
 	anim_sprite.animation = "open"
 	anim_sprite.play()
 
@@ -60,4 +63,8 @@ func buka_pintu():
 
 	anim_sprite.visible = false
 	terbuka.visible = true
-	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
+
+	# Tampilkan popup CanvasLayer
+	var popup_instance = popup_scene.instantiate()
+	get_tree().current_scene.add_child(popup_instance)
+	popup_instance.show_popup()

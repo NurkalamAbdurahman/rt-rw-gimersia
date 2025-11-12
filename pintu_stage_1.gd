@@ -5,6 +5,8 @@ extends Node2D
 @onready var terbuka: Sprite2D = $Terbuka
 @onready var area: Area2D = $Area2D
 @onready var label: Label = $Label
+@export var popup_scene: PackedScene = preload("res://Scenes/ui/Next_Stage.tscn")
+
 
 var player_in_area = false
 var chest_opened = false
@@ -46,11 +48,13 @@ func cek_buka_chest():
 			label.visible = false
 		
 func buka_pintu():
+	if chest_opened:
+		return
+
 	chest_opened = true
 	label.visible = false
 	terkunci.visible = false
 	anim_sprite.visible = true
-
 	anim_sprite.animation = "open"
 	anim_sprite.play()
 
@@ -58,3 +62,10 @@ func buka_pintu():
 
 	anim_sprite.visible = false
 	terbuka.visible = true
+
+	# Pause game sebelum popup muncul
+	get_tree().paused = true
+
+	# Tampilkan popup CanvasLayer
+	var popup_instance = popup_scene.instantiate()
+	get_tree().current_scene.add_child(popup_instance)
