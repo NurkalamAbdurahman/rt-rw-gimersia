@@ -11,6 +11,7 @@ extends Control
 @onready var sfx_start: AudioStreamPlayer2D = $SFX_Start
 @onready var bgm: AudioStreamPlayer2D = $BGM
 @onready var video_stream_player: VideoStreamPlayer = $Creadit/TextureRect/VideoStreamPlayer
+var is_panel_open: bool = false # <-- TAMBAHKAN INI
 
 var selected_index: int = 0
 var buttons: Array[Button] = []
@@ -47,6 +48,14 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	# JIKA ADA PANEL YANG TERBUKA, KITA HANYA PERLU MEMPERHATIKAN TOMBOL UNTUK MENUTUP PANEL TERSEBUT
+	if is_panel_open:
+		if event.is_action_pressed("ui_cancel"): # Biasanya terikat ke tombol ESC
+			_on_panel_closed()
+			return # <-- KELUAR SETELAH MENUTUP PANEL
+		return # <-- JIKA PANEL TERBUKA, KELUAR DARI FUNGSI INI
+
+	# LOGIKA NAVIGASI MENU UTAMA HANYA BERJALAN JIKA is_panel_open = false
 	if event.is_action_pressed("menu_up"):
 		_move_selection(1)
 
@@ -62,9 +71,6 @@ func _input(event: InputEvent) -> void:
 			
 		elif event.is_action_pressed("ui_accept"):
 			buttons[selected_index].emit_signal("pressed")
-
-
-
 
 func _move_selection(direction: int) -> void:
 	selected_index += direction
@@ -118,6 +124,7 @@ func _on_control_pressed() -> void:
 	sfx_button.play()
 	print("Control Menu Opened")
 	control_panel.visible = true
+	is_panel_open = true # <-- SET KE TRUE
 
 
 func _on_creadit_pressed() -> void:
@@ -125,3 +132,12 @@ func _on_creadit_pressed() -> void:
 	print("Creadit Menu Opened")
 	creadit_panel.visible = true
 	video_stream_player.play()
+	is_panel_open = true # <-- SET KE TRUE8
+
+# Hubungkan tombol "Close" atau "Back" di dalam control_panel/creadit_panel ke fungsi ini
+func _on_panel_closed() -> void:
+	control_panel.visible = false
+	creadit_panel.visible = false
+	is_panel_open = false # <-- SET KEMBALI KE FALSE
+
+	# PENTING: Panggil fungsi ini jika kamu juga menutup panel dengan tombol "ESC"
