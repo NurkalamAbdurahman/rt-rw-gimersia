@@ -5,7 +5,8 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_t5lkj"]
 font = ExtResource("2_hfwq6")
-font_size = 64
+font_size = 32
+font_color = Color(1, 0, 0.07450981, 1)
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 2)
 
@@ -31,10 +32,10 @@ script = ExtResource("1_hfwq6")
 [node name="messageLable" type="Label" parent="."]
 z_index = 10
 layout_mode = 0
-offset_left = 670.0
-offset_top = 166.0
-offset_right = 710.0
-offset_bottom = 213.0
+offset_left = 640.0
+offset_top = 328.0
+offset_right = 770.0
+offset_bottom = 375.0
 label_settings = SubResource("LabelSettings_t5lkj")
 
 [node name="fountainMessage" type="Label" parent="."]

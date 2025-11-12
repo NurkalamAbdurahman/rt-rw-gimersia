@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var area = $Area2D
 @onready var label = $Label
-@onready var sfx_open_shop = $SFX_OpenShop # ambil node AudioStreamPlayer2D
+@onready var sfx_open_shop = $SFX_OpenShop 
 
 var player_in_range = false
 var shop_opened = false
