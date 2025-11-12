@@ -69,7 +69,7 @@ func buka_pintu():
 	anim_sprite.visible = false
 	terbuka.visible = true
 
-	# --- Tampilkan celebration dulu ---
+	# --- Tampi8lkan celebration dulu ---
 	var celebration = preload("res://Scenes/ui/NextStageCelebration2.tscn").instantiate()
 	get_tree().current_scene.add_child(celebration)
 	await celebration.show_celebration()  # pause game otomatis dan animasi teks selesai

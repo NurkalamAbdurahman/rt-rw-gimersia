@@ -155,47 +155,47 @@ func attack():
 	is_attacking = true
 	velocity = Vector2.ZERO
 	sfx_run.stop()
-	
+
 	print("🗡️ Player attacking!")
-	sfx_attack.play()  # 🔊 mainkan suara serangan di sini
-	
-	# Atur Hitbox
+	sfx_attack.play()
+
 	var attack_position = last_direction * ATTACK_OFFSET
 	attack_shape.position = attack_position
-	attack_shape.disabled = false 
+	attack_shape.disabled = false
 
-	
-	# Mainkan Animasi
 	var attack_anim_name = "attack_%s" % current_anim_direction
 	player.play(attack_anim_name)
-	
-	# === DEAL DAMAGE KE ENEMIES ===
-	# Tunggu sebentar agar hitbox sempat detect
-	await get_tree().create_timer(0.1).timeout
-	
-	var enemies_in_range = attack_area.get_overlapping_bodies()
-	
-	print("📊 Enemies detected: ", enemies_in_range.size())
-	
-	for enemy in enemies_in_range:
-		print("  - Found body: ", enemy.name, " | Has take_damage: ", enemy.has_method("take_damage"))
-		
-		if enemy.has_method("take_damage") and enemy != self:
-			print("💥 Hitting enemy: ", enemy.name)
-			# ✅ PERBAIKAN: Kirim amount (1) dan posisi penyerang (global_position)
-			enemy.take_damage(1, global_position)
-	# ================================
 
-	# Tunggu Durasi Serangan
+	# --- Tunggu sedikit agar area aktif ---
+	await get_tree().create_timer(0.1).timeout
+	if is_dead:
+		is_attacking = false
+		attack_shape.disabled = true
+		return
+
+	var enemies_in_range = attack_area.get_overlapping_bodies()
+	for enemy in enemies_in_range:
+		if enemy.has_method("take_damage") and enemy != self:
+			enemy.take_damage(1, global_position)
+
+	# --- Tunggu durasi serangan ---
 	await get_tree().create_timer(ATTACK_DURATION).timeout
-	
+	if is_dead:
+		is_attacking = false
+		attack_shape.disabled = true
+		return
+
 	if player.is_playing() and player.animation == attack_anim_name:
 		await player.animation_finished
-	
-	# Reset
+		if is_dead:
+			is_attacking = false
+			attack_shape.disabled = true
+			return
+
 	is_attacking = false
 	attack_shape.disabled = true
 	update_animation(Vector2.ZERO)
+
 
 # --- FUNGSI KERUSAKAN ---
 func take_damage(amount, damage_source_position: Vector2):
