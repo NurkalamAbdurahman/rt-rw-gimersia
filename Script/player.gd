@@ -186,18 +186,18 @@ func attack():
 	update_animation(Vector2.ZERO)
 
 # --- FUNGSI KERUSAKAN ---
-func take_damage(amount: int = 1):
+func take_damage(amount):
 	if invincible or is_dead:  # ⬅️ Tambahan proteksi
 		return
 
 	var new_health = GameData.health - amount
 	GameData.set_health(new_health)
 	print("Player health:", GameData.health)
+	map_editor_ui.close()
 	
-	GameData.health -= amount
 	flash_red()
 
-	if new_health <= 0:
+	if new_health <= 1:
 		die()
 
 func die():
@@ -218,8 +218,8 @@ func die():
 
 func _on_respawn_selected():
 	print("⚡ Respawn pressed — respawn player!")
-	GameData.set_health(6)
-	GameData.set_death(false)
+	GameData.reset()
+	GameData.set_death(true)
 	get_tree().reload_current_scene()
 
 

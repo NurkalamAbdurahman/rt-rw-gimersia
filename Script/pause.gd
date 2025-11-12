@@ -211,8 +211,8 @@ func _on_quit_pressed():
 func _on_yes_pressed():
 	sfx_button.play()
 	get_tree().paused = false
-	GameData.set_not_death(false)
-	print(GameData.has_dead)
+	GameData.reset()
+	GameData.set_death(false)
 	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
 
 func _on_no_pressed():

@@ -5,7 +5,7 @@ signal stats_updated
 var health: int = 6
 var max_health: int = 7
 var coins: int = 0
-var silver_keys: int = 3
+var silver_keys: int = 0
 var golden_keys: int = 0
 var skull_keys: int = 0
 var pity: int = 0
@@ -83,3 +83,14 @@ func set_death(bool):
 
 func set_not_death(bool):
 	has_dead = false
+
+func reset() :
+	health = max_health
+	coins = 0
+	silver_keys = 0
+	golden_keys = 0
+	skull_keys = 0
+	pity = 0
+	chest_states = {}
+	torch_states = {}
+	enemy_states = {}
