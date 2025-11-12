@@ -64,7 +64,12 @@ func buka_pintu():
 	anim_sprite.visible = false
 	terbuka.visible = true
 
-	# Tampilkan popup CanvasLayer
+	# --- Tampilkan celebration dulu ---
+	var celebration = preload("res://Scenes/ui/NextStageCelebration.tscn").instantiate()
+	get_tree().current_scene.add_child(celebration)
+	await celebration.show_celebration()  # pause game otomatis dan animasi teks selesai
+
+	# --- Setelah celebration selesai, tampilkan popup tombol next stage ---
 	var popup_instance = popup_scene.instantiate()
 	get_tree().current_scene.add_child(popup_instance)
-	popup_instance.show_popup()
+	popup_instance.show_popup()  # pause game + tombol interaktif
