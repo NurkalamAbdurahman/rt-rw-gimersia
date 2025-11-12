@@ -507,7 +507,6 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 40
 
 [node name="stage1" type="Button" parent="StageLevel/MarginContainer/VBoxContainer/HBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ck2dw")
 theme_override_font_sizes/font_size = 64
@@ -539,6 +538,16 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_mv3i6")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_yix33")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cosoe")
 text = "stage 3"
+
+[node name="Label" type="Label" parent="StageLevel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Panel" type="Panel" parent="StageLevel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Creadit" type="Control" parent="."]
 visible = false
