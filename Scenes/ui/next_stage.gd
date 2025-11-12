@@ -58,7 +58,13 @@ func _update_button_focus() -> void:
 func _on_button_pressed():
 	if buttons[selected_index] == next_stage_button:
 		hide_popup()
+		GameData.reset()
+		GameData.clear_data()
+		GameData.clear_torch()
 		get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
 	elif buttons[selected_index] == main_menu_button:
 		hide_popup()
+		GameData.reset()
+		GameData.clear_data()
+		GameData.clear_torch()
 		get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")

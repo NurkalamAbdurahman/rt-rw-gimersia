@@ -3293,6 +3293,7 @@ position = Vector2(2277, -483)
 scale = Vector2(1.662591, 1.7165759)
 
 [node name="Pintu_stage1" parent="." instance=ExtResource("14_gpka1")]
+process_mode = 0
 position = Vector2(1193.0001, -912)
 scale = Vector2(0.99466234, 0.9803493)
 
