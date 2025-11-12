@@ -1,8 +1,9 @@
-[gd_scene load_steps=46 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=47 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="Script" uid="uid://bgnvhifq7g7kf" path="res://Script/stage_1.gd" id="1_ihc3j"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_w6c7r"]
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="2_lmh3y"]
+[ext_resource type="AudioStream" uid="uid://bf3bixkro868s" path="res://Assets/Audio/typewriter-typing-68696.ogg" id="2_yk7o4"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="3_gpka1"]
 [ext_resource type="Texture2D" uid="uid://b0708f36qjoxd" path="res://Assets/Tileset/PNG/Objects.png" id="4_qg42e"]
 [ext_resource type="Texture2D" uid="uid://bgklfufc5b1eh" path="res://Assets/Tileset/PNG/decorative_cracks_floor.png" id="5_ec0c7"]
@@ -3121,6 +3122,14 @@ size = Vector2(20, 59)
 [node name="Node2D" type="Node2D"]
 position = Vector2(-2219, 323)
 script = ExtResource("1_ihc3j")
+
+[node name="Suara_Typing" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(2, 0)
+scale = Vector2(1.0052633, 0.99984723)
+stream = ExtResource("2_yk7o4")
+volume_db = 24.0
+pitch_scale = 2.38
+parameters/looping = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
