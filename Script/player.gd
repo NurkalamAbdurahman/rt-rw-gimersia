@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 const ATTACK_DURATION = 0.25
-const ATTACK_OFFSET = 10.0
+const ATTACK_OFFSET = 15.0
 @onready var map_editor_ui: Control = $MapEditorLayer/MapEditorUI
 @onready var you_dead_ui: CanvasLayer = get_tree().get_current_scene().get_node("YouDead")
 

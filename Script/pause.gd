@@ -218,6 +218,7 @@ func _on_yes_pressed():
 	GameData.reset()
 	GameData.set_death(false)
 	GameData.clear_data()
+	GameData.clear_torch()
 	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
 
 func _on_no_pressed():

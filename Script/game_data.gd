@@ -115,5 +115,7 @@ func reset() :
 	skull_keys = 0
 	pity = 0
 	chest_states = {}
-	torch_states = {}
 	enemy_states = {}
+
+func clear_torch():
+	torch_states = {}
