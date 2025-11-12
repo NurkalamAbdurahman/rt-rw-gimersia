@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="6_52ee3"]
 [ext_resource type="Texture2D" uid="uid://w8vgtk80kw16" path="res://Assets/RPG_Hero/death/death_down_40x40.png" id="6_i2e8t"]
 [ext_resource type="Texture2D" uid="uid://cq3rmvweuh6a0" path="res://Assets/Map/Kertas_Map.png" id="6_megsn"]
-[ext_resource type="Script" uid="uid://dd46vb54hypi6" path="res://Scenes/button_back.gd" id="7_bhhdu"]
+[ext_resource type="Script" path="res://Scenes/button_back.gd" id="7_bhhdu"]
 [ext_resource type="Script" uid="uid://dudehcjnpv4rp" path="res://Scenes/draw_area.gd" id="7_megsn"]
 [ext_resource type="Texture2D" uid="uid://cqj6vq2loxlrw" path="res://Assets/RPG_Hero/death/death_left_40x40.png" id="7_qidb7"]
 [ext_resource type="Texture2D" uid="uid://crkjma2p15car" path="res://Assets/RPG_Hero/death/death_right_40x40.png" id="8_70hv0"]
