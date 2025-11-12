@@ -2,7 +2,7 @@ extends Area2D
 
 # Array berisi teks yang akan ditampilkan secara berurutan
 const DIALOG_TEXTS = [
-	"There has 4 chest \n you have to find",
+	"There was 4 chest \n you have to find",
 	"Find three silver \n chest to get the golden key",
 	"Golden key can be used \n to open a golden chest",
 	"Once you open a golden chest \n you will receive a skull key",
