@@ -1,7 +1,7 @@
 <p align="center">
+  <a href="https://youtu.be/eeGm_JNT9co" target="_blank">
   <img src="https://img.itch.zone/aW1hZ2UvNDAzNDY1Mi8yNDA1MzI4NS5qcGVn/original/Z7745r.jpeg" width="100%" alt="Echoes of the Lost Dungeon Banner"/>
-</p>
-
+  </a>
 
 
 # 🕯️ Echoes of the Lost Dungeon
