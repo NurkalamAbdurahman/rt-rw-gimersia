@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/banner.png" width="100%" alt="Echoes of the Lost Dungeon Banner"/>
+  <img src="https://img.itch.zone/aW1hZ2UvNDAzNDY1Mi8yNDA1MzI4NS5qcGVn/original/Z7745r.jpeg" width="100%" alt="Echoes of the Lost Dungeon Banner"/>
 </p>
 
 
