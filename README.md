@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="./assets/banner.png" width="100%" alt="Echoes of the Lost Dungeon Banner"/>
+</p>
+
+
+
 # 🕯️ Echoes of the Lost Dungeon
 > *“Setiap langkah adalah gema dari keberanianmu di tengah kegelapan.”*
 
@@ -74,11 +80,10 @@ Namun hati-hati — para **goblin penjaga kunci perak** tidak akan membiarkanmu 
 
 ## 🏆 Tim Pengembang – RTRw (IDE LPKIA)
 
-**Anggota Tim:**
-- 🎨 Desain & Pixel Art: *(Nama Anggota)*  
-- 💻 Pemrograman & Sistem: *(Nama Anggota)*  
-- 🔊 Audio & Efek Suara: *(Nama Anggota)*  
-- 📜 Naskah & Konsep: *(Nama Anggota)*  
+- 🎨 **Desain & Pixel Art:** *Muhammad Naufal Ikhsan, Wandi Apriansyah*  
+- 💻 **Pemrograman & Sistem:** *Nurkalam Abdurrahman, Sandi Virgiawan, Riyan Handriyana, Muhammad Naufal Ikhsan, Wandi Apriansyah, Muhammad Rafli*  
+- 🔊 **Audio & Efek Suara:** *Riyan Handriyana, Wandi Apriansyah*  
+- 📜 **Naskah & Konsep:** *Muhammad Rafli*
 
 > *Dari kegelapan lahir keberanian,  
 > dan dari keberanian lahir legenda.*
