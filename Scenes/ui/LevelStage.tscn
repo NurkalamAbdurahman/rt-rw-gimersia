@@ -1,0 +1,113 @@
+[gd_scene load_steps=21 format=3 uid="uid://ccpwe530cesqs"]
+
+[ext_resource type="Texture2D" uid="uid://cfthpvbdo5wca" path="res://Assets/collecitions/ui/PAUSED-removebg-preview.png" id="1_38gh8"]
+[ext_resource type="Script" uid="uid://i6clkamsuox3" path="res://Script/level_stage.gd" id="1_jk15k"]
+[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="1_u05l5"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_38gh8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xl7gx"]
+font = ExtResource("1_u05l5")
+font_size = 64
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6cmcd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4khl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cnbu5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gta3v"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ecjon"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hmk6i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kpydk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nutnp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nrooa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yocue"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_22nrr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fdums"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f4sp7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s2aa5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgtjy"]
+
+[node name="LevelStage" type="CanvasLayer"]
+script = ExtResource("1_jk15k")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_38gh8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Stage"
+label_settings = SubResource("LabelSettings_xl7gx")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 40
+
+[node name="stage1" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_38gh8")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6cmcd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_u4khl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_cnbu5")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_gta3v")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ecjon")
+text = "Stage 1"
+
+[node name="stage2" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_38gh8")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hmk6i")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kpydk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_nutnp")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_nrooa")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yocue")
+text = "stage 2"
+
+[node name="stage3" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_38gh8")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_22nrr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fdums")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_f4sp7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_s2aa5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hgtjy")
+text = "stage 3"

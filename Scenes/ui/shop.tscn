@@ -1,0 +1,103 @@
+[gd_scene load_steps=15 format=3 uid="uid://cc42d5pig7030"]
+
+[ext_resource type="Script" uid="uid://blk5mpmc1i16x" path="res://Script/shop.gd" id="1_ovj2j"]
+[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_jf40h"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_ovj2j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jf40h"]
+font = ExtResource("2_jf40h")
+font_size = 64
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mj3m1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dokti"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gq2pb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vxot"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gk2um"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kdvqs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_88v7r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qfi22"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xini2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6wmqe"]
+
+[node name="Shop" type="CanvasLayer"]
+script = ExtResource("1_ovj2j")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -82.0
+offset_right = 114.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Potion Shop"
+label_settings = SubResource("LabelSettings_jf40h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="buy_button" type="Button" parent="Control/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_ovj2j")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mj3m1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dokti")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_gq2pb")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8vxot")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gk2um")
+text = "Buy Potion 10G"
+
+[node name="close_button" type="Button" parent="Control/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_ovj2j")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kdvqs")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_88v7r")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qfi22")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_xini2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6wmqe")
+text = "Close"

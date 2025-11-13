@@ -4,30 +4,45 @@ extends Node2D
 @onready var obor_hidup = $OborHidup
 @onready var area = $Area2D
 @onready var label = $Label
-@onready var point_light_2d: PointLight2D = $PointLight2D
 @onready var sfx_torch_on = $SFX_TorchOn
-@onready var sfx_torch_burning = $SFX_TorchBurning  # 🔥 tambahkan ini
+@onready var sfx_torch_burning = $SFX_TorchBurning
+@onready var point_light_2d: PointLight2D = $OborHidup/PointLight2D
 
 var player_in_area = false
+@export var torch_id: String = "Torch_1" # Ganti ini di setiap instance chest!
 
 func _ready():
+	# Cek apakah obor sudah dinyalakan
+	if GameData.is_torch_lighted(torch_id):
+		# Jika TRUE (Sudah dinyalakan sebelumnya)
+		print("Obor ", torch_id, " sudah dinyalakan sebelumnya.")
+		obor_mati.visible = false
+		obor_hidup.visible = true # Tampilkan yang menyala
+		obor_hidup.play("obor_nyala") # Putar animasi menyala (Opsional: Tambahkan ini)
+		sfx_torch_burning.play() # Putar suara (Opsional: Tambahkan ini)
+		label.visible = false
+		return # Keluar dari _ready, biarkan obor menyala
+		
+	# Jika FALSE (Belum dinyalakan)
 	obor_mati.visible = true
 	obor_hidup.visible = false
 	label.visible = false
-	sfx_torch_burning.stop()  # pastikan tidak menyala di awal
+	sfx_torch_burning.stop()
 
 func _process(_delta):
 	if player_in_area and Input.is_action_just_pressed("e"):
 		nyalakan_obor()
 
 func nyalakan_obor():
+	GameData.set_torch_lighted(torch_id)
+	print(GameData.torch_states)
 	obor_mati.visible = false
 	obor_hidup.visible = true
 	obor_hidup.play("obor_nyala")
 	label.visible = false
 	
-	sfx_torch_on.play()        # efek suara saat dinyalakan
-	sfx_torch_burning.play()   # suara api menyala terus
+	sfx_torch_on.play()
+	sfx_torch_burning.play()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and obor_mati.visible:

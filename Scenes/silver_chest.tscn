@@ -1,8 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8ok85jo1p2uu"]
+[gd_scene load_steps=16 format=3 uid="uid://lk1vqq6fhqj0"]
 
 [ext_resource type="Script" uid="uid://cnw08k3snnn5k" path="res://Script/silver_chest.gd" id="1_p26g8"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_p26g8"]
 [ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="3_wx0bj"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_x8474"]
+[ext_resource type="AudioStream" uid="uid://hei6fqspiwsb" path="res://Assets/Audio/door-closed-382707.ogg" id="5_b067n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8474"]
+size = Vector2(18, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p26g8"]
 atlas = ExtResource("2_p26g8")
@@ -48,11 +53,18 @@ animations = [{
 atlas = ExtResource("2_p26g8")
 region = Rect2(135, 129, 19, 21)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wx0bj"]
-radius = 16.03122
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wx0bj"]
+size = Vector2(25.5, 28.625)
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_b067n"]
+font = ExtResource("3_x8474")
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="SilverChest" type="StaticBody2D"]
 script = ExtResource("1_p26g8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_x8474")
 
 [node name="silver_chest" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_p26g8")
@@ -70,21 +82,29 @@ position = Vector2(0, -1)
 texture = SubResource("AtlasTexture_t81yx")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
+disable_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
-shape = SubResource("CircleShape2D_wx0bj")
+position = Vector2(0, -0.6875)
+shape = SubResource("RectangleShape2D_wx0bj")
 
 [node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -56.0
-offset_right = 59.0
-offset_bottom = 12.0
+z_index = 12
+offset_left = -35.0
+offset_top = -22.0
+offset_right = 38.0
+offset_bottom = -10.0
 theme_override_font_sizes/font_size = 8
-text = "Klik 'E' untuk membuka Chest"
+text = "Press [e] to open"
+label_settings = SubResource("LabelSettings_b067n")
 
 [node name="SFX_ChestOpen" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_wx0bj")
+volume_db = 11.0
+
+[node name="SFX_ChestLocked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_b067n")
 volume_db = 11.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

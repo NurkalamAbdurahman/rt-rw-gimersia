@@ -1,78 +1,76 @@
 [gd_scene load_steps=8 format=3 uid="uid://dawyh7xl0svwt"]
 
-[ext_resource type="Script" uid="uid://befld0wic10r3" path="res://Script/hud.gd" id="1_1usb2"]
-[ext_resource type="PackedScene" uid="uid://vwk6ybioq51w" path="res://Scenes/ui/Health_Bar.tscn" id="1_lskfp"]
-[ext_resource type="Texture2D" uid="uid://b4nkmq4vk4m1u" path="res://Assets/collecitions/ui/pixil-frame-0.png" id="1_so6r4"]
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
 [ext_resource type="PackedScene" uid="uid://dcw7aevagshe5" path="res://Scenes/ui/Silver_Key.tscn" id="4_0jl3m"]
 [ext_resource type="PackedScene" uid="uid://cfbgos7kse1lm" path="res://Scenes/ui/Golden_Key.tscn" id="4_lskfp"]
+[ext_resource type="PackedScene" path="res://Scenes/ui/skull_Key.tscn" id="5_so6r4"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="6_1usb2"]
 [ext_resource type="PackedScene" uid="uid://bm3ddrutfeyyp" path="res://Scenes/ui/Health.tscn" id="7_0jl3m"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_0jl3m"]
+font = ExtResource("6_1usb2")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+
 [node name="Hud" type="CanvasLayer"]
-script = ExtResource("1_1usb2")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-offset_left = 72.0
-offset_top = 56.0
-offset_right = 157.0
-offset_bottom = 81.0
+offset_left = -38.999992
+offset_top = -40.0
+offset_right = 46.000015
+offset_bottom = -15.0
 scale = Vector2(5, 5)
 pivot_offset = Vector2(-10, -10)
 size_flags_horizontal = 4
-
-[node name="PixilFrame0" type="Sprite2D" parent="MarginContainer"]
-position = Vector2(43.333332, 50.666664)
-scale = Vector2(4.666667, 4.666667)
-texture = ExtResource("1_so6r4")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+theme_override_constants/separation = 20
 
 [node name="Health" parent="MarginContainer/VBoxContainer" instance=ExtResource("7_0jl3m")]
 layout_mode = 2
 
-[node name="HealthBar" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_lskfp")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 1
+theme_override_constants/separation = 13
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="Coin" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_so6r4")]
+[node name="SilverKey" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4_0jl3m")]
 layout_mode = 2
 
-[node name="SilverKey" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_0jl3m")]
+[node name="GoldenKey" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4_lskfp")]
 layout_mode = 2
 
-[node name="GoldenKey" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_lskfp")]
+[node name="Skullkey" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_so6r4")]
 layout_mode = 2
 
-[node name="Damage" type="Button" parent="."]
-offset_left = 1013.0
-offset_top = 56.0
-offset_right = 1098.0
-offset_bottom = 87.0
-text = "damage"
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -81.0
+offset_right = -6.0
+offset_bottom = -71.0
+grow_vertical = 0
+scale = Vector2(5, 5)
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="Coin +1" type="Button" parent="."]
-offset_left = 1013.0
-offset_top = 231.0
-offset_right = 1098.0
-offset_bottom = 262.0
-text = "coin"
+[node name="Coin" parent="MarginContainer3" instance=ExtResource("2_so6r4")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
-[node name="goldenKey" type="Button" parent="."]
-offset_left = 1013.0
-offset_top = 406.0
-offset_right = 1098.0
-offset_bottom = 437.0
-text = "key"
-
-[node name="SilverKey" type="Button" parent="."]
-offset_left = 1013.0
-offset_top = 581.0
-offset_right = 1098.0
-offset_bottom = 612.0
-text = "key"
+[node name="Label" type="Label" parent="."]
+show_behind_parent = true
+z_index = 12
+offset_left = 374.0
+offset_top = 117.0
+offset_right = 808.0
+offset_bottom = 191.0
+label_settings = SubResource("LabelSettings_0jl3m")
+horizontal_alignment = 1

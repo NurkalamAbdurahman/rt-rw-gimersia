@@ -1,0 +1,96 @@
+[gd_scene load_steps=15 format=3 uid="uid://csfl8xj1ahryf"]
+
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="1_3fxx0"]
+[ext_resource type="Script" uid="uid://0uuyxs6pveb2" path="res://Script/confirm_popup.gd" id="1_m2vkn"]
+[ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_jfixx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m2vkn"]
+font = ExtResource("2_jfixx")
+font_size = 64
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0vs57"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6llt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sem58"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aoot7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mnk1t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_obdsy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4gqor"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4m4y2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wvnaw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_24xtn"]
+
+[node name="ConfirmPopup" type="CanvasLayer"]
+script = ExtResource("1_m2vkn")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -49.5
+offset_right = 104.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_m2vkn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 30
+
+[node name="no" type="Button" parent="Control/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_3fxx0")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0vs57")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_k6llt")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sem58")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_aoot7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mnk1t")
+
+[node name="yes" type="Button" parent="Control/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_3fxx0")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_obdsy")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4gqor")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4m4y2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wvnaw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_24xtn")

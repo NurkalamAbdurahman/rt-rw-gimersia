@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1pfv7pnimyj0"]
+
+[ext_resource type="Script" uid="uid://dxiuh2nebbch5" path="res://Script/PotionShop.gd" id="1_m7ukw"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_aiim8"]
+[ext_resource type="AudioStream" uid="uid://b4uechw4ub0t4" path="res://Assets/Audio/buying_item.mp3" id="3_rqqt7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m7ukw"]
+font = ExtResource("2_aiim8")
+font_size = 64
+
+[node name="PotionShop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m7ukw")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -82.0
+offset_right = 114.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Potion Shop"
+label_settings = SubResource("LabelSettings_m7ukw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="buy_button" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Buy Potion 10G"
+
+[node name="close_button" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Close"
+
+[node name="SFX_BuyingItem" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_rqqt7")
+volume_db = 5.0
+pitch_scale = 1.62
+max_distance = 9999.0
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/VBoxContainer/buy_button" to="." method="_on_button_buy_pressed"]
