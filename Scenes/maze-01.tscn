@@ -28,7 +28,7 @@
 [ext_resource type="AudioStream" uid="uid://mkee0pbwx7rb" path="res://Assets/Audio/click_button.mp3" id="24_bk808"]
 [ext_resource type="PackedScene" uid="uid://csfl8xj1ahryf" path="res://Scenes/confirm_popup.tscn" id="24_tlp4x"]
 [ext_resource type="AudioStream" uid="uid://b4uechw4ub0t4" path="res://Assets/Audio/buying_item.mp3" id="26_lh8jf"]
-[ext_resource type="PackedScene" uid="uid://cv2xnq8w24twi" path="res://Scenes/torch.tscn" id="29_yqbxo"]
+[ext_resource type="PackedScene" uid="uid://b348lvmq7jtev" path="res://Scenes/obor-nyala.tscn" id="30_eppvb"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="30_muvn5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3njpm"]
@@ -4303,41 +4303,27 @@ visible = false
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.06053035, 0.06053035, 0.060530342, 1)
 
-[node name="Torch3" parent="." instance=ExtResource("29_yqbxo")]
-z_index = 1
-position = Vector2(231.00002, 68)
-scale = Vector2(0.3, 0.3)
+[node name="Obor3" parent="." instance=ExtResource("30_eppvb")]
+position = Vector2(532, 77)
 
-[node name="Torch2" parent="." instance=ExtResource("29_yqbxo")]
-z_index = 1
-position = Vector2(455.00003, 68)
-scale = Vector2(0.3, 0.3)
+[node name="Obor4" parent="." instance=ExtResource("30_eppvb")]
+position = Vector2(455, 77)
 
-[node name="Torch" parent="." instance=ExtResource("29_yqbxo")]
-position = Vector2(535, 68)
-scale = Vector2(0.3, 0.3)
+[node name="Obor5" parent="." instance=ExtResource("30_eppvb")]
+position = Vector2(329, 76)
 
-[node name="Torch4" parent="." instance=ExtResource("29_yqbxo")]
-z_index = 1
-position = Vector2(127, 70)
-scale = Vector2(0.3, 0.3)
+[node name="Obor6" parent="." instance=ExtResource("30_eppvb")]
+position = Vector2(233, 77)
 
-[node name="Torch5" parent="." instance=ExtResource("29_yqbxo")]
-z_index = 1
-position = Vector2(327, 67)
-scale = Vector2(0.3, 0.3)
+[node name="Obor7" parent="." instance=ExtResource("30_eppvb")]
+position = Vector2(132, 79)
 
-[node name="Torch6" parent="." instance=ExtResource("29_yqbxo")]
-z_index = 1
-position = Vector2(309, -83)
-scale = Vector2(0.3, 0.3)
+[node name="Obor8" parent="." instance=ExtResource("30_eppvb")]
+position = Vector2(312, -83)
 
-[node name="Torch7" parent="." instance=ExtResource("29_yqbxo")]
-z_index = 1
-position = Vector2(411.00003, -83)
-scale = Vector2(0.3, 0.3)
+[node name="Obor9" parent="." instance=ExtResource("30_eppvb")]
+position = Vector2(413, -84)
 
-[node name="Torch8" parent="." instance=ExtResource("29_yqbxo")]
+[node name="Obor10" parent="." instance=ExtResource("30_eppvb")]
 z_index = -1
-position = Vector2(360, -9)
-scale = Vector2(0.3, 0.3)
+position = Vector2(362, 0)
