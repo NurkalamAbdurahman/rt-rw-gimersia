@@ -114,7 +114,7 @@ func add_pity(amount: int) :
 	emit_signal("stats_updated")
 
 func set_death(bool):
-	has_dead = true
+	has_dead = bool
 	
 
 func set_not_death(bool):
