@@ -963,7 +963,6 @@ texture_scale = 1.38
 
 [node name="MapEditorLayer" type="CanvasLayer" parent="."]
 layer = 5
-visible = false
 
 [node name="MapEditorUI" type="Control" parent="MapEditorLayer"]
 layout_mode = 3
