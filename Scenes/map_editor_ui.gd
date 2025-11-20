@@ -9,6 +9,14 @@ func _ready():
 	button_back.connect("pressed", Callable(self, "_on_back_pressed"))
 	visible = false
 	draw_area.visible = false
+	
+func _unhandled_input(event):
+	if event.is_action_pressed("open_map"):
+		if visible:
+			close()
+		else:
+			open()
+
 
 func open():
 	GameData.is_popup_open = true

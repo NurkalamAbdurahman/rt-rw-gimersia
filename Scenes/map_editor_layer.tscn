@@ -1,0 +1,109 @@
+[gd_scene load_steps=19 format=3 uid="uid://de8ve0uu3hqol"]
+
+[ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="1_eofbo"]
+[ext_resource type="Texture2D" uid="uid://cq3rmvweuh6a0" path="res://Assets/Map/Kertas_Map.png" id="2_w0slg"]
+[ext_resource type="Script" uid="uid://dudehcjnpv4rp" path="res://Scenes/draw_area.gd" id="3_mf6v8"]
+[ext_resource type="Script" uid="uid://dd46vb54hypi6" path="res://Scenes/button_back.gd" id="4_letqu"]
+[ext_resource type="AudioStream" uid="uid://i6k4t3oe43ns" path="res://Assets/Audio/map-open.mp3" id="5_tw7ef"]
+[ext_resource type="AudioStream" uid="uid://cwac470g8qpso" path="res://Assets/Audio/map-close.mp3" id="6_8w06a"]
+[ext_resource type="Texture2D" uid="uid://dhnususniv48j" path="res://Assets/Map/map-icon.png" id="7_eukfd"]
+[ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="8_4e8xa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_akbdm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1jtkv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s5n4x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_prihc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_so5b6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2xtkc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ywlm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1a7kg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pduqt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_31dwt"]
+
+[node name="MapEditorLayer" type="CanvasLayer"]
+layer = 5
+
+[node name="MapEditorUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 38.0
+offset_top = 10.0
+offset_right = 438.0
+offset_bottom = 310.0
+mouse_filter = 2
+script = ExtResource("1_eofbo")
+
+[node name="ColorRect" type="TextureRect" parent="MapEditorUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.537
+anchor_top = 0.536
+anchor_right = 0.537
+anchor_bottom = 0.536
+offset_left = -30.800003
+offset_top = -27.800003
+offset_right = 678.2
+offset_bottom = 343.2
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_w0slg")
+
+[node name="DrawArea" type="Node2D" parent="MapEditorUI"]
+position = Vector2(209, 156)
+script = ExtResource("3_mf6v8")
+
+[node name="Button_Back" type="Button" parent="MapEditorUI"]
+layout_mode = 1
+offset_left = 838.0
+offset_top = 147.0
+offset_right = 883.0
+offset_bottom = 193.0
+theme_override_colors/font_color = Color(0.21929857, 0.06349551, 0.066092454, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxEmpty_akbdm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1jtkv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_s5n4x")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_prihc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_so5b6")
+text = "X"
+script = ExtResource("4_letqu")
+
+[node name="SFX_MapOpen" type="AudioStreamPlayer2D" parent="MapEditorUI"]
+stream = ExtResource("5_tw7ef")
+volume_db = 15.145
+
+[node name="SFX_MapClose" type="AudioStreamPlayer2D" parent="MapEditorUI"]
+stream = ExtResource("6_8w06a")
+volume_db = 7.068
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button_Map" type="Button" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -43.0
+offset_top = 0.99999976
+offset_right = -22.935059
+offset_bottom = 31.0
+grow_horizontal = 0
+scale = Vector2(1.865, 1.865)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2xtkc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8ywlm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1a7kg")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pduqt")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_31dwt")
+icon = ExtResource("7_eukfd")
+script = ExtResource("8_4e8xa")
+
+[connection signal="pressed" from="MapEditorUI/Button_Back" to="MapEditorUI" method="_on_button_back_pressed"]

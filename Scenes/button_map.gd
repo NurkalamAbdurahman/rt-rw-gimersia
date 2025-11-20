@@ -1,4 +1,5 @@
 extends Button
+@onready var map_editor_ui: Control = $"../../MapEditorUI"
 
 var is_open: bool = false  # status map, false = tertutup
 
@@ -12,7 +13,7 @@ func _process(_delta):
 		_on_pressed()
 
 func _on_pressed():
-	var editor_ui = get_parent().get_node("../MapEditorLayer/MapEditorUI")
+	var editor_ui = map_editor_ui
 	if editor_ui:
 		if is_open:
 			editor_ui.close()

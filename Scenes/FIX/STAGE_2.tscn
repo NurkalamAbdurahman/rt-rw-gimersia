@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dl8ysiup7jwhn"]
+[gd_scene load_steps=24 format=4 uid="uid://dl8ysiup7jwhn"]
 
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_e7ynj"]
 [ext_resource type="Script" uid="uid://bao1phb8sqr4e" path="res://Script/stage_2.gd" id="1_r847v"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://37b27rq7sxu0" path="res://Scenes/hidden_to_maze02.tscn" id="14_nk1b1"]
 [ext_resource type="PackedScene" uid="uid://dqlq2aviy3kk0" path="res://Scenes/pintu_stage_2.tscn" id="15_r847v"]
 [ext_resource type="PackedScene" uid="uid://cwst4tasxjw1r" path="res://Scenes/ui/Next_Stage_2.tscn" id="16_5koqb"]
+[ext_resource type="PackedScene" uid="uid://de8ve0uu3hqol" path="res://Scenes/map_editor_layer.tscn" id="17_lh8bj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c248w"]
 texture = ExtResource("1_rsbcv")
@@ -300,3 +301,5 @@ position = Vector2(1406, 387)
 [node name="Pintu_stage1" parent="." instance=ExtResource("15_r847v")]
 position = Vector2(1833, 1167)
 popup_scene = ExtResource("16_5koqb")
+
+[node name="MapEditorLayer" parent="." instance=ExtResource("17_lh8bj")]
