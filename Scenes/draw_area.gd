@@ -26,20 +26,6 @@ var tracking_offset := Vector2.ZERO
 @onready var color_rect: TextureRect = $"../ColorRect"
 var canvas_size: Vector2
 
-# Color palette for quick access
-var color_palette := [
-	Color.BLACK,
-	Color.RED,
-	Color.BLUE,
-	Color.GREEN,
-	Color.YELLOW,
-	Color.PURPLE,
-	Color.ORANGE,
-	Color.CYAN,
-	Color.MAGENTA,
-	Color.WHITE
-]
-
 func _ready():
 	canvas_size = color_rect.size
 	GameData.connect("drawing_cleared", Callable(self, "_on_drawing_cleared"))
@@ -104,30 +90,6 @@ func _input(event):
 		if _is_inside_canvas(mouse_pos):
 			current_stroke.append(to_local(mouse_pos))
 			queue_redraw()
-	
-	# Keyboard shortcuts for colors (1-9 keys + 0)
-	elif event is InputEventKey and event.pressed:
-		if event.keycode >= KEY_1 and event.keycode <= KEY_9:
-			var index = event.keycode - KEY_1
-			if index < color_palette.size():
-				brush_color = color_palette[index]
-				print("Brush color changed to:", brush_color)
-		elif event.keycode == KEY_0:
-			if color_palette.size() > 9:
-				brush_color = color_palette[9]
-				print("Brush color changed to:", brush_color)
-		
-		# Brush size controls
-		elif event.keycode == KEY_BRACKETLEFT: # [
-			brush_size = max(1.0, brush_size - 1.0)
-			print("Brush size:", brush_size)
-		elif event.keycode == KEY_BRACKETRIGHT: # ]
-			brush_size = min(10.0, brush_size + 1.0)
-			print("Brush size:", brush_size)
-		
-		# Tracking mode controls
-		elif event.keycode == KEY_T:
-			cycle_tracking_mode()
 
 func _process(delta):
 	if record_player_path:
