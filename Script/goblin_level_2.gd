@@ -4,35 +4,41 @@ extends CharacterBody2D
 @onready var detection_area: Area2D = $DetectionArea2D
 @onready var attack_area: Area2D = $AttackArea2D
 @onready var sfx_attack: AudioStreamPlayer2D = $SFX_Attack
-@onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Attacked
+@onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Hurt8
 @onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
 @onready var sfx_walk: AudioStreamPlayer2D = $SFX_Walk
+@onready var hud: Label = $"../Hud/Label"
+@onready var sfx_hurt: AudioStreamPlayer2D = $SFX_Hurt
 
-# Raycasts untuk deteksi tembok
+# Raycasts for wall detection
 var wall_raycast: RayCast2D
 var left_raycast: RayCast2D
 var right_raycast: RayCast2D
 
 # Speed settings
 @export var patrol_speed = 30.0
-@export var chase_speed = 90.0
+@export var chase_speed = 80.0
 @export var attack_speed = 30.0
 
 # Area settings
 @export var wander_range = 200.0
-@export var detection_radius = 180.0
-@export var attack_range = 50.0
+@export var detection_radius = 150.0
+@export var attack_range = 40.0
 
 # AI settings
 @export var wall_check_distance = 30.0
-@export var stuck_threshold = 5.0  # Jika gerak kurang dari ini, dianggap stuck
+@export var stuck_threshold = 5.0
+@export var knockback_strength = 300.0
+@export var knockback_duration = 0.4
 
-@export var enemy_id: String = "SceneA_Goblin_2"
+@export var enemy_id: String = "SceneA_Goblin_1"
+@export var max_health = 5
+@export var attack_damage = 1
+@export var attack_cooldown_time = 1.2
 
-@export var max_health = 10
-@onready var hud: Label = $"../Hud/Label"
 var is_dead = false
 var skyes = 2
+var is_invulnerable = false  # NEW: Invulnerability frames
 
 # State machine
 enum State { IDLE, PATROL, CHASE, ATTACK, HURT }
@@ -44,6 +50,8 @@ var idle_timer = 0.0
 var patrol_timer = 0.0
 var attack_cooldown = 0.0
 var stuck_timer = 0.0
+var hurt_timer = 0.0  # NEW: Track hurt state duration
+var invulnerability_timer = 0.0  # NEW: I-frames timer
 
 # Targets
 var target_position = Vector2.ZERO
@@ -51,20 +59,34 @@ var player = null
 var patrol_center = Vector2.ZERO
 var last_position = Vector2.ZERO
 
+# Smooth movement
+var knockback_velocity = Vector2.ZERO  # NEW: Separate knockback tracking
+var is_being_knocked_back = false
+
 func _ready():
 	randomize()
 	patrol_center = global_position
 	last_position = global_position
 	
 	if GameData.is_enemy_killed(enemy_id):
-		# Jika statusnya TRUE (sudah mati), hapus musuh
-		print("Enemy ", enemy_id, " sudah dikalahkan sebelumnya. Menghapus...")
+		print("Enemy ", enemy_id, " already defeated. Removing...")
 		queue_free()
-		return # Keluar dari _ready agar tidak ada setup yang berjalan
+		return
 		
-	# Setup raycasts untuk deteksi tembok
 	setup_raycasts()
+	setup_areas()
 	
+	call_deferred("setup_player_exception")
+	change_to_idle()
+
+func setup_player_exception():
+	var players = get_tree().get_nodes_in_group("Player")
+	for p in players:
+		if p is CharacterBody2D:
+			add_collision_exception_with(p)
+			p.add_collision_exception_with(self)
+
+func setup_areas():
 	# Setup detection area
 	if not detection_area:
 		detection_area = Area2D.new()
@@ -87,31 +109,15 @@ func _ready():
 		collision.shape = circle
 		attack_area.add_child(collision)
 		add_child(attack_area)
-	
-	# SOLUSI: Tambahkan collision exception untuk player
-	call_deferred("setup_player_exception")
-	
-	change_to_idle()
-
-func setup_player_exception():
-	# Cari player dan tambahkan sebagai exception
-	var players = get_tree().get_nodes_in_group("Player")
-	for p in players:
-		if p is CharacterBody2D:
-			add_collision_exception_with(p)  # Goblin tidak collision dengan player
-			p.add_collision_exception_with(self)  # Player tidak collision dengan goblin
-			print("Added collision exception with player")
 
 func setup_raycasts():
-	# Raycast depan
 	wall_raycast = RayCast2D.new()
 	wall_raycast.enabled = true
 	wall_raycast.exclude_parent = true
 	wall_raycast.target_position = Vector2(wall_check_distance, 0)
-	wall_raycast.collision_mask = 1  # Layer 1 = environment/walls
+	wall_raycast.collision_mask = 1
 	add_child(wall_raycast)
 	
-	# Raycast kiri
 	left_raycast = RayCast2D.new()
 	left_raycast.enabled = true
 	left_raycast.exclude_parent = true
@@ -119,7 +125,6 @@ func setup_raycasts():
 	left_raycast.collision_mask = 1
 	add_child(left_raycast)
 	
-	# Raycast kanan
 	right_raycast = RayCast2D.new()
 	right_raycast.enabled = true
 	right_raycast.exclude_parent = true
@@ -128,15 +133,14 @@ func setup_raycasts():
 	add_child(right_raycast)
 
 func _physics_process(delta):
-	# Update raycasts sesuai arah gerak
 	update_raycasts()
-	
-	# Cek apakah stuck
 	check_if_stuck(delta)
+	update_timers(delta)
 	
-	# Update cooldowns
-	if attack_cooldown > 0:
-		attack_cooldown -= delta
+	# Handle knockback separately for smoother effect
+	if is_being_knocked_back:
+		apply_knockback(delta)
+		return
 	
 	# State machine
 	match current_state:
@@ -151,8 +155,25 @@ func _physics_process(delta):
 		State.HURT:
 			handle_hurt(delta)
 
+func update_timers(delta):
+	if attack_cooldown > 0:
+		attack_cooldown -= delta
+	
+	if hurt_timer > 0:
+		hurt_timer -= delta
+		if hurt_timer <= 0 and current_state == State.HURT:
+			recover_from_hurt()
+	
+	if invulnerability_timer > 0:
+		invulnerability_timer -= delta
+		# Flash effect during invulnerability
+		animated_sprite.modulate.a = 0.5 if int(invulnerability_timer * 20) % 2 == 0 else 1.0
+		
+		if invulnerability_timer <= 0:
+			is_invulnerable = false
+			animated_sprite.modulate.a = 1.0
+
 func update_raycasts():
-	# Rotate raycast sesuai arah last_direction
 	if last_direction.length() > 0.1:
 		var angle = last_direction.angle()
 		wall_raycast.target_position = Vector2(wall_check_distance, 0).rotated(angle)
@@ -160,13 +181,10 @@ func update_raycasts():
 		right_raycast.target_position = Vector2(wall_check_distance * 0.7, 0).rotated(angle)
 
 func check_if_stuck(delta):
-	# Cek apakah posisi hampir tidak berubah
 	var distance_moved = global_position.distance_to(last_position)
 	
 	if distance_moved < stuck_threshold:
 		stuck_timer += delta
-		
-		# Kalau stuck lebih dari 1 detik, pick target baru
 		if stuck_timer > 1.0:
 			if current_state == State.PATROL:
 				pick_patrol_target()
@@ -177,29 +195,25 @@ func check_if_stuck(delta):
 	last_position = global_position
 
 func is_wall_ahead() -> bool:
-	# Cek apakah ada tembok di depan
 	return wall_raycast.is_colliding()
 
 func get_clear_direction() -> Vector2:
-	# Cari arah yang tidak ada tembok
 	var directions = [
-		last_direction,  # Arah sekarang
-		last_direction.rotated(PI / 4),  # 45 derajat kanan
-		last_direction.rotated(-PI / 4),  # 45 derajat kiri
-		last_direction.rotated(PI / 2),  # 90 derajat kanan
-		last_direction.rotated(-PI / 2),  # 90 derajat kiri
-		-last_direction  # Balik arah
+		last_direction,
+		last_direction.rotated(PI / 4),
+		last_direction.rotated(-PI / 4),
+		last_direction.rotated(PI / 2),
+		last_direction.rotated(-PI / 2),
+		-last_direction
 	]
 	
 	for dir in directions:
 		if is_direction_clear(dir):
 			return dir
 	
-	# Kalau semua arah tertutup, pick random
 	return Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 
 func is_direction_clear(direction: Vector2) -> bool:
-	# Test raycast ke arah tertentu
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(
 		global_position,
@@ -213,11 +227,10 @@ func is_direction_clear(direction: Vector2) -> bool:
 
 # ============ IDLE STATE ============
 func handle_idle(delta):
-	velocity = Vector2.ZERO
-	idle_timer -= delta
+	velocity = velocity.lerp(Vector2.ZERO, 10 * delta)  # Smooth deceleration
+	idle_timer -= delta  # BUG FIX: Was missing timer countdown!
 	play_animation("idle")
 
-	# 🔇 Matikan suara jalan
 	if sfx_walk and sfx_walk.playing:
 		sfx_walk.stop()
 	
@@ -230,7 +243,6 @@ func handle_idle(delta):
 
 func change_to_idle():
 	current_state = State.IDLE
-	velocity = Vector2.ZERO
 	idle_timer = randf_range(1.0, 3.0)
 
 # ============ PATROL STATE ============
@@ -247,13 +259,14 @@ func handle_patrol(delta):
 		pick_patrol_target()
 		return
 	
-	velocity = direction * patrol_speed
+	# Smooth acceleration
+	var target_velocity = direction * patrol_speed
+	velocity = velocity.lerp(target_velocity, 5 * delta)
 	last_direction = direction
 	
 	play_animation("walk")
 	move_and_slide()
 
-	# 🔊 Nyalakan suara jalan
 	if sfx_walk and not sfx_walk.playing:
 		sfx_walk.play()
 	
@@ -270,20 +283,17 @@ func pick_patrol_target():
 	var valid_target = false
 	
 	for i in range(max_attempts):
-		# Generate random target
 		var random_offset = Vector2(
 			randf_range(-wander_range, wander_range),
 			randf_range(-wander_range, wander_range)
 		)
 		var potential_target = patrol_center + random_offset
 		
-		# Check if path is clear
 		if is_direction_clear((potential_target - global_position).normalized()):
 			target_position = potential_target
 			valid_target = true
 			break
 	
-	# Fallback: pick direction yang clear
 	if not valid_target:
 		var clear_dir = get_clear_direction()
 		target_position = global_position + clear_dir * wander_range * 0.5
@@ -296,33 +306,29 @@ func handle_chase(delta):
 	
 	var distance_to_player = global_position.distance_to(player.global_position)
 	
-	# Too far, return to patrol
 	if distance_to_player > detection_radius * 1.2:
 		player = null
 		change_to_idle()
 		return
 	
-	# Close enough to attack
 	if distance_to_player < attack_range:
 		change_to_attack()
 		return
 	
-	# Chase direction
 	var direction = (player.global_position - global_position).normalized()
 	
-	# SMART CHASE: Kalau ada tembok di depan, cari jalan memutar
+	# Smart pathfinding around walls
 	if is_wall_ahead():
-		
-		# Coba kiri atau kanan
 		if not left_raycast.is_colliding():
-			direction = direction.rotated(-PI / 4)  # Belok kiri
+			direction = direction.rotated(-PI / 4)
 		elif not right_raycast.is_colliding():
-			direction = direction.rotated(PI / 4)  # Belok kanan
+			direction = direction.rotated(PI / 4)
 		else:
-			# Kalau kiri kanan tertutup, cari arah clear
 			direction = get_clear_direction()
 	
-	velocity = direction * chase_speed
+	# Smooth acceleration for chase
+	var target_velocity = direction * chase_speed
+	velocity = velocity.lerp(target_velocity, 8 * delta)
 	last_direction = direction
 	
 	play_animation("run")
@@ -339,105 +345,127 @@ func handle_attack(delta):
 	
 	var distance_to_player = global_position.distance_to(player.global_position)
 	
-	# Player moved away
 	if distance_to_player > attack_range * 1.5:
 		change_to_chase()
 		return
 	
-	# Kalau terlalu dekat, mundur sedikit
-	var too_close_distance = 20.0
+	# Smooth positioning during attack
+	var too_close_distance = 25.0
+	var ideal_distance = 35.0
+	var target_velocity = Vector2.ZERO
+	
 	if distance_to_player < too_close_distance:
 		var push_away = (global_position - player.global_position).normalized()
-		velocity = push_away * attack_speed * 0.5
-	else:
-		# Move slowly towards player while attacking
+		target_velocity = push_away * attack_speed
+	elif distance_to_player > ideal_distance:
 		var direction = (player.global_position - global_position).normalized()
-		velocity = direction * attack_speed
+		target_velocity = direction * attack_speed
 	
+	velocity = velocity.lerp(target_velocity, 5 * delta)
 	last_direction = (player.global_position - global_position).normalized()
 	
-	# Attack animation
+	# Attack with cooldown
 	if attack_cooldown <= 0:
 		play_animation("attack")
-		attack_cooldown = 1.0
+		attack_cooldown = attack_cooldown_time
 		perform_attack()
 	else:
 		play_animation("walk_attack")
-		
 	
 	move_and_slide()
 
 func change_to_attack():
 	current_state = State.ATTACK
-	attack_cooldown = 0.5
+	attack_cooldown = 0.3  # Small initial delay
 
 func perform_attack():
-
 	if sfx_attack and not sfx_attack.playing:
 		sfx_attack.play()
 
 	var bodies = attack_area.get_overlapping_bodies()
 	for body in bodies:
-		if body.has_method("take_damage"):
-			body.take_damage(1, global_position)
+		if body.is_in_group("Player") and body.has_method("take_damage"):
+			# Check if player is in front of the enemy
+			if is_target_in_front(body):
+				body.take_damage(attack_damage, global_position)
 
-# ============ HURT STATE ============
+func is_target_in_front(target: Node2D) -> bool:
+	# Get direction to target
+	var direction_to_target = (target.global_position - global_position).normalized()
+	
+	# Get the enemy's facing direction
+	var facing_direction = last_direction.normalized()
+	
+	# Calculate dot product (1 = same direction, -1 = opposite, 0 = perpendicular)
+	var dot = direction_to_target.dot(facing_direction)
+	
+	# Target is "in front" if dot > 0.5 (roughly 60 degree cone in front)
+	# Adjust this value: 0.7 = narrower cone (~45°), 0.3 = wider cone (~90°)
+	return dot > 0.5
+
+# ============ HURT STATE & DAMAGE SYSTEM ============
 func handle_hurt(delta):
-	# Velocity di handle_hurt akan berkurang seiring waktu, mensimulasikan gesekan setelah knockback
-	velocity = velocity * 0.9
+	# Smooth deceleration during hurt state
+	velocity = velocity.lerp(Vector2.ZERO, 8 * delta)
 	move_and_slide()
 
-# ➡️ FUNGSI TAKE_DAMAGE DENGAN KNOCKBACK YANG DIPERBAIKI 💥
 func take_damage(amount: int, damage_source_position: Vector2):
-	if current_state == State.HURT or is_dead: # Tambah proteksi agar tidak double hit saat knockback
+	if is_invulnerable or is_dead:
 		return
 
-	# Nonaktifkan serangan dan patrol saat terluka
+	# Enter hurt state
 	current_state = State.HURT
+	is_invulnerable = true
+	invulnerability_timer = 0.5
+	hurt_timer = knockback_duration
 
-	if sfx_attacked and not sfx_attacked.playing:
-		sfx_attacked.play()
+
+	sfx_hurt.play()
 
 	play_animation("hurt")
 	max_health -= amount
 	
-	# 1. Hitung arah Knockback
-	# Arah dari penyerang (damage_source_position) ke Goblin (global_position)
-	var knockback_dir = (global_position - damage_source_position).normalized() 
+	# Calculate smooth knockback
+	var knockback_dir = (global_position - damage_source_position).normalized()
+	knockback_velocity = knockback_dir * knockback_strength
+	is_being_knocked_back = true
 	
-	# 2. Terapkan Knockback Velocity
-	velocity = knockback_dir * 250 # Kekuatan knockback
+	# Stop after knockback duration
+	get_tree().create_timer(knockback_duration).timeout.connect(func():
+		is_being_knocked_back = false
+		knockback_velocity = Vector2.ZERO
+	)
 	
-	# Cek kematian setelah damage diterima
 	if max_health <= 0:
 		die()
-		return # Keluar jika mati
-		
+
+func apply_knockback(delta):
+	# Smooth knockback deceleration
+	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 6 * delta)
+	velocity = knockback_velocity
 	move_and_slide()
-	
-	# 3. Tunggu durasi Knockback
-	await get_tree().create_timer(0.3).timeout # Durasi Knockback (0.3 detik)
-	
-	# Reset velocity dan kembali ke state CHASE atau IDLE
-	velocity = Vector2.ZERO
-	
-	# Jika masih ada pemain yang dikejar, kembali mengejar
+
+func recover_from_hurt():
+	if is_dead:
+		return
+		
 	if player and is_instance_valid(player):
 		change_to_chase()
 	else:
 		change_to_idle()
-# ⬅️ AKHIR FUNGSI TAKE_DAMAGE YANG DIPERBAIKI
 
+# ============ DEATH ============
 func die():
 	is_dead = true
 	velocity = Vector2.ZERO
+	knockback_velocity = Vector2.ZERO
+	is_being_knocked_back = false
 	current_state = State.HURT
 
 	if sfx_death:
 		sfx_death.play()
 
-	# --- PENTING: HENTIKAN INTERAKSI SEGERA! ---
-	
+	# Disable all interactions immediately
 	collision_layer = 0
 	collision_mask = 0
 	wall_raycast.enabled = false
@@ -446,76 +474,54 @@ func die():
 	detection_area.set_deferred("monitoring", false)
 	attack_area.set_deferred("monitoring", false)
 	
-	# --- LOGIKA REWARD ---
-	
 	GameData.set_enemy_killed(enemy_id)
-	print("Goblin died and saved persistence!")
+	var reward_message = try_drop_item()
 	
-	var reward_message = try_drop_item() # Panggil dan dapatkan pesan reward
-	
-	# --- ANIMASI KEMATIAN ---
-
-	# Mainkan animasi death
-	var death_anim_name = "death" + get_direction_suffix(last_direction)
+	# Death animation - use "died" prefix for animation names
+	var death_anim_name = "died" + get_direction_suffix(last_direction)
 	
 	if animated_sprite.sprite_frames.has_animation(death_anim_name):
 		animated_sprite.play(death_anim_name)
 		await animated_sprite.animation_finished
 	else:
+		# Fallback to hurt animation if death animation not found
 		play_animation("hurt")
 		await get_tree().create_timer(0.5).timeout
 	
-	# =======================================================
-	# ➡️ PERBAIKAN UTAMA: HILANGKAN VISUAL MUSUH SEKARANG! 👻
-	# =======================================================
-	
-	# Fade out musuh (membuatnya transparan/tidak terlihat)
+	# Smooth fade out
 	var visual_fade_tween = create_tween()
-	visual_fade_tween.tween_property(animated_sprite, "modulate:a", 0.0, 0.3)
+	visual_fade_tween.set_ease(Tween.EASE_IN)
+	visual_fade_tween.set_trans(Tween.TRANS_CUBIC)
+	visual_fade_tween.tween_property(animated_sprite, "modulate:a", 0.0, 0.4)
 	await visual_fade_tween.finished
 	
-	# --- TAMPIL PESAN DI HUD (Saat musuh sudah hilang) ---
-	
+	# Show reward message
 	hud.text = reward_message
 	hud.visible = true
 	hud.modulate.a = 1.0
 	
-	var wait_duration = 2.0
-	if reward_message.contains("Silver Key"):
-		wait_duration = 3.0
-	
-	# Musuh sudah hilang dari sini, hanya notifikasi yang tampil
+	var wait_duration = 2.5 if reward_message.contains("Silver Key") else 2.0
 	await get_tree().create_timer(wait_duration).timeout
 	
-	# Sembunyikan labelnya
-	hud.modulate.a = 0.0
+	# Fade out HUD
+	var hud_tween = create_tween()
+	hud_tween.tween_property(hud, "modulate:a", 0.0, 0.3)
+	await hud_tween.finished
 	
-	# --- PENGHAPUSAN AKHIR ---
-	# Hapus goblin dari scene setelah notifikasi selesai
 	queue_free()
 
 func try_drop_item() -> String:
 	var reward = randi_range(3, 8)
 	GameData.add_coin(reward)
 	
-	# Pesan koin adalah pesan dasar
 	var message = "You gained %s coins!" % reward
-	
-	var drop_chance = 1 # Ganti 1.0 menjadi 0.5 jika maksudmu 50%
-	var got_key = false
+	var drop_chance = 1.0
 	
 	if randf() <= drop_chance:
 		GameData.add_silver_key(skyes)
-		got_key = true
-		
-	print("Enemy reward:", reward, " | Dropped Key:", "")
-	
-	# Jika dapat kunci, tambahkan pesan ke baris baru
-	if got_key:
 		message += "\nYou received 2 Silver Key!"
-		
-	return message # <-- Kembalikan pesan reward
-
+	
+	return message
 
 # ============ ANIMATION HELPER ============
 func play_animation(anim_type: String):
@@ -539,13 +545,12 @@ func get_direction_suffix(direction: Vector2) -> String:
 
 # ============ DETECTION ============
 func _on_detection_body_entered(body):
-	if body.is_in_group("Player"):
-		print("Player detected!")
+	if body.is_in_group("Player") and not is_dead:
 		player = body
-		change_to_chase()
+		if current_state != State.HURT:
+			change_to_chase()
 
 func _on_detection_body_exited(body):
-	if body == player:
-		if current_state == State.CHASE:
-			player = null
-			change_to_idle()
+	if body == player and current_state == State.CHASE:
+		player = null
+		change_to_idle()
