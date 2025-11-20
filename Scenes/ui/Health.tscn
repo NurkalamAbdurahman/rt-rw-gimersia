@@ -5,11 +5,7 @@
 
 [node name="Health" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_lg853")
 
 [node name="HeartsContainer" type="HBoxContainer" parent="."]
@@ -20,42 +16,48 @@ scale = Vector2(1.5, 1.5)
 
 [node name="Heart6" type="Sprite2D" parent="HeartsContainer"]
 texture_filter = 1
-position = Vector2(18.5, 5.5)
+position = Vector2(48.666668, 0)
+scale = Vector2(4.5, 4.5)
 texture = ExtResource("2_of8hu")
 region_enabled = true
 region_rect = Rect2(0.086769104, 55.967678, 37.18885, 10.0671425)
 
 [node name="Heart5" type="Sprite2D" parent="HeartsContainer"]
 texture_filter = 1
-position = Vector2(18.5, 5.5)
+position = Vector2(48.666668, 0)
+scale = Vector2(4.5, 4.5)
 texture = ExtResource("2_of8hu")
 region_enabled = true
 region_rect = Rect2(-0.14109802, 44.88911, 37.103004, 10.230305)
 
 [node name="Heart4" type="Sprite2D" parent="HeartsContainer"]
 texture_filter = 1
-position = Vector2(18.5, 5.5)
+position = Vector2(48.666668, 0)
+scale = Vector2(4.5, 4.5)
 texture = ExtResource("2_of8hu")
 region_enabled = true
 region_rect = Rect2(0.11672974, 33.989227, 36.853806, 10.088211)
 
 [node name="Heart3" type="Sprite2D" parent="HeartsContainer"]
 texture_filter = 1
-position = Vector2(18.5, 5.5)
+position = Vector2(48.666668, 0)
+scale = Vector2(4.5, 4.5)
 texture = ExtResource("2_of8hu")
 region_enabled = true
 region_rect = Rect2(0.008880615, 22.957129, 37.099487, 10.13331)
 
 [node name="Heart2" type="Sprite2D" parent="HeartsContainer"]
 texture_filter = 1
-position = Vector2(18.5, 5.5)
+position = Vector2(48.666668, 0)
+scale = Vector2(4.5, 4.5)
 texture = ExtResource("2_of8hu")
 region_enabled = true
 region_rect = Rect2(0.16775608, 11.894501, 36.82609, 10.204466)
 
 [node name="Heart1" type="Sprite2D" parent="HeartsContainer"]
 texture_filter = 1
-position = Vector2(18.5, 5.5)
+position = Vector2(48.666668, 0)
+scale = Vector2(4.5, 4.5)
 texture = ExtResource("2_of8hu")
 region_enabled = true
 region_rect = Rect2(0, 0.8281444, 37, 10.275433)

@@ -4,13 +4,13 @@ signal stats_updated
 
 var health: int = 6
 var max_health: int = 6
-var coins: int = 0
+var coins: int = 200
 var silver_keys: int = 0
 var golden_keys: int = 0
 var skull_keys: int = 0
 var pity: int = 0
 var max_pity: int = 3
-var potion: int = 0
+var potion: int = 5
 var chest_states = {}
 var torch_states = {}
 var enemy_states = {}
@@ -88,8 +88,15 @@ func add_coin(amount: int = 1):
 
 func add_potion(amount: int = 1):
 	potion += amount
-	health += 1
 	emit_signal("stats_updated")
+
+func use_potion():
+	if potion > 0 and health < max_health:
+		potion -= 1
+		health = clamp(health + 1, 0, max_health)
+		emit_signal("stats_updated")
+		return true
+	return false
 
 func check_if_max_health():
 	if health >= max_health:

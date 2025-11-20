@@ -7,6 +7,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_2nxat"]
 line_spacing = 0.0
 font = ExtResource("3_4d83j")
+font_size = 64
 
 [node name="Coin" type="Control"]
 layout_mode = 3
@@ -20,16 +21,16 @@ script = ExtResource("1_4d83j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(7, 6)
+scale = Vector2(4.5, 4.5)
 texture = ExtResource("1_a1a3o")
 region_enabled = true
 region_rect = Rect2(0, 0, 9.01454, 10.149114)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 16.0
-offset_top = -2.0
-offset_right = 21.0
-offset_bottom = 10.0
+offset_left = 36.0
+offset_top = -33.0
+offset_right = 56.0
+offset_bottom = 14.0
 text = "0"
 label_settings = SubResource("LabelSettings_2nxat")

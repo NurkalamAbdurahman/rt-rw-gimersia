@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://1vnkas3s3dt3"]
 
-[ext_resource type="Script" uid="uid://oql57oawwxav" path="res://Scenes/ui/skull_key.gd" id="1_18tmg"]
+[ext_resource type="Script" path="res://Scenes/ui/skull_key.gd" id="1_18tmg"]
 [ext_resource type="Texture2D" uid="uid://d06ya1b5xfviw" path="res://Assets/collecitions/skull_key/pixilart-sprite.png" id="2_18tmg"]
 
 [node name="Skullkey" type="Control"]
@@ -15,8 +15,8 @@ script = ExtResource("1_18tmg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(9, 6)
-scale = Vector2(0.03, 0.03)
+position = Vector2(10, 0)
+scale = Vector2(0.135, 0.135)
 texture = ExtResource("2_18tmg")
 region_enabled = true
 region_rect = Rect2(45.712616, 55.788292, 420.3433, 212.5874)

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://bk36u1s8c2t2h"]
+
+[ext_resource type="Texture2D" uid="uid://boxf3ki6qgxhs" path="res://Assets/Tileset/asset_bonus_stage/PNG/potion/Icon1.png" id="1_p5xio"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_trc2b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bu870"]
+line_spacing = 0.0
+font = ExtResource("2_trc2b")
+font_size = 64
+
+[node name="Potion" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -49.0
+offset_top = -33.0
+offset_right = -29.0
+offset_bottom = 14.0
+size_flags_horizontal = 4
+text = "0"
+label_settings = SubResource("LabelSettings_bu870")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_p5xio")
+region_rect = Rect2(0, 0, 9.01454, 10.149114)
