@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv0nx4kjchj7i"]
+
+[ext_resource type="Script" uid="uid://chsbjjoblcpom" path="res://Script/qte_system.gd" id="1_2mhh1"]
+
+[node name="QTE_System" type="CanvasLayer"]
+script = ExtResource("1_2mhh1")
+
+[node name="QTEContainer" type="Panel" parent="."]
+offset_right = 271.0
+offset_bottom = 79.0
+
+[node name="TargetBox" type="ColorRect" parent="QTEContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HitZone" type="ColorRect" parent="QTEContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="InstructionLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
