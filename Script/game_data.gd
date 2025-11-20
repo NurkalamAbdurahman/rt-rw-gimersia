@@ -24,6 +24,7 @@ var is_finish_stage1 = false;
 var is_finish_stage2 = false;
 var is_finish_stage3 = false;
 var is_scene_changing: bool = false
+signal drawing_cleared
 
 func set_finish_stage1():
 	is_finish_stage1 = true
@@ -52,6 +53,7 @@ func clear_data():
 	saved_strokes = []
 	saved_brush_color = Color.BLACK
 	saved_brush_size = 2.0
+	emit_signal("drawing_cleared")
 
 func set_enemy_killed(enemy_id: String):
 	enemy_states[enemy_id] = true

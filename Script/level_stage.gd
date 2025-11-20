@@ -8,12 +8,11 @@ extends Control
 @onready var stage_1: Button = $MarginContainer/VBoxContainer/HBoxContainer/stage1
 @onready var stage_2: Button = $MarginContainer/VBoxContainer/HBoxContainer/stage2
 @onready var stage_3: Button = $MarginContainer/VBoxContainer/HBoxContainer/stage3
-@onready var back_button: Button = $BackButton  # Tambahkan tombol back jika ada
 
 # Audio
-@onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
-@onready var sfx_start: AudioStreamPlayer2D = $SFX_Start
-@onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
+@onready var sfx_hover: AudioStreamPlayer2D = $"../SFX_Hover"
+@onready var sfx_start: AudioStreamPlayer2D = $"../SFX_Start"
+@onready var sfx_button: AudioStreamPlayer2D = $"../SFX_Button"
 
 # Button state
 var all_buttons: Array[Button] = []
@@ -94,19 +93,19 @@ func _input(event: InputEvent) -> void:
 		_update_button_focus()
 
 func _move_selection(direction: int) -> void:
+	
 	if navigatable_buttons.size() == 0:
 		return
 	
 	# Move to next/previous enabled button
 	selected_index = (selected_index + direction) % navigatable_buttons.size()
+	sfx_hover.play()
 	
 	# Handle wrap around
 	if selected_index < 0:
 		selected_index = navigatable_buttons.size() - 1
 	
 	# Play hover sound
-	if sfx_hover and not sfx_hover.playing:
-		sfx_hover.play()
 
 func _update_button_focus() -> void:
 	# Reset semua tombol ke state default

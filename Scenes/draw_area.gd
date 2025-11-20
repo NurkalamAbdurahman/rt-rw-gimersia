@@ -42,7 +42,7 @@ var color_palette := [
 
 func _ready():
 	canvas_size = color_rect.size
-	
+	GameData.connect("drawing_cleared", Callable(self, "_on_drawing_cleared"))
 	# Load saved data
 	if GameData.saved_strokes.size() > 0:
 		var loaded_data = GameData.load_drawing_data()
@@ -72,6 +72,9 @@ func _ready():
 		player_stroke.append(world_to_map(player.global_position))
 	
 	queue_redraw()
+
+func _on_drawing_cleared():
+	clear_all_strokes()
 
 func set_drawing_enabled(enabled: bool):
 	set_process_input(enabled)
