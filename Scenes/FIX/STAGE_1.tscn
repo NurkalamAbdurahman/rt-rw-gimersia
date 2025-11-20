@@ -3272,7 +3272,6 @@ position = Vector2(2162, -499)
 torch_id = "Torch_26"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -3384,7 +3383,7 @@ shape = SubResource("RectangleShape2D_bugoh")
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
 z_index = 10
-position = Vector2(336, -328)
+position = Vector2(67, 58)
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)
