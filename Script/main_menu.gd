@@ -107,8 +107,7 @@ func _move_selection(direction: int) -> void:
 		selected_index = navigatable_buttons.size() - 1
 	
 	# Play hover sound
-	if sfx_hover and not sfx_hover.playing:
-		sfx_hover.play()
+	sfx_hover.play()
 	
 	_update_button_focus()
 
