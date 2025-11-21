@@ -1,6 +1,6 @@
 [gd_scene load_steps=235 format=3 uid="uid://3o7cj0bs1out"]
 
-[ext_resource type="Script" uid="uid://d201ska6rafpo" path="res://Script/goblin_level_2.gd" id="1_ljo0d"]
+[ext_resource type="Script" uid="uid://c5uevy3qpwr2v" path="res://Script/goblin.gd" id="1_5ay7u"]
 [ext_resource type="Texture2D" uid="uid://c8d3nie3p84bj" path="res://Assets/Goblin/PNG/Orc2/With_shadow/orc2_death_with_shadow.png" id="2_5ay7u"]
 [ext_resource type="Texture2D" uid="uid://dkkoycdou4sl4" path="res://Assets/Goblin/PNG/Orc2/With_shadow/orc2_hurt_with_shadow.png" id="3_5ay7u"]
 [ext_resource type="Texture2D" uid="uid://cj18a4warl45k" path="res://Assets/Goblin/PNG/Orc2/With_shadow/orc2_attack_with_shadow.png" id="4_erwce"]
@@ -1702,7 +1702,10 @@ radius = 19.026299
 [node name="Goblin" type="CharacterBody2D"]
 z_index = 11
 collision_layer = 4
-script = ExtResource("1_ljo0d")
+script = ExtResource("1_5ay7u")
+max_health = 5
+min_coin = 3
+max_coin = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, -4)

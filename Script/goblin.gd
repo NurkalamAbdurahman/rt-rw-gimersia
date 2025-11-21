@@ -8,7 +8,7 @@ extends CharacterBody2D
 @onready var sfx_walk: AudioStreamPlayer2D = $SFX_Walk
 @onready var hud: Label = $"../Hud/Label"
 @onready var sfx_hurt: AudioStreamPlayer2D = $SFX_Hurt
-@onready var qte_system: CanvasLayer = $"../QTE_System2"
+@onready var qte_system: CanvasLayer = $"../QTE_System"
 
 # QTE variables
 var is_qte_active = false
@@ -46,6 +46,8 @@ var right_raycast: RayCast2D
 
 @export var enemy_id: String = "SceneA_Goblin_1"
 @export var max_health = 3
+@export var min_coin = 1
+@export var max_coin = 5
 @export var qte_damage = 1  # Damage per successful QTE
 
 var is_dead = false
@@ -484,6 +486,9 @@ func handle_patrol(delta):
 	if sfx_walk and not sfx_walk.playing:
 		sfx_walk.play()
 	
+	if is_dead == true:
+		sfx_walk.stop()
+	
 	if global_position.distance_to(target_position) < 10 or patrol_timer <= 0:
 		change_to_idle()
 
@@ -593,8 +598,8 @@ func die():
 	velocity = Vector2.ZERO
 	current_state = State.HURT
 
-	if sfx_death:
-		sfx_death.play()
+	
+	sfx_death.play()
 
 	# Disable all interactions immediately
 	collision_layer = 0
@@ -648,7 +653,7 @@ func die():
 	queue_free()
 
 func try_drop_item() -> String:
-	var reward = randi_range(1, 5)
+	var reward = randi_range(min_coin, max_coin)
 	GameData.add_coin(reward)
 	
 	var message = "You gained %s coins!" % reward

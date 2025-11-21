@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://dl8ysiup7jwhn"]
+[gd_scene load_steps=25 format=4 uid="uid://dl8ysiup7jwhn"]
 
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_e7ynj"]
 [ext_resource type="Script" uid="uid://bao1phb8sqr4e" path="res://Script/stage_2.gd" id="1_r847v"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://cwst4tasxjw1r" path="res://Scenes/ui/Next_Stage_2.tscn" id="16_5koqb"]
 [ext_resource type="PackedScene" uid="uid://de8ve0uu3hqol" path="res://Scenes/map_editor_layer.tscn" id="17_lh8bj"]
 [ext_resource type="PackedScene" uid="uid://g6f4d7ye1qit" path="res://Scenes/qte_system_goblin2.tscn" id="18_x42nt"]
-[ext_resource type="PackedScene" uid="uid://dv0nx4kjchj7i" path="res://Scenes/qte_system.tscn" id="19_nufcf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c248w"]
 texture = ExtResource("1_rsbcv")
@@ -307,5 +306,3 @@ popup_scene = ExtResource("16_5koqb")
 [node name="MapEditorLayer" parent="." instance=ExtResource("17_lh8bj")]
 
 [node name="QTE_System" parent="." instance=ExtResource("18_x42nt")]
-
-[node name="QTE_System2" parent="." instance=ExtResource("19_nufcf")]

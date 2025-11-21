@@ -11,6 +11,7 @@ const SPEED = 100.0
 @onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
 @onready var qte_system: CanvasLayer = $"../QTE_System"
 
+
 # QTE variables
 var qte_damage_multiplier: float = 1.0
 var qte_lock_position = Vector2.ZERO
@@ -34,7 +35,10 @@ func _ready() -> void:
 		torch.connect("torch_picked_up", Callable(self, "_on_torch_picked_up"))
 	
 	add_to_group("Player")
-	
+	qte_system = get_tree().get_first_node_in_group("QTE_System")
+
+	print("QTE system found:", qte_system)
+
 	if qte_system:
 		qte_system.connect("qte_success", Callable(self, "_on_qte_success"))
 		qte_system.connect("qte_failed", Callable(self, "_on_qte_failed"))
@@ -190,8 +194,11 @@ func play_qte_attack_animation():
 	print("💥 Player playing attack animation!")
 	qte_attack_playing = true
 	
-	# Play attack animation based on direction
 	var attack_anim_name = "attack_" + current_anim_direction
+	print("Attempting to play:", attack_anim_name)
+	print("Animation exists:", player.sprite_frames.has_animation(attack_anim_name))
+
+	# Play attack animation based on direction
 	
 	# Check if attack animation exists, fallback to regular attack animation
 	if player.sprite_frames.has_animation(attack_anim_name):

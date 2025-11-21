@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=49 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="Script" uid="uid://bgnvhifq7g7kf" path="res://Script/stage_1.gd" id="1_ihc3j"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_w6c7r"]
@@ -27,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://4mya8le2nvu5" path="res://Scenes/ui/You_Dead.tscn" id="24_b8g7p"]
 [ext_resource type="PackedScene" uid="uid://de8ve0uu3hqol" path="res://Scenes/map_editor_layer.tscn" id="26_dswwp"]
 [ext_resource type="PackedScene" uid="uid://dv0nx4kjchj7i" path="res://Scenes/qte_system.tscn" id="27_cx13s"]
-[ext_resource type="PackedScene" uid="uid://g6f4d7ye1qit" path="res://Scenes/qte_system_goblin2.tscn" id="28_3x7lv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("2_lmh3y")
@@ -3328,6 +3327,8 @@ enemy_id = "SceneA_Goblin_4"
 
 [node name="Goblin5" parent="." instance=ExtResource("17_ihc3j")]
 position = Vector2(1195, -841)
+patrol_speed = 40.0
+chase_speed = 100.0
 enemy_id = "SceneA_Goblin_5"
 
 [node name="tutorial_welcome" type="Area2D" parent="."]
@@ -3384,21 +3385,19 @@ shape = SubResource("RectangleShape2D_bugoh")
 
 [node name="Hud" parent="." instance=ExtResource("22_oof0y")]
 
-[node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
-z_index = 10
-position = Vector2(67, 59)
-
-[node name="Camera2D" type="Camera2D" parent="Player2"]
-zoom = Vector2(5, 5)
-position_smoothing_enabled = true
-
 [node name="YouDead" parent="." instance=ExtResource("24_b8g7p")]
 
 [node name="MapEditorLayer" parent="." instance=ExtResource("26_dswwp")]
 
 [node name="QTE_System" parent="." instance=ExtResource("27_cx13s")]
 
-[node name="QTE_System2" parent="." instance=ExtResource("28_3x7lv")]
+[node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
+z_index = 10
+position = Vector2(69, 62)
+
+[node name="Camera2D" type="Camera2D" parent="Player2"]
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
 
 [connection signal="body_entered" from="tutorial_welcome" to="tutorial_welcome" method="_on_body_entered"]
 [connection signal="body_exited" from="tutorial_welcome" to="tutorial_welcome" method="_on_body_exited"]
