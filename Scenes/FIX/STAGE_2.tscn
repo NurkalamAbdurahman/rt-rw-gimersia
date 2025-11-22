@@ -184,7 +184,7 @@ position = Vector2(1238, 1347)
 torch_id = "Torch_16"
 
 [node name="Obor16" parent="SceneObor" instance=ExtResource("4_nyjbp")]
-position = Vector2(1892, 1171)
+position = Vector2(1877, 1170)
 torch_id = "Torch_17"
 
 [node name="Obor17" parent="SceneObor" instance=ExtResource("4_nyjbp")]
@@ -204,7 +204,7 @@ position = Vector2(1683, 934)
 torch_id = "Torch_21"
 
 [node name="Obor21" parent="SceneObor" instance=ExtResource("4_nyjbp")]
-position = Vector2(1785, 1171)
+position = Vector2(1792, 1171)
 torch_id = "Torch_22"
 
 [node name="Obor22" parent="SceneObor" instance=ExtResource("4_nyjbp")]
@@ -267,7 +267,7 @@ position_smoothing_enabled = true
 position = Vector2(588, -27)
 
 [node name="Goblin2" parent="." instance=ExtResource("12_jsvtg")]
-position = Vector2(1921, 1277)
+position = Vector2(1733, 977)
 enemy_id = "SceneA_Goblin_2"
 
 [node name="Goblin3" parent="." instance=ExtResource("12_jsvtg")]

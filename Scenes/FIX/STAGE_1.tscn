@@ -3194,7 +3194,7 @@ position = Vector2(691, -51)
 torch_id = "Torch_6"
 
 [node name="Obor6" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(894, -51)
+position = Vector2(850, 24)
 torch_id = "Torch_7"
 
 [node name="Obor7" parent="SceneObor" instance=ExtResource("10_xb33v")]
@@ -3218,7 +3218,7 @@ position = Vector2(767, -835)
 torch_id = "Torch_12"
 
 [node name="Obor12" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(338, -707)
+position = Vector2(360, -708)
 torch_id = "Torch_13"
 
 [node name="Obor13" parent="SceneObor" instance=ExtResource("10_xb33v")]
@@ -3226,15 +3226,15 @@ position = Vector2(581, -707)
 torch_id = "Torch_14"
 
 [node name="Obor14" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(447, -707)
+position = Vector2(428, -706)
 torch_id = "Torch_15"
 
 [node name="Obor15" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(1101, -915)
+position = Vector2(1162, -913)
 torch_id = "Torch_16"
 
 [node name="Obor16" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(1284, -915)
+position = Vector2(1225, -916)
 torch_id = "Torch_17"
 
 [node name="Obor17" parent="SceneObor" instance=ExtResource("10_xb33v")]
@@ -3242,7 +3242,7 @@ position = Vector2(1315, -243)
 torch_id = "Torch_18"
 
 [node name="Obor18" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(1215, -19)
+position = Vector2(1229, -18)
 torch_id = "Torch_19"
 
 [node name="Obor19" parent="SceneObor" instance=ExtResource("10_xb33v")]
@@ -3266,11 +3266,11 @@ position = Vector2(2094, -403)
 torch_id = "Torch_24"
 
 [node name="Obor24" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(2385, -499)
+position = Vector2(2313, -498)
 torch_id = "Torch_25"
 
 [node name="Obor25" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(2162, -499)
+position = Vector2(2248, -498)
 torch_id = "Torch_26"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
@@ -3281,7 +3281,7 @@ position = Vector2(389.99997, -692.00006)
 scale = Vector2(1.3344294, 1.6611495)
 
 [node name="silverchest3" parent="Chest" instance=ExtResource("11_jcn7v")]
-position = Vector2(1137.565, 22.273773)
+position = Vector2(1142.0612, 22.875767)
 
 [node name="silverchest" parent="Chest" instance=ExtResource("11_jcn7v")]
 chest_id = "SceneA_Chest_2"

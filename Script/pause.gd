@@ -15,7 +15,6 @@ extends Control
 
 @onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
-@onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
 
 
 
