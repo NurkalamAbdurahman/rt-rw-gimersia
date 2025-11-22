@@ -13,7 +13,7 @@ var brush_size := 2.0
 var record_player_path := true
 var player_stroke: Array = []
 var player_color := Color.DARK_SLATE_GRAY
-var player_line_width := 3.0
+var player_line_width := 8.0
 
 # Tracking settings
 enum TrackingMode { CANVAS_CENTER, CUSTOM_POINT, PLAYER_POSITION }
@@ -97,10 +97,6 @@ func _process(delta):
 		queue_redraw()
 
 func _draw():
-	# Draw current player position
-	var player_pos = world_to_map(player.global_position)
-	draw_circle(player_pos, 4, Color.RED)
-	
 	# Draw saved strokes (with their individual colors)
 	for stroke_data in strokes:
 		if typeof(stroke_data) == TYPE_DICTIONARY:
@@ -124,11 +120,15 @@ func _draw():
 	
 	# Draw player path with gradient effect
 	if player_stroke.size() > 1:
-		for i in range(player_stroke.size() - 1):
-			var alpha = float(i) / player_stroke.size() # Fade older parts
+		for i in range(player_stroke.size()):
+			var alpha = float(i) / player_stroke.size()
 			var color = player_color
 			color.a = lerp(0.3, 1.0, alpha)
-			draw_line(player_stroke[i], player_stroke[i + 1], color, player_line_width, true)
+			draw_circle(player_stroke[i], 4, color)
+
+	# Draw current player position
+	var player_pos = world_to_map(player.global_position)
+	draw_circle(player_pos, 6, Color.RED)	
 
 func world_to_map(world_pos: Vector2) -> Vector2:
 	var scale := 0.1
