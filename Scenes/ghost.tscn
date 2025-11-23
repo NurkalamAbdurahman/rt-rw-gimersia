@@ -1,0 +1,85 @@
+[gd_scene load_steps=17 format=3 uid="uid://chbycjn7huonb"]
+
+[ext_resource type="Script" uid="uid://cdlb5kn7uv7ql" path="res://Script/ghost.gd" id="1_3mxmt"]
+[ext_resource type="Texture2D" uid="uid://d4d5tjhdv3nlp" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_001.png" id="2_ax0xk"]
+[ext_resource type="Texture2D" uid="uid://c1iybbap8ljnv" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_002.png" id="3_pe55a"]
+[ext_resource type="Texture2D" uid="uid://4pmkgxmh708" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_003.png" id="4_vvq3t"]
+[ext_resource type="Texture2D" uid="uid://i7dp7bjia1bn" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_000.png" id="5_jugkf"]
+[ext_resource type="Texture2D" uid="uid://dlrnwj7j36myu" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_004.png" id="6_dlvam"]
+[ext_resource type="Texture2D" uid="uid://bi06d7r33fq2u" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_005.png" id="7_8t7of"]
+[ext_resource type="Texture2D" uid="uid://cc8ykssx81vyu" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_006.png" id="8_bacfh"]
+[ext_resource type="Texture2D" uid="uid://yne11otf3imi" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_007.png" id="9_gu7qg"]
+[ext_resource type="Texture2D" uid="uid://2m0f87xdnofg" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_008.png" id="10_p4wdi"]
+[ext_resource type="Texture2D" uid="uid://srrb0c8cmn6m" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_009.png" id="11_w60pv"]
+[ext_resource type="Texture2D" uid="uid://bsjlkxro52em6" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_010.png" id="12_yo8bj"]
+[ext_resource type="Texture2D" uid="uid://cih6068yd62pn" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_011.png" id="13_awks0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d3atw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ax0xk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pe55a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vvq3t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jugkf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dlvam")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8t7of")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bacfh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gu7qg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_p4wdi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_w60pv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_yo8bj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_awks0")
+}],
+"loop": true,
+"name": &"ghost_walking",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j6jnv"]
+radius = 125.62344
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ax0xk"]
+radius = 100.0
+
+[node name="Ghost" type="CharacterBody2D"]
+scale = Vector2(0.08, 0.08)
+script = ExtResource("1_3mxmt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d3atw")
+animation = &"ghost_walking"
+autoplay = "ghost_walking"
+frame_progress = 0.48322612
+
+[node name="HitArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+shape = SubResource("CircleShape2D_j6jnv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
+shape = SubResource("CircleShape2D_ax0xk")
+
+[node name="ChaseTimer" type="Timer" parent="."]
