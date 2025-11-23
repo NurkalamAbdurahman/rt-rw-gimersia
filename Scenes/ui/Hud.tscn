@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dawyh7xl0svwt"]
+[gd_scene load_steps=17 format=3 uid="uid://dawyh7xl0svwt"]
 
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
 [ext_resource type="PackedScene" uid="uid://cfbgos7kse1lm" path="res://Scenes/ui/Golden_Key.tscn" id="4_lskfp"]
@@ -6,9 +6,10 @@
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="6_1usb2"]
 [ext_resource type="Texture2D" uid="uid://ccqialaewf8b2" path="res://Assets/collecitions/Map/Map.png" id="6_qsv8q"]
 [ext_resource type="PackedScene" uid="uid://bm3ddrutfeyyp" path="res://Scenes/ui/Health.tscn" id="7_0jl3m"]
+[ext_resource type="PackedScene" uid="uid://b8neso2qx72fy" path="res://Scenes/ui/HP_Potion.tscn" id="8_2c6vo"]
 [ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="8_b62v5"]
-[ext_resource type="PackedScene" uid="uid://bk36u1s8c2t2h" path="res://Scenes/ui/potion.tscn" id="9_iatva"]
-[ext_resource type="Script" uid="uid://dek67bv78jsm5" path="res://Script/potion.gd" id="10_b62v5"]
+[ext_resource type="PackedScene" uid="uid://2xk2mfy62su7" path="res://Scenes/ui/strength_Potion.tscn" id="9_b62v5"]
+[ext_resource type="PackedScene" uid="uid://ch6do4lqk3be3" path="res://Scenes/ui/Speed_Potion.tscn" id="10_iatva"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0jl3m"]
 font = ExtResource("6_1usb2")
@@ -63,20 +64,6 @@ layout_mode = 2
 [node name="Skullkey" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("5_so6r4")]
 layout_mode = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="."]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -28.0
-offset_right = 26.0
-offset_bottom = -18.0
-grow_vertical = 0
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_bottom = 20
-
 [node name="Label" type="Label" parent="."]
 show_behind_parent = true
 z_index = 12
@@ -106,23 +93,31 @@ icon = ExtResource("6_qsv8q")
 script = ExtResource("8_b62v5")
 
 [node name="MarginContainer4" type="MarginContainer" parent="."]
-visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -33.0
-offset_top = -548.0
-offset_right = 7.0
-offset_bottom = -528.0
+offset_left = -59.0
+offset_top = -48.0
+offset_right = -45.0
+offset_bottom = -28.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
 
-[node name="Potion" parent="MarginContainer4" instance=ExtResource("9_iatva")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer4"]
 layout_mode = 2
-script = ExtResource("10_b62v5")
+theme_override_constants/separation = 100
+
+[node name="StrengthPotion" parent="MarginContainer4/HBoxContainer" instance=ExtResource("9_b62v5")]
+visible = false
+layout_mode = 2
+
+[node name="SpeedPotion" parent="MarginContainer4/HBoxContainer" instance=ExtResource("10_iatva")]
+visible = false
+layout_mode = 2
+
+[node name="HpPotion" parent="MarginContainer4/HBoxContainer" instance=ExtResource("8_2c6vo")]
+layout_mode = 2
