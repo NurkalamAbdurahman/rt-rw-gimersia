@@ -1,15 +1,16 @@
-[gd_scene load_steps=53 format=3 uid="uid://bistqf1mdqee5"]
+[gd_scene load_steps=54 format=3 uid="uid://bistqf1mdqee5"]
 
 [ext_resource type="Script" uid="uid://co11shrtf40bb" path="res://Script/main_menu.gd" id="1_khyyc"]
 [ext_resource type="AudioStream" uid="uid://dmllbtb7v0gya" path="res://Assets/Audio/start-button.mp3" id="2_1h88x"]
 [ext_resource type="AudioStream" uid="uid://ybocb4nd7p8q" path="res://Assets/Audio/click_better.mp3" id="2_4sxlf"]
-[ext_resource type="Texture2D" uid="uid://it68n36bjh5v" path="res://Assets/collecitions/ui/mainmenu_pixel.png" id="2_avb58"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="3_4sxlf"]
 [ext_resource type="AudioStream" uid="uid://mkee0pbwx7rb" path="res://Assets/Audio/click_button.mp3" id="3_ck2dw"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="4_ck2dw"]
 [ext_resource type="AudioStream" uid="uid://co36vt40qhjqt" path="res://Assets/Audio/bgm.ogg" id="4_sehva"]
 [ext_resource type="Script" uid="uid://cmp2ol5767gt" path="res://Script/control_gameplay.gd" id="5_sehva"]
 [ext_resource type="Texture2D" uid="uid://d0xvq7hthyv2s" path="res://Assets/For_scene/Control_Menu.png" id="6_1h88x"]
+[ext_resource type="VideoStream" uid="uid://bgbvu10ckioxc" path="res://Assets/collecitions/Main_Menu/Animation_MaenMenu.ogv" id="6_1p8vu"]
+[ext_resource type="Texture2D" uid="uid://c3gfaqghpywut" path="res://Assets/collecitions/Main_Menu/Judul.png" id="6_kn3i7"]
 [ext_resource type="PackedScene" uid="uid://di6o4afgl4ola" path="res://Scenes/ui/fade_transitions.tscn" id="7_oebvf"]
 [ext_resource type="VideoStream" uid="uid://ccxr4lbgva3o0" path="res://Assets/Video/Credit Akhir.ogv" id="8_avb58"]
 [ext_resource type="Script" uid="uid://i6clkamsuox3" path="res://Script/level_stage.gd" id="13_kn3i7"]
@@ -119,21 +120,24 @@ stream = ExtResource("4_sehva")
 volume_db = 12.893
 autoplay = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
-texture_filter = 1
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_avb58")
-expand_mode = 1
+stream = ExtResource("6_1p8vu")
+autoplay = true
+expand = true
+loop = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-offset_right = 605.0
-offset_bottom = 374.0
+offset_left = -172.0
+offset_top = 168.0
+offset_right = 433.0
+offset_bottom = 542.0
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 100
 
@@ -143,7 +147,16 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 50
 
+[node name="Judul" type="Sprite2D" parent="MarginContainer/VBoxContainer"]
+texture_filter = 1
+position = Vector2(304, -117)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_kn3i7")
+region_enabled = true
+region_rect = Rect2(70, 79, 1266, 482)
+
 [node name="RTRw Dungeons" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
 texture_filter = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8346143, 0.8346143, 0.8346143, 1)
