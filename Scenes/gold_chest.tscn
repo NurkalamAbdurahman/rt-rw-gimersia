@@ -60,12 +60,13 @@ region = Rect2(135, 129, 19, 21)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slpms"]
 size = Vector2(23, 22)
 
-[sub_resource type="LabelSettings" id="LabelSettings_dhmrq"]
-font = ExtResource("3_n5d3i")
-shadow_color = Color(0, 0, 0, 1)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5d3i"]
 size = Vector2(18, 13)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dhmrq"]
+font = ExtResource("3_n5d3i")
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [node name="gold_chest" type="StaticBody2D"]
 script = ExtResource("1_slpms")
@@ -93,16 +94,6 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_slpms")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -36.0
-offset_top = -23.0
-offset_right = 35.0
-offset_bottom = -11.0
-text = "Press 'e' to open"
-label_settings = SubResource("LabelSettings_dhmrq")
-autowrap_trim_flags = 0
-justification_flags = 0
-
 [node name="SFX_ChestOpen" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_slpms")
 volume_db = 11.0
@@ -114,6 +105,15 @@ shape = SubResource("RectangleShape2D_n5d3i")
 [node name="SFX_ChestLocked" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_dhmrq")
 volume_db = 11.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -25.0
+offset_right = 17.0
+offset_bottom = 2.0
+text = "[E] Open
+"
+label_settings = SubResource("LabelSettings_dhmrq")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
