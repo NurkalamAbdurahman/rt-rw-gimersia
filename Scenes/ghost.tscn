@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://chbycjn7huonb"]
+[gd_scene load_steps=16 format=3 uid="uid://chbycjn7huonb"]
 
 [ext_resource type="Script" uid="uid://cdlb5kn7uv7ql" path="res://Script/ghost.gd" id="1_3mxmt"]
 [ext_resource type="Texture2D" uid="uid://d4d5tjhdv3nlp" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_001.png" id="2_ax0xk"]
@@ -61,9 +61,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_j6jnv"]
 radius = 125.62344
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ax0xk"]
-radius = 100.0
-
 [node name="Ghost" type="CharacterBody2D"]
 scale = Vector2(0.08, 0.08)
 script = ExtResource("1_3mxmt")
@@ -78,8 +75,5 @@ frame_progress = 0.48322612
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
 shape = SubResource("CircleShape2D_j6jnv")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
-shape = SubResource("CircleShape2D_ax0xk")
 
 [node name="ChaseTimer" type="Timer" parent="."]
