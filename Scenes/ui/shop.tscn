@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cc42d5pig7030"]
+[gd_scene load_steps=17 format=3 uid="uid://cc42d5pig7030"]
 
 [ext_resource type="Script" uid="uid://blk5mpmc1i16x" path="res://Script/shop.gd" id="1_ovj2j"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_jf40h"]
@@ -27,6 +27,20 @@ font_size = 64
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xini2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6wmqe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mj3m1"]
+font = ExtResource("2_ovj2j")
+font_size = 32
+font_color = Color(1, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dokti"]
+font = ExtResource("2_ovj2j")
+font_size = 32
+font_color = Color(8.302554e-06, 0.62790716, 5.7756904e-07, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="Shop" type="CanvasLayer"]
 script = ExtResource("1_ovj2j")
@@ -101,3 +115,19 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_qfi22")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_xini2")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_6wmqe")
 text = "Close"
+
+[node name="NotEnough" type="Label" parent="."]
+z_index = 10
+offset_left = 630.0
+offset_top = 342.0
+offset_right = 760.0
+offset_bottom = 389.0
+label_settings = SubResource("LabelSettings_mj3m1")
+
+[node name="BuyPotion" type="Label" parent="."]
+z_index = 10
+offset_left = 1260.0
+offset_top = 684.0
+offset_right = 1390.0
+offset_bottom = 731.0
+label_settings = SubResource("LabelSettings_dokti")
