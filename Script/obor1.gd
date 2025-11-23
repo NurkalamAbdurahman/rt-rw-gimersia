@@ -11,6 +11,9 @@ extends Node2D
 var player_in_area = false
 @export var torch_id: String = "Torch_1" # Ganti ini di setiap instance chest!
 
+signal torch_lit
+
+
 func _ready():
 	# Cek apakah obor sudah dinyalakan
 	if GameData.is_torch_lighted(torch_id):
@@ -43,6 +46,7 @@ func nyalakan_obor():
 	
 	sfx_torch_on.play()
 	sfx_torch_burning.play()
+	emit_signal("torch_lit")
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and obor_mati.visible:

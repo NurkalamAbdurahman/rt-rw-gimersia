@@ -1,25 +1,26 @@
 extends Node2D
 
-@onready var tertutup: Sprite2D = $silver_chest
-@onready var anim_sprite: AnimatedSprite2D = $silver_chest_openanimation
-@onready var terbuka: Sprite2D = $silver_chest_open
+@onready var tertutup: Sprite2D = $gold_chest
+@onready var anim_sprite: AnimatedSprite2D = $gold_chest_openanimation
+@onready var terbuka: Sprite2D = $gold_chest_open
 @onready var area: Area2D = $Area2D
 @onready var label: Label = $Label
 @onready var sfx_chest_open: AudioStreamPlayer2D = $SFX_ChestOpen
-@export var chest_id: String = "SceneAG_Chest_1" # Ganti ini di setiap instance chest!
-@onready var hud: Label = $"../Hud/Label"
 @onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
+@onready var hud: Label = $"../Hud/Label"
+
+@export var chest_id: String = "SceneAG_GoldChest_1"
 
 var player_in_area = false
 var chest_opened = false
-var skullkey = 1
+var puzzle_active = false
+var puzzle_completed = false
 
 func _ready():
 	if GameData.is_chest_opened(chest_id):
-		# Jika statusnya TRUE (sudah dibuka)
 		print("Chest ", chest_id, " sudah dibuka sebelumnya. Menghapus...")
-		queue_free() # Langsung hapus chest dari scene
-		return # Keluar dari _ready
+		queue_free()
+		return
 		
 	tertutup.visible = true
 	terbuka.visible = false
@@ -30,13 +31,25 @@ func _ready():
 
 func _process(delta):
 	if player_in_area and not chest_opened:
-		if Input.is_action_just_pressed("e"):
-			cek_buka_chest()
+		
+		# Jika puzzle belum selesai → buka puzzle
+		if Input.is_action_just_pressed("e") and not puzzle_completed and not puzzle_active:
+			open_puzzle()
+		
+		# Jika puzzle selesai → cek key
+		elif Input.is_action_just_pressed("e") and puzzle_completed:
+			if GameData.golden_keys > 0:
+				buka_chest()
+			else:
+				label.text = "You need a Golden Key to open this chest"
+				label.visible = true
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not chest_opened:
 		player_in_area = true
-		label.text = "[E] open"
+		var revealed = PuzzleManager.get_revealed_count()
+		label.text = "[E] Solve Puzzle (%d/3 hints)" % revealed
 		label.visible = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
@@ -44,20 +57,52 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		player_in_area = false
 		label.visible = false
 
-func cek_buka_chest():
+func open_puzzle():
+	print("=== OPENING GOLD CHEST PUZZLE ===")
+	
+	puzzle_active = true
+	label.visible = false
+	
+	# Pause the game
+	get_tree().paused = true
+	
+	# Load the puzzle script
+	var PuzzleScript = load("res://Script/GoldChestPuzzle.gd")
+	var puzzle = CanvasLayer.new()
+	puzzle.set_script(PuzzleScript)
+	puzzle.process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	get_tree().root.add_child(puzzle)
+	
+	# Connect signals
+	puzzle.puzzle_solved.connect(_on_puzzle_solved)
+	puzzle.puzzle_failed.connect(_on_puzzle_failed)
+	
+	print("=== PUZZLE ADDED TO TREE ===")
+
+func _on_puzzle_solved():
+	get_tree().paused = false
+	puzzle_active = false
+	
+	puzzle_completed = true
+	
+	# Cek apakah player punya golden key
 	if GameData.golden_keys > 0:
-		# Punya silver key ✅
-		GameData.golden_keys -= 1
 		buka_chest()
 	else:
-		# Tidak punya ❌ → munculkan warning
-		sfx_chest_locked.play()
+		# Kalau puzzle berhasil tapi belum punya key
+		label.text = "You solved the puzzle!\nBut you need a Golden Key"
 		label.visible = true
-		await get_tree().create_timer(1.3).timeout
-		if player_in_area and not chest_opened:
-			label.text = "[E] open"
-		else:
-			label.visible = false
+
+
+func _on_puzzle_failed():
+	get_tree().paused = false
+	puzzle_active = false
+	
+	if player_in_area and not chest_opened:
+		var revealed = PuzzleManager.get_revealed_count()
+		label.text = "[E] Solve Puzzle (%d/3 hints)" % revealed
+		label.visible = true
 
 func buka_chest():
 	chest_opened = true
@@ -66,42 +111,35 @@ func buka_chest():
 	anim_sprite.visible = true
 	
 	GameData.set_chest_opened(chest_id)
-
 	
-	# 🔊 Sound effect
+	# Sound effect
 	sfx_chest_open.play()
-
+	
 	# Mainkan animasi buka peti
 	anim_sprite.animation = "open"
 	anim_sprite.play()
-
-	var reward = randi_range(15, 25)
+	
+	# Reward lebih besar untuk golden chest
+	var reward = randi_range(50, 100)
+	var skull_keys = randi_range(2, 3)
+	
 	GameData.add_coin(reward)
-	GameData.add_skull_key(skullkey) # <-- Dapat koin & kunci
-	print("Chest reward:", reward)
-
+	GameData.add_skull_key(skull_keys)
+	
+	print("Golden Chest reward:", reward, "coins and", skull_keys, "skull keys")
+	
 	await anim_sprite.animation_finished
-
+	
 	anim_sprite.visible = false
 	terbuka.visible = true
-
-	# --- INI BAGIAN YANG DIUBAH ---
-
-	# 1. Buat pesan untuk koin
+	
+	# Show reward message
 	var message = "You gained %s coins!" % reward
+	message += "\nYou received %s Skull Keys!" % skull_keys
 	
-	# 2. Tambahkan pesan untuk kunci di baris baru (\n)
-	message += "\nYou received a Skull Key!"
-	
-	# 3. Atur teks label dengan pesan gabungan
 	hud.text = message
-	
-	# 4. Pastikan label visible DAN buat tidak transparan (alpha = 1.0)
 	hud.visible = true
 	hud.modulate.a = 1.0
-
-	# 5. Tunggu 3 detik (lebih lama sedikit agar 2 baris terbaca)
+	
 	await get_tree().create_timer(3.0).timeout
-
-	# 6. Sembunyikan lagi labelnya
 	hud.modulate.a = 0.0

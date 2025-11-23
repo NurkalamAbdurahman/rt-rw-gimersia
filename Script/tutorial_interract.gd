@@ -13,7 +13,7 @@ const DIALOG_TEXTS = [
 @onready var player_label: Label = $"../Hud/Label"
 @onready var player_2: CharacterBody2D = $"../Player2"
 @onready var suara_typing: AudioStreamPlayer2D = $"../Suara_Typing"
-
+signal chest_tutorial
 
 # Status untuk memastikan trigger hanya terjadi sekali
 var triggered_once: bool = false
@@ -128,6 +128,7 @@ func _on_delay_timer_timeout():
 
 func _clean_up():
 	player_label.text = ""
+	emit_signal("chest_tutorial")
 	# Tambahkan kode di sini jika Anda ingin Area2D ini dihapus 
 	# setelah semua dialog selesai:
 	queue_free()

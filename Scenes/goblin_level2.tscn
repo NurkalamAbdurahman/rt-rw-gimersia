@@ -1706,6 +1706,7 @@ script = ExtResource("1_5ay7u")
 max_health = 5
 min_coin = 3
 max_coin = 8
+level = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, -4)

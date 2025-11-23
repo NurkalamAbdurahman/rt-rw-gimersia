@@ -48,6 +48,7 @@ var right_raycast: RayCast2D
 @export var max_health = 3
 @export var min_coin = 1
 @export var max_coin = 5
+@export var level = 1
 @export var qte_damage = 1  # Damage per successful QTE
 
 var is_dead = false
@@ -655,14 +656,25 @@ func die():
 func try_drop_item() -> String:
 	var reward = randi_range(min_coin, max_coin)
 	GameData.add_coin(reward)
-	
+
 	var message = "You gained %s coins!" % reward
-	var drop_chance = 1.0
-	
+
+	var drop_chance := 1.0  # atau sesuain nanti
+
 	if randf() <= drop_chance:
-		GameData.add_silver_key(skyes)
-		message += "\nYou received a Silver Key!"
-	
+		match level:
+			1:
+				GameData.add_silver_key(1)
+				message += "\nYou received a Silver Key!"
+
+			2:
+				GameData.add_golden_key(1)
+				message += "\nYou received a Golden Key!"
+
+			_:
+				# level lainnya bebas mau drop apa
+				pass
+
 	return message
 
 # ============ ANIMATION HELPER ============
