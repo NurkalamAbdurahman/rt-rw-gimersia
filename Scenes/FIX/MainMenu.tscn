@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://cmp2ol5767gt" path="res://Script/control_gameplay.gd" id="5_sehva"]
 [ext_resource type="Texture2D" uid="uid://d0xvq7hthyv2s" path="res://Assets/For_scene/Control_Menu.png" id="6_1h88x"]
 [ext_resource type="VideoStream" uid="uid://bgbvu10ckioxc" path="res://Assets/collecitions/Main_Menu/Animation_MaenMenu.ogv" id="6_1p8vu"]
-[ext_resource type="Texture2D" uid="uid://c3gfaqghpywut" path="res://Assets/collecitions/Main_Menu/Judul.png" id="6_kn3i7"]
+[ext_resource type="Texture2D" uid="uid://cbryjus2bwkd6" path="res://Assets/collecitions/Main_Menu/Judul_V2-1.png" id="7_1p8vu"]
 [ext_resource type="PackedScene" uid="uid://di6o4afgl4ola" path="res://Scenes/ui/fade_transitions.tscn" id="7_oebvf"]
 [ext_resource type="VideoStream" uid="uid://ccxr4lbgva3o0" path="res://Assets/Video/Credit Akhir.ogv" id="8_avb58"]
 [ext_resource type="Script" uid="uid://i6clkamsuox3" path="res://Script/level_stage.gd" id="13_kn3i7"]
@@ -148,10 +148,9 @@ size_flags_vertical = 4
 theme_override_constants/separation = 50
 
 [node name="Judul" type="Sprite2D" parent="MarginContainer/VBoxContainer"]
-texture_filter = 1
 position = Vector2(304, -117)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_kn3i7")
+texture = ExtResource("7_1p8vu")
 region_enabled = true
 region_rect = Rect2(70, 79, 1266, 482)
 
@@ -254,7 +253,6 @@ text = "Quit"
 alignment = 0
 
 [node name="Control" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

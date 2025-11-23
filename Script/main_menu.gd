@@ -117,10 +117,10 @@ func _update_button_focus() -> void:
 		var btn = navigatable_buttons[i]
 		
 		if i == selected_index:
-			btn.modulate = Color(1.0, 0.84, 0.0)
+			btn.modulate = Color(0.8, 0.8, 0.8)
 			btn.scale = Vector2(1.12, 1.12)
 		else:
-			btn.modulate = Color(0.7, 0.7, 0.7)
+			btn.modulate = Color(0.5, 0.5, 0.5)
 			btn.scale = Vector2(1, 1)
 	
 	# Pastikan tombol yang disabled tetap terlihat disabled

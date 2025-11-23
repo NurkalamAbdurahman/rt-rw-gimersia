@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3gfaqghpywut"
-path="res://.godot/imported/Judul.png-b77ad3f8e14f004a9a552c77eadda3a0.ctex"
+uid="uid://cbryjus2bwkd6"
+path="res://.godot/imported/Judul_V2-1.png-9c4e5fd091998f4d6e20fa4437de7545.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/collecitions/Main_Menu/Judul.png"
-dest_files=["res://.godot/imported/Judul.png-b77ad3f8e14f004a9a552c77eadda3a0.ctex"]
+source_file="res://Assets/collecitions/Main_Menu/Judul_V2-1.png"
+dest_files=["res://.godot/imported/Judul_V2-1.png-9c4e5fd091998f4d6e20fa4437de7545.ctex"]
 
 [params]
 
