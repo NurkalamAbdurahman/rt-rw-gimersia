@@ -1,28 +1,111 @@
-[gd_scene load_steps=2 format=3 uid="uid://dv0nx4kjchj7i"]
+[gd_scene load_steps=8 format=3 uid="uid://dv0nx4kjchj7i"]
 
 [ext_resource type="Script" uid="uid://chsbjjoblcpom" path="res://Script/qte_system.gd" id="1_2mhh1"]
+[ext_resource type="Texture2D" uid="uid://dkhav4adcjlsh" path="res://Assets/collecitions/Sword/pedang.png" id="2_ke0mf"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_ebsip"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ebsip"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3t6yg"]
+font = ExtResource("3_ebsip")
+font_size = 32
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ebsip"]
+font = ExtResource("3_ebsip")
+font_size = 32
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l8svy"]
+font = ExtResource("3_ebsip")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="QTE_System" type="CanvasLayer"]
 script = ExtResource("1_2mhh1")
 
 [node name="QTEContainer" type="Panel" parent="."]
-offset_right = 271.0
-offset_bottom = 79.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 358.0
+offset_top = 131.0
+offset_right = 552.2168
+offset_bottom = 205.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ebsip")
+metadata/_edit_group_ = true
+
+[node name="Pedang" type="Sprite2D" parent="QTEContainer"]
+position = Vector2(145, 38)
+scale = Vector2(5, 5)
+texture = ExtResource("2_ke0mf")
+region_enabled = true
+region_rect = Rect2(64.94446, 18.137194, 62.127205, 21.257452)
 
 [node name="TargetBox" type="ColorRect" parent="QTEContainer"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 24.802124
+offset_right = 10.0
+offset_bottom = 48.683594
+color = Color(0.61844593, 0.041675135, 9.62615e-08, 1)
 
 [node name="HitZone" type="ColorRect" parent="QTEContainer"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 89.0
+offset_top = 4.0
+offset_right = 131.0
+offset_bottom = 69.0
+color = Color(0, 0.75686276, 0.3764706, 0.75686276)
 
 [node name="TimerLabel" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 457.0
+offset_top = 111.0
+offset_right = 497.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_3t6yg")
+metadata/_edit_group_ = true
 
 [node name="InstructionLabel" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = -191.0
+offset_right = 157.0
+offset_bottom = -134.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_ebsip")
+metadata/_edit_group_ = true
+
+[node name="messege" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_l8svy")
+metadata/_edit_group_ = true

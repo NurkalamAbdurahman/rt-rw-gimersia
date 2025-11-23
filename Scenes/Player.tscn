@@ -912,7 +912,6 @@ autoplay = true
 parameters/looping = true
 
 [node name="AttackArea2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 8
 collision_mask = 4
 
