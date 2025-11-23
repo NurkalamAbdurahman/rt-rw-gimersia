@@ -46,7 +46,7 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 175
+theme_override_constants/separation = 150
 
 [node name="Coin" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_so6r4")]
 layout_mode = 2
@@ -55,7 +55,7 @@ size_flags_vertical = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 125
+theme_override_constants/separation = 100
 
 [node name="GoldenKey" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("4_lskfp")]
 layout_mode = 2
@@ -88,16 +88,15 @@ label_settings = SubResource("LabelSettings_0jl3m")
 horizontal_alignment = 1
 
 [node name="Button_Map" type="Button" parent="."]
-visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -101.99988
-offset_top = 55.000004
-offset_right = -1.9998779
-offset_bottom = 155.0
+offset_left = -102.0
+offset_top = 62.0
+offset_right = -2.0
+offset_bottom = 162.0
 grow_horizontal = 0
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.6, 0.6)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_pvy6a")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_5yyo3")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_dgyfy")

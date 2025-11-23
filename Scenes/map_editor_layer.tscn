@@ -19,6 +19,8 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_so5b6"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eofbo"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w0slg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mf6v8"]
@@ -26,8 +28,6 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_letqu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tw7ef"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8w06a"]
 
 [node name="MapEditorLayer" type="CanvasLayer"]
 layer = 5
@@ -92,17 +92,17 @@ volume_db = 7.068
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -101.99988
-offset_top = 55.000004
-offset_right = -1.9998779
-offset_bottom = 155.0
+offset_left = -102.0
+offset_top = 62.0
+offset_right = -2.0
+offset_bottom = 162.0
 grow_horizontal = 0
-scale = Vector2(0.7, 0.7)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_w0slg")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_mf6v8")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_letqu")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_tw7ef")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_8w06a")
+scale = Vector2(0.6, 0.6)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eofbo")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w0slg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mf6v8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_letqu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tw7ef")
 icon = ExtResource("7_eofbo")
 script = ExtResource("8_4e8xa")
 

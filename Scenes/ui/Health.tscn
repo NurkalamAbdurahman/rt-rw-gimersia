@@ -15,24 +15,24 @@ layout_mode = 1
 offset_right = 37.0
 offset_bottom = 11.0
 scale = Vector2(1.5, 1.5)
-theme_override_constants/separation = 50
+theme_override_constants/separation = 40
 
 [node name="Control" type="Control" parent="HeartsContainer"]
 layout_mode = 2
 
 [node name="HpNothing" type="Sprite2D" parent="HeartsContainer/Control"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_oayl2")
 
 [node name="HpHalf" type="Sprite2D" parent="HeartsContainer/Control"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_3tsnq")
 
 [node name="HpFull" type="Sprite2D" parent="HeartsContainer/Control"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_sccmb")
 
 [node name="Control2" type="Control" parent="HeartsContainer"]
@@ -40,17 +40,17 @@ layout_mode = 2
 
 [node name="HpNothing" type="Sprite2D" parent="HeartsContainer/Control2"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_oayl2")
 
 [node name="HpHalf" type="Sprite2D" parent="HeartsContainer/Control2"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_3tsnq")
 
 [node name="HpFull" type="Sprite2D" parent="HeartsContainer/Control2"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_sccmb")
 
 [node name="Control3" type="Control" parent="HeartsContainer"]
@@ -58,17 +58,17 @@ layout_mode = 2
 
 [node name="HpNothing" type="Sprite2D" parent="HeartsContainer/Control3"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_oayl2")
 
 [node name="HpHalf" type="Sprite2D" parent="HeartsContainer/Control3"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_3tsnq")
 
 [node name="HpFull" type="Sprite2D" parent="HeartsContainer/Control3"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_sccmb")
 
 [node name="Control4" type="Control" parent="HeartsContainer"]
@@ -76,17 +76,17 @@ layout_mode = 2
 
 [node name="HpNothing" type="Sprite2D" parent="HeartsContainer/Control4"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_oayl2")
 
 [node name="HpHalf" type="Sprite2D" parent="HeartsContainer/Control4"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_3tsnq")
 
 [node name="HpFull" type="Sprite2D" parent="HeartsContainer/Control4"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_sccmb")
 
 [node name="Control5" type="Control" parent="HeartsContainer"]
@@ -94,15 +94,15 @@ layout_mode = 2
 
 [node name="HpNothing" type="Sprite2D" parent="HeartsContainer/Control5"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_oayl2")
 
 [node name="HpHalf" type="Sprite2D" parent="HeartsContainer/Control5"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_3tsnq")
 
 [node name="HpFull" type="Sprite2D" parent="HeartsContainer/Control5"]
 position = Vector2(11.333334, 18)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_sccmb")
