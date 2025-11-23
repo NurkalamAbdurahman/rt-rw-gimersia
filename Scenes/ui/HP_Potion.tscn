@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8neso2qx72fy"]
+
+[ext_resource type="Texture2D" uid="uid://di6lh7l384dg7" path="res://Assets/collecitions/Potion/HP_Potion.png" id="1_cqjno"]
+[ext_resource type="Script" uid="uid://ctx0h75ydu5gj" path="res://Script/hp_potion.gd" id="1_e2eub"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_e2eub"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7k81s"]
+font = ExtResource("2_e2eub")
+font_size = 64
+
+[node name="HpPotion" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_e2eub")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_cqjno")
+region_enabled = true
+region_rect = Rect2(-2, 0, 102, 100)
+region_filter_clip_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 43.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = -11.0
+offset_right = 31.0
+offset_bottom = 36.0
+theme_override_constants/line_spacing = 0
+text = "0"
+label_settings = SubResource("LabelSettings_7k81s")
+horizontal_alignment = 1
+vertical_alignment = 1
+paragraph_separator = ""

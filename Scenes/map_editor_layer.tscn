@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="1_eofbo"]
 [ext_resource type="Texture2D" uid="uid://cq3rmvweuh6a0" path="res://Assets/Map/Kertas_Map.png" id="2_w0slg"]
 [ext_resource type="Script" uid="uid://dudehcjnpv4rp" path="res://Scenes/draw_area.gd" id="3_mf6v8"]
-[ext_resource type="Script" uid="uid://dd46vb54hypi6" path="res://Scenes/button_back.gd" id="4_letqu"]
+[ext_resource type="Script" path="res://Scenes/button_back.gd" id="4_letqu"]
 [ext_resource type="AudioStream" uid="uid://i6k4t3oe43ns" path="res://Assets/Audio/map-open.mp3" id="5_tw7ef"]
 [ext_resource type="AudioStream" uid="uid://cwac470g8qpso" path="res://Assets/Audio/map-close.mp3" id="6_8w06a"]
-[ext_resource type="Texture2D" uid="uid://dhnususniv48j" path="res://Assets/Map/map-icon.png" id="7_eukfd"]
+[ext_resource type="Texture2D" uid="uid://ccqialaewf8b2" path="res://Assets/collecitions/Map/Map.png" id="7_eofbo"]
 [ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="8_4e8xa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_akbdm"]
@@ -19,15 +19,15 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_so5b6"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2xtkc"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eofbo"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ywlm"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w0slg"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1a7kg"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mf6v8"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pduqt"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_letqu"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_31dwt"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tw7ef"]
 
 [node name="MapEditorLayer" type="CanvasLayer"]
 layer = 5
@@ -92,18 +92,18 @@ volume_db = 7.068
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -43.0
-offset_top = 0.99999976
-offset_right = -22.935059
-offset_bottom = 31.0
+offset_left = -102.0
+offset_top = 62.0
+offset_right = -2.0
+offset_bottom = 162.0
 grow_horizontal = 0
-scale = Vector2(1.865, 1.865)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_2xtkc")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_8ywlm")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_1a7kg")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_pduqt")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_31dwt")
-icon = ExtResource("7_eukfd")
+scale = Vector2(0.6, 0.6)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eofbo")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w0slg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mf6v8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_letqu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tw7ef")
+icon = ExtResource("7_eofbo")
 script = ExtResource("8_4e8xa")
 
 [connection signal="pressed" from="MapEditorUI/Button_Back" to="MapEditorUI" method="_on_button_back_pressed"]

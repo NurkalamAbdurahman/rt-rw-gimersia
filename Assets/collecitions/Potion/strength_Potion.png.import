@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3untjenf75ty"
-path="res://.godot/imported/key.png-9de706945b8ab793e824da25c222b20e.ctex"
+uid="uid://dj41apnomvnq1"
+path="res://.godot/imported/strength_Potion.png-9db62a81ecca1e9c77926b71e1c3af6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/collecitions/Golden_Key/key.png"
-dest_files=["res://.godot/imported/key.png-9de706945b8ab793e824da25c222b20e.ctex"]
+source_file="res://Assets/collecitions/Potion/strength_Potion.png"
+dest_files=["res://.godot/imported/strength_Potion.png-9db62a81ecca1e9c77926b71e1c3af6b.ctex"]
 
 [params]
 

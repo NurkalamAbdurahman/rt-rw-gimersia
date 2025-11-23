@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uf2e5lnkdajk"
-path="res://.godot/imported/gold key 12x8.png-b392ce407f8d8d843d1d75de4b48173e.ctex"
+uid="uid://ccqialaewf8b2"
+path="res://.godot/imported/Map.png-072663d3b1913607e9d87e7d6081d030.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/collecitions/Golden_Key/gold key 12x8.png"
-dest_files=["res://.godot/imported/gold key 12x8.png-b392ce407f8d8d843d1d75de4b48173e.ctex"]
+source_file="res://Assets/collecitions/Map/Map.png"
+dest_files=["res://.godot/imported/Map.png-072663d3b1913607e9d87e7d6081d030.ctex"]
 
 [params]
 

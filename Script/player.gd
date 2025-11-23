@@ -246,7 +246,7 @@ func take_damage(amount: int):
 	
 	flash_red()
 
-	if new_health <= 1:  # Changed to <= 0 for proper death
+	if new_health <= 0:  # Changed to <= 0 for proper death
 		die()
 
 # --- DEATH SYSTEM ---
