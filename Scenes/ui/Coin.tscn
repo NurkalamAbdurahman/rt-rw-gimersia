@@ -21,16 +21,16 @@ script = ExtResource("1_4d83j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(4.5, 4.5)
+position = Vector2(6, 0)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_a1a3o")
-region_enabled = true
 region_rect = Rect2(0, 0, 9.01454, 10.149114)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 36.0
+offset_left = 42.0
 offset_top = -33.0
-offset_right = 56.0
+offset_right = 62.0
 offset_bottom = 14.0
 text = "0"
 label_settings = SubResource("LabelSettings_2nxat")
