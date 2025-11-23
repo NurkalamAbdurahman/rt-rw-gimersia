@@ -13,7 +13,8 @@ radius = 14.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_4dh1d"]
 font = ExtResource("3_ohqtf")
-shadow_color = Color(0, 0, 0, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [node name="PintuBalik" type="Node2D"]
 script = ExtResource("1_t42br")
@@ -28,12 +29,13 @@ visible = false
 shape = SubResource("CircleShape2D_seoxi")
 
 [node name="Label" type="Label" parent="."]
-offset_left = -36.0
-offset_top = -27.0
-offset_right = 38.0
-offset_bottom = -15.0
+offset_left = -16.0
+offset_top = -25.0
+offset_right = 17.0
+offset_bottom = 2.0
 theme_override_font_sizes/font_size = 8
-text = "Press [e] to enter"
+text = "[E] Enter
+"
 label_settings = SubResource("LabelSettings_4dh1d")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

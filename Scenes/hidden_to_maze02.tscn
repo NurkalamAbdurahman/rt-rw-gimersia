@@ -11,9 +11,10 @@ region = Rect2(68, 66, 25, 20)
 [sub_resource type="CircleShape2D" id="CircleShape2D_x6ehm"]
 radius = 24.020824
 
-[sub_resource type="LabelSettings" id="LabelSettings_gsuvx"]
+[sub_resource type="LabelSettings" id="LabelSettings_812i3"]
 font = ExtResource("3_drjoh")
-shadow_color = Color(0, 0, 0, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [node name="HiddenToMaze" type="Node2D"]
 script = ExtResource("1_812i3")
@@ -27,18 +28,19 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_x6ehm")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -38.0
-offset_top = -26.0
-offset_right = 36.0
-offset_bottom = -14.0
-theme_override_font_sizes/font_size = 8
-text = "press [e] to enter"
-label_settings = SubResource("LabelSettings_gsuvx")
-
 [node name="DurationTimer" type="Timer" parent="."]
 
 [node name="WaitTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -25.0
+offset_right = 17.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 8
+text = "[E] Enter
+"
+label_settings = SubResource("LabelSettings_812i3")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

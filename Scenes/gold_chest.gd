@@ -36,7 +36,7 @@ func _process(delta):
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not chest_opened:
 		player_in_area = true
-		label.text = "Press E to open"
+		label.text = "[E] open"
 		label.visible = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
@@ -52,11 +52,10 @@ func cek_buka_chest():
 	else:
 		# Tidak punya ❌ → munculkan warning
 		sfx_chest_locked.play()
-		label.text = "You need a Golden Key!"
 		label.visible = true
 		await get_tree().create_timer(1.3).timeout
 		if player_in_area and not chest_opened:
-			label.text = "Press E to open"
+			label.text = "[E] open"
 		else:
 			label.visible = false
 
