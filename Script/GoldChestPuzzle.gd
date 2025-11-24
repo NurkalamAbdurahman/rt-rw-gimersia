@@ -7,6 +7,8 @@ const CELL_COUNT := 81
 const GRID_COLS := 9
 const CELL_SIZE := 36
 
+@onready var sfx_puzzle_failed: AudioStreamPlayer2D = $SFX_Puzzle_Failed
+@onready var sfx_puzzle_solved: AudioStreamPlayer2D = $SFX_Puzzle_Solved
 @onready var title = $Panel/VBoxContainer/Title
 @onready var instructions = $Panel/VBoxContainer/Instructions
 @onready var hint_label = $Panel/VBoxContainer/Hint
@@ -20,6 +22,8 @@ var player_input: Array[bool] = []
 var buttons: Array = []
 
 func _ready():
+	print("FAILED SFX:", sfx_puzzle_failed)
+	print("FAILED STREAM:", sfx_puzzle_failed.stream if sfx_puzzle_failed else null)
 	print("=== GOLD CHEST PUZZLE SCENE READY ===")
 	layer = 100
 	print("THIS NODE:", self)
@@ -110,11 +114,15 @@ func _on_submit():
 		if PuzzleManager.puzzle_solution[i] != player_input[i]:
 			_wrong_feedback()
 			return
-
+	sfx_puzzle_solved.max_distance = 4000
+	sfx_puzzle_solved.play()
+	await sfx_puzzle_solved.finished
 	puzzle_solved.emit()
 	queue_free()
 
 func _wrong_feedback():
+	sfx_puzzle_failed.max_distance = 4000
+	sfx_puzzle_failed.play()
 	for btn in buttons:
 		btn.modulate = Color.RED
 	await get_tree().create_timer(0.3).timeout
