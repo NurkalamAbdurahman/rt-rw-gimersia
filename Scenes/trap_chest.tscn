@@ -1,0 +1,114 @@
+[gd_scene load_steps=17 format=3 uid="uid://ckg4xnullubp8"]
+
+[ext_resource type="Script" uid="uid://cwbxq2tuyaphr" path="res://trap_chest.gd" id="1_11qsi"]
+[ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_11qsi"]
+[ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="3_xc8xs"]
+[ext_resource type="AudioStream" uid="uid://hei6fqspiwsb" path="res://Assets/Audio/door-closed-382707.ogg" id="4_ocvpk"]
+[ext_resource type="AudioStream" uid="uid://cefj4xc32rj75" path="res://Assets/Audio/chest-jumpscare.mp3" id="5_11qsi"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="5_46kaq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8474"]
+size = Vector2(18, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p26g8"]
+atlas = ExtResource("2_11qsi")
+region = Rect2(7, 132, 19, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx0bj"]
+atlas = ExtResource("2_11qsi")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8474"]
+atlas = ExtResource("2_11qsi")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b067n"]
+atlas = ExtResource("2_11qsi")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kawk"]
+atlas = ExtResource("2_11qsi")
+region = Rect2(128, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t81yx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wx0bj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8474")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b067n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kawk")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t81yx"]
+atlas = ExtResource("2_11qsi")
+region = Rect2(135, 129, 19, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wx0bj"]
+size = Vector2(24, 28)
+
+[sub_resource type="LabelSettings" id="LabelSettings_b067n"]
+font = ExtResource("5_46kaq")
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[node name="TrapChest" type="StaticBody2D"]
+script = ExtResource("1_11qsi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_x8474")
+
+[node name="silver_chest" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_p26g8")
+
+[node name="silver_chest_openanimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.5, 3)
+scale = Vector2(0.96875, 1)
+sprite_frames = SubResource("SpriteFrames_t81yx")
+animation = &"open"
+frame = 3
+frame_progress = 1.0
+
+[node name="silver_chest_open" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = SubResource("AtlasTexture_t81yx")
+
+[node name="Area2D" type="Area2D" parent="."]
+disable_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_wx0bj")
+
+[node name="SFX_ChestOpen" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_xc8xs")
+volume_db = 11.0
+
+[node name="SFX_ChestLocked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ocvpk")
+volume_db = 11.0
+
+[node name="SFX_Trap" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_11qsi")
+volume_db = -1.01
+
+[node name="Label" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -25.0
+offset_right = 17.0
+offset_bottom = 2.0
+text = "[E] Open
+"
+label_settings = SubResource("LabelSettings_b067n")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
