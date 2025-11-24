@@ -96,6 +96,7 @@ script = ExtResource("1_5dc7c")
 position = Vector2(-1, -8)
 sprite_frames = SubResource("SpriteFrames_5wmu6")
 animation = &"obor_nyala"
+autoplay = "obor_nyala"
 frame_progress = 0.9676479
 
 [node name="PointLight2D" type="PointLight2D" parent="OborHidup"]

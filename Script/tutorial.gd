@@ -28,10 +28,13 @@ signal step_completed(step_id)
 
 var is_active := false
 
+
 func _ready():
 	detection_area.set_deferred("disabled", is_disable)
 	label.visible = false
 	label.text = instruction_text
+
+	# Connect semua seperti aslinya
 	obor_26.connect("torch_lit", Callable(self, "_on_torch_lit"))
 	goblin_6.connect("goblin_die", Callable(self, "_on_goblin_die"))
 	goblin_6.connect("battle", Callable(self, "_on_battle"))
@@ -40,61 +43,136 @@ func _ready():
 	goblin_7.connect("goblin_die", Callable(self, "_on_goblin_boss_die"))
 	hidden_to_maze_2.connect("body_entered", Callable(self, "_on_body_player_entered"))
 	GameData.connect("use_potion", Callable(self, "_on_use_potion"))
-	
+
+	# Step 8 disable detection area awal
 	if step_id == "8":
 		detection_area.set_deferred("disabled", true)
 
+
 func _process(delta: float) -> void:
-	if TutorialManager.current_step_index == 3:
+	# Step 3: buka map → area aktif
+	if TutorialManager.current_step_index == 3 and step_id == "3":
 		detection_area.set_deferred("disabled", false)
-	
-# Torch.gd
+
+
+# ===============================
+# EVENT HANDLERS (DIPROTEKSI)
+# ===============================
+
 func _on_torch_lit():
+	if step_id != "1": return
 	barrier2.set_deferred("disabled", true)
 	if is_active:
 		complete_step()
 
+
 func _on_goblin_die():
+	if step_id != "2": return
 	barrier_collision.set_deferred("disabled", true)
 	if is_active:
 		complete_step()
-		
+
+
 func _on_battle():
+	if step_id != "2": return
 	barrier_collision.set_deferred("disabled", false)
 	barrier_collision_2.set_deferred("disabled", false)
-	
+
+
 func _on_map_opened():
+	if step_id != "3": return
 	barrier_collision_3.set_deferred("disabled", true)
 	if is_active:
 		complete_step()
 
+
 func _on_chest_opened():
+	if step_id != "4": return
 	barrier_collision_4.set_deferred("disabled", true)
 	if is_active:
 		complete_step()
 
+
 func _on_use_potion():
+	if step_id != "5": return
 	barrier_collision_6.set_deferred("disabled", true)
 	if is_active:
 		complete_step()
 
-func _on_goblin_boss_die():
-	barrier_collision_7.set_deferred("disabled", true)
-	
-	if step_id == "8":
-		detection_area.set_deferred("disabled", false)
-	
-	if is_active:
-		complete_step()
-		
+
 func _on_body_player_entered():
+	# Ini step 6
+	if step_id != "6": return
 	barrier_collision_5.set_deferred("disabled", true)
 	if is_active:
 		complete_step()
 
+
+# BOSS GOBLIN (STEP 7)
+func _on_goblin_boss_die():
+	if step_id == "8": detection_area.set_deferred("disabled", false)
+	barrier_collision_7.set_deferred("disabled", true)
+	if is_active:
+		complete_step()
+
+
+# ===============================
+# AREA ENTER (AKTIVASI STEP)
+# ===============================
+
+func _on_body_entered(body: Node2D) -> void:
+	if not body.is_in_group("player"):
+		return
+
+	match step_id:
+		"1":
+			activate()
+
+		"2":
+			barrier2.set_deferred("disabled", false)
+			activate()
+
+		"3":
+			barrier_collision.set_deferred("disabled", false)
+			activate()
+
+		"4":
+			barrier_collision_3.set_deferred("disabled", false)
+			activate()
+
+		"5":
+			barrier_collision_4.set_deferred("disabled", false)
+			GameData.add_speed_potion(1)
+			activate()
+
+		"6":
+			barrier_collision_6.set_deferred("disabled", false)
+			activate()
+
+		"7":
+			barrier_collision_5.set_deferred("disabled", false)
+			activate()
+
+		"8":
+			# Penutup tutorial → buka barrier terakhir
+			barrier.set_deferred("disabled", false)
+			barrier_22.set_deferred("disabled", false)
+			activate()
+
+
+func _on_body_exited(body: Node2D) -> void:
+	await get_tree().create_timer(3).timeout
+	label.visible = false
+
+
+# ===============================
+# CORE FUNCTIONS
+# ===============================
+
 func activate():
 	is_active = true
 	label.visible = true
+
 
 func complete_step():
 	if not is_active:
@@ -105,30 +183,3 @@ func complete_step():
 	sfx.play()
 	emit_signal("step_completed", step_id)
 	detection_area.set_deferred("disabled", true)
-
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		if step_id == "1":
-			activate()
-		elif step_id == "2":
-			barrier2.set_deferred("disabled", false)
-			activate()
-		elif step_id == "3":
-			barrier_collision.set_deferred("disabled", false)
-			activate()
-		elif step_id == "4":
-			barrier_collision_3.set_deferred("disabled", false)
-			activate()
-		elif step_id == "5":
-			barrier_collision_4.set_deferred("disabled", false)
-			GameData.add_speed_potion(1)
-			activate()
-		elif step_id == "6":
-			barrier_collision_6.set_deferred("disabled", false)
-			activate()
-		elif step_id == "7":
-			barrier_collision_5.set_deferred("disabled", false)
-			activate()
-		elif step_id == "8":
-			barrier.set_deferred("disabled", false)
-			barrier_22.set_deferred("disabled", false)
