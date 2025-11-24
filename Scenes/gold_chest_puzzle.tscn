@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2d7kuwoylspy"]
+[gd_scene load_steps=6 format=3 uid="uid://d2d7kuwoylspy"]
 
 [ext_resource type="Script" uid="uid://cfro873vrox3k" path="res://Script/GoldChestPuzzle.gd" id="1_3erbd"]
 [ext_resource type="AudioStream" uid="uid://dm0axowvu4x7w" path="res://Assets/Audio/puzzle-berhasil.mp3" id="2_gqg8n"]
 [ext_resource type="AudioStream" uid="uid://3m61pve03yws" path="res://Assets/Audio/puzzle-gagal.mp3" id="3_gjdi6"]
+[ext_resource type="AudioStream" uid="uid://mkee0pbwx7rb" path="res://Assets/Audio/click_button.mp3" id="4_gjdi6"]
+[ext_resource type="AudioStream" uid="uid://5tonn2pgstj3" path="res://Assets/Audio/puzzle-klik-2_TAsmsfS6.mp3" id="5_e8lyi"]
 
 [node name="GoldChestPuzzle" type="CanvasLayer"]
 process_mode = 3
@@ -17,6 +19,16 @@ autoplay = true
 stream = ExtResource("3_gjdi6")
 volume_db = 20.0
 autoplay = true
+
+[node name="SFX_Button_Click" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_gjdi6")
+volume_db = 20.0
+max_distance = 4000.0
+
+[node name="SFX_Puzzle_Klik" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_e8lyi")
+volume_db = 20.0
+max_distance = 4000.0
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 15
