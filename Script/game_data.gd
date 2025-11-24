@@ -1,6 +1,7 @@
 extends Node
 
 signal stats_updated
+signal use_potion
 
 var health: int = 10
 var max_health: int = 10
@@ -102,6 +103,7 @@ func use_hp_potion() -> bool:
 		hp_potion -= 1
 		health = clamp(health + 1, 0, max_health)
 		emit_signal("stats_updated")
+		emit_signal("use_potion")
 		return true
 	return false
 
@@ -109,6 +111,7 @@ func use_strength_potion() -> bool:
 	if strength_potion > 0:
 		strength_potion -= 1
 		emit_signal("stats_updated")
+		emit_signal("use_potion")
 		return true
 	return false
 
@@ -116,6 +119,7 @@ func use_speed_potion() -> bool:
 	if speed_potion > 0:
 		speed_potion -= 1
 		emit_signal("stats_updated")
+		emit_signal("use_potion")
 		return true
 	return false
 

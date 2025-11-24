@@ -4,6 +4,7 @@ extends Control
 @onready var button_back = $Button_Back
 @onready var sfx_map_open: AudioStreamPlayer2D = $SFX_MapOpen
 @onready var sfx_map_close: AudioStreamPlayer2D = $SFX_MapClose
+signal map_opened
 
 func _ready():
 	button_back.connect("pressed", Callable(self, "_on_back_pressed"))
@@ -25,6 +26,7 @@ func open():
 	draw_area.set_drawing_enabled(true)
 	if sfx_map_open:
 		sfx_map_open.play()
+	emit_signal("map_opened")
 
 func close():
 	GameData.is_popup_open = false

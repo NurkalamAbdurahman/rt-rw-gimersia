@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dg0upjqkdn4li" path="res://Scenes/map_editor_ui.gd" id="1_eofbo"]
 [ext_resource type="Texture2D" uid="uid://cq3rmvweuh6a0" path="res://Assets/Map/Kertas_Map.png" id="2_w0slg"]
 [ext_resource type="Script" uid="uid://dudehcjnpv4rp" path="res://Scenes/draw_area.gd" id="3_mf6v8"]
-[ext_resource type="Script" path="res://Scenes/button_back.gd" id="4_letqu"]
+[ext_resource type="Script" uid="uid://dd46vb54hypi6" path="res://Scenes/button_back.gd" id="4_letqu"]
 [ext_resource type="AudioStream" uid="uid://i6k4t3oe43ns" path="res://Assets/Audio/map-open.mp3" id="5_tw7ef"]
 [ext_resource type="AudioStream" uid="uid://cwac470g8qpso" path="res://Assets/Audio/map-close.mp3" id="6_8w06a"]
 [ext_resource type="Texture2D" uid="uid://ccqialaewf8b2" path="res://Assets/collecitions/Map/Map.png" id="7_eofbo"]

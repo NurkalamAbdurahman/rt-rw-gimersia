@@ -31,6 +31,7 @@ var wall_raycast: RayCast2D
 var left_raycast: RayCast2D
 var right_raycast: RayCast2D
 signal goblin_die
+signal battle
 # Speed settings
 @export var patrol_speed = 30.0
 @export var chase_speed = 80.0
@@ -227,6 +228,7 @@ func engage_qte(player_target):
 	
 	# Start windup timer
 	qte_windup_timer = qte_windup_duration
+	emit_signal("battle")
 
 # Add this function to enforce position during QTE
 func enforce_qte_position():

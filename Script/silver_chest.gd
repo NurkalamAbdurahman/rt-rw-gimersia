@@ -14,6 +14,7 @@ extends Node2D
 
 var player_in_area = false
 var chest_opened = false
+signal chest_has_opened
 
 func _ready():
 	if GameData.is_chest_opened(chest_id):
@@ -84,6 +85,7 @@ func buka_chest():
 	# === Tampilkan pattern section dulu ===
 	await get_tree().create_timer(0.2).timeout
 	show_pattern_section()
+	emit_signal("chest_has_opened")
 
 
 func show_pattern_section():
