@@ -4,31 +4,42 @@ const SPEED = 100.0
 @onready var map_editor_ui: Control = $"../MapEditorLayer/MapEditorUI"
 @onready var you_dead_ui: CanvasLayer = get_tree().get_current_scene().get_node("YouDead")
 
-# --- ONREADY VARIABLES ---
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sfx_run: AudioStreamPlayer2D = $SFX_Run_Stone
 @onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Attacked
 @onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
 @onready var qte_system: CanvasLayer = $"../QTE_System"
 
-
-# QTE variables
 var qte_damage_multiplier: float = 1.0
 var qte_lock_position = Vector2.ZERO
 var qte_engaged = false
 var waiting_for_qte: bool = false
-# Add with other QTE variables
 var qte_attack_playing = false
-var qte_attack_duration = 0.6  # Duration of attack animation
+var qte_attack_duration = 0.6
 
-# --- STATE VARIABLES ---
 var has_torch = false
 var held_torch = null
 var is_dead: bool = false	
 var is_locked: bool = false
 
 var last_direction: Vector2 = Vector2.DOWN
-var current_anim_direction: String = "down" 
+var current_anim_direction: String = "down"
+
+var strength_buff_active: bool = false
+var strength_buff_time: float = 0.0
+var strength_buff_duration: float = 60.0
+var strength_damage_multiplier: float = 2.0
+
+var speed_buff_active: bool = false
+var speed_buff_time: float = 0.0
+var speed_buff_duration: float = 60.0
+var speed_multiplier: float = 1.5
+
+const WARNING_TIME: float = 10.0
+const BLINK_INTERVAL: float = 0.3
+
+var blink_timer: float = 0.0
+var is_blinking: bool = false
 
 func _ready() -> void:
 	for torch in get_tree().get_nodes_in_group("torches"):
@@ -60,6 +71,8 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 	
+	update_buff_timers(delta)
+	
 	if is_locked:
 		enforce_qte_position()
 		velocity = Vector2.ZERO
@@ -73,7 +86,8 @@ func _physics_process(delta):
 	var normalized_input = input_vector.normalized()
 	
 	if normalized_input != Vector2.ZERO:
-		velocity = normalized_input * SPEED
+		var current_speed = SPEED * (speed_multiplier if speed_buff_active else 1.0)
+		velocity = normalized_input * current_speed
 		last_direction = normalized_input
 		
 		if abs(last_direction.x) > abs(last_direction.y):
@@ -100,13 +114,125 @@ func _physics_process(delta):
 		if sfx_run.playing:
 			sfx_run.stop()
 
-# --- MOVEMENT CONTROL ---
+func apply_strength_potion() -> bool:
+	if GameData.use_strength_potion():
+		if strength_buff_active:
+			strength_buff_time += strength_buff_duration
+		else:
+			strength_buff_active = true
+			strength_buff_time = strength_buff_duration
+			apply_strength_visual()
+		
+		print("💪 Strength buff applied! Time:", strength_buff_time)
+		return true
+	return false
+
+func apply_speed_potion() -> bool:
+	if GameData.use_speed_potion():
+		if speed_buff_active:
+			speed_buff_time += speed_buff_duration
+		else:
+			speed_buff_active = true
+			speed_buff_time = speed_buff_duration
+			apply_speed_visual()
+		
+		print("⚡ Speed buff applied! Time:", speed_buff_time)
+		return true
+	return false
+
+func update_buff_timers(delta: float):
+	if strength_buff_active:
+		strength_buff_time -= delta
+		
+		if strength_buff_time <= WARNING_TIME and not is_blinking:
+			start_blinking_effect("strength")
+		
+		if strength_buff_time <= 0:
+			deactivate_strength_buff()
+	
+	if speed_buff_active:
+		speed_buff_time -= delta
+		
+		if speed_buff_time <= WARNING_TIME and not is_blinking:
+			start_blinking_effect("speed")
+		
+		if speed_buff_time <= 0:
+			deactivate_speed_buff()
+	
+	if is_blinking:
+		blink_timer += delta
+		if blink_timer >= BLINK_INTERVAL:
+			blink_timer = 0.0
+			toggle_buff_visual()
+
+func apply_strength_visual():
+	var base_color = Color(1, 1, 1)
+	if speed_buff_active:
+		player.modulate = Color(1.3, 0.7, 1.3)
+	else:
+		player.modulate = Color(1.3, 0.5, 0.5)
+
+func apply_speed_visual():
+	var base_color = Color(1, 1, 1)
+	if strength_buff_active:
+		player.modulate = Color(1.3, 0.7, 1.3)
+	else:
+		player.modulate = Color(0.5, 1.3, 1.3)
+
+func start_blinking_effect(buff_type: String):
+	is_blinking = true
+	blink_timer = 0.0
+
+func toggle_buff_visual():
+	var target_color = Color(1, 1, 1)
+	
+	if strength_buff_active and speed_buff_active:
+		if player.modulate == Color(1, 1, 1):
+			target_color = Color(1.3, 0.7, 1.3)
+		else:
+			target_color = Color(1, 1, 1)
+	elif strength_buff_active:
+		if player.modulate == Color(1, 1, 1):
+			target_color = Color(1.3, 0.5, 0.5)
+		else:
+			target_color = Color(1, 1, 1)
+	elif speed_buff_active:
+		if player.modulate == Color(1, 1, 1):
+			target_color = Color(0.5, 1.3, 1.3)
+		else:
+			target_color = Color(1, 1, 1)
+	
+	player.modulate = target_color
+
+func deactivate_strength_buff():
+	strength_buff_active = false
+	strength_buff_time = 0.0
+	is_blinking = false
+	update_combined_visual()
+	print("❌ Strength buff expired!")
+
+func deactivate_speed_buff():
+	speed_buff_active = false
+	speed_buff_time = 0.0
+	is_blinking = false
+	update_combined_visual()
+	print("❌ Speed buff expired!")
+
+func update_combined_visual():
+	if not strength_buff_active and not speed_buff_active:
+		player.modulate = Color(1, 1, 1)
+	elif strength_buff_active and speed_buff_active:
+		player.modulate = Color(1.3, 0.7, 1.3)
+	elif strength_buff_active:
+		player.modulate = Color(1.3, 0.5, 0.5)
+	elif speed_buff_active:
+		player.modulate = Color(0.5, 1.3, 1.3)
+
 func lock_movement(enemy_position: Vector2 = Vector2.ZERO):
 	is_locked = true
 	velocity = Vector2.ZERO
-	qte_lock_position = global_position  # Save current position
+	qte_lock_position = global_position
 	
-	# Face towards enemy if position provided
 	if enemy_position != Vector2.ZERO:
 		face_towards_enemy(enemy_position)
 	
@@ -123,23 +249,20 @@ func enforce_qte_position():
 
 func unlock_movement():
 	is_locked = false
-	qte_lock_position = Vector2.ZERO  # Reset position tracking
+	qte_lock_position = Vector2.ZERO
 	print("🔓 Player movement unlocked")
 
 func face_towards_enemy(enemy_position: Vector2):
 	var direction_to_enemy = (enemy_position - global_position).normalized()
 	last_direction = direction_to_enemy
 	
-	# Update animation direction based on enemy position
 	if abs(direction_to_enemy.x) > abs(direction_to_enemy.y):
 		current_anim_direction = "right" if direction_to_enemy.x > 0 else "left"
 	else:
 		current_anim_direction = "down" if direction_to_enemy.y > 0 else "up"
 	
-	# Flip sprite if facing left
 	player.flip_h = (current_anim_direction == "left")
 	
-	# Play facing animation
 	play_facing_animation()
 
 func play_facing_animation():
@@ -147,21 +270,17 @@ func play_facing_animation():
 	if player.sprite_frames.has_animation(anim_name):
 		player.play(anim_name)
 	else:
-		# Fallback to regular idle animation
 		player.play("idle_" + current_anim_direction)
 
 func update_facing_during_qte(enemy_position: Vector2):
 	if is_locked:
 		face_towards_enemy(enemy_position)
 
-# --- ANIMATION ---
 func update_animation(input_vector: Vector2):
-	# If playing QTE attack animation, don't override it
 	if qte_attack_playing:
 		return
 	
 	if is_locked:
-		# During QTE, use facing animation instead of movement animation
 		play_facing_animation()
 		return
 
@@ -176,17 +295,20 @@ func update_animation(input_vector: Vector2):
 	
 	player.play(anim_name)
 
-# --- QTE SYSTEM ---
 func _on_qte_success():
 	if not waiting_for_qte or not qte_engaged:
 		return
 		
 	waiting_for_qte = false
 	qte_engaged = false
-	qte_damage_multiplier = 1.0
-	print("✨ QTE SUCCESS! Critical Hit!")
 	
-	# Play attack animation
+	var final_multiplier = 1.0
+	if strength_buff_active:
+		final_multiplier *= strength_damage_multiplier
+	
+	qte_damage_multiplier = final_multiplier
+	print("✨ QTE SUCCESS! Damage multiplier:", qte_damage_multiplier)
+	
 	play_qte_attack_animation()
 	flash_green()
 	
@@ -197,25 +319,20 @@ func play_qte_attack_animation():
 	var attack_anim_name = "attack_" + current_anim_direction
 	print("Attempting to play:", attack_anim_name)
 	print("Animation exists:", player.sprite_frames.has_animation(attack_anim_name))
-
-	# Play attack animation based on direction
 	
-	# Check if attack animation exists, fallback to regular attack animation
 	if player.sprite_frames.has_animation(attack_anim_name):
 		player.play(attack_anim_name)
 	else:
-		# Fallback to generic attack animation or use current animation
 		print("⚠️ No attack animation found: ", attack_anim_name)
-		player.play("attack")  # Try generic attack animation
+		player.play("attack")
 	
-	# Optional: Add visual effects for attack
-	player.modulate = Color(1.2, 1.2, 1.0)  # Yellow-ish glow for success
+	player.modulate = Color(1.2, 1.2, 1.0)
 	var tween = create_tween()
 	tween.tween_property(player, "modulate", Color(1, 1, 1), 0.3)
 	
-	# Reset attack state after animation
 	await get_tree().create_timer(qte_attack_duration).timeout
 	qte_attack_playing = false
+	update_combined_visual()
 
 func _on_qte_failed():
 	if not waiting_for_qte or not qte_engaged:
@@ -226,13 +343,10 @@ func _on_qte_failed():
 	qte_damage_multiplier = 0.5
 	print("❌ QTE FAILED! Player takes damage!")
 	flash_red()
-	#take_damage(1)
 
-# --- DAMAGE SYSTEM ---
 func take_damage(amount: int):
 	print("🎯 Player take_damage called - dead:", is_dead)
 	
-	# Only check if dead - allow damage during QTE (when is_locked is true)
 	if is_dead:
 		print("🎯 Player damage blocked - already dead")
 		return
@@ -246,10 +360,9 @@ func take_damage(amount: int):
 	
 	flash_red()
 
-	if new_health <= 0:  # Changed to <= 0 for proper death
+	if new_health <= 0:
 		die()
 
-# --- DEATH SYSTEM ---
 func die():
 	if is_dead:
 		return
@@ -264,7 +377,6 @@ func die():
 	if sfx_death:
 		sfx_death.play()
 
-	# Death animation based on direction
 	var death_anim_name = ""
 	match current_anim_direction:
 		"up":
@@ -278,7 +390,6 @@ func die():
 		_:
 			death_anim_name = "death_down"
 
-	# Check if animation exists
 	var frames = player.sprite_frames
 	if frames.has_animation(death_anim_name):
 		player.play(death_anim_name)
@@ -288,32 +399,30 @@ func die():
 		player.play("death_d")
 		await get_tree().create_timer(1.0).timeout 
 
-	# Show "You Dead" UI
 	if you_dead_ui:
 		you_dead_ui.show_you_dead()
 
-# --- RESPAWN SYSTEM ---
 func _on_respawn_selected():
 	print("⚡ Respawn pressed — respawn player!")
 	GameData.reset()
 	GameData.set_death(true)
 	get_tree().reload_current_scene()
 
-# --- VISUAL EFFECTS ---
 func flash_green():
+	var original_color = player.modulate
 	$AnimatedSprite2D.modulate = Color(0.4, 1, 0.4)
 	await get_tree().create_timer(0.15).timeout
-	$AnimatedSprite2D.modulate = Color(1, 1, 1)
+	$AnimatedSprite2D.modulate = original_color
 
 func flash_red():
 	print("FLASH CALLED")
+	var original_color = player.modulate
 	$AnimatedSprite2D.modulate = Color(1, 0.4, 0.4)
 	await get_tree().create_timer(0.15).timeout
-	$AnimatedSprite2D.modulate = Color(1, 1, 1)
+	$AnimatedSprite2D.modulate = original_color
 
-# --- UI FUNCTIONS ---
 func _on_Button_Map_pressed() -> void:
-	pass # Replace with function body
+	pass
 
 func ghost_success():
 	print("Player selamat! +3 coins")

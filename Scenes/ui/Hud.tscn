@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://dawyh7xl0svwt"]
+[gd_scene load_steps=20 format=3 uid="uid://dawyh7xl0svwt"]
 
+[ext_resource type="Script" uid="uid://befld0wic10r3" path="res://Script/hud.gd" id="1_iatva"]
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
 [ext_resource type="PackedScene" uid="uid://cfbgos7kse1lm" path="res://Scenes/ui/Golden_Key.tscn" id="4_lskfp"]
 [ext_resource type="PackedScene" uid="uid://1vnkas3s3dt3" path="res://Scenes/ui/skull_Key.tscn" id="5_so6r4"]
@@ -26,7 +27,16 @@ shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cdjaw"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_iatva"]
+font = ExtResource("6_1usb2")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_pvy6a"]
+font = ExtResource("6_1usb2")
+font_size = 64
+
 [node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_iatva")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 offset_left = 50.0
@@ -98,10 +108,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -59.0
-offset_top = -48.0
-offset_right = -45.0
-offset_bottom = -28.0
+offset_left = -283.0
+offset_top = -52.0
+offset_right = -83.0
+offset_bottom = -32.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -109,7 +119,8 @@ size_flags_vertical = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer4"]
 layout_mode = 2
-theme_override_constants/separation = 100
+size_flags_horizontal = 8
+theme_override_constants/separation = 75
 
 [node name="StrengthPotion" parent="MarginContainer4/HBoxContainer" instance=ExtResource("9_b62v5")]
 visible = false
@@ -121,3 +132,19 @@ layout_mode = 2
 
 [node name="HpPotion" parent="MarginContainer4/HBoxContainer" instance=ExtResource("8_2c6vo")]
 layout_mode = 2
+
+[node name="TimerSpeed" type="Label" parent="."]
+offset_left = 1025.0
+offset_top = 153.0
+offset_right = 1101.0
+offset_bottom = 200.0
+text = "60 s"
+label_settings = SubResource("LabelSettings_iatva")
+
+[node name="Timerstrength" type="Label" parent="."]
+offset_left = 1025.0
+offset_top = 203.0
+offset_right = 1101.0
+offset_bottom = 250.0
+text = "60 s"
+label_settings = SubResource("LabelSettings_pvy6a")
