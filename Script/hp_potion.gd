@@ -3,6 +3,8 @@ extends Control
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var backgroung_menu: Sprite2D = $BackgroungMenu
 @onready var label: Label = $Label
+@onready var click_deep: AudioStreamPlayer = $ClickDeep
+@onready var potion_used: AudioStreamPlayer = $PotionUsed
 
 var label_default_color := Color.WHITE
 var default_scale := Vector2(0.5, 0.5)
@@ -24,9 +26,11 @@ func _process(_delta: float) -> void:
 		if GameData.use_hp_potion():
 			print("darah nambah")
 			_play_success_animation()
+			potion_used.play()
 		else:
 			print("nggak bisa minum potion")
 			_play_error_animation()
+			click_deep.play()
 
 func _play_success_animation():
 	var tween = create_tween()

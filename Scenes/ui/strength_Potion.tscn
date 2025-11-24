@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://2xk2mfy62su7"]
+[gd_scene load_steps=8 format=3 uid="uid://2xk2mfy62su7"]
 
 [ext_resource type="Texture2D" uid="uid://dj41apnomvnq1" path="res://Assets/collecitions/Potion/strength_Potion.png" id="1_2fhit"]
 [ext_resource type="Script" uid="uid://di346ycy7rcyu" path="res://Script/strength_potion.gd" id="1_8l7ea"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_6juom"]
 [ext_resource type="Texture2D" uid="uid://bssybnls8w1gn" path="res://Assets/collecitions/ui/backgroung menu.png" id="2_8l7ea"]
+[ext_resource type="AudioStream" uid="uid://ukidfn26e336" path="res://Assets/Audio/potion-used.mp3" id="5_aq5gt"]
+[ext_resource type="AudioStream" uid="uid://nvu0eomc8crc" path="res://Assets/Audio/click_deep.mp3" id="6_47ckl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_aq5gt"]
 font = ExtResource("2_6juom")
@@ -44,3 +46,9 @@ label_settings = SubResource("LabelSettings_aq5gt")
 horizontal_alignment = 1
 vertical_alignment = 1
 paragraph_separator = ""
+
+[node name="ClickDeep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_47ckl")
+
+[node name="PotionUsed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_aq5gt")

@@ -3,6 +3,8 @@ extends Control
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var backgroung_menu: Sprite2D = $BackgroungMenu
 @onready var label: Label = $Label
+@onready var click_deep: AudioStreamPlayer = $ClickDeep
+@onready var potion_used: AudioStreamPlayer = $PotionUsed
 
 var label_default_color: Color = Color.WHITE
 var default_scale: Vector2 = Vector2(0.5, 0.5)
@@ -37,9 +39,11 @@ func _try_use_speed_potion() -> void:
 		if success:
 			print("Speed Potion used successfully!")
 			_play_success_animation()
+			potion_used.play()
 		else:
 			print("Cannot use Speed Potion")
 			_play_error_animation()
+			click_deep.play()
 	else:
 		print("Player doesn't have apply_speed_potion method!")
 		_play_error_animation()
