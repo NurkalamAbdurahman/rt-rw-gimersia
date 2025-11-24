@@ -17,6 +17,8 @@ const CELL_SIZE := 36
 @onready var reset_btn = $Panel/VBoxContainer/HBoxContainer/Reset
 @onready var close_btn = $Panel/VBoxContainer/HBoxContainer/Close
 @onready var notif_label: Label = $Panel/VBoxContainer/NotificationLabel
+@onready var sfx_button_click: AudioStreamPlayer2D = $SFX_Button_Click
+@onready var sfx_puzzle_klik: AudioStreamPlayer2D = $SFX_Puzzle_Klik
 
 var player_input: Array[bool] = []
 var buttons: Array = []
@@ -104,6 +106,7 @@ func _create_input_grid():
 		buttons.append(btn)
 
 func _on_button_pressed(index: int):
+	sfx_puzzle_klik.play()
 	player_input[index] = buttons[index].button_pressed
 	buttons[index].modulate = (
 		Color(1.0, 0.84, 0.0) if buttons[index].button_pressed else Color.WHITE
@@ -130,12 +133,15 @@ func _wrong_feedback():
 		buttons[i].modulate = Color(1.0, 0.84, 0.0) if player_input[i] else Color.WHITE
 
 func _on_reset():
+	sfx_button_click.play()
 	for i in range(CELL_COUNT):
 		player_input[i] = false
 		buttons[i].button_pressed = false
 		buttons[i].modulate = Color.WHITE
 
 func _on_close():
+	sfx_button_click.play()
+	await get_tree().create_timer(0.05).timeout
 	puzzle_failed.emit()
 	GameData.is_popup_open = false
 	queue_free()
