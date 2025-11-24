@@ -39,7 +39,7 @@ func _ready():
 	
 	# Inisialisasi Label agar tidak terlihat di awal (alpha = 0)
 	player_label.text = ""
-	player_label.modulate = Color(1, 1, 1, 0) 
+	player_label.self_modulate = Color(1,1,1,0)
 	obor_26.connect("torch_lit", Callable(self, "_on_torch_lit"))
 
 
@@ -49,6 +49,8 @@ func _ready():
 # ----------------------------------------------------------------------
 
 func _on_body_entered(body: Node2D) -> void:
+	player_label.show()
+	player_label.visible = true
 	# 1. Pastikan yang masuk adalah Player dan belum pernah ter-trigger
 	if body.name == "Player2" and not triggered_once:
 		triggered_once = true # Kunci agar tidak ter-trigger lagi
@@ -84,7 +86,7 @@ func show_next_dialog():
 		player_label.text = ""
 		var fade_in_tween = create_tween()
 		# Fade in cepat: 0.3 detik
-		fade_in_tween.tween_property(player_label, "modulate:a", 1.0, 0.3) 
+		fade_in_tween.tween_property(player_label, "self_modulate:a", 1.0, 0.3)
 		
 		# Mulai animasi pengetikan setelah fade in selesai
 		fade_in_tween.tween_callback(Callable(self, "_start_typing"))
@@ -102,6 +104,10 @@ func show_next_dialog():
 
 func _start_typing():
 	suara_typing.play()
+	print("LABEL ALPHA:", player_label.self_modulate.a)
+	print("LABEL COLOR:", player_label.get_theme_color("font_color", "Label"))
+	print("LABEL GLOBAL VISIBLE:", player_label.is_visible_in_tree())
+
 	var current_text = DIALOG_TEXTS[current_text_index]
 	# Atur kecepatan pengetikan: 0.05 detik per huruf
 	type_timer.start(0.05) 

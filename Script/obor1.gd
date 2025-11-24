@@ -32,6 +32,8 @@ func _ready():
 	label.visible = false
 	sfx_torch_burning.stop()
 
+# Torch.gd
+
 func _process(_delta):
 	if player_in_area and Input.is_action_just_pressed("e"):
 		nyalakan_obor()

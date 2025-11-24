@@ -164,3 +164,8 @@ func reset():
 
 func clear_torch():
 	torch_states = {}
+
+func hard_reset():
+	reset()
+	clear_data()
+	clear_torch()

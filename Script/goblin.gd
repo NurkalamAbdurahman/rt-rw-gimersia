@@ -30,7 +30,7 @@ var qte_attack_duration = 0.6  # Duration of attack animation
 var wall_raycast: RayCast2D
 var left_raycast: RayCast2D
 var right_raycast: RayCast2D
-
+signal goblin_die
 # Speed settings
 @export var patrol_speed = 30.0
 @export var chase_speed = 80.0
@@ -52,7 +52,7 @@ var right_raycast: RayCast2D
 @export var qte_damage = 1  # Damage per successful QTE
 
 var is_dead = false
-var skyes = 1
+@export var skyes = 1
 var is_invulnerable = false
 
 # State machine - REMOVED ATTACK STATE
@@ -598,6 +598,7 @@ func die():
 	is_dead = true
 	velocity = Vector2.ZERO
 	current_state = State.HURT
+	emit_signal("goblin_die")
 
 	
 	sfx_death.play()

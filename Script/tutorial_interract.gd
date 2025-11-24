@@ -2,10 +2,7 @@ extends Area2D
 
 # Array berisi teks yang akan ditampilkan secara berurutan
 const DIALOG_TEXTS = [
-	"Whenever you see a torch",
-	"You can press E on your \n keyboard to interact",
-	"And press M to open map",
-	"You can start drawing \n your version of map"
+	"Approach The Goblin"
 ]
 @onready var static_body_2d: StaticBody2D = $"../tutorial_welcome/StaticBody2D"
 
@@ -103,7 +100,7 @@ func _on_type_timer_timeout():
 		# Pengetikan selesai, reset index huruf
 		char_index = 0
 		# Jeda lebih cepat: 1.5 detik sebelum teks fade out
-		delay_timer.start(2) 
+		#delay_timer.start(2) 
 
 
 # ----------------------------------------------------------------------

@@ -140,8 +140,6 @@ func _on_reset():
 		buttons[i].modulate = Color.WHITE
 
 func _on_close():
-	sfx_button_click.play()
-	await get_tree().create_timer(0.05).timeout
 	puzzle_failed.emit()
 	GameData.is_popup_open = false
 	queue_free()

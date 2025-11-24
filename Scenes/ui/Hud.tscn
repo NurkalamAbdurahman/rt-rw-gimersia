@@ -65,7 +65,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="."]
 show_behind_parent = true
-z_index = 12
+z_index = 101
 offset_left = 374.0
 offset_top = 117.0
 offset_right = 808.0
