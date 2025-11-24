@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dawyh7xl0svwt"]
+[gd_scene load_steps=21 format=3 uid="uid://dawyh7xl0svwt"]
 
 [ext_resource type="Script" uid="uid://befld0wic10r3" path="res://Script/hud.gd" id="1_iatva"]
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="8_b62v5"]
 [ext_resource type="PackedScene" uid="uid://2xk2mfy62su7" path="res://Scenes/ui/strength_Potion.tscn" id="9_b62v5"]
 [ext_resource type="PackedScene" uid="uid://ch6do4lqk3be3" path="res://Scenes/ui/Speed_Potion.tscn" id="10_iatva"]
+[ext_resource type="AudioStream" uid="uid://c7b2jht2bkpr0" path="res://Assets/Audio/timer-lambat.mp3" id="12_pvy6a"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0jl3m"]
 font = ExtResource("6_1usb2")
@@ -148,3 +149,6 @@ offset_right = 1101.0
 offset_bottom = 250.0
 text = "60 s"
 label_settings = SubResource("LabelSettings_pvy6a")
+
+[node name="TimerLambat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_pvy6a")
