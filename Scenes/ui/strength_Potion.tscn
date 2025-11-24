@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://2xk2mfy62su7"]
+[gd_scene load_steps=6 format=3 uid="uid://2xk2mfy62su7"]
 
 [ext_resource type="Texture2D" uid="uid://dj41apnomvnq1" path="res://Assets/collecitions/Potion/strength_Potion.png" id="1_2fhit"]
+[ext_resource type="Script" uid="uid://di346ycy7rcyu" path="res://Script/strength_potion.gd" id="1_8l7ea"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_6juom"]
+[ext_resource type="Texture2D" uid="uid://bssybnls8w1gn" path="res://Assets/collecitions/ui/backgroung menu.png" id="2_8l7ea"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_8l7ea"]
-line_spacing = 0.0
+[sub_resource type="LabelSettings" id="LabelSettings_aq5gt"]
 font = ExtResource("2_6juom")
-font_size = 64
+font_size = 32
 
 [node name="StrengthPotion" type="Control"]
 layout_mode = 3
@@ -15,19 +16,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8l7ea")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_2fhit")
 region_rect = Rect2(-2, 0, 102, 100)
 region_filter_clip_enabled = true
 
+[node name="BackgroungMenu" type="Sprite2D" parent="."]
+position = Vector2(15, 18)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_8l7ea")
+region_enabled = true
+region_rect = Rect2(16, 16, 32, 32)
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = -8.0
-offset_top = -74.0
-offset_right = 12.0
-offset_bottom = -27.0
+offset_left = 6.0
+offset_top = -10.0
+offset_right = 26.0
+offset_bottom = 37.0
+theme_override_constants/line_spacing = 0
 text = "0"
-label_settings = SubResource("LabelSettings_8l7ea")
+label_settings = SubResource("LabelSettings_aq5gt")
+horizontal_alignment = 1
+vertical_alignment = 1
+paragraph_separator = ""
