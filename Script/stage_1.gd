@@ -2,6 +2,7 @@ extends Node2D # Root node dari maze-01.tscn
 
 # ⭐️ Perubahan di sini: Menggunakan $Player2 sesuai Scene Tree Anda
 @onready var player_node = $Player2 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # KOORDINAT TARGET DI SCENE maze-01.tscn
 # Ganti angka di bawah ini dengan koordinat X dan Y yang tepat di mana Anda ingin 

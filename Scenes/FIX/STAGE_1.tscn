@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=45 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="Script" uid="uid://bgnvhifq7g7kf" path="res://Script/stage_1.gd" id="1_ihc3j"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_w6c7r"]
@@ -3103,6 +3103,90 @@ font = ExtResource("29_ab3l0")
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Animation" id="Animation_cx13s"]
+resource_name = "Open_Door"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.51, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1194, -894), Vector2(1193, -911), Vector2(1193, -912)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.30399996, 0.30399996)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_3x7lv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(67, 59)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6i5px"]
+_data = {
+&"Open_Door": SubResource("Animation_cx13s"),
+&"RESET": SubResource("Animation_3x7lv")
+}
+
 [node name="Node2D" type="Node2D"]
 position = Vector2(-2219, 323)
 script = ExtResource("1_ihc3j")
@@ -3340,9 +3424,10 @@ position = Vector2(-345, 94)
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("12_s45d0")]
 z_index = 10
-position = Vector2(64, 70)
+position = Vector2(67, 59)
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
+position = Vector2(3, 0)
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
@@ -3415,3 +3500,8 @@ instruction_text = "Light the torch to start"
 
 [node name="Border" parent="TutorialStep" instance=ExtResource("31_r50df")]
 position = Vector2(-24, -27)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6i5px")
+}
