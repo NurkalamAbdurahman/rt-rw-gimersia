@@ -62,7 +62,7 @@ func _update_timer(timer: Label, is_active: bool, time_left: float) -> void:
 
 func _set_timer_text(timer: Label, time: float) -> void:
 	var seconds := int(time)
-	var minutes := seconds / 608
+	var minutes := seconds / 60
 	var secs := seconds % 60
 	timer.text = "%02d:%02d" % [minutes, secs]
 	timer.modulate = Color(1, 0.3, 0.3) if time <= 10.0 else Color.WHITE

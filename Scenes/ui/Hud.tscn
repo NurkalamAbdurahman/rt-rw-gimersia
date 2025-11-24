@@ -152,3 +152,4 @@ label_settings = SubResource("LabelSettings_pvy6a")
 
 [node name="TimerLambat" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_pvy6a")
+parameters/looping = true
