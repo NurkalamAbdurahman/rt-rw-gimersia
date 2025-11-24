@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://hcwksn5mwp0f"]
+[gd_scene load_steps=17 format=3 uid="uid://hcwksn5mwp0f"]
 
 [ext_resource type="Texture2D" uid="uid://c7ofb03qfy7xn" path="res://Assets/Tileset/PNG/chest_gold.png" id="1_hjqxh"]
 [ext_resource type="Script" uid="uid://7of7rt1q8x2k" path="res://Scenes/gold_chest.gd" id="1_slpms"]
-[ext_resource type="PackedScene" uid="uid://lnh3p2syp1i8" path="res://Scenes/puzzle.tscn" id="2_jsnds"]
 [ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="2_slpms"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_n5d3i"]
 [ext_resource type="AudioStream" uid="uid://hei6fqspiwsb" path="res://Assets/Audio/door-closed-382707.ogg" id="5_dhmrq"]
@@ -71,7 +70,6 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="gold_chest" type="StaticBody2D"]
 script = ExtResource("1_slpms")
-puzzle_scene = ExtResource("2_jsnds")
 
 [node name="gold_chest" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_n5d3i")

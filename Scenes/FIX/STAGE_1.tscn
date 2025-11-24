@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=49 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="Script" uid="uid://bgnvhifq7g7kf" path="res://Script/stage_1.gd" id="1_ihc3j"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_w6c7r"]
@@ -4588,6 +4588,9 @@ font = ExtResource("29_ab3l0")
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3x7lv"]
+size = Vector2(53, 4)
+
 [sub_resource type="Animation" id="Animation_cx13s"]
 resource_name = "Open_Door"
 tracks/0/type = "value"
@@ -4859,6 +4862,7 @@ position = Vector2(-179, 0)
 torch_id = "Torch_45"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -5012,7 +5016,7 @@ shape = SubResource("RectangleShape2D_3x7lv")
 disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Barrier/Barrier"]
-position = Vector2(12, 33)
+position = Vector2(-3, 44.5)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_3x7lv")
 disabled = true
@@ -5108,8 +5112,6 @@ position = Vector2(119, 273)
 
 [node name="Obor7" parent="." instance=ExtResource("28_6i5px")]
 position = Vector2(171, 273)
-[node name="Border" parent="TutorialStep" instance=ExtResource("31_r50df")]
-position = Vector2(-24, -27)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -132,4 +132,3 @@ func _on_body_entered(body: Node2D) -> void:
 		elif step_id == "8":
 			barrier.set_deferred("disabled", false)
 			barrier_22.set_deferred("disabled", false)
-			
