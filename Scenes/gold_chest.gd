@@ -59,25 +59,23 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func open_puzzle():
 	print("=== OPENING GOLD CHEST PUZZLE ===")
-	
+
 	puzzle_active = true
 	label.visible = false
-	
-	# Pause the game
+
 	get_tree().paused = true
-	
-	# Load the puzzle script
-	var PuzzleScript = load("res://Script/GoldChestPuzzle.gd")
-	var puzzle = CanvasLayer.new()
-	puzzle.set_script(PuzzleScript)
-	puzzle.process_mode = Node.PROCESS_MODE_ALWAYS
-	
+	GameData.is_popup_open = true
+	# 🎯 LOAD SCENE, BUKAN SCRIPT
+	var PuzzleScene = load("res://Scenes/gold_chest_puzzle.tscn")
+	var puzzle = PuzzleScene.instantiate()
+
+	# Tambah ke root / ke canvas UI
 	get_tree().root.add_child(puzzle)
-	
-	# Connect signals
+
+	# Connect signals (asumsi GoldChestPuzzle.gd punya signal ini)
 	puzzle.puzzle_solved.connect(_on_puzzle_solved)
 	puzzle.puzzle_failed.connect(_on_puzzle_failed)
-	
+
 	print("=== PUZZLE ADDED TO TREE ===")
 
 func _on_puzzle_solved():

@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://s1oom67juc28"]
+
+[ext_resource type="Script" uid="uid://dhllaq24c1q3r" path="res://Script/PatternViewer.gd" id="1_ihc23"]
+
+[node name="PatternViewer" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_ihc23")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -44.5
+offset_right = 24.0
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="InstructionsLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="PatternGrid" type="GridContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 3
+
+[node name="Cells" type="Panel" parent="Panel/VBoxContainer/PatternGrid"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "CLOSE"

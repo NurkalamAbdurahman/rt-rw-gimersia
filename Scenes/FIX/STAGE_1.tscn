@@ -3289,6 +3289,7 @@ position = Vector2(2248, -498)
 torch_id = "Torch_26"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -3350,7 +3351,7 @@ enemy_id = "SceneA_Goblin_5"
 position = Vector2(148, 70)
 
 [node name="Goblin7" parent="." instance=ExtResource("17_ihc3j")]
-position = Vector2(-383, 110)
+position = Vector2(-293, 112)
 
 [node name="tutorial_welcome" type="Area2D" parent="."]
 script = ExtResource("18_b8g7p")
@@ -3458,7 +3459,12 @@ label_settings = SubResource("LabelSettings_r50df")
 horizontal_alignment = 1
 
 [node name="Obor5" parent="." instance=ExtResource("28_6i5px")]
-position = Vector2(-16, 42)
+z_index = -1
+position = Vector2(39, 42)
+
+[node name="Obor5" parent="Obor5" instance=ExtResource("28_6i5px")]
+z_index = -1
+position = Vector2(-25, 0)
 
 [connection signal="body_entered" from="tutorial_welcome" to="tutorial_welcome" method="_on_body_entered"]
 [connection signal="body_exited" from="tutorial_welcome" to="tutorial_welcome" method="_on_body_exited"]

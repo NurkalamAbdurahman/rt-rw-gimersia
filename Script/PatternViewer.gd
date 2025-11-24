@@ -1,89 +1,50 @@
-# PatternViewer.gd - Shows a section of the puzzle pattern
 extends CanvasLayer
 
 signal viewer_closed
 
-var section_index: int = 0
+@export var section_index: int = 0
 const CELL_SIZE := 36
-const SECTION_ROWS := 9  # All 9 rows
-const SECTION_COLS := 3  # 3 columns per section
+const SECTION_ROWS := 9
+const SECTION_COLS := 3
+
+@onready var title_label: Label = $Panel/VBoxContainer/TitleLabel
+@onready var instructions_label: Label = $Panel/VBoxContainer/InstructionsLabel
+@onready var pattern_grid: GridContainer = $Panel/VBoxContainer/PatternGrid
+@onready var close_button: Button = $Panel/VBoxContainer/CloseButton
 
 func _ready():
-	layer = 100
 	show_pattern_section()
+	close_button.connect("pressed", Callable(self, "_on_close"))
 
 func show_pattern_section():
-	# Main panel
-	var panel = Panel.new()
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.position = Vector2(-200, -250)
-	panel.size = Vector2(400, 500)
-	add_child(panel)
+	title_label.text = "PUZZLE PATTERN - PART %d/3" % (section_index + 1)
+	instructions_label.text = "Memorize this section!\nColumns %d-%d" % [(section_index * 3) + 1, (section_index * 3) + 3]
 
-	# VBox layout
-	var vbox = VBoxContainer.new()
-	vbox.position = Vector2(20, 20)
-	vbox.size = Vector2(360, 460)
-	panel.add_child(vbox)
+	# Hapus semua cell lama dulu
+	for child in pattern_grid.get_children():
+		child.queue_free()
 
-	# Title
-	var title = Label.new()
-	title.text = "PUZZLE PATTERN - PART %d/3" % (section_index + 1)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 22)
-	vbox.add_child(title)
 
-	# Instructions
-	var instructions = Label.new()
-	instructions.text = "Memorize this section!\nColumns %d-%d" % [(section_index * 3) + 1, (section_index * 3) + 3]
-	instructions.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vbox.add_child(instructions)
-
-	# Pattern grid (3 columns x 9 rows for this section)
-	var pattern_grid = GridContainer.new()
-	pattern_grid.columns = SECTION_COLS
-	pattern_grid.custom_minimum_size = Vector2(SECTION_COLS * CELL_SIZE + 20, SECTION_ROWS * CELL_SIZE + 20)
-	pattern_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	vbox.add_child(pattern_grid)
-
-	# Display the section of the puzzle
 	for row in range(SECTION_ROWS):
 		for col in range(SECTION_COLS):
 			var global_col = section_index * SECTION_COLS + col
-			var index = row * 9 + global_col  # 9 is total columns in full puzzle
-			
+			var index = row * 9 + global_col  # 9 = total columns full puzzle
+
 			var cell_panel = Panel.new()
 			cell_panel.custom_minimum_size = Vector2(CELL_SIZE, CELL_SIZE)
 
 			var style = StyleBoxFlat.new()
 			style.border_width_top = 1
-			style.border_width_right = 1
 			style.border_width_bottom = 1
 			style.border_width_left = 1
-			style.border_color = Color.BLACK
+			style.border_width_right = 1
 
-			if PuzzleManager.puzzle_solution[index]:
-				style.bg_color = Color(1.0, 0.84, 0.0)  # Gold
-			else:
-				style.bg_color = Color(0.15, 0.15, 0.15)  # Dark gray
+			style.border_color = Color.BLACK
+			style.bg_color = Color(1,0.84,0) if PuzzleManager.puzzle_solution[index] else Color(0.15,0.15,0.15)
 
 			cell_panel.add_theme_stylebox_override("panel", style)
 			pattern_grid.add_child(cell_panel)
 
-	# Close button
-	var close = Button.new()
-	close.text = "CLOSE (I've Memorized It)"
-	close.add_theme_font_size_override("font_size", 16)
-	close.connect("pressed", Callable(self, "_on_close"))
-	vbox.add_child(close)
-
-	print("=== PATTERN SECTION ", section_index, " DISPLAYED ===")
-
 func _on_close():
-	print("PATTERN VIEWER CLOSED")
-	viewer_closed.emit()
+	emit_signal("viewer_closed")
 	queue_free()
-
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		get_viewport().set_input_as_handled()

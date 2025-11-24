@@ -17,7 +17,6 @@ extends Control
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
 
 
-
 # ========= NAVIGASI BUTTON PAUSE =========
 var buttons: Array[Button] = []
 var selected_index: int = 0
