@@ -7,6 +7,7 @@ extends Node2D
 @onready var label: Label = $Label
 @onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
 @export var popup_scene: PackedScene = preload("res://Scenes/ui/Next_Stage.tscn")
+@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 
 var player_in_area = false
 var chest_opened = false
@@ -22,6 +23,7 @@ func _process(delta):
 	if player_in_area and not chest_opened:
 		if Input.is_action_just_pressed("e"):
 			cek_buka_chest()
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not chest_opened:
 		player_in_area = true
@@ -65,12 +67,53 @@ func buka_pintu():
 	anim_sprite.visible = false
 	terbuka.visible = true
 
-	# --- Tampilkan celebration dulu ---
+	# --- Dapatkan referensi player ---
+	var player = get_tree().get_first_node_in_group("player")
+	if player and animation_player:
+		# Non-aktifkan kontrol player
+		player.set_physics_process(false)
+		
+		# Simpan state awal player
+		var initial_position = player.global_position
+		var initial_visible = player.visible
+		var initial_scale = player.scale
+		var initial_modulate = player.modulate
+		
+		# Posisikan player di depan pintu
+		player.global_position = global_position + Vector2(0, -30)  # Sesuaikan offset
+		
+		# Mainkan animasi
+		animation_player.play("Open_Door")
+		await animation_player.animation_finished
+		
+		# Reset animasi player ke state awal
+		reset_player_animation(player, initial_position, initial_visible, initial_scale, initial_modulate)
+
+	# --- Lanjutkan dengan celebration ---
 	var celebration = preload("res://Scenes/ui/NextStageCelebration.tscn").instantiate()
 	get_tree().current_scene.add_child(celebration)
-	await celebration.show_celebration()  # pause game otomatis dan animasi teks selesai
+	await celebration.show_celebration()
 
-	# --- Setelah celebration selesai, tampilkan popup tombol next stage ---
 	var popup_instance = popup_scene.instantiate()
 	get_tree().current_scene.add_child(popup_instance)
-	popup_instance.show_popup()  # pause game + tombol interaktif
+	popup_instance.show_popup()
+
+# Fungsi untuk meriset animasi player
+func reset_player_animation(player, initial_position, initial_visible, initial_scale, initial_modulate):
+	# Buat tween untuk reset animasi
+	var reset_tween = create_tween()
+	reset_tween.set_parallel(true)  # Jalankan semua animasi secara bersamaan
+	
+	# Reset properti yang diubah animasi
+	reset_tween.tween_property(player, "global_position", initial_position, 0.3)
+	reset_tween.tween_property(player, "scale", initial_scale, 0.3)
+	reset_tween.tween_property(player, "modulate", initial_modulate, 0.3)
+	
+	# Tunggu sampai reset selesai
+	await reset_tween.finished
+	
+	# Pastikan player visible
+	player.visible = initial_visible
+	
+	# Aktifkan kembali kontrol player
+	player.set_physics_process(true)
