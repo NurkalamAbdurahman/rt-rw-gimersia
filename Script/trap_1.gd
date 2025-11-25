@@ -9,7 +9,7 @@ extends Node2D
 
 var is_running := false
 var active := false
-@export var damage := 2
+@export var damage := 1
 
 func _ready():
 	active = false

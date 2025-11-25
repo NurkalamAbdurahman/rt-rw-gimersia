@@ -4,7 +4,7 @@ extends Node2D
 @onready var hitbox: Area2D = $Hitbox
 @onready var fire_trap: AudioStreamPlayer2D = $FireTrap
 
-@export var damage := 2
+@export var damage := 1
 
 var active := false
 var state := "idle"
@@ -38,7 +38,7 @@ func _start_cycle():
 	anim.play("off")
 
 	# tunggu 3 detik mode aman → ulangi cycle
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(1).timeout
 	_start_cycle()
 
 
