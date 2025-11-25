@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4yl45a1tn42q"]
+
+[ext_resource type="Script" uid="uid://cqlstptqsxy8u" path="res://Script/bat_effect.gd" id="1_5ot0a"]
+[ext_resource type="Texture2D" uid="uid://cdogehk7iak21" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/bat_Fly/Bat_Fly_0.png" id="2_pi35c"]
+[ext_resource type="Texture2D" uid="uid://bspge0c4u58re" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/bat_Fly/Bat_Fly_1.png" id="3_rrb68"]
+[ext_resource type="Texture2D" uid="uid://dy6padinu6q5t" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/bat_Fly/Bat_Fly_2.png" id="4_2alfm"]
+[ext_resource type="Texture2D" uid="uid://dwb2gvfhueq7j" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/bat_Fly/Bat_Fly_3.png" id="5_s40wt"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rd8u6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pi35c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rrb68")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2alfm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s40wt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BatEffect" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_5ot0a")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_rd8u6")

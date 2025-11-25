@@ -44,7 +44,7 @@ func _start_cycle():
 	point_light.visible = false
 
 	# tunggu 3 detik mode aman → ulangi cycle
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(1).timeout
 	_start_cycle()
 
 
