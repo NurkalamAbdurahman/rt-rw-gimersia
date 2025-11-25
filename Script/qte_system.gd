@@ -14,6 +14,7 @@ signal qte_failed
 
 var target_speed: float = 300.0
 @export var time_limit: float = 3.0
+var hitbox_size: float = 40
 
 var qte_active: bool = false
 var time_remaining: float = 0.0
@@ -21,6 +22,8 @@ var target_direction: int = 1
 var can_input: bool = false
 
 func _ready() -> void:
+	hit_zone.size.x = hitbox_size
+	
 	add_to_group("QTE_System")
 	_resize_target_to_pedang()
 	_hide_all()

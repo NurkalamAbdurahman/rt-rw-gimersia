@@ -25,6 +25,7 @@ var qte_start_position = Vector2.ZERO
 var is_position_locked = false
 
 @export var qte_speed = 300
+@export var hb_size :float = 35
 # Add with other QTE variables
 var qte_attack_playing = false
 var qte_attack_timer = 0.0
@@ -209,6 +210,7 @@ func engage_qte(player_target):
 		return
 	
 	qte_system.target_speed = qte_speed
+	qte_system.hitbox_size = hb_size
 	
 	current_state = State.QTE_WINDUP
 	is_qte_active = true
