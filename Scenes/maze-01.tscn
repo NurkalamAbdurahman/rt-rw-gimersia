@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=4 uid="uid://l0o67u0f6yqu"]
+[gd_scene load_steps=60 format=4 uid="uid://l0o67u0f6yqu"]
 
 [ext_resource type="Script" uid="uid://cpeacqfmiei6i" path="res://Script/maze_01.gd" id="1_eppvb"]
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_hfi47"]
@@ -25,13 +25,11 @@
 [ext_resource type="AudioStream" uid="uid://bwq6s4vkna3gr" path="res://Assets/Tileset/asset_bonus_stage/SOUND/sfx_trompet.mp3" id="22_2vkx8"]
 [ext_resource type="PackedScene" uid="uid://ikr7k4l3byk4" path="res://Scenes/pintu_balik.tscn" id="23_ay0bi"]
 [ext_resource type="AudioStream" uid="uid://bdr2sdsrxmr6n" path="res://Assets/Audio/notification-not-enough.mp3" id="23_nro84"]
-[ext_resource type="PackedScene" uid="uid://cc42d5pig7030" path="res://Scenes/ui/shop.tscn" id="23_tlp4x"]
 [ext_resource type="AudioStream" uid="uid://mkee0pbwx7rb" path="res://Assets/Audio/click_button.mp3" id="24_bk808"]
-[ext_resource type="PackedScene" uid="uid://csfl8xj1ahryf" path="res://Scenes/confirm_popup.tscn" id="24_tlp4x"]
 [ext_resource type="AudioStream" uid="uid://b4uechw4ub0t4" path="res://Assets/Audio/buying_item.mp3" id="26_lh8jf"]
 [ext_resource type="PackedScene" uid="uid://b348lvmq7jtev" path="res://Scenes/obor-nyala.tscn" id="30_eppvb"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="30_muvn5"]
-[ext_resource type="PackedScene" uid="uid://bxi1v7ov31gpt" path="res://Scenes/ghost_altar.tscn" id="32_kqc3a"]
+[ext_resource type="PackedScene" path="res://Scenes/ghost_altar.tscn" id="32_kqc3a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3njpm"]
 texture = ExtResource("1_hfi47")
@@ -4188,6 +4186,7 @@ sources/0 = SubResource("TileSetAtlasSource_quwu7")
 script = ExtResource("1_eppvb")
 
 [node name="HUD" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="Pause" parent="HUD" instance=ExtResource("30_muvn5")]
 offset_left = 7.0
@@ -4296,14 +4295,6 @@ scale = Vector2(0.8, 0.8)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
-
-[node name="Shop" parent="." instance=ExtResource("23_tlp4x")]
-process_mode = 4
-visible = false
-
-[node name="ConfirmPopup" parent="." instance=ExtResource("24_tlp4x")]
-process_mode = 4
-visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
