@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ddgarey275ybr"]
+[gd_scene load_steps=51 format=3 uid="uid://ddgarey275ybr"]
 
 [ext_resource type="Texture2D" uid="uid://043oxiu18lqa" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/fountain_animation/fountain_animation/fountain_animation01.png" id="1_d8nhw"]
 [ext_resource type="Script" uid="uid://7fff2l3k0j17" path="res://Script/fountain.gd" id="1_j3ial"]
@@ -36,6 +36,7 @@
 [ext_resource type="AudioStream" uid="uid://1477hfhqd11p" path="res://Assets/Tileset/asset_bonus_stage/SOUND/fountain-water-cave-65418.mp3" id="33_r6cmv"]
 [ext_resource type="Texture2D" uid="uid://d2ylw0dpb7hu5" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/Fountain/fountain_v1_1.png" id="34_okcdl"]
 [ext_resource type="PackedScene" uid="uid://c6kbjwcejlcyo" path="res://Scenes/coin.tscn" id="36_jxcgc"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="37_nabbm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_okcdl"]
 atlas = ExtResource("34_okcdl")
@@ -207,7 +208,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-26.000002, -43.000004), Vector2(-26.000002, 66)]
+"values": [Vector2(-4, -16), Vector2(-4, 5)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -244,12 +245,17 @@ _data = {
 &"masuk ke  air": SubResource("Animation_nro84")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_uame5"]
+font = ExtResource("37_nabbm")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
 [node name="Fountain" type="Area2D"]
 script = ExtResource("1_j3ial")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 41)
-scale = Vector2(3, 3)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_4x8nv")
 animation = &"pixel_fountain"
 autoplay = "pixel_fountain"
@@ -257,9 +263,9 @@ autoplay = "pixel_fountain"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 physics_interpolation_mode = 1
 visible = false
-position = Vector2(1, 62)
+position = Vector2(2.3841858e-07, 4)
 rotation = 1.5707964
-scale = Vector2(-0.9906765, 0.6137413)
+scale = Vector2(0.2, 0.112)
 shape = SubResource("CapsuleShape2D_d8nhw")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -269,25 +275,54 @@ max_distance = 150.0
 parameters/looping = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 0.99999934)
 rotation = -1.5707963
-scale = Vector2(0.9906765, -0.6137413)
+scale = Vector2(0.12, 0.12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-62.583496, -1.6293588)
+position = Vector2(-28, -3.9999976)
 shape = SubResource("CapsuleShape2D_okcdl")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
-
 [node name="Coin" parent="." instance=ExtResource("36_jxcgc")]
-position = Vector2(-26.000002, -43.000004)
-scale = Vector2(2, 2)
+position = Vector2(-4, -16)
+scale = Vector2(0.5, 0.5)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Coin")
 libraries = {
 &"": SubResource("AnimationLibrary_yqbxo")
 }
+
+[node name="messege_label" type="Label" parent="."]
+z_index = 1
+offset_left = 15.0
+offset_top = -6.0
+offset_right = 147.0
+offset_bottom = 41.0
+scale = Vector2(0.15, 0.15)
+text = "[e] Interect"
+label_settings = SubResource("LabelSettings_uame5")
+
+[node name="zonkMessage" type="Label" parent="."]
+z_index = 1
+offset_left = -44.0
+offset_top = -28.000002
+offset_right = 524.0
+offset_bottom = 32.23529
+scale = Vector2(0.15, 0.15)
+text = "🎉 HOHOHOHO not for Trash! 🎺"
+label_settings = SubResource("LabelSettings_uame5")
+paragraph_separator = "\\n "
+
+[node name="fountainMessage2" type="Label" parent="."]
+z_index = 1
+offset_left = -24.0
+offset_top = -22.0
+offset_right = 288.0
+offset_bottom = 25.0
+scale = Vector2(0.15, 0.15)
+text = "You threw a coin..."
+label_settings = SubResource("LabelSettings_uame5")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

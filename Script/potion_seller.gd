@@ -19,7 +19,7 @@ func _on_body_entered(body):
 		player_ref = body
 		if not shop_opened:
 			label.visible = true
-			label.text = "Press [E] to Buy Potion"
+			label.text = "[E] Shop"
 
 func _on_body_exited(body):
 	if body.name == "Player":
