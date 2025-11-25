@@ -42,7 +42,7 @@ func _process(delta):
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not chest_opened:
 		player_in_area = true
-		label.text = "[E] OPEN"
+		label.text = "[E] OPEN??"
 		label.visible = true
 
 
