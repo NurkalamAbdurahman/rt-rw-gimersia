@@ -15,9 +15,9 @@ extends Control
 @onready var creadit_button: Button = $MarginContainer2/Creadit
 
 # Panel references
-@onready var control_panel: Control = $Control
 @onready var creadit_panel: Control = $Creadit
 @onready var stage_level: Control = $StageLevel
+@onready var control_panel: Panel = $Control2
 
 # Audio references
 @onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
