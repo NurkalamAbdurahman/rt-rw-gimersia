@@ -96,8 +96,9 @@ radius = 19.026299
 
 [sub_resource type="LabelSettings" id="LabelSettings_vccmd"]
 font = ExtResource("4_vccmd")
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="Obor3" type="Node2D"]
 position = Vector2(2, 2)
@@ -135,17 +136,6 @@ position = Vector2(-2, -2)
 shape = SubResource("CircleShape2D_k2m5n")
 debug_color = Color(0.53403425, 0.4183036, 0.98430794, 0.41960785)
 
-[node name="Label" type="Label" parent="."]
-texture_filter = 1
-offset_left = -38.0
-offset_top = -31.0
-offset_right = 39.0
-offset_bottom = -7.0
-text = "[E] light"
-label_settings = SubResource("LabelSettings_vccmd")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="SFX_TorchOn" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_gl8ki")
 volume_db = 6.058
@@ -158,6 +148,16 @@ max_distance = 64.0
 parameters/looping = true
 
 [node name="Obor" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_left = -11.0
+offset_top = -18.0
+offset_right = 121.0
+offset_bottom = 29.0
+scale = Vector2(0.15, 0.15)
+text = "[E] light"
+label_settings = SubResource("LabelSettings_vccmd")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

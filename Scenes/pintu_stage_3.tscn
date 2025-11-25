@@ -61,8 +61,9 @@ radius = 24.020824
 
 [sub_resource type="LabelSettings" id="LabelSettings_8memb"]
 font = ExtResource("3_bpi0e")
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="Pintu_stage1" type="Node2D"]
 process_mode = 3
@@ -93,13 +94,13 @@ stream = ExtResource("4_o6tgf")
 volume_db = 11.0
 
 [node name="Label" type="Label" parent="."]
-offset_left = -16.0
-offset_top = -30.0
-offset_right = 17.0
-offset_bottom = -3.0
-theme_override_font_sizes/font_size = 8
-text = "[E] Enter
-"
+z_index = 1
+offset_left = -10.0
+offset_top = -26.0
+offset_right = 122.0
+offset_bottom = 21.0
+scale = Vector2(0.15, 0.15)
+text = "[E] Enter"
 label_settings = SubResource("LabelSettings_8memb")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://ckg4xnullubp8"]
 
-[ext_resource type="Script" uid="uid://cwbxq2tuyaphr" path="res://trap_chest.gd" id="1_11qsi"]
+[ext_resource type="Script" path="res://trap_chest.gd" id="1_11qsi"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_11qsi"]
 [ext_resource type="Texture2D" uid="uid://dj7sprj7s31hk" path="res://Assets/Tileset/asset_bonus_stage/PNG/Environment/Decor_Chest.png" id="2_ocvpk"]
 [ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="3_xc8xs"]
@@ -59,10 +59,11 @@ region = Rect2(135, 129, 19, 21)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wx0bj"]
 size = Vector2(24, 28)
 
-[sub_resource type="LabelSettings" id="LabelSettings_b067n"]
+[sub_resource type="LabelSettings" id="LabelSettings_ocvpk"]
 font = ExtResource("5_46kaq")
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="TrapChest" type="StaticBody2D"]
 script = ExtResource("1_11qsi")
@@ -103,15 +104,6 @@ volume_db = 11.0
 stream = ExtResource("5_11qsi")
 volume_db = -1.01
 
-[node name="Label" type="Label" parent="."]
-offset_left = -18.0
-offset_top = -23.0
-offset_right = 20.0
-offset_bottom = 4.0
-text = "[E] Open??
-"
-label_settings = SubResource("LabelSettings_b067n")
-
 [node name="BatContainer" type="Node2D" parent="."]
 
 [node name="BloodFlash" type="ColorRect" parent="."]
@@ -128,6 +120,16 @@ uv = PackedVector2Array(63.13765, 206.99658, 98.032425, 209.04922, 98.032425, 18
 
 [node name="SFX_BatScream" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_xc8xs")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_left = -11.0
+offset_top = -23.0
+offset_right = 141.0
+offset_bottom = 24.0
+scale = Vector2(0.15, 0.15)
+text = "[E] Open??"
+label_settings = SubResource("LabelSettings_ocvpk")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

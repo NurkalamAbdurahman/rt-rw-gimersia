@@ -4,11 +4,11 @@
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="1_hq86n"]
 [ext_resource type="Texture2D" uid="uid://badf1g5rhynq6" path="res://Assets/collecitions/Buff/sepatu-ui.png" id="2_ciyyd"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_6u1p7"]
+[sub_resource type="LabelSettings" id="LabelSettings_ciyyd"]
 font = ExtResource("1_hq86n")
-font_size = 32
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="BuffSpeed" type="Control"]
 layout_mode = 3
@@ -19,17 +19,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ciyyd")
 
-[node name="TimerSpeed" type="Label" parent="."]
-layout_mode = 0
-offset_left = 19.0
-offset_top = -17.0
-offset_right = 57.0
-offset_bottom = 7.0
-text = "60 s"
-label_settings = SubResource("LabelSettings_6u1p7")
-
 [node name="SepatuUi" type="Sprite2D" parent="."]
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_ciyyd")
 region_enabled = true
 region_rect = Rect2(71, 5, 22, 20)
+
+[node name="TimerSpeed" type="Label" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 19.0
+offset_top = -17.0
+offset_right = 151.0
+offset_bottom = 30.0
+scale = Vector2(0.5, 0.5)
+text = "60 s"
+label_settings = SubResource("LabelSettings_ciyyd")

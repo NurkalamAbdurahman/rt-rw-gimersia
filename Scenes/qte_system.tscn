@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dv0nx4kjchj7i"]
+[gd_scene load_steps=8 format=3 uid="uid://dv0nx4kjchj7i"]
 
 [ext_resource type="Script" uid="uid://chsbjjoblcpom" path="res://Script/qte_system.gd" id="1_2mhh1"]
 [ext_resource type="Texture2D" uid="uid://dkhav4adcjlsh" path="res://Assets/collecitions/Sword/pedang.png" id="2_ke0mf"]
@@ -7,19 +7,13 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ebsip"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_3t6yg"]
-font = ExtResource("3_ebsip")
-font_size = 32
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(2, 2)
-
 [sub_resource type="LabelSettings" id="LabelSettings_ebsip"]
 font = ExtResource("3_ebsip")
 font_size = 32
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 2)
 
-[sub_resource type="LabelSettings" id="LabelSettings_l8svy"]
+[sub_resource type="LabelSettings" id="LabelSettings_3t6yg"]
 font = ExtResource("3_ebsip")
 font_size = 64
 shadow_color = Color(0, 0, 0, 1)
@@ -30,7 +24,7 @@ script = ExtResource("1_2mhh1")
 
 [node name="QTEContainer" type="Panel" parent="."]
 anchors_preset = -1
-anchor_left = 0.5
+anchor_left = 0.47924867
 anchor_top = 0.4631088
 anchor_right = 0.47924867
 anchor_bottom = 0.46521685
@@ -70,21 +64,6 @@ offset_right = 109.00354
 offset_bottom = 69.0
 color = Color(0, 0.75686276, 0.3764706, 0.75686276)
 
-[node name="TimerLabel" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 457.0
-offset_top = 111.0
-offset_right = 497.0
-offset_bottom = 135.0
-grow_horizontal = 2
-grow_vertical = 2
-label_settings = SubResource("LabelSettings_3t6yg")
-metadata/_edit_group_ = true
-
 [node name="InstructionLabel" type="Label" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -100,21 +79,31 @@ grow_vertical = 2
 label_settings = SubResource("LabelSettings_ebsip")
 metadata/_edit_group_ = true
 
+[node name="QteBgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_3t6yg")
+parameters/looping = true
+
+[node name="TimerLabel" type="Label" parent="."]
+z_index = 1
+offset_left = 976.0
+offset_top = 467.0
+offset_right = 1108.0
+offset_bottom = 514.0
+scale = Vector2(0.5, 0.5)
+text = "59"
+label_settings = SubResource("LabelSettings_3t6yg")
+
 [node name="messege" type="Label" parent="."]
+z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -12.0
-offset_right = 20.0
-offset_bottom = 12.0
+offset_left = -40.0
+offset_top = -23.5
+offset_right = 40.0
+offset_bottom = 23.5
 grow_horizontal = 2
 grow_vertical = 2
-label_settings = SubResource("LabelSettings_l8svy")
-metadata/_edit_group_ = true
-
-[node name="QteBgm" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_3t6yg")
-parameters/looping = true
+label_settings = SubResource("LabelSettings_3t6yg")

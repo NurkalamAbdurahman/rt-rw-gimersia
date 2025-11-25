@@ -13,8 +13,9 @@ radius = 24.020824
 
 [sub_resource type="LabelSettings" id="LabelSettings_iel2e"]
 font = ExtResource("3_afslw")
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="HiddenToMaze" type="Node2D"]
 script = ExtResource("1_iel2e")
@@ -33,13 +34,13 @@ shape = SubResource("CircleShape2D_x6ehm")
 [node name="WaitTimer" type="Timer" parent="."]
 
 [node name="Label" type="Label" parent="."]
-offset_left = -16.0
-offset_top = -25.0
-offset_right = 17.0
-offset_bottom = 2.0
-theme_override_font_sizes/font_size = 8
-text = "[E] Enter
-"
+z_index = 1
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 122.0
+offset_bottom = 27.0
+scale = Vector2(0.15, 0.15)
+text = "[E] Enter"
 label_settings = SubResource("LabelSettings_iel2e")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

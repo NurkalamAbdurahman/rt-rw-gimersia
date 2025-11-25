@@ -65,8 +65,9 @@ size = Vector2(18, 13)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dhmrq"]
 font = ExtResource("3_n5d3i")
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="gold_chest" type="StaticBody2D"]
 script = ExtResource("1_slpms")
@@ -107,12 +108,13 @@ stream = ExtResource("5_dhmrq")
 volume_db = 11.0
 
 [node name="Label" type="Label" parent="."]
-offset_left = -16.0
-offset_top = -25.0
-offset_right = 17.0
-offset_bottom = 2.0
-text = "[E] Open
-"
+z_index = 1
+offset_left = -9.0
+offset_top = -19.0
+offset_right = 119.0
+offset_bottom = 28.0
+scale = Vector2(0.15, 0.15)
+text = "[E] Open"
 label_settings = SubResource("LabelSettings_dhmrq")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

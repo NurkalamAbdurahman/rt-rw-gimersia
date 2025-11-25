@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://bdgj5upi0j6te" path="res://Assets/collecitions/Coin/Coin.png" id="1_a1a3o"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_4d83j"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_2nxat"]
-line_spacing = 0.0
+[sub_resource type="LabelSettings" id="LabelSettings_4d83j"]
 font = ExtResource("3_4d83j")
 font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="Coin" type="Control"]
 layout_mode = 3
@@ -27,10 +28,11 @@ texture = ExtResource("1_a1a3o")
 region_rect = Rect2(0, 0, 9.01454, 10.149114)
 
 [node name="Label" type="Label" parent="."]
+z_index = 1
 layout_mode = 0
 offset_left = 46.0
-offset_top = -33.0
+offset_top = -34.0
 offset_right = 66.0
-offset_bottom = 14.0
+offset_bottom = 13.0
 text = "0"
-label_settings = SubResource("LabelSettings_2nxat")
+label_settings = SubResource("LabelSettings_4d83j")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bk36u1s8c2t2h"]
+[gd_scene load_steps=5 format=3 uid="uid://bk36u1s8c2t2h"]
 
 [ext_resource type="Texture2D" uid="uid://boxf3ki6qgxhs" path="res://Assets/Tileset/asset_bonus_stage/PNG/potion/Icon1.png" id="1_p5xio"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_trc2b"]
@@ -7,6 +7,12 @@
 line_spacing = 0.0
 font = ExtResource("2_trc2b")
 font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_p5xio"]
+font = ExtResource("2_trc2b")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="Potion" type="Control"]
 layout_mode = 3
@@ -31,3 +37,14 @@ texture_filter = 1
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_p5xio")
 region_rect = Rect2(0, 0, 9.01454, 10.149114)
+
+[node name="messege_label" type="Label" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 15.0
+offset_top = -6.0
+offset_right = 147.0
+offset_bottom = 41.0
+scale = Vector2(0.15, 0.15)
+text = "[e] Interect"
+label_settings = SubResource("LabelSettings_p5xio")

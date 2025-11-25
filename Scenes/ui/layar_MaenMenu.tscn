@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b0nwjelarhu34"]
+[gd_scene load_steps=27 format=3 uid="uid://d5fwcpn2ubmn"]
 
 [ext_resource type="Script" uid="uid://bx0rtj6uaspgl" path="res://Scenes/layar.gd" id="1_xlm7b"]
 [ext_resource type="Texture2D" uid="uid://it68n36bjh5v" path="res://Assets/collecitions/ui/mainmenu_pixel.png" id="3_4r5ef"]

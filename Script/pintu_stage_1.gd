@@ -36,7 +36,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not pintu_terbuka_state:
 		player_in_area = true
 		label.visible = true
-		label.text = "Press E to open"
+		label.text = "[E] Enter"
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
@@ -56,7 +56,7 @@ func cek_buka_pintu():
 
 		await get_tree().create_timer(1.3).timeout
 		if player_in_area and not pintu_terbuka_state:
-			label.text = "Press E to open"
+			label.text = "[E] Enter"
 		else:
 			label.visible = false
 
