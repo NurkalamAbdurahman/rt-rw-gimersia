@@ -103,16 +103,11 @@ volume_db = 11.0
 stream = ExtResource("5_11qsi")
 volume_db = -1.01
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-texture = ExtResource("2_ocvpk")
-polygon = PackedVector2Array(96.66399, 192.62814, 131.55876, 194.68079, 131.55876, 171.4176, 96.66399, 172.10182)
-uv = PackedVector2Array(63.13765, 206.99658, 98.032425, 209.04922, 98.032425, 185.78604, 63.13765, 186.47026)
-
 [node name="Label" type="Label" parent="."]
-offset_left = -16.0
-offset_top = -25.0
-offset_right = 17.0
-offset_bottom = 2.0
+offset_left = -18.0
+offset_top = -23.0
+offset_right = 20.0
+offset_bottom = 4.0
 text = "[E] Open??
 "
 label_settings = SubResource("LabelSettings_b067n")
@@ -123,6 +118,13 @@ label_settings = SubResource("LabelSettings_b067n")
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0, 0, 0, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-5, -5)
+scale = Vector2(0.09530965, 0.04669842)
+texture = ExtResource("2_ocvpk")
+polygon = PackedVector2Array(68.51492, 203.96088, 82.5313, 202.77937, 98.65726, 203.70451, 97.19497, 184.21263, 79.550064, 183.58669, 68.88049, 184.89687)
+uv = PackedVector2Array(63.13765, 206.99658, 98.032425, 209.04922, 98.032425, 185.78604, 63.13765, 186.47026)
 
 [node name="SFX_BatScream" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_xc8xs")
