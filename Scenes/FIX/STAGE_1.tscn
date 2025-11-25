@@ -5048,8 +5048,8 @@ step_id = "2"
 instruction_text = "Approach and kill the goblin"
 
 [node name="TutorialStep3" parent="." instance=ExtResource("30_ab3l0")]
-position = Vector2(-292, 163)
-rotation = 1.5707964
+position = Vector2(-295, 247)
+scale = Vector2(2, 2)
 step_id = "3"
 instruction_text = "Press M to open Map  "
 

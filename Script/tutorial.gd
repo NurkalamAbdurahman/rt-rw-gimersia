@@ -25,6 +25,7 @@ signal step_completed(step_id)
 @onready var barrier_collision_6: CollisionShape2D = $"../Barrier/Barrier3/barrierCollision6"
 @onready var barrier_22: CollisionShape2D = $"../Barrier/Barrier/CollisionShape2D2"
 @onready var barrier_collision_7: CollisionShape2D = $"../Barrier/Barrier3/barrierCollision7"
+@onready var sfx_finish: AudioStreamPlayer2D = $SFX_Finish
 
 var is_active := false
 
@@ -113,6 +114,7 @@ func _on_goblin_boss_die():
 	if step_id == "8": detection_area.set_deferred("disabled", false)
 	barrier_collision_7.set_deferred("disabled", true)
 	if is_active:
+		sfx_finish.play()
 		complete_step()
 
 

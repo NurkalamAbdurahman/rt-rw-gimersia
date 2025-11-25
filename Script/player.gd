@@ -130,7 +130,10 @@ func engage_qte() -> void:
 	print("🎯 QTE engaged")
 
 func take_damage(amount: int) -> void:
-	if is_dead or is_invincible:
+	if is_dead:
+		return
+	if is_invincible:
+		sfx_attacked.play()
 		return
 
 	sfx_attacked.play()
