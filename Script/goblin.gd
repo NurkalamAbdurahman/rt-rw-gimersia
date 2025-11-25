@@ -678,11 +678,11 @@ func try_drop_item() -> String:
 	if randf() <= drop_chance:
 		match level:
 			1:
-				GameData.add_silver_key(1)
+				GameData.add_silver_key(skyes)
 				message += "\nYou received a Silver Key!"
 
 			2:
-				GameData.add_golden_key(1)
+				GameData.add_golden_key(skyes)
 				message += "\nYou received a Golden Key!"
 
 			_:

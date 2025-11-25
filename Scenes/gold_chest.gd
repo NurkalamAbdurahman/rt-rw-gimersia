@@ -39,6 +39,7 @@ func _process(delta):
 		# Jika puzzle selesai → cek key
 		elif Input.is_action_just_pressed("e") and puzzle_completed:
 			if GameData.golden_keys > 0:
+				GameData.golden_keys -= 1
 				buka_chest()
 			else:
 				label.text = "You need a Golden Key to open this chest"
@@ -86,6 +87,8 @@ func _on_puzzle_solved():
 	
 	# Cek apakah player punya golden key
 	if GameData.golden_keys > 0:
+		GameData.golden_keys -= 1
+		GameData.is_popup_open = false
 		buka_chest()
 	else:
 		# Kalau puzzle berhasil tapi belum punya key
@@ -118,8 +121,8 @@ func buka_chest():
 	anim_sprite.play()
 	
 	# Reward lebih besar untuk golden chest
-	var reward = randi_range(50, 100)
-	var skull_keys = randi_range(2, 3)
+	var reward = randi_range(15, 25)
+	var skull_keys = randi_range(1, 1)
 	
 	GameData.add_coin(reward)
 	GameData.add_skull_key(skull_keys)

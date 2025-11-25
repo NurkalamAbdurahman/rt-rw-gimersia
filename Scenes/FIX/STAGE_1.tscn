@@ -4894,6 +4894,8 @@ position = Vector2(389.99997, -692.00006)
 
 [node name="SilverChest3" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(-630, 945.00006)
+min_coin = 0
+max_coin = 0
 
 [node name="silverchest3" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(1228, 115.00006)
@@ -4947,6 +4949,8 @@ patrol_speed = 0.0
 chase_speed = 0.0
 wander_range = 0.0
 enemy_id = "SceneA_Goblin_11"
+min_coin = 0
+max_coin = 0
 
 [node name="Goblin7" parent="." instance=ExtResource("17_ihc3j")]
 position = Vector2(74, 174)
@@ -4955,6 +4959,9 @@ patrol_speed = 0.0
 chase_speed = 0.0
 wander_range = 0.0
 enemy_id = "SceneA_Goblin_12"
+min_coin = 0
+max_coin = 0
+skyes = 0
 
 [node name="Hud" parent="." instance=ExtResource("22_oof0y")]
 

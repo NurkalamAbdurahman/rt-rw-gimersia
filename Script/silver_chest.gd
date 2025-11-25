@@ -8,6 +8,8 @@ extends Node2D
 @onready var sfx_chest_open: AudioStreamPlayer2D = $SFX_ChestOpen
 @onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
 @onready var hud: Label = $"../../Hud/Label"
+@export var min_coin :int = 3
+@export var max_coin :int = 10
 
 @export var chest_id: String = "SceneA_Chest_1"
 @export var puzzle_section: int = 0  # 0, 1, atau 2 untuk section
@@ -114,7 +116,7 @@ func _on_pattern_viewer_closed():
 
 
 func show_reward_smooth():
-	var reward = randi_range(3, 10)
+	var reward = randi_range(min_coin, max_coin)
 	GameData.add_coin(reward)
 	
 	hud.text = "You gained %s coins!" % reward
