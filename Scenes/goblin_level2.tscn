@@ -1,4 +1,4 @@
-[gd_scene load_steps=235 format=3 uid="uid://3o7cj0bs1out"]
+[gd_scene load_steps=236 format=3 uid="uid://3o7cj0bs1out"]
 
 [ext_resource type="Script" uid="uid://c5uevy3qpwr2v" path="res://Script/goblin.gd" id="1_5ay7u"]
 [ext_resource type="Texture2D" uid="uid://c8d3nie3p84bj" path="res://Assets/Goblin/PNG/Orc2/With_shadow/orc2_death_with_shadow.png" id="2_5ay7u"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://geybl7n2dcj2" path="res://Assets/Audio/goblin_death.mp3" id="11_ln65r"]
 [ext_resource type="AudioStream" uid="uid://ctum02lfqmdi0" path="res://Assets/Audio/goblin_walk.mp3" id="12_vx2mi"]
 [ext_resource type="AudioStream" uid="uid://dgqii37qyygqi" path="res://Assets/Audio/slap-hurt-pain-sound-effect-262618.mp3" id="14_erwce"]
+[ext_resource type="AudioStream" uid="uid://68klvf6ts01i" path="res://Assets/Audio/qte-bgm.mp3" id="15_erwce"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbw3e"]
 size = Vector2(23, 34)
@@ -1703,10 +1704,7 @@ radius = 19.026299
 z_index = 11
 collision_layer = 4
 script = ExtResource("1_5ay7u")
-max_health = 5
-min_coin = 3
-max_coin = 8
-level = 2
+qte_speed = 350
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, -4)
@@ -1753,5 +1751,9 @@ max_distance = 200.0
 
 [node name="SFX_Hurt" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_erwce")
+
+[node name="QteBgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_erwce")
+parameters/looping = true
 
 [connection signal="body_entered" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_entered"]
