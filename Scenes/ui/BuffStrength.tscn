@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5k1haemi4e74"]
+
+[ext_resource type="Script" uid="uid://xkjq7kjfxywb" path="res://Scenes/ui/buff_strength.gd" id="1_4uq5o"]
+[ext_resource type="Texture2D" uid="uid://cck5av1ceajhn" path="res://Assets/collecitions/Buff/otot-ui.png" id="1_aw4tr"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_4uq5o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lngih"]
+font = ExtResource("2_4uq5o")
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[node name="BuffStrength" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4uq5o")
+
+[node name="OtotUi" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_aw4tr")
+region_enabled = true
+region_rect = Rect2(0, 0, 28, 32)
+
+[node name="Timerstrength" type="Label" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = -16.0
+offset_right = 55.0
+offset_bottom = 8.0
+text = "60 s"
+label_settings = SubResource("LabelSettings_lngih")

@@ -44,7 +44,7 @@ const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
 const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
 const HOVER_MODULATE: Color = Color(1.0, 1.0, 1.0)
 const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
-const ANIMATION_DURATION: float = 0.15  # Durasi animasi dalam detik
+const ANIMATION_DURATION: float = 0.15 
 
 # ============================================================
 # INITIALIZATION - Inisialisasi menu

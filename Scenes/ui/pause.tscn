@@ -202,6 +202,7 @@ text = "Main Menu"
 alignment = 0
 
 [node name="Confirm" type="Panel" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 559.0
 offset_top = 311.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dawyh7xl0svwt"]
+[gd_scene load_steps=23 format=3 uid="uid://dawyh7xl0svwt"]
 
 [ext_resource type="Script" uid="uid://befld0wic10r3" path="res://Script/hud.gd" id="1_iatva"]
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
@@ -11,29 +11,31 @@
 [ext_resource type="PackedScene" uid="uid://2xk2mfy62su7" path="res://Scenes/ui/strength_Potion.tscn" id="9_b62v5"]
 [ext_resource type="PackedScene" uid="uid://ch6do4lqk3be3" path="res://Scenes/ui/Speed_Potion.tscn" id="10_iatva"]
 [ext_resource type="AudioStream" uid="uid://c7b2jht2bkpr0" path="res://Assets/Audio/timer-lambat.mp3" id="12_pvy6a"]
+[ext_resource type="PackedScene" uid="uid://c5k1haemi4e74" path="res://Scenes/ui/BuffStrength.tscn" id="12_uws1n"]
+[ext_resource type="PackedScene" uid="uid://gjenvbll4ig6" path="res://Scenes/ui/BuffSpeed.tscn" id="13_cdjaw"]
+[ext_resource type="Texture2D" uid="uid://ccqialaewf8b2" path="res://Assets/collecitions/Map/Map.png" id="14_cycpj"]
+[ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="15_q25ml"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0jl3m"]
 font = ExtResource("6_1usb2")
 font_size = 64
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_iatva"]
-font = ExtResource("6_1usb2")
-font_size = 32
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_pvy6a"]
-font = ExtResource("6_1usb2")
-font_size = 32
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_5yyo3"]
 font = ExtResource("6_1usb2")
 font_size = 32
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uhytm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfuco"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gutcg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hv048"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gncwd"]
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_iatva")
@@ -120,22 +122,6 @@ layout_mode = 2
 [node name="HpPotion" parent="MarginContainer4/HBoxContainer" instance=ExtResource("8_2c6vo")]
 layout_mode = 2
 
-[node name="TimerSpeed" type="Label" parent="."]
-offset_left = 1062.0
-offset_top = 148.0
-offset_right = 1138.0
-offset_bottom = 172.0
-text = "60 s"
-label_settings = SubResource("LabelSettings_iatva")
-
-[node name="Timerstrength" type="Label" parent="."]
-offset_left = 1062.0
-offset_top = 173.0
-offset_right = 1138.0
-offset_bottom = 197.0
-text = "60 s"
-label_settings = SubResource("LabelSettings_pvy6a")
-
 [node name="TimerLambat" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_pvy6a")
 parameters/looping = true
@@ -154,3 +140,43 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 text = "logging"
 label_settings = SubResource("LabelSettings_5yyo3")
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -87.0
+offset_right = 1.0
+offset_bottom = 202.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="BuffStrength" parent="MarginContainer3/VBoxContainer" instance=ExtResource("12_uws1n")]
+layout_mode = 2
+
+[node name="BuffSpeed" parent="MarginContainer3/VBoxContainer" instance=ExtResource("13_cdjaw")]
+layout_mode = 2
+
+[node name="Button_Map" type="Button" parent="."]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -102.0
+offset_top = 62.0
+offset_right = -2.0
+offset_bottom = 162.0
+grow_horizontal = 0
+scale = Vector2(0.6, 0.6)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uhytm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jfuco")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_gutcg")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hv048")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gncwd")
+icon = ExtResource("14_cycpj")
+script = ExtResource("15_q25ml")
