@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://dawyh7xl0svwt"]
+[gd_scene load_steps=16 format=3 uid="uid://dawyh7xl0svwt"]
 
 [ext_resource type="Script" uid="uid://befld0wic10r3" path="res://Script/hud.gd" id="1_iatva"]
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
+[ext_resource type="PackedScene" uid="uid://dcw7aevagshe5" path="res://Scenes/ui/Silver_Key.tscn" id="4_iatva"]
 [ext_resource type="PackedScene" uid="uid://cfbgos7kse1lm" path="res://Scenes/ui/Golden_Key.tscn" id="4_lskfp"]
 [ext_resource type="PackedScene" uid="uid://1vnkas3s3dt3" path="res://Scenes/ui/skull_Key.tscn" id="5_so6r4"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="6_1usb2"]
@@ -18,24 +19,32 @@ shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_iatva"]
 font = ExtResource("6_1usb2")
-font_size = 64
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_pvy6a"]
 font = ExtResource("6_1usb2")
-font_size = 64
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5yyo3"]
+font = ExtResource("6_1usb2")
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_iatva")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-offset_left = 50.0
-offset_top = 35.0
-offset_right = 370.0
-offset_bottom = 215.0
+offset_right = 320.0
+offset_bottom = 180.0
 pivot_offset = Vector2(-10, -10)
 size_flags_horizontal = 4
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -44,24 +53,31 @@ theme_override_constants/separation = 100
 [node name="Health" parent="MarginContainer/VBoxContainer" instance=ExtResource("7_0jl3m")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 150
 
-[node name="Coin" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_so6r4")]
+[node name="SilverKey" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_iatva")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 100
 
-[node name="GoldenKey" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("4_lskfp")]
+[node name="GoldenKey" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("4_lskfp")]
 layout_mode = 2
 
-[node name="Skullkey" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("5_so6r4")]
+[node name="Skullkey" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("5_so6r4")]
 layout_mode = 2
+
+[node name="Coin" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_so6r4")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="."]
 show_behind_parent = true
@@ -105,21 +121,36 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="TimerSpeed" type="Label" parent="."]
-offset_left = 1025.0
-offset_top = 153.0
-offset_right = 1101.0
-offset_bottom = 200.0
+offset_left = 1062.0
+offset_top = 148.0
+offset_right = 1138.0
+offset_bottom = 172.0
 text = "60 s"
 label_settings = SubResource("LabelSettings_iatva")
 
 [node name="Timerstrength" type="Label" parent="."]
-offset_left = 1025.0
-offset_top = 203.0
-offset_right = 1101.0
-offset_bottom = 250.0
+offset_left = 1062.0
+offset_top = 173.0
+offset_right = 1138.0
+offset_bottom = 197.0
 text = "60 s"
 label_settings = SubResource("LabelSettings_pvy6a")
 
 [node name="TimerLambat" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_pvy6a")
 parameters/looping = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="Log" type="Label" parent="MarginContainer2"]
+layout_mode = 2
+text = "logging"
+label_settings = SubResource("LabelSettings_5yyo3")

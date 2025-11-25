@@ -15,7 +15,6 @@ script = ExtResource("1_le7j2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, 2)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_2qyps")
 region_enabled = true

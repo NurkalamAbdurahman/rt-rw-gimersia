@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcw7aevagshe5"]
 
-[ext_resource type="Texture2D" uid="uid://c25s86xeiw45g" path="res://Assets/collecitions/Silver_Key/Key.png" id="1_cwuuh"]
 [ext_resource type="Script" uid="uid://c00vbw7vd7r70" path="res://Script/silver_key.gd" id="1_ulmji"]
+[ext_resource type="Texture2D" uid="uid://di4r644537fg" path="res://Assets/collecitions/Silver_Key/Silver_Key.png" id="2_ulmji"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_ulmji"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3ufwg"]
@@ -20,17 +20,17 @@ script = ExtResource("1_ulmji")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(4.5, 4.5)
-texture = ExtResource("1_cwuuh")
-region_enabled = true
+position = Vector2(5.999999, 0)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_ulmji")
 region_rect = Rect2(0, 0, 11.587631, 8.26976)
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 38.0
+offset_left = 42.0
 offset_top = -33.0
-offset_right = 58.0
+offset_right = 62.0
 offset_bottom = 14.0
 text = "0"
 label_settings = SubResource("LabelSettings_3ufwg")
