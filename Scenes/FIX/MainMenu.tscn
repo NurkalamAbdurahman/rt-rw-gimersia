@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bistqf1mdqee5"]
+[gd_scene load_steps=57 format=3 uid="uid://bistqf1mdqee5"]
 
 [ext_resource type="Script" uid="uid://co11shrtf40bb" path="res://Script/main_menu.gd" id="1_khyyc"]
 [ext_resource type="AudioStream" uid="uid://dmllbtb7v0gya" path="res://Assets/Audio/start-button.mp3" id="2_1h88x"]
@@ -15,6 +15,7 @@
 [ext_resource type="VideoStream" uid="uid://ccxr4lbgva3o0" path="res://Assets/Video/Credit Akhir.ogv" id="8_avb58"]
 [ext_resource type="Script" uid="uid://i6clkamsuox3" path="res://Script/level_stage.gd" id="13_kn3i7"]
 [ext_resource type="Texture2D" uid="uid://cfthpvbdo5wca" path="res://Assets/collecitions/ui/PAUSED-removebg-preview.png" id="14_1p8vu"]
+[ext_resource type="Texture2D" uid="uid://c6so7qxoqelps" path="res://Assets/collecitions/ui/UI_CONTROL.png" id="16_4iq1v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blk0r"]
 
@@ -93,6 +94,14 @@ font_size = 64
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yix33"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cosoe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yvdif"]
+font = ExtResource("3_4sxlf")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_qs2pr"]
+font = ExtResource("4_ck2dw")
+font_size = 64
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -577,3 +586,83 @@ scale = Vector2(0.45, 0.45)
 stream = ExtResource("8_avb58")
 expand = true
 loop = true
+
+[node name="Control2" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UiControl" type="Sprite2D" parent="Control2"]
+position = Vector2(574.5, 323.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_4iq1v")
+region_enabled = true
+region_rect = Rect2(186, 147, 1546, 767)
+
+[node name="Label" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 485.5
+offset_top = 141.75
+offset_right = 668.5
+offset_bottom = 175.75
+text = "Controls"
+label_settings = SubResource("LabelSettings_yvdif")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control2"]
+layout_mode = 0
+offset_left = 705.5
+offset_top = 199.75
+offset_right = 913.5
+offset_bottom = 390.75
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Control2/VBoxContainer2"]
+layout_mode = 2
+text = "Interact"
+label_settings = SubResource("LabelSettings_qs2pr")
+
+[node name="Label2" type="Label" parent="Control2/VBoxContainer2"]
+layout_mode = 2
+text = "Pause"
+label_settings = SubResource("LabelSettings_qs2pr")
+
+[node name="Label3" type="Label" parent="Control2/VBoxContainer2"]
+layout_mode = 2
+text = "Click & draw"
+label_settings = SubResource("LabelSettings_qs2pr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control2"]
+layout_mode = 0
+offset_left = 427.5
+offset_top = 253.75
+offset_right = 610.5
+offset_bottom = 444.75
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="Control2/VBoxContainer"]
+layout_mode = 2
+text = "Movement"
+label_settings = SubResource("LabelSettings_qs2pr")
+
+[node name="Label2" type="Label" parent="Control2/VBoxContainer"]
+layout_mode = 2
+text = "Attack"
+label_settings = SubResource("LabelSettings_qs2pr")
+
+[node name="Label3" type="Label" parent="Control2/VBoxContainer"]
+layout_mode = 2
+text = "Open Map"
+label_settings = SubResource("LabelSettings_qs2pr")
+
+[node name="Label3" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 811.5
+offset_top = 395.75
+offset_right = 923.5
+offset_bottom = 442.75
+text = "Potion"
+label_settings = SubResource("LabelSettings_qs2pr")
