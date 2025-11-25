@@ -4950,7 +4950,7 @@ chase_speed = 0.0
 wander_range = 0.0
 enemy_id = "SceneA_Goblin_11"
 min_coin = 0
-max_coin = 0
+max_coin = 20
 
 [node name="Goblin7" parent="." instance=ExtResource("17_ihc3j")]
 position = Vector2(74, 174)

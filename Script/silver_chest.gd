@@ -119,7 +119,7 @@ func show_reward_smooth():
 	var reward = randi_range(min_coin, max_coin)
 	GameData.add_coin(reward)
 	
-	hud.text = "You gained %s coins!" % reward
+	hud.text = ""
 	hud.visible = true
 	
 	# Mulai dari transparan

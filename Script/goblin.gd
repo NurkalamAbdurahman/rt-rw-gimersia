@@ -671,7 +671,7 @@ func try_drop_item() -> String:
 	var reward = randi_range(min_coin, max_coin)
 	GameData.add_coin(reward)
 
-	var message = "You gained %s coins!" % reward
+	var message = ""
 
 	var drop_chance := 1.0  # atau sesuain nanti
 
@@ -679,11 +679,11 @@ func try_drop_item() -> String:
 		match level:
 			1:
 				GameData.add_silver_key(skyes)
-				message += "\nYou received a Silver Key!"
+				message += ""
 
 			2:
 				GameData.add_golden_key(skyes)
-				message += "\nYou received a Golden Key!"
+				message += ""
 
 			_:
 				# level lainnya bebas mau drop apa

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dawyh7xl0svwt"]
+[gd_scene load_steps=22 format=3 uid="uid://dawyh7xl0svwt"]
 
 [ext_resource type="Script" uid="uid://befld0wic10r3" path="res://Script/hud.gd" id="1_iatva"]
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
@@ -20,12 +20,6 @@
 font = ExtResource("6_1usb2")
 font_size = 64
 shadow_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_5yyo3"]
-font = ExtResource("6_1usb2")
-font_size = 32
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uhytm"]
 
@@ -136,10 +130,8 @@ grow_vertical = 0
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_bottom = 30
 
-[node name="Log" type="Label" parent="MarginContainer2"]
+[node name="Log" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
-text = "logging"
-label_settings = SubResource("LabelSettings_5yyo3")
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 anchors_preset = 1

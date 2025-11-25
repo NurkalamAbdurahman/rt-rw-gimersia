@@ -138,7 +138,7 @@ func buka_chest():
 	var message = "You gained %s coins!" % reward
 	message += "\nYou received %s Skull Keys!" % skull_keys
 	
-	hud.text = message
+	hud.text = ""
 	hud.visible = true
 	hud.modulate.a = 1.0
 	

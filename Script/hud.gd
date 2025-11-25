@@ -1,22 +1,112 @@
 extends CanvasLayer
+
 @onready var strength_potion: Control = $MarginContainer4/HBoxContainer/StrengthPotion
 @onready var speed_potion: Control = $MarginContainer4/HBoxContainer/SpeedPotion
 @onready var buff_strength: Control = $MarginContainer3/VBoxContainer/BuffStrength
 @onready var buff_speed: Control = $MarginContainer3/VBoxContainer/BuffSpeed
 @onready var timer_lambat: AudioStreamPlayer = $TimerLambat
+@onready var log_container: VBoxContainer = $MarginContainer2/Log
 
 var last_strength := -1
 var last_speed := -1
 var timer_sfx_playing := false
 
+# Track last known values for logging
+var last_coins := 0
+var last_silver_keys := 0
+var last_golden_keys := 0
+var last_skull_keys := 0
+
 func _ready() -> void:
 	for control in [strength_potion, speed_potion, buff_strength, buff_speed]:
 		control.visible = false
 		control.modulate.a = 0.0
+	
+	# Initialize last known values
+	last_coins = GameData.coins
+	last_silver_keys = GameData.silver_keys
+	last_golden_keys = GameData.golden_keys
+	last_skull_keys = GameData.skull_keys
 
 func _process(_delta: float) -> void:
 	_check_potion_changes()
 	_update_buff_visibility()
+	_check_item_changes()
+
+func _check_item_changes() -> void:
+	# Check coins
+	if GameData.coins != last_coins:
+		var diff = GameData.coins - last_coins
+		if diff > 0:
+			_add_log_entry("coin", diff)
+		last_coins = GameData.coins
+	
+	# Check silver keys
+	if GameData.silver_keys != last_silver_keys:
+		var diff = GameData.silver_keys - last_silver_keys
+		if diff > 0:
+			_add_log_entry("silver_key", diff)
+		last_silver_keys = GameData.silver_keys
+	
+	# Check golden keys
+	if GameData.golden_keys != last_golden_keys:
+		var diff = GameData.golden_keys - last_golden_keys
+		if diff > 0:
+			_add_log_entry("golden_key", diff)
+		last_golden_keys = GameData.golden_keys
+	
+	# Check skull keys
+	if GameData.skull_keys != last_skull_keys:
+		var diff = GameData.skull_keys - last_skull_keys
+		if diff > 0:
+			_add_log_entry("skull_key", diff)
+		last_skull_keys = GameData.skull_keys
+
+func _add_log_entry(item_type: String, amount: int) -> void:
+	# Create log entry container
+	var entry = HBoxContainer.new()
+	entry.modulate.a = 0.0
+	
+	# Create icon
+	var icon = TextureRect.new()
+	icon.custom_minimum_size = Vector2(24, 24)
+	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	
+	# Set the appropriate texture based on item type
+	match item_type:
+		"coin":
+			icon.texture = preload("res://Assets/collecitions/Coin/Coin.png")
+		"silver_key":
+			icon.texture = preload("res://Assets/collecitions/Silver_Key/Silver_Key.png")
+		"golden_key":
+			icon.texture = preload("res://Assets/collecitions/Golden_Key/Golden_Key.png")
+		"skull_key":
+			icon.texture = preload("res://Assets/collecitions/skull_key/Skull_Key.png")
+	
+	# Create label
+	var label = Label.new()
+	label.text = "+%d" % amount
+	label.add_theme_font_size_override("font_size", 20)
+	
+	# Add to container
+	entry.add_child(icon)
+	entry.add_child(label)
+	log_container.add_child(entry)
+	
+	# Fade in animation
+	var tween = create_tween()
+	tween.tween_property(entry, "modulate:a", 1.0, 0.3)
+	
+	# Auto-remove after 3 seconds
+	await get_tree().create_timer(3.0).timeout
+	
+	# Fade out animation
+	var fade_out = create_tween()
+	fade_out.tween_property(entry, "modulate:a", 0.0, 0.5)
+	await fade_out.finished
+	
+	entry.queue_free()
 
 func _check_potion_changes() -> void:
 	if GameData.strength_potion != last_strength:
