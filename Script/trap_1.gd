@@ -4,6 +4,9 @@ extends Node2D
 @onready var hitbox: Area2D = $Hitbox
 @onready var physical_detector = $PhysicalCollider
 
+@onready var step_sfx: AudioStreamPlayer = $StepTrap
+@onready var fire_sfx: AudioStreamPlayer = $FireTrap
+
 var is_running := false
 var active := false
 @export var damage := 2
@@ -12,7 +15,6 @@ func _ready():
 	active = false
 	hitbox.monitoring = false
 
-	# Connect aman
 	if not flame_anim.animation_finished.is_connected(_on_animation_finished):
 		flame_anim.animation_finished.connect(_on_animation_finished)
 
@@ -28,12 +30,15 @@ func _on_detector_entered(body):
 
 	is_running = true
 
+	# 🔊 SFX saat trap diinjak (StepTrap)
+	if step_sfx:
+		step_sfx.play()
+
 	if flame_anim.sprite_frames.has_animation("spirit2D"):
 		flame_anim.sprite_frames.set_animation_loop("spirit2D", false)
 		flame_anim.play("spirit2D")
 	else:
 		_enable_fire()
-
 
 
 func _on_animation_finished():
@@ -49,22 +54,20 @@ func _enable_fire():
 	active = true
 	hitbox.monitoring = true
 
-	# pastikan animasi tidak looping
+	# 🔊 SFX saat api menyala (FireTrap)
+	if fire_sfx:
+		fire_sfx.play()
+
 	if flame_anim.sprite_frames.has_animation("trapFire"):
 		flame_anim.sprite_frames.set_animation_loop("trapFire", false)
 
 	flame_anim.play("trapFire")
 
 
-
-
 func _disable_trap():
 	active = false
 	hitbox.monitoring = false
-
-	# Ini yang bikin bisa nyala lagi ketika diinjak lagi
 	is_running = false
-
 	flame_anim.stop()
 
 
