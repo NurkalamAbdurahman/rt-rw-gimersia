@@ -11,7 +11,8 @@ const IRON_DOOR_SPAWN_POSITION = Vector2(-1045, -254)
 
 func _ready():
 	GameData.is_scene_changing = false
-
+	if GameData.is_enter_stage == true:
+		animation_player.play("ENTER_STAGE")
 	# 1. Periksa dari mana karakter datang (dari skrip Global.gd)
 	if GameData.next_spawn_location == "IRON_DOOR_EXIT":
 		

@@ -87,7 +87,6 @@ func _ready():
 	add_to_group("Enemies")
 	patrol_center = global_position
 	last_position = global_position
-	print(enemy_id, " qte_speed = ", qte_speed)
 	
 	if GameData.is_enemy_killed(enemy_id):
 		print("Enemy ", enemy_id, " already defeated. Removing...")

@@ -6,7 +6,7 @@ extends Node2D # Root node dari maze-01.tscn
 # KOORDINAT TARGET DI SCENE maze-01.tscn
 # Ganti angka di bawah ini dengan koordinat X dan Y yang tepat di mana Anda ingin 
 # karakter 'Player2' muncul saat keluar dari pintu besi.
-const IRON_DOOR_SPAWN_POSITION = Vector2(-1045, -254) 
+const IRON_DOOR_SPAWN_POSITION = Vector2(468, 91) 
 
 func _ready():
 	

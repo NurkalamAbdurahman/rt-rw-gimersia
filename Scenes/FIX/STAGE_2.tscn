@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://dl8ysiup7jwhn"]
+[gd_scene load_steps=32 format=4 uid="uid://dl8ysiup7jwhn"]
 
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_e7ynj"]
 [ext_resource type="Script" uid="uid://bao1phb8sqr4e" path="res://Script/stage_2.gd" id="1_r847v"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://ckg4xnullubp8" path="res://Scenes/trap_chest.tscn" id="19_x42nt"]
 [ext_resource type="PackedScene" uid="uid://c3rikq3n8hh6h" path="res://Scenes/ui/Trap/trap_1.tscn" id="21_b6f5h"]
 [ext_resource type="PackedScene" uid="uid://bry4hbs4i45ix" path="res://Scenes/ui/Trap/trap_2.tscn" id="22_y7p4m"]
+[ext_resource type="PackedScene" uid="uid://qcn55v170xnx" path="res://Scenes/ui/Trap/Trap_3.tscn" id="23_yxyi2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c248w"]
 texture = ExtResource("1_rsbcv")
@@ -546,3 +547,6 @@ popup_scene = ExtResource("16_5koqb")
 
 [node name="TrapSpike_1" parent="." instance=ExtResource("22_y7p4m")]
 position = Vector2(1507, 63)
+
+[node name="TrapFire_1" parent="." instance=ExtResource("23_yxyi2")]
+position = Vector2(1482, 104)

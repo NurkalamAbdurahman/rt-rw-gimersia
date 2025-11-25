@@ -102,5 +102,8 @@ text = "[E] Enter
 "
 label_settings = SubResource("LabelSettings_2kh73")
 
+[node name="StandPoint" type="Node2D" parent="."]
+position = Vector2(0, 24)
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -27,8 +27,12 @@ var is_finish_stage1 = false
 var is_finish_stage2 = false
 var is_finish_stage3 = false
 var is_scene_changing: bool = false
+var is_enter_stage = false
 
 signal drawing_cleared
+
+func enter_stage():
+	is_enter_stage = true
 
 func set_finish_stage1():
 	is_finish_stage1 = true

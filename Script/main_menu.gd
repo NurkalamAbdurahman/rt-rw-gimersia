@@ -276,6 +276,7 @@ func _on_start_pressed() -> void:
 	var fade_scene = preload("res://Scenes/ui/fade_transitions.tscn").instantiate()
 	get_tree().root.add_child(fade_scene)
 	await fade_scene.fade_out()
+	GameData.enter_stage()
 	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_1.tscn")
 
 func _on_stage_pressed() -> void:

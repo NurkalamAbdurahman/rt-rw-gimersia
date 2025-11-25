@@ -149,6 +149,7 @@ func _change_to_next_stage() -> void:
 	GameData.clear_data()
 	GameData.clear_torch()
 	GameData.set_finish_stage1()
+	GameData.is_popup_open = false
 	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
 
 func _change_to_main_menu() -> void:
