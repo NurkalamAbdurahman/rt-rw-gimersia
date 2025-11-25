@@ -58,7 +58,6 @@ func _update_timer(delta: float) -> void:
 
 func _move_target(delta: float) -> void:
 	target_box.position.x += target_speed * target_direction * delta
-	print("speed = ", target_speed, " pos = ", target_box.position.x)
 
 	var container_width := qte_container.size.x
 	var target_width := target_box.size.x
