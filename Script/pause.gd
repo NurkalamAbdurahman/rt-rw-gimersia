@@ -3,8 +3,8 @@ extends Control
 @export var pause_key: String = "esc"
 
 @onready var panel: Panel = $Panel
-@onready var text_edit: TextEdit = $TextEdit
-@onready var texture_rect: TextureRect = $TextureRect
+@onready var texture_rect: Sprite2D = $Panel/UiPaused
+@onready var text_edit: Label = $Panel/Label
 
 @onready var resume_button: Button = $Panel/VBoxContainer/resume
 @onready var controls_button: Button = $Panel/VBoxContainer/controls
@@ -14,8 +14,7 @@ extends Control
 @onready var yes_button: Button = $Confirm/VBoxContainer/HBoxContainer/ya
 @onready var no_button: Button = $Confirm/VBoxContainer/HBoxContainer/tidak
 
-@onready var control_menu: Control = $Control
-@onready var exit_control: Button = $Control/Panel/HBoxContainer/exit
+@onready var control_menu: Panel = $Control
 
 @onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
@@ -50,16 +49,10 @@ func _init_ui() -> void:
 	for btn in buttons + confirm_buttons:
 		btn.focus_mode = Control.FOCUS_NONE
 		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		btn.modulate.a = 0.0
-		btn.scale = Vector2(0.8, 0.8)
 	
 	visible = false
 	confirm_panel.visible = false
 	control_menu.visible = false
-	
-	panel.modulate.a = 0.0
-	confirm_panel.modulate.a = 0.0
-	control_menu.modulate.a = 0.0
 
 func _connect_signals() -> void:
 	resume_button.pressed.connect(_on_resume_pressed)
@@ -67,7 +60,6 @@ func _connect_signals() -> void:
 	quit_button.pressed.connect(_on_quit_pressed)
 	yes_button.pressed.connect(_on_yes_pressed)
 	no_button.pressed.connect(_on_no_pressed)
-	exit_control.pressed.connect(_on_exit_control_pressed)
 
 func _handle_escape() -> void:
 	if control_menu.visible:
@@ -84,9 +76,9 @@ func _toggle_pause() -> void:
 	get_tree().paused = not get_tree().paused
 	
 	if get_tree().paused:
-		await _show_pause()
+		_show_pause()
 	else:
-		await _hide_pause()
+		_hide_pause()
 
 func _show_pause() -> void:
 	visible = true
@@ -96,11 +88,8 @@ func _show_pause() -> void:
 	
 	selected_index = 0
 	_update_focus()
-	
-	await _animate_panel_in(panel, buttons)
 
 func _hide_pause() -> void:
-	await _animate_panel_out(panel, buttons)
 	visible = false
 
 func _show_confirm() -> void:
@@ -111,92 +100,24 @@ func _show_confirm() -> void:
 	
 	confirm_index = 0
 	_update_confirm_focus()
-	
-	await _animate_panel_in(confirm_panel, confirm_buttons)
 
 func _close_confirm() -> void:
-	await _animate_panel_out(confirm_panel, confirm_buttons)
-	
 	confirm_panel.visible = false
 	panel.visible = true
 	text_edit.visible = true
 	texture_rect.visible = true
-	
-	await _animate_panel_in(panel, buttons)
 
 func _show_controls() -> void:
 	panel.visible = false
 	text_edit.visible = false
 	texture_rect.visible = false
 	control_menu.visible = true
-	
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_OUT)
-	
-	control_menu.modulate.a = 0.0
-	control_menu.scale = Vector2(0.9, 0.9)
-	
-	tween.tween_property(control_menu, "modulate:a", 1.0, 0.4)
-	tween.parallel().tween_property(control_menu, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK)
 
 func _close_controls() -> void:
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_IN)
-	
-	tween.tween_property(control_menu, "modulate:a", 0.0, 0.3)
-	tween.parallel().tween_property(control_menu, "scale", Vector2(0.9, 0.9), 0.3)
-	
-	await tween.finished
-	
 	control_menu.visible = false
 	panel.visible = true
 	text_edit.visible = true
 	texture_rect.visible = true
-	
-	await _animate_panel_in(panel, buttons)
-
-func _animate_panel_in(target_panel: Panel, target_buttons: Array[Button]) -> void:
-	var tween := create_tween().set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_OUT)
-	
-	target_panel.modulate.a = 0.0
-	target_panel.scale = Vector2(0.8, 0.8)
-	
-	tween.tween_property(target_panel, "modulate:a", 1.0, 0.5)
-	tween.tween_property(target_panel, "scale", Vector2.ONE, 0.5).set_trans(Tween.TRANS_BACK)
-	
-	await get_tree().create_timer(0.3).timeout
-	_animate_buttons_in(target_buttons)
-	
-	await tween.finished
-
-func _animate_panel_out(target_panel: Panel, target_buttons: Array[Button]) -> void:
-	var tween := create_tween().set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_IN)
-	
-	for i in target_buttons.size():
-		var btn := target_buttons[i]
-		tween.tween_property(btn, "modulate:a", 0.0, 0.3)
-		tween.tween_property(btn, "scale", Vector2(0.8, 0.8), 0.3)
-	
-	tween.tween_property(target_panel, "modulate:a", 0.0, 0.4).set_delay(0.2)
-	tween.tween_property(target_panel, "scale", Vector2(0.9, 0.9), 0.4).set_delay(0.2)
-	
-	await tween.finished
-
-func _animate_buttons_in(target_buttons: Array[Button]) -> void:
-	for i in target_buttons.size():
-		var btn := target_buttons[i]
-		var tween := create_tween().set_parallel(true)
-		tween.set_trans(Tween.TRANS_BACK)
-		tween.set_ease(Tween.EASE_OUT)
-		
-		tween.tween_property(btn, "modulate:a", 1.0, 0.4).set_delay(i * 0.1)
-		tween.tween_property(btn, "scale", Vector2.ONE, 0.4).set_delay(i * 0.1)
 
 func _handle_pause_input(event: InputEvent) -> void:
 	if event.is_action_pressed("menu_up"):
@@ -262,19 +183,19 @@ func _animate_button_press(btn: Button) -> void:
 func _on_resume_pressed() -> void:
 	sfx_button.play()
 	get_tree().paused = false
-	await _hide_pause()
+	_hide_pause()
 
 func _on_controls_pressed() -> void:
 	sfx_button.play()
-	await _show_controls()
+	_show_controls()
 
 func _on_exit_control_pressed() -> void:
 	sfx_button.play()
-	await _close_controls()
+	_close_controls()
 
 func _on_quit_pressed() -> void:
 	sfx_button.play()
-	await _show_confirm()
+	_show_confirm()
 
 func _on_yes_pressed() -> void:
 	sfx_button.play()
@@ -287,4 +208,4 @@ func _on_yes_pressed() -> void:
 
 func _on_no_pressed() -> void:
 	sfx_button.play()
-	await _close_confirm()
+	_close_confirm()
