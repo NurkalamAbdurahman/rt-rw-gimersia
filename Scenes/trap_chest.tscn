@@ -70,11 +70,6 @@ script = ExtResource("1_11qsi")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_x8474")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-texture = ExtResource("2_ocvpk")
-polygon = PackedVector2Array(96.66399, 192.62814, 131.55876, 194.68079, 131.55876, 171.4176, 96.66399, 172.10182)
-uv = PackedVector2Array(63.13765, 206.99658, 98.032425, 209.04922, 98.032425, 185.78604, 63.13765, 186.47026)
-
 [node name="silver_chest" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_p26g8")
 
@@ -108,12 +103,17 @@ volume_db = 11.0
 stream = ExtResource("5_11qsi")
 volume_db = -1.01
 
+[node name="Polygon2D" type="Polygon2D" parent="."]
+texture = ExtResource("2_ocvpk")
+polygon = PackedVector2Array(96.66399, 192.62814, 131.55876, 194.68079, 131.55876, 171.4176, 96.66399, 172.10182)
+uv = PackedVector2Array(63.13765, 206.99658, 98.032425, 209.04922, 98.032425, 185.78604, 63.13765, 186.47026)
+
 [node name="Label" type="Label" parent="."]
 offset_left = -16.0
 offset_top = -25.0
 offset_right = 17.0
 offset_bottom = 2.0
-text = "[E] Open
+text = "[E] Open??
 "
 label_settings = SubResource("LabelSettings_b067n")
 
