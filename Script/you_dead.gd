@@ -11,6 +11,15 @@ signal respawn_pressed
 var buttons: Array[Button]
 var selected_index := 0
 
+const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
+const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
+const PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
+const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
+const HOVER_MODULATE: Color = Color(1.0, 1.0, 1.0) 
+const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
+const ANIMATION_DURATION: float = 0.15
+
+
 func _ready() -> void:
 	_init_ui()
 	_connect_signals()
@@ -36,6 +45,7 @@ func _init_ui() -> void:
 	
 	buttons = [respawn, quit]
 	for btn in buttons:
+		btn.modulate = NORMAL_MODULATE
 		btn.modulate.a = 0.0
 		btn.scale = Vector2(0.8, 0.8)
 	
@@ -44,6 +54,10 @@ func _init_ui() -> void:
 func _connect_signals() -> void:
 	respawn.pressed.connect(_on_respawn_pressed)
 	quit.pressed.connect(_on_quit_pressed)
+	
+	# Connect mouse enter signals for hover effect
+	for btn in buttons:
+		btn.mouse_entered.connect(_on_button_mouse_entered.bind(btn))
 
 func _animate_show() -> void:
 	_disable_buttons()
@@ -69,7 +83,7 @@ func _animate_buttons_in() -> void:
 		tween.set_ease(Tween.EASE_OUT)
 		
 		tween.tween_property(btn, "modulate:a", 1.0, 0.4).set_delay(i * 0.1)
-		tween.tween_property(btn, "scale", Vector2.ONE, 0.4).set_delay(i * 0.1)
+		tween.tween_property(btn, "scale", NORMAL_SCALE, 0.4).set_delay(i * 0.1)
 
 func _animate_hide() -> void:
 	var tween := create_tween().set_parallel(true)
@@ -90,11 +104,13 @@ func _animate_hide() -> void:
 func _enable_buttons() -> void:
 	for btn in buttons:
 		btn.disabled = false
+		btn.modulate = NORMAL_MODULATE
 	_update_button_focus()
 
 func _disable_buttons() -> void:
 	for btn in buttons:
 		btn.disabled = true
+		btn.modulate = DISABLED_MODULATE
 
 func _input(event: InputEvent) -> void:
 	if not root_control.visible:
@@ -115,18 +131,18 @@ func _move_selection(direction: int) -> void:
 func _press_selected_button() -> void:
 	var btn := buttons[selected_index]
 	_animate_button_press(btn)
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(ANIMATION_DURATION * 0.5).timeout
 	btn.emit_signal("pressed")
 
 func _update_button_focus() -> void:
 	for i in buttons.size():
 		var btn := buttons[i]
 		if i == selected_index:
-			btn.modulate = Color(1.0, 0.84, 0.0)
-			btn.scale = Vector2(1.12, 1.12)
+			btn.modulate = HOVER_MODULATE
+			btn.scale = HOVER_SCALE
 		else:
-			btn.modulate = Color(0.7, 0.7, 0.7)
-			btn.scale = Vector2.ONE
+			btn.modulate = NORMAL_MODULATE
+			btn.scale = NORMAL_SCALE
 
 func _animate_button_focus() -> void:
 	for i in buttons.size():
@@ -136,19 +152,26 @@ func _animate_button_focus() -> void:
 		tween.set_ease(Tween.EASE_OUT)
 		
 		if i == selected_index:
-			tween.tween_property(btn, "modulate", Color(0.7, 0.7, 0.7), 0.2)
-			tween.tween_property(btn, "scale", Vector2(1.12, 1.12), 0.2).set_trans(Tween.TRANS_BACK)
+			tween.tween_property(btn, "modulate", HOVER_MODULATE, ANIMATION_DURATION)
+			tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION).set_trans(Tween.TRANS_BACK)
 		else:
-			tween.tween_property(btn, "modulate", Color(0.5, 0.5, 0.5), 0.2)
-			tween.tween_property(btn, "scale", Vector2.ONE, 0.2)
+			tween.tween_property(btn, "modulate", NORMAL_MODULATE, ANIMATION_DURATION)
+			tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
 
 func _animate_button_press(btn: Button) -> void:
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	
-	tween.tween_property(btn, "scale", Vector2(0.95, 0.95), 0.08)
-	tween.tween_property(btn, "scale", Vector2(1.12, 1.12), 0.08)
+	tween.tween_property(btn, "scale", PRESS_SCALE, ANIMATION_DURATION * 0.5)
+	tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION * 0.5)
+
+func _on_button_mouse_entered(btn: Button) -> void:
+	var index = buttons.find(btn)
+	if index != -1:
+		selected_index = index
+		sfx_hover.play()
+		_animate_button_focus()
 
 func _on_respawn_pressed() -> void:
 	get_tree().paused = false
