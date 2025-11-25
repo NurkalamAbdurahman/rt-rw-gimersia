@@ -22,7 +22,13 @@ var can_input: bool = false
 
 func _ready() -> void:
 	add_to_group("QTE_System")
+	_resize_target_to_pedang()
 	_hide_all()
+
+func _resize_target_to_pedang():
+	# Samakan tinggi dan posisi Y dengan hit_zone
+	target_box.size.y = hit_zone.size.y
+	target_box.position.y = hit_zone.position.y
 
 func _process(delta: float) -> void:
 	if not qte_active:
@@ -39,15 +45,17 @@ func _input(event: InputEvent) -> void:
 		_check_hit()
 
 func start_qte() -> void:
+	_resize_target_to_pedang()
 	qte_active = true
 	can_input = true
 	time_remaining = time_limit
 	target_direction = 1 if randf() > 0.5 else -1
-	
+
 	_randomize_target_position()
 	_show_all()
-	
+
 	instruction_label.text = "Press space to attack\nwhen RED BOX hits the GREEN ZONE"
+
 
 func is_qte_active() -> bool:
 	return qte_active
@@ -59,7 +67,7 @@ func _update_timer(delta: float) -> void:
 func _move_target(delta: float) -> void:
 	target_box.position.x += target_speed * target_direction * delta
 
-	var container_width := qte_container.size.x
+	var container_width := qte_container.size.x - 30
 	var target_width := target_box.size.x
 	
 	if target_box.position.x <= 0:

@@ -27,43 +27,46 @@ shadow_offset = Vector2(2, 2)
 
 [node name="QTE_System" type="CanvasLayer"]
 script = ExtResource("1_2mhh1")
-target_height = 40.0
 
 [node name="QTEContainer" type="Panel" parent="."]
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 358.0
-offset_top = 131.0
-offset_right = 552.2168
-offset_bottom = 205.0
+anchor_top = 0.4631088
+anchor_right = 0.47924867
+anchor_bottom = 0.46521685
+offset_left = 344.0
+offset_top = 189.90903
+offset_right = 538.2168
+offset_bottom = 263.90906
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.5707964
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ebsip")
-metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
 
 [node name="Pedang" type="Sprite2D" parent="QTEContainer"]
-position = Vector2(145, 38)
+position = Vector2(123.00354, 38)
 scale = Vector2(5, 5)
 texture = ExtResource("2_ke0mf")
 region_enabled = true
 region_rect = Rect2(64.94446, 18.137194, 62.127205, 21.257452)
 
 [node name="TargetBox" type="ColorRect" parent="QTEContainer"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.12357324
+anchor_right = 0.12357324
+offset_left = -25.456959
 offset_top = 24.802124
-offset_right = 10.0
-offset_bottom = 48.683594
+offset_right = -15.456959
+offset_bottom = 48.683563
 color = Color(0.61844593, 0.041675135, 9.62615e-08, 1)
 
 [node name="HitZone" type="ColorRect" parent="QTEContainer"]
 layout_mode = 0
-offset_left = 89.0
+offset_left = 67.00354
 offset_top = 4.0
-offset_right = 131.0
+offset_right = 109.00354
 offset_bottom = 69.0
 color = Color(0, 0.75686276, 0.3764706, 0.75686276)
 

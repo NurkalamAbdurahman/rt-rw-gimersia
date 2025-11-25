@@ -23,6 +23,7 @@ TutorialManager="*res://Script/TutorialManager.gd"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [input]
