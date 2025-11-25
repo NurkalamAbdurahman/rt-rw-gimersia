@@ -1,11 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://ckg4xnullubp8"]
+[gd_scene load_steps=19 format=3 uid="uid://ckg4xnullubp8"]
 
 [ext_resource type="Script" uid="uid://cwbxq2tuyaphr" path="res://trap_chest.gd" id="1_11qsi"]
 [ext_resource type="Texture2D" uid="uid://cmexvl740ihcf" path="res://Assets/Tileset/PNG/doors_lever_chest_animation.png" id="2_11qsi"]
+[ext_resource type="Texture2D" uid="uid://dj7sprj7s31hk" path="res://Assets/Tileset/asset_bonus_stage/PNG/Environment/Decor_Chest.png" id="2_ocvpk"]
 [ext_resource type="AudioStream" uid="uid://2o6b2u5i0f4s" path="res://Assets/Audio/chest-open.ogg" id="3_xc8xs"]
 [ext_resource type="AudioStream" uid="uid://hei6fqspiwsb" path="res://Assets/Audio/door-closed-382707.ogg" id="4_ocvpk"]
 [ext_resource type="AudioStream" uid="uid://cefj4xc32rj75" path="res://Assets/Audio/chest-jumpscare.mp3" id="5_11qsi"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="5_46kaq"]
+[ext_resource type="AudioStream" uid="uid://c216hs5gn6wxb" path="res://Assets/Audio/bat-sfx.mp3" id="7_xc8xs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8474"]
 size = Vector2(18, 14)
@@ -68,6 +70,11 @@ script = ExtResource("1_11qsi")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_x8474")
 
+[node name="Polygon2D" type="Polygon2D" parent="."]
+texture = ExtResource("2_ocvpk")
+polygon = PackedVector2Array(96.66399, 192.62814, 131.55876, 194.68079, 131.55876, 171.4176, 96.66399, 172.10182)
+uv = PackedVector2Array(63.13765, 206.99658, 98.032425, 209.04922, 98.032425, 185.78604, 63.13765, 186.47026)
+
 [node name="silver_chest" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_p26g8")
 
@@ -109,6 +116,16 @@ offset_bottom = 2.0
 text = "[E] Open
 "
 label_settings = SubResource("LabelSettings_b067n")
+
+[node name="BatContainer" type="Node2D" parent="."]
+
+[node name="BloodFlash" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0)
+
+[node name="SFX_BatScream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_xc8xs")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
