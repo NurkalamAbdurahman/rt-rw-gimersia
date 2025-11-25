@@ -14,8 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://4mya8le2nvu5" path="res://Scenes/ui/You_Dead.tscn" id="9_r847v"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="12_jsvtg"]
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="13_nk1b1"]
-[ext_resource type="PackedScene" uid="uid://37b27rq7sxu0" path="res://Scenes/hidden_to_maze02.tscn" id="14_nk1b1"]
-[ext_resource type="PackedScene" uid="uid://dqlq2aviy3kk0" path="res://Scenes/pintu_stage_2.tscn" id="15_r847v"]
+[ext_resource type="PackedScene" uid="uid://l0xtm8g5v8pd" path="res://Scenes/hidden_to_maze02.tscn" id="14_nk1b1"]
+[ext_resource type="PackedScene" path="res://Scenes/pintu_stage_2.tscn" id="15_r847v"]
 [ext_resource type="PackedScene" uid="uid://cwst4tasxjw1r" path="res://Scenes/ui/Next_Stage_2.tscn" id="16_5koqb"]
 [ext_resource type="PackedScene" uid="uid://de8ve0uu3hqol" path="res://Scenes/map_editor_layer.tscn" id="17_lh8bj"]
 [ext_resource type="PackedScene" uid="uid://dv0nx4kjchj7i" path="res://Scenes/qte_system.tscn" id="18_bvlfc"]
@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://c3rikq3n8hh6h" path="res://Scenes/ui/Trap/trap_1.tscn" id="21_b6f5h"]
 [ext_resource type="PackedScene" uid="uid://bry4hbs4i45ix" path="res://Scenes/ui/Trap/trap_2.tscn" id="22_y7p4m"]
 [ext_resource type="PackedScene" uid="uid://qcn55v170xnx" path="res://Scenes/ui/Trap/Trap_3.tscn" id="23_yxyi2"]
-[ext_resource type="PackedScene" uid="uid://dweatts5mckfd" path="res://Scenes/ui/Trap/Trap_4.tscn" id="24_dmqeq"]
+[ext_resource type="PackedScene" path="res://Scenes/ui/Trap/Trap_4.tscn" id="24_dmqeq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c248w"]
 texture = ExtResource("1_rsbcv")
@@ -478,21 +478,6 @@ scale = Vector2(1.662591, 1.7165759)
 
 [node name="Hud" parent="." instance=ExtResource("7_jsvtg")]
 
-[node name="Trap_1" parent="." instance=ExtResource("21_b6f5h")]
-position = Vector2(1424, 117)
-
-[node name="Trap_2" parent="." instance=ExtResource("21_b6f5h")]
-position = Vector2(1367, 162)
-
-[node name="Trap_3" parent="." instance=ExtResource("21_b6f5h")]
-position = Vector2(1405, 162)
-
-[node name="Trap_4" parent="." instance=ExtResource("21_b6f5h")]
-position = Vector2(1443, 162)
-
-[node name="Trap_5" parent="." instance=ExtResource("21_b6f5h")]
-position = Vector2(1386, 117)
-
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("8_nk1b1")]
 z_index = 21
 position = Vector2(1718, -82)
@@ -536,6 +521,7 @@ enemy_id = "SceneA_Goblin_8"
 position = Vector2(1406, 387)
 
 [node name="YouDead" parent="." instance=ExtResource("9_r847v")]
+visible = false
 
 [node name="Pintu_stage1" parent="." instance=ExtResource("15_r847v")]
 position = Vector2(1833, 1167)
@@ -545,11 +531,47 @@ popup_scene = ExtResource("16_5koqb")
 
 [node name="QTE_System" parent="." instance=ExtResource("18_bvlfc")]
 
-[node name="TrapSpike_1" parent="." instance=ExtResource("22_y7p4m")]
-position = Vector2(1507, 63)
+[node name="sceneTrap" type="Node2D" parent="."]
 
-[node name="TrapFire_1" parent="." instance=ExtResource("23_yxyi2")]
-position = Vector2(1482, 104)
+[node name="Trap_1" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
+position = Vector2(1504, 10)
 
-[node name="Trap_6" parent="." instance=ExtResource("24_dmqeq")]
-position = Vector2(1543, -105)
+[node name="Trap_2" parent="sceneTrap" instance=ExtResource("24_dmqeq")]
+position = Vector2(990, -47)
+
+[node name="Trap_3" parent="sceneTrap" instance=ExtResource("21_b6f5h")]
+position = Vector2(597, 357)
+
+[node name="Trap_4" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
+position = Vector2(2005, 778)
+
+[node name="Trap_5" parent="sceneTrap" instance=ExtResource("24_dmqeq")]
+position = Vector2(1414, 671)
+
+[node name="Trap_6" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
+position = Vector2(280, 330)
+
+[node name="Trap_7" parent="sceneTrap" instance=ExtResource("21_b6f5h")]
+position = Vector2(892, 294)
+
+[node name="Trap_8" parent="sceneTrap" instance=ExtResource("21_b6f5h")]
+position = Vector2(1268, 1331)
+
+[node name="Trap_9" parent="sceneTrap" instance=ExtResource("23_yxyi2")]
+position = Vector2(537, 1090)
+
+[node name="Trap_10" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
+position = Vector2(1084, 712)
+
+[node name="Trap_11" parent="sceneTrap" instance=ExtResource("23_yxyi2")]
+position = Vector2(1623, 426)
+rotation = -3.1415927
+
+[node name="Trap_12" parent="sceneTrap" instance=ExtResource("21_b6f5h")]
+position = Vector2(1578, 122)
+
+[node name="Trap_13" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
+position = Vector2(1248, 209)
+
+[node name="Trap_14" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
+position = Vector2(1278, 1150)
