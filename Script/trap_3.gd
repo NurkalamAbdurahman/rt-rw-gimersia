@@ -14,36 +14,41 @@ func _ready():
 	hitbox.monitoring = false
 	hitbox.body_entered.connect(_on_hitbox_entered)
 
-	# pastikan animasi tidak looping
 	anim.sprite_frames.set_animation_loop("aktif", false)
 	anim.sprite_frames.set_animation_loop("off", false)
 	
 	point_light.visible = false
+	point_light.energy = 0.0
 
 	_start_cycle()
 
 
 func _start_cycle():
-	# mulai ke mode aktif
 	state = "aktif"
 	fire_trap.play()
 	anim.play("aktif")
 	_enable_hitbox()
-	
-	point_light.visible = true
-	
 
-	# setelah animasi aktif selesai → masuk fase bahaya 3 detik
+	# ---- FADE IN LIGHT ----
+	point_light.visible = true
+	var tw_in := create_tween()
+	point_light.energy = 0.0
+	tw_in.tween_property(point_light, "energy", 1.4, 0.25)  # smooth  
+
 	await anim.animation_finished
 	await get_tree().create_timer(0.0).timeout
 
-	# nonaktifkan hitbox dan masuk mode off
 	_disable_hitbox()
 	state = "off"
 	anim.play("off")
-	point_light.visible = false
 
-	# tunggu 3 detik mode aman → ulangi cycle
+	# ---- FADE OUT LIGHT ----
+	var tw_out := create_tween()
+	tw_out.tween_property(point_light, "energy", 0.0, 0.25)
+	tw_out.finished.connect(func():
+		point_light.visible = false
+	)
+
 	await get_tree().create_timer(1).timeout
 	_start_cycle()
 

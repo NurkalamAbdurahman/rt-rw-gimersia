@@ -4887,7 +4887,6 @@ position = Vector2(-179, 0)
 torch_id = "Torch_45"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -4937,7 +4936,7 @@ position = Vector2(326, -204)
 enemy_id = "SceneA_Goblin_4"
 
 [node name="Goblin5" parent="." instance=ExtResource("17_ihc3j")]
-position = Vector2(1366, -824)
+position = Vector2(1207, -832)
 hb_size = 35.0
 enemy_id = "SceneA_Goblin_5"
 

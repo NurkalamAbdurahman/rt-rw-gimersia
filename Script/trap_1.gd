@@ -56,10 +56,14 @@ func _enable_fire():
 	active = true
 	hitbox.monitoring = true
 
-	# 🔊 SFX saat api menyala (FireTrap)
 	if fire_sfx:
 		fire_sfx.play()
-		point_light.visible = true
+
+	# ---- FADE IN POINT LIGHT ----
+	point_light.visible = true
+	var tween := create_tween()
+	point_light.energy = 0.0
+	tween.tween_property(point_light, "energy", 1.5, 0.25) # 0.25 detik, bisa diatur
 
 	if flame_anim.sprite_frames.has_animation("trapFire"):
 		flame_anim.sprite_frames.set_animation_loop("trapFire", false)
@@ -71,8 +75,16 @@ func _disable_trap():
 	active = false
 	hitbox.monitoring = false
 	is_running = false
+
+	# ---- FADE OUT POINT LIGHT ----
+	var tween := create_tween()
+	tween.tween_property(point_light, "energy", 0.0, 0.25)
+	tween.finished.connect(func():
+		point_light.visible = false
+	)
+
 	flame_anim.stop()
-	point_light.visible = false
+
 
 
 func _on_hitbox_entered(body):
