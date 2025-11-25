@@ -4187,6 +4187,7 @@ script = ExtResource("1_eppvb")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
 
 [node name="Pause" parent="HUD" instance=ExtResource("30_muvn5")]
 offset_left = 7.0
@@ -4248,12 +4249,10 @@ tile_set = SubResource("TileSet_2vkx8")
 
 [node name="Fountain" parent="." instance=ExtResource("17_f0ka1")]
 z_index = 10
-position = Vector2(359, -61.000004)
-scale = Vector2(0.19999999, 0.19999999)
+position = Vector2(360, -51)
 
 [node name="Node2D" parent="." instance=ExtResource("18_36owb")]
 position = Vector2(175, 83)
-scale = Vector2(0.3, 0.3)
 
 [node name="ui_coin" type="CanvasLayer" parent="."]
 

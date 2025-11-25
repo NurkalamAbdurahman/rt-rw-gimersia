@@ -6,7 +6,7 @@ extends CanvasLayer
 @onready var strength_button: Button = $Control/Panel/Strength/buy_button
 @onready var exit_button: Button = $Exit
 
-@onready var not_enough_label: Label = $NotEnough
+#@onready var not_enough_label: Label = $NotEnough
 @onready var buy_potion_label: Label = $BuyPotion
 
 # SFX references
@@ -53,7 +53,7 @@ func _setup_buttons() -> void:
 		btn.mouse_exited.connect(_on_button_mouse_exited.bind(btn))
 	
 	# Set labels as top level
-	not_enough_label.top_level = true
+	#not_enough_label.top_level = true
 	buy_potion_label.top_level = true
 	
 	_update_button_focus()
@@ -65,7 +65,7 @@ func _connect_signals() -> void:
 	exit_button.pressed.connect(_on_exit_pressed)
 
 func _hide_messages() -> void:
-	not_enough_label.hide()
+	#not_enough_label.hide()
 	buy_potion_label.hide()
 
 func _input(event: InputEvent) -> void:
@@ -162,7 +162,7 @@ func _on_buy_hp_pressed() -> void:
 		_show_success_message("HP Potion purchased!")
 		_play_buy_sound()
 	else:
-		_show_error_message("Not enough gold!")
+		#_show_error_message("Not enough gold!")
 		_play_error_sound()
 
 func _on_buy_speed_pressed() -> void:
@@ -172,7 +172,7 @@ func _on_buy_speed_pressed() -> void:
 		_show_success_message("Speed Potion purchased!")
 		_play_buy_sound()
 	else:
-		_show_error_message("Not enough gold!")
+		#_show_error_message("Not enough gold!")
 		_play_error_sound()
 
 func _on_buy_strength_pressed() -> void:
@@ -182,7 +182,6 @@ func _on_buy_strength_pressed() -> void:
 		_show_success_message("Strength Potion purchased!")
 		_play_buy_sound()
 	else:
-		_show_error_message("Not enough gold!")
 		_play_error_sound()
 
 func _on_exit_pressed() -> void:
@@ -207,9 +206,9 @@ func _show_success_message(message: String) -> void:
 	buy_potion_label.text = message
 	show_temp_message(buy_potion_label, 2.0)
 
-func _show_error_message(message: String) -> void:
-	not_enough_label.text = message
-	show_temp_message(not_enough_label, 2.0)
+#func _show_error_message(message: String) -> void:
+	#not_enough_label.text = message
+	#show_temp_message(not_enough_label, 2.0)
 
 func _play_buy_sound() -> void:
 	if sfx_buy_potion:

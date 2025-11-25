@@ -11,7 +11,7 @@ func show_message(text: String, duration := 2.0):
 	await get_tree().create_timer(duration).timeout
 	message_label.visible = false
 	
-func show_message_e(text: String, duration := 2.0):
+func show_message_e(text: String, duration := 10):
 	messege_label.text = text
 	messege_label.visible = true
 	await get_tree().create_timer(duration).timeout
