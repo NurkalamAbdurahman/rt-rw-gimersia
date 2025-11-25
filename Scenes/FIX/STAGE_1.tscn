@@ -4962,7 +4962,10 @@ position = Vector2(67, 59)
 [node name="AnimatedSprite2D" parent="Player2" index="0"]
 animation = &"run_up"
 autoplay = "run_up"
-frame_progress = 0.46997732
+frame_progress = 0.20991692
+
+[node name="PointLight2D" parent="Player2" index="8"]
+position = Vector2(-1, 7)
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 position = Vector2(3, 0)
