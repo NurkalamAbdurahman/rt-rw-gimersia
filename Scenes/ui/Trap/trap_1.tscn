@@ -1,7 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://c3rikq3n8hh6h"]
+[gd_scene load_steps=16 format=3 uid="uid://c3rikq3n8hh6h"]
 
 [ext_resource type="Script" uid="uid://c2nmhocwd2mnh" path="res://Script/trap_1.gd" id="1_u7a48"]
 [ext_resource type="Texture2D" uid="uid://bpr45yy3gximc" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/full.png" id="2_i220k"]
+[ext_resource type="AudioStream" uid="uid://j5f0ciqrfqb0" path="res://Assets/Audio/Trap/fire-trap.mp3" id="3_8d022"]
+[ext_resource type="AudioStream" uid="uid://b11kspbx34n0m" path="res://Assets/Audio/Trap/step-trap.mp3" id="4_vh7fk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvvls"]
 atlas = ExtResource("2_i220k")
@@ -97,5 +99,13 @@ polygon = PackedVector2Array(637, 277, 653, 277, 653, 263, 637, 263)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicalCollider"]
 position = Vector2(0, 52)
 shape = SubResource("RectangleShape2D_dhju8")
+
+[node name="FireTrap" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8d022")
+volume_db = 12.0
+
+[node name="StepTrap" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vh7fk")
+volume_db = 12.0
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
