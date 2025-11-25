@@ -27,6 +27,7 @@ shadow_offset = Vector2(2, 2)
 
 [node name="QTE_System" type="CanvasLayer"]
 script = ExtResource("1_2mhh1")
+target_height = 40.0
 
 [node name="QTEContainer" type="Panel" parent="."]
 anchors_preset = 8
@@ -113,3 +114,4 @@ metadata/_edit_group_ = true
 
 [node name="QteBgm" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_3t6yg")
+parameters/looping = true

@@ -9,6 +9,8 @@ extends CharacterBody2D
 @onready var hud: Label = $"../Hud/Label"
 @onready var sfx_hurt: AudioStreamPlayer2D = $SFX_Hurt
 @onready var qte_system: CanvasLayer = $"../QTE_System"
+@onready var qte_bgm: AudioStreamPlayer = $QteBgm
+@onready var player_2: AudioStreamPlayer2D = $"../Player2/BGM"
 
 # QTE variables
 var is_qte_active = false
@@ -22,6 +24,7 @@ var qte_cooldown_duration = 1.0  # Seconds between QTE sequences
 var qte_start_position = Vector2.ZERO
 var is_position_locked = false
 
+@export var qte_speed = 300
 # Add with other QTE variables
 var qte_attack_playing = false
 var qte_attack_timer = 0.0
@@ -84,6 +87,7 @@ func _ready():
 	add_to_group("Enemies")
 	patrol_center = global_position
 	last_position = global_position
+	print(enemy_id, " qte_speed = ", qte_speed)
 	
 	if GameData.is_enemy_killed(enemy_id):
 		print("Enemy ", enemy_id, " already defeated. Removing...")
@@ -131,6 +135,8 @@ func setup_areas():
 
 func _on_qte_trigger_body_entered(body):
 	if body.is_in_group("Player") and not is_dead and not is_qte_active and qte_cooldown_timer <= 0:
+		qte_bgm.play()
+		player_2.stop()
 		player = body
 		engage_qte(player)
 
@@ -202,6 +208,8 @@ func update_timers(delta):
 func engage_qte(player_target):
 	if is_dead or is_qte_active or qte_cooldown_timer > 0:
 		return
+	
+	qte_system.target_speed = qte_speed
 	
 	current_state = State.QTE_WINDUP
 	is_qte_active = true
@@ -600,6 +608,8 @@ func die():
 	is_dead = true
 	velocity = Vector2.ZERO
 	current_state = State.HURT
+	qte_bgm.stop()
+	player_2.play()
 	emit_signal("goblin_die")
 
 	

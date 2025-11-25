@@ -4907,7 +4907,6 @@ enemy_id = "SceneA_Goblin_4"
 
 [node name="Goblin5" parent="." instance=ExtResource("17_ihc3j")]
 position = Vector2(1195, -841)
-patrol_speed = 40.0
 chase_speed = 100.0
 enemy_id = "SceneA_Goblin_5"
 
@@ -4916,20 +4915,14 @@ position = Vector2(-291, 40)
 patrol_speed = 0.0
 chase_speed = 0.0
 wander_range = 0.0
-enemy_id = "SceneA_Goblin_10 "
-min_coin = 0
-max_coin = 0
-skyes = 0
+enemy_id = "SceneA_Goblin_11"
 
 [node name="Goblin7" parent="." instance=ExtResource("17_ihc3j")]
 position = Vector2(74, 174)
 patrol_speed = 0.0
 chase_speed = 0.0
 wander_range = 0.0
-enemy_id = "SceneA_Goblin_11"
-min_coin = 0
-max_coin = 0
-skyes = 0
+enemy_id = "SceneA_Goblin_12"
 
 [node name="Hud" parent="." instance=ExtResource("22_oof0y")]
 
