@@ -6,14 +6,16 @@ extends Node2D
 
 @onready var step_sfx: AudioStreamPlayer = $StepTrap
 @onready var fire_sfx: AudioStreamPlayer = $FireTrap
+@onready var point_light: PointLight2D = $AnimatedSprite2D/PointLight2D
 
 var is_running := false
 var active := false
-@export var damage := 2
+@export var damage := 1
 
 func _ready():
 	active = false
 	hitbox.monitoring = false
+	point_light.visible = false
 
 	if not flame_anim.animation_finished.is_connected(_on_animation_finished):
 		flame_anim.animation_finished.connect(_on_animation_finished)
@@ -57,6 +59,7 @@ func _enable_fire():
 	# 🔊 SFX saat api menyala (FireTrap)
 	if fire_sfx:
 		fire_sfx.play()
+		point_light.visible = true
 
 	if flame_anim.sprite_frames.has_animation("trapFire"):
 		flame_anim.sprite_frames.set_animation_loop("trapFire", false)
@@ -69,6 +72,7 @@ func _disable_trap():
 	hitbox.monitoring = false
 	is_running = false
 	flame_anim.stop()
+	point_light.visible = false
 
 
 func _on_hitbox_entered(body):
