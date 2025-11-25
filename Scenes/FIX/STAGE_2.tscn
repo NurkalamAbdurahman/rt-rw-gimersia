@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://dl8ysiup7jwhn"]
+[gd_scene load_steps=30 format=4 uid="uid://dl8ysiup7jwhn"]
 
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_e7ynj"]
 [ext_resource type="Script" uid="uid://bao1phb8sqr4e" path="res://Script/stage_2.gd" id="1_r847v"]
@@ -14,12 +14,13 @@
 [ext_resource type="PackedScene" uid="uid://4mya8le2nvu5" path="res://Scenes/ui/You_Dead.tscn" id="9_r847v"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="12_jsvtg"]
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="13_nk1b1"]
-[ext_resource type="PackedScene" uid="uid://l0xtm8g5v8pd" path="res://Scenes/hidden_to_maze02.tscn" id="14_nk1b1"]
-[ext_resource type="PackedScene" path="res://Scenes/pintu_stage_2.tscn" id="15_r847v"]
+[ext_resource type="PackedScene" uid="uid://37b27rq7sxu0" path="res://Scenes/hidden_to_maze02.tscn" id="14_nk1b1"]
+[ext_resource type="PackedScene" uid="uid://dqlq2aviy3kk0" path="res://Scenes/pintu_stage_2.tscn" id="15_r847v"]
 [ext_resource type="PackedScene" uid="uid://cwst4tasxjw1r" path="res://Scenes/ui/Next_Stage_2.tscn" id="16_5koqb"]
 [ext_resource type="PackedScene" uid="uid://de8ve0uu3hqol" path="res://Scenes/map_editor_layer.tscn" id="17_lh8bj"]
 [ext_resource type="PackedScene" uid="uid://dv0nx4kjchj7i" path="res://Scenes/qte_system.tscn" id="18_bvlfc"]
 [ext_resource type="PackedScene" uid="uid://ckg4xnullubp8" path="res://Scenes/trap_chest.tscn" id="19_x42nt"]
+[ext_resource type="PackedScene" uid="uid://c3rikq3n8hh6h" path="res://Scenes/ui/trap_1.tscn" id="21_b6f5h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c248w"]
 texture = ExtResource("1_rsbcv")
@@ -447,6 +448,7 @@ position = Vector2(2179, 659)
 torch_id = "Torch_27"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -473,6 +475,21 @@ position = Vector2(853, 814.00006)
 scale = Vector2(1.662591, 1.7165759)
 
 [node name="Hud" parent="." instance=ExtResource("7_jsvtg")]
+
+[node name="Trap_1" parent="." instance=ExtResource("21_b6f5h")]
+position = Vector2(1424, 117)
+
+[node name="Trap_2" parent="." instance=ExtResource("21_b6f5h")]
+position = Vector2(1367, 162)
+
+[node name="Trap_3" parent="." instance=ExtResource("21_b6f5h")]
+position = Vector2(1405, 162)
+
+[node name="Trap_4" parent="." instance=ExtResource("21_b6f5h")]
+position = Vector2(1443, 162)
+
+[node name="Trap_5" parent="." instance=ExtResource("21_b6f5h")]
+position = Vector2(1386, 117)
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("8_nk1b1")]
 z_index = 21
