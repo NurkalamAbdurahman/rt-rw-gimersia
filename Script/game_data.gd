@@ -123,6 +123,9 @@ func use_speed_potion() -> bool:
 		return true
 	return false
 
+func reset_potion():
+	emit_signal("reset_potion")
+
 func check_if_max_health():
 	if health >= max_health:
 		health = 6

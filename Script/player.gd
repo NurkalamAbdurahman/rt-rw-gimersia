@@ -4,6 +4,12 @@ const SPEED = 100.0
 const WARNING_TIME: float = 10.0
 const BLINK_INTERVAL: float = 0.3
 
+@export var invincible_default_duration: float = 2.0
+@export var invincible_forever: bool = false
+
+var is_invincible := false
+var invincible_timer := 0.0
+
 @onready var map_editor_ui: Control = $"../MapEditorLayer/MapEditorUI"
 @onready var you_dead_ui: CanvasLayer = get_tree().get_current_scene().get_node("YouDead")
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
@@ -57,9 +63,23 @@ func _physics_process(delta: float) -> void:
 		_enforce_lock()
 		return
 	
+	_update_invincibility(delta)
 	_handle_movement()
 	_update_animation_state()
 	_handle_footstep_sfx()
+
+func _update_invincibility(delta: float) -> void:
+	if not is_invincible:
+		return
+
+	if invincible_forever:
+		return  # Tak pernah habis
+
+	invincible_timer -= delta
+
+	if invincible_timer <= 0:
+		remove_invincible()
+
 
 func apply_strength_potion() -> bool:
 	if not GameData.use_strength_potion():
@@ -110,7 +130,7 @@ func engage_qte() -> void:
 	print("🎯 QTE engaged")
 
 func take_damage(amount: int) -> void:
-	if is_dead:
+	if is_dead or is_invincible:
 		return
 
 	sfx_attacked.play()
@@ -364,3 +384,26 @@ func _on_respawn_selected() -> void:
 	GameData.reset()
 	GameData.set_death(true)
 	get_tree().reload_current_scene()
+
+func make_invincible(duration: float = -1.0) -> void:
+	if invincible_forever:
+		is_invincible = true
+		is_blinking = true
+		print("🛡️ Player Invincible FOREVER")
+		return
+
+	# Kalau duration = -1 → pakai default export
+	if duration <= 0:
+		duration = invincible_default_duration
+
+	is_invincible = true
+	invincible_timer = duration
+	is_blinking = true
+	print("🛡️ Player Invincible for ", duration, " seconds")
+
+func remove_invincible() -> void:
+	is_invincible = false
+	invincible_timer = 0.0
+	is_blinking = false
+	_update_buff_visuals()
+	print("🛑 Invincibility removed")

@@ -4,7 +4,7 @@ signal step_completed(step_id)
 
 @export var step_id: String = ""
 @export var instruction_text: String = ""
-
+@onready var player_2: CharacterBody2D = $"../Player2"
 @onready var detection_area: CollisionShape2D = $DetectionArea
 @onready var label: Label = $CanvasLayer/Label
 @onready var sfx: AudioStreamPlayer2D = $SFX_Success
@@ -129,6 +129,8 @@ func _on_body_entered(body: Node2D) -> void:
 			activate()
 
 		"2":
+			player_2.invincible_forever = true
+			player_2.make_invincible()
 			barrier2.set_deferred("disabled", false)
 			activate()
 
@@ -137,12 +139,14 @@ func _on_body_entered(body: Node2D) -> void:
 			activate()
 
 		"4":
+			player_2.remove_invincible()
 			barrier_collision_3.set_deferred("disabled", false)
 			activate()
 
 		"5":
+			GameData.set_health(GameData.health - 1)
 			barrier_collision_4.set_deferred("disabled", false)
-			GameData.add_speed_potion(1)
+			GameData.add_hp_potion(1)
 			activate()
 
 		"6":
@@ -150,15 +154,17 @@ func _on_body_entered(body: Node2D) -> void:
 			activate()
 
 		"7":
+			player_2.invincible_forever = true
+			player_2.make_invincible()
 			barrier_collision_5.set_deferred("disabled", false)
 			activate()
 
 		"8":
-			# Penutup tutorial → buka barrier terakhir
+			player_2.remove_invincible()
+			PuzzleManager.reset_puzzle()
 			barrier.set_deferred("disabled", false)
 			barrier_22.set_deferred("disabled", false)
 			activate()
-
 
 func _on_body_exited(body: Node2D) -> void:
 	await get_tree().create_timer(3).timeout

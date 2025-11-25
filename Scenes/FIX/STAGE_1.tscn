@@ -4848,7 +4848,7 @@ position = Vector2(-152, 237)
 torch_id = "Torch_43"
 
 [node name="Obor31" parent="SceneObor" instance=ExtResource("10_xb33v")]
-position = Vector2(-321, 76)
+position = Vector2(-301, 8)
 torch_id = "Torch_44"
 
 [node name="Obor32" parent="SceneObor" instance=ExtResource("10_xb33v")]
@@ -4856,27 +4856,22 @@ position = Vector2(-179, 0)
 torch_id = "Torch_45"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
 position = Vector2(389.99997, -692.00006)
-
-[node name="SilverChest" parent="Chest" instance=ExtResource("11_jcn7v")]
-position = Vector2(-735, 705.00006)
-puzzle_section = 2
-
-[node name="SilverChest2" parent="Chest" instance=ExtResource("11_jcn7v")]
-position = Vector2(-475, 696.00006)
-puzzle_section = 1
 
 [node name="SilverChest3" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(-630, 945.00006)
 
 [node name="silverchest3" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(1228, 115.00006)
+puzzle_section = 2
 
 [node name="silverchest" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(1, 3.000061)
+puzzle_section = 1
 
 [node name="silverchest2" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(431.99994, 736.00006)
@@ -4921,6 +4916,7 @@ position = Vector2(-291, 40)
 patrol_speed = 0.0
 chase_speed = 0.0
 wander_range = 0.0
+enemy_id = "SceneA_Goblin_10 "
 min_coin = 0
 max_coin = 0
 skyes = 0
@@ -4930,7 +4926,7 @@ position = Vector2(74, 174)
 patrol_speed = 0.0
 chase_speed = 0.0
 wander_range = 0.0
-max_health = 1
+enemy_id = "SceneA_Goblin_11"
 min_coin = 0
 max_coin = 0
 skyes = 0
@@ -5044,29 +5040,29 @@ shape = SubResource("RectangleShape2D_3x7lv")
 [node name="TutorialStep" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(-83, 100)
 step_id = "1"
-instruction_text = "Light the torch to start"
+instruction_text = "Light the torch to  start"
 
 [node name="TutorialStep2" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(-122, 77)
 step_id = "2"
-instruction_text = "Kill the goblin"
+instruction_text = "Approach and kill the goblin"
 
 [node name="TutorialStep3" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(-292, 163)
 rotation = 1.5707964
 step_id = "3"
-instruction_text = "open map "
+instruction_text = "Press M to open Map  "
 
 [node name="TutorialStep4" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(-313, 261)
 rotation = 1.5707964
 step_id = "4"
-instruction_text = "open silver chest \\n try gold chest if you want"
+instruction_text = "open silver chest and  try gold chest if you want"
 
 [node name="TutorialStep5" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(-86, 308)
 step_id = "5"
-instruction_text = "press 1 or two or 3 to use potion"
+instruction_text = "press 1 or 2 or 3 to use potion"
 
 [node name="TutorialStep6" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(78, 238)
@@ -5077,7 +5073,7 @@ instruction_text = "kill goblin boss"
 [node name="TutorialStep7" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(64, 311)
 step_id = "6"
-instruction_text = "find strange object"
+instruction_text = "sometimes something strange appear, for example this burning torch"
 
 [node name="TutorialStep8" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(78, 86)
