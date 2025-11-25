@@ -49,7 +49,6 @@ func show_popup(message: String = ""):
 
 func _on_confirm_pressed():
 	confirmed.emit()
-	hide_popup()
 
 func _on_cancel_pressed():
 	cancelled.emit()
