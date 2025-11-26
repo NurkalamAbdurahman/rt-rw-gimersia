@@ -50,6 +50,16 @@ var is_flashing := false
 func _ready() -> void:
 	add_to_group("Player")
 	_connect_signals()
+	
+	# ✅ LOAD PERSISTENT BUFFS DARI GAMEDATA
+	strength_buff_active = GameData.persistent_strength_buff_active
+	strength_buff_time = GameData.persistent_strength_buff_time
+	speed_buff_active = GameData.persistent_speed_buff_active  
+	speed_buff_time = GameData.persistent_speed_buff_time
+	
+	update_buff_visuals()
+	if strength_buff_active or speed_buff_active:
+		print("🎯 Persistent buffs loaded! Strength:", strength_buff_time, "s Speed:", speed_buff_time, "s")
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
@@ -80,7 +90,6 @@ func _update_invincibility(delta: float) -> void:
 	if invincible_timer <= 0:
 		remove_invincible()
 
-
 func apply_strength_potion() -> bool:
 	if not GameData.use_strength_potion():
 		return false
@@ -91,7 +100,7 @@ func apply_strength_potion() -> bool:
 		strength_buff_active = true
 		strength_buff_time = strength_buff_duration
 	
-	_update_buff_visuals()
+	update_buff_visuals()  # ✅ STANDARDIZED NAME
 	print("💪 Strength buff applied! Time:", strength_buff_time)
 	return true
 
@@ -105,7 +114,7 @@ func apply_speed_potion() -> bool:
 		speed_buff_active = true
 		speed_buff_time = speed_buff_duration
 	
-	_update_buff_visuals()
+	update_buff_visuals()  # ✅ STANDARDIZED NAME
 	print("⚡ Speed buff applied! Time:", speed_buff_time)
 	return true
 
@@ -171,6 +180,12 @@ func _update_buffs(delta: float) -> void:
 	_update_buff_timer(delta, "strength")
 	_update_buff_timer(delta, "speed")
 	
+	# ✅ SAVE PERSISTENT BUFFS KE GAMEDATA
+	GameData.persistent_strength_buff_active = strength_buff_active
+	GameData.persistent_strength_buff_time = strength_buff_time
+	GameData.persistent_speed_buff_active = speed_buff_active
+	GameData.persistent_speed_buff_time = speed_buff_time
+	
 	if is_blinking:
 		blink_timer += delta
 		if blink_timer >= BLINK_INTERVAL:
@@ -204,10 +219,11 @@ func _deactivate_buff(buff_type: String) -> void:
 		speed_buff_time = 0.0
 	
 	is_blinking = false
-	_update_buff_visuals()
+	update_buff_visuals()  # ✅ STANDARDIZED NAME
 	print("❌ %s buff expired!" % buff_type.capitalize())
 
-func _update_buff_visuals() -> void:
+# ✅ FUNCTION YANG BENAR - STANDARD NAME
+func update_buff_visuals() -> void:
 	if is_flashing:
 		return
 		
@@ -225,7 +241,7 @@ func _toggle_blink() -> void:
 		return
 		
 	if player.modulate == Color.WHITE:
-		_update_buff_visuals()
+		update_buff_visuals()  # ✅ STANDARDIZED NAME
 	else:
 		player.modulate = Color.WHITE
 
@@ -408,5 +424,5 @@ func remove_invincible() -> void:
 	is_invincible = false
 	invincible_timer = 0.0
 	is_blinking = false
-	_update_buff_visuals()
+	update_buff_visuals()  # ✅ STANDARDIZED NAME
 	print("🛑 Invincibility removed")

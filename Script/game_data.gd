@@ -8,7 +8,7 @@ var max_health: int = 10
 var coins: int = 0
 var silver_keys: int = 3
 var golden_keys: int = 0
-var skull_keys: int = 0
+var skull_keys: int = 1
 var pity: int = 0
 var max_pity: int = 3
 var hp_potion: int = 1
@@ -32,6 +32,10 @@ var maze_stage_1 = false
 var maze_stage_2 = false
 var maze_stage_3 = false
 var silver_key_drop_count: int = 0
+var persistent_strength_buff_active: bool = false
+var persistent_strength_buff_time: float = 0.0
+var persistent_speed_buff_active: bool = false
+var persistent_speed_buff_time: float = 0.0
 
 signal drawing_cleared
 
@@ -190,6 +194,10 @@ func reset():
 	maze_stage_2 = false
 	maze_stage_3 = false
 	silver_key_drop_count
+	persistent_strength_buff_active = false
+	persistent_strength_buff_time = 0.0
+	persistent_speed_buff_active = false    
+	persistent_speed_buff_time = 0.0
 
 func clear_torch():
 	torch_states = {}
