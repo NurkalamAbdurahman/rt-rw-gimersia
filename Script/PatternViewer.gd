@@ -40,7 +40,7 @@ func _ready():
 # ============================================================
 func show_pattern_section():
 	title_label.text = "PUZZLE PATTERN - PART %d/3" % (section_index + 1)
-	instructions_label.text = "Memorize this section!\nColumns %d-%d" % [
+	instructions_label.text = "You found a piece of code!\nColumns %d-%d" % [
 		(section_index * 3) + 1,
 		(section_index * 3) + 3
 	]
@@ -64,7 +64,7 @@ func show_pattern_section():
 # ============================================================
 func show_full_pattern():
 	title_label.text = "FULL PUZZLE PATTERN"
-	instructions_label.text = "Memorize the entire puzzle!"
+	instructions_label.text = "You found the entire code!"
 
 	# Bersihkan
 	for child in pattern_grid.get_children():

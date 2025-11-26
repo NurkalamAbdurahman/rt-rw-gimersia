@@ -1707,6 +1707,8 @@ script = ExtResource("1_5ay7u")
 qte_speed = 350
 hb_size = 25
 max_health = 5
+min_coin = 5
+max_coin = 10
 level = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

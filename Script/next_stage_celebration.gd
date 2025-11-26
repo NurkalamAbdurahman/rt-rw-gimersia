@@ -47,12 +47,12 @@ func show_celebration():
 	margin_tween.tween_property(margin_container, "modulate:a", 1.0, ANIMATION_DURATION * 0.3)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	
+	audio_stream_player_2d.max_distance = 9999
+	audio_stream_player_2d.play()
 	# Tunggu sampai animasi margin_container selesai
 	await margin_tween.finished
 	
 	# Tampilkan label dan mainkan SFX
-	audio_stream_player_2d.max_distance = 9999
-	audio_stream_player_2d.play()
 	
 	# Tunggu 3 detik lalu sembunyikan
 	await get_tree().create_timer(3.0).timeout

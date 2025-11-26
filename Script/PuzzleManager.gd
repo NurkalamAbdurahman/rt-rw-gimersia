@@ -39,6 +39,8 @@ func reveal_all():
 	for i in range(3):
 		reveal_section(i)
 
+func reset_solved_chest():
+	solved_chests = {}
 
 func reset_puzzle():
 	generate_puzzle()

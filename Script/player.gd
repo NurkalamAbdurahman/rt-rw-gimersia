@@ -368,6 +368,8 @@ func _die() -> void:
 	is_dead = true
 	is_locked = true
 	velocity = Vector2.ZERO
+	PuzzleManager.reset_puzzle()
+	PuzzleManager.reset_solved_chest()
 	
 	if sfx_death:
 		sfx_death.play()

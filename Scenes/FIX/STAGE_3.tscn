@@ -1026,7 +1026,6 @@ tile_map_data = PackedByteArray("AADeAnwCAAAAAAAAAADeAn0CAAAAAAAAAADeAn4CAAAAAAA
 tile_set = SubResource("TileSet_tfjkt")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 z_index = 6
 z_as_relative = false
 color = Color(0.029506557, 0.029506557, 0.029506557, 1)
@@ -1155,11 +1154,13 @@ position = Vector2(1958, 368)
 [node name="Goblin2" parent="." instance=ExtResource("12_jkifs")]
 position = Vector2(639, 1229)
 hb_size = 35.0
+enemy_id = "SceneA_Goblin_2"
 
 [node name="Goblin3" parent="." instance=ExtResource("12_jkifs")]
 position = Vector2(862, 362)
 hb_size = 35.0
 enemy_id = "SceneA_Goblin_3"
+skyes = 0
 
 [node name="Goblin4" parent="." instance=ExtResource("11_w3a7i")]
 position = Vector2(1953, 984)

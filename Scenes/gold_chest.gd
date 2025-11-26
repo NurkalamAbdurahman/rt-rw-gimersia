@@ -40,7 +40,7 @@ func _process(_delta):
 			if puzzle_completed:
 				# Check if has key
 				if GameData.golden_keys > 0:
-					GameData.golden_keys -= 1
+					GameData.golden_keys -= skyes
 					buka_chest()
 				else:
 					sfx_chest_locked.play()
@@ -101,7 +101,7 @@ func _on_puzzle_solved():
 	
 	# Check if player has golden key
 	if GameData.golden_keys > 0:
-		GameData.golden_keys -= 1
+		GameData.golden_keys -= skyes
 		buka_chest()
 	else:
 		# Puzzle solved but no key
