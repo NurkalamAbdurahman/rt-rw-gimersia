@@ -99,7 +99,7 @@ func _add_log_entry(item_type: String, amount: int) -> void:
 	label.text = ("%+d" % amount)
 	var settings = LabelSettings.new()
 	settings.font = load("res://Assets/Font/Pixels.ttf") 
-	settings.font_size = 32
+	settings.font_size = 48
 	settings.shadow_size = 0 
 	settings.shadow_color = Color.BLACK
 	settings.shadow_offset = Vector2(2, 2)

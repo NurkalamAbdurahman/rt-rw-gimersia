@@ -127,11 +127,13 @@ anchor_bottom = 1.0
 offset_top = -40.0
 offset_right = 40.0
 grow_vertical = 0
+scale = Vector2(1.15, 1.15)
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_bottom = 30
 
 [node name="Log" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 anchors_preset = 1
