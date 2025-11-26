@@ -7,14 +7,27 @@ const CELL_SIZE := 36
 const SECTION_ROWS := 9
 const SECTION_COLS := 3
 
-@onready var title_label: Label = $Panel/VBoxContainer/TitleLabel
-@onready var instructions_label: Label = $Panel/VBoxContainer/InstructionsLabel
+const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
+const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
+const PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
+const NORMAL_MODULATE: Color = Color(0.7, 0.7, 0.7)
+const HOVER_MODULATE: Color = Color(1.0, 0.84, 0.0)  # Gold color
+const ANIMATION_DURATION: float = 0.15
+
+@onready var title_label: Label = $Panel/VBoxContainer/VBoxContainer/TitleLabel
+@onready var instructions_label: Label = $Panel/VBoxContainer/VBoxContainer/InstructionsLabel
 @onready var pattern_grid: GridContainer = $Panel/VBoxContainer/PatternGrid
 @onready var close_button: Button = $Panel/VBoxContainer/CloseButton
 
 func _ready():
 	show_pattern_section()
-	close_button.connect("pressed", Callable(self, "_on_close"))
+	
+	# Setup close button
+	close_button.modulate = HOVER_MODULATE
+	close_button.scale = HOVER_SCALE
+	
+	# HAPUS: Koneksi signal pressed (mouse click)
+	# close_button.pressed.connect(_on_close_button_pressed)
 
 func show_pattern_section():
 	title_label.text = "PUZZLE PATTERN - PART %d/3" % (section_index + 1)
@@ -45,6 +58,25 @@ func show_pattern_section():
 			cell_panel.add_theme_stylebox_override("panel", style)
 			pattern_grid.add_child(cell_panel)
 
-func _on_close():
-	emit_signal("viewer_closed")
+func _on_close_button_pressed():
+	_animate_button_press(close_button)
+	await get_tree().create_timer(ANIMATION_DURATION).timeout
+	viewer_closed.emit()
 	queue_free()
+
+func _animate_button_press(btn: Button):
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(btn, "scale", PRESS_SCALE, ANIMATION_DURATION * 0.5)
+	tween.tween_property(btn, "modulate", HOVER_MODULATE, ANIMATION_DURATION * 0.5)
+	
+	tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION * 0.5)
+	tween.tween_property(btn, "modulate", HOVER_MODULATE, ANIMATION_DURATION * 0.5)
+
+# Handle keyboard input
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		_on_close_button_pressed()
+		get_viewport().set_input_as_handled()

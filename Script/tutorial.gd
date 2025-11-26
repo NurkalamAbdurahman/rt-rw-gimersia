@@ -4,6 +4,8 @@ signal step_completed(step_id)
 
 @export var step_id: String = ""
 @export var instruction_text: String = ""
+@export var typing_speed: float = 0.05  # Kecepatan mengetik per karakter
+
 @onready var player_2: CharacterBody2D = $"../Player2"
 @onready var detection_area: CollisionShape2D = $DetectionArea
 @onready var label: Label = $CanvasLayer/Label
@@ -28,12 +30,13 @@ signal step_completed(step_id)
 @onready var sfx_finish: AudioStreamPlayer2D = $SFX_Finish
 
 var is_active := false
-
+var is_typing := false
+var typing_tween: Tween
 
 func _ready():
 	detection_area.set_deferred("disabled", is_disable)
 	label.visible = false
-	label.text = instruction_text
+	label.text = ""
 
 	# Connect semua seperti aslinya
 	obor_26.connect("torch_lit", Callable(self, "_on_torch_lit"))
@@ -49,12 +52,40 @@ func _ready():
 	if step_id == "8":
 		detection_area.set_deferred("disabled", true)
 
-
 func _process(delta: float) -> void:
 	# Step 3: buka map → area aktif
 	if TutorialManager.current_step_index == 3 and step_id == "3":
 		detection_area.set_deferred("disabled", false)
 
+# ===============================
+# TYPING ANIMATION
+# ===============================
+
+func start_typing_animation(text: String):
+	if is_typing:
+		stop_typing_animation()
+	
+	is_typing = true
+	label.visible = true
+	label.text = ""
+	
+	# Gunakan tween untuk animasi mengetik
+	typing_tween = create_tween()
+	
+	for i in range(text.length() + 1):
+		typing_tween.tween_callback(func(): 
+			if is_typing:
+				label.text = text.substr(0, i)
+		)
+		typing_tween.tween_interval(typing_speed)
+	
+	typing_tween.tween_callback(func(): is_typing = false)
+
+func stop_typing_animation():
+	if typing_tween:
+		typing_tween.kill()
+		typing_tween = null
+	is_typing = false
 
 # ===============================
 # EVENT HANDLERS (DIPROTEKSI)
@@ -66,19 +97,16 @@ func _on_torch_lit():
 	if is_active:
 		complete_step()
 
-
 func _on_goblin_die():
 	if step_id != "2": return
 	barrier_collision.set_deferred("disabled", true)
 	if is_active:
 		complete_step()
 
-
 func _on_battle():
 	if step_id != "2": return
 	barrier_collision.set_deferred("disabled", false)
 	barrier_collision_2.set_deferred("disabled", false)
-
 
 func _on_map_opened():
 	if step_id != "3": return
@@ -86,20 +114,17 @@ func _on_map_opened():
 	if is_active:
 		complete_step()
 
-
 func _on_chest_opened():
 	if step_id != "4": return
 	barrier_collision_4.set_deferred("disabled", true)
 	if is_active:
 		complete_step()
 
-
 func _on_use_potion():
 	if step_id != "5": return
 	barrier_collision_6.set_deferred("disabled", true)
 	if is_active:
 		complete_step()
-
 
 func _on_body_player_entered():
 	# Ini step 6
@@ -108,7 +133,6 @@ func _on_body_player_entered():
 	if is_active:
 		complete_step()
 
-
 # BOSS GOBLIN (STEP 7)
 func _on_goblin_boss_die():
 	if step_id == "8": detection_area.set_deferred("disabled", false)
@@ -116,7 +140,6 @@ func _on_goblin_boss_die():
 	if is_active:
 		sfx_finish.play()
 		complete_step()
-
 
 # ===============================
 # AREA ENTER (AKTIVASI STEP)
@@ -170,8 +193,8 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	await get_tree().create_timer(3).timeout
+	stop_typing_animation()
 	label.visible = false
-
 
 # ===============================
 # CORE FUNCTIONS
@@ -179,14 +202,14 @@ func _on_body_exited(body: Node2D) -> void:
 
 func activate():
 	is_active = true
-	label.visible = true
-
+	start_typing_animation(instruction_text)
 
 func complete_step():
 	if not is_active:
 		return
 
 	is_active = false
+	stop_typing_animation()
 	label.visible = false
 	sfx.play()
 	emit_signal("step_completed", step_id)

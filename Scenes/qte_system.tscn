@@ -7,15 +7,15 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ebsip"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ebsip"]
-font = ExtResource("3_ebsip")
-font_size = 32
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(2, 2)
-
 [sub_resource type="LabelSettings" id="LabelSettings_3t6yg"]
 font = ExtResource("3_ebsip")
 font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l8svy"]
+font = ExtResource("3_ebsip")
+font_size = 32
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 2)
 
@@ -28,10 +28,10 @@ anchor_left = 0.47924867
 anchor_top = 0.4631088
 anchor_right = 0.47924867
 anchor_bottom = 0.46521685
-offset_left = 344.0
-offset_top = 189.90903
-offset_right = 538.2168
-offset_bottom = 263.90906
+offset_left = 392.0
+offset_top = 168.90903
+offset_right = 586.2168
+offset_bottom = 242.90906
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.5707964
@@ -64,31 +64,16 @@ offset_right = 109.00354
 offset_bottom = 69.0
 color = Color(0, 0.75686276, 0.3764706, 0.75686276)
 
-[node name="InstructionLabel" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -151.0
-offset_top = -191.0
-offset_right = 157.0
-offset_bottom = -134.0
-grow_horizontal = 2
-grow_vertical = 2
-label_settings = SubResource("LabelSettings_ebsip")
-metadata/_edit_group_ = true
-
 [node name="QteBgm" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_3t6yg")
 parameters/looping = true
 
 [node name="TimerLabel" type="Label" parent="."]
 z_index = 1
-offset_left = 976.0
-offset_top = 467.0
-offset_right = 1108.0
-offset_bottom = 514.0
+offset_left = 1024.0
+offset_top = 446.0
+offset_right = 1156.0
+offset_bottom = 493.0
 scale = Vector2(0.5, 0.5)
 text = "59"
 label_settings = SubResource("LabelSettings_3t6yg")
@@ -107,3 +92,15 @@ offset_bottom = 23.5
 grow_horizontal = 2
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_3t6yg")
+
+[node name="InstructionLabel" type="Label" parent="."]
+z_index = 1
+texture_filter = 1
+offset_left = 688.0
+offset_top = 105.0
+offset_right = 992.0
+offset_bottom = 129.0
+size_flags_horizontal = 0
+label_settings = SubResource("LabelSettings_l8svy")
+horizontal_alignment = 2
+vertical_alignment = 1

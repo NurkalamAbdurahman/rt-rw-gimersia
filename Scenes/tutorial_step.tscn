@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://ldileuwixmb"]
+[gd_scene load_steps=7 format=3 uid="uid://ldileuwixmb"]
 
 [ext_resource type="Script" uid="uid://xalmjuvn16mo" path="res://Script/tutorial.gd" id="1_mwj54"]
 [ext_resource type="AudioStream" uid="uid://6tljypbwr03x" path="res://Assets/Audio/winning-218995.ogg" id="2_cb112"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_ldfwc"]
 [ext_resource type="AudioStream" uid="uid://bubyhghwoym15" path="res://Assets/Audio/tutorial-done-1.mp3" id="2_mwj54"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_x7ro2"]
+font = ExtResource("2_ldfwc")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwj54"]
 size = Vector2(20, 92)
@@ -13,14 +20,23 @@ script = ExtResource("1_mwj54")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-anchors_preset = 5
+z_index = 1
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -14.0
-offset_top = 188.0
-offset_right = 26.0
-offset_bottom = 211.0
+anchor_bottom = 0.5
+offset_left = -322.0
+offset_top = -158.5
+offset_right = 322.0
+offset_bottom = -111.5
 grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "light the torch to start"
+label_settings = SubResource("LabelSettings_x7ro2")
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="DetectionArea" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mwj54")

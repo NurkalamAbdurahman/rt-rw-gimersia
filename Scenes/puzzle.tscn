@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://lnh3p2syp1i8"]
+[gd_scene load_steps=4 format=3 uid="uid://lnh3p2syp1i8"]
 
 [ext_resource type="Script" uid="uid://54xpxia7bwwg" path="res://Script/puzzle.gd" id="1_go0o5"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_vpo61"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70s6q"]
+bg_color = Color(0.19215687, 0.101960786, 0.06666667, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8509804, 0.6509804, 0.28235295, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
 
 [node name="Puzzle" type="Control"]
 layout_mode = 3
@@ -13,31 +29,35 @@ script = ExtResource("1_go0o5")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -103.0
+offset_top = -78.5
+offset_right = 103.0
+offset_bottom = 78.5
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
-metadata/_edit_use_anchors_ = true
 
 [node name="VBox" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
 
 [node name="TimerLabel" type="Label" parent="Panel/MarginContainer/VBox"]
 layout_mode = 2
@@ -53,15 +73,27 @@ layout_mode = 2
 
 [node name="HBox" type="HBoxContainer" parent="Panel/MarginContainer/VBox"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
 
 [node name="SubmitButton" type="Button" parent="Panel/MarginContainer/VBox/HBox"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_vpo61")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_70s6q")
 text = "submit"
 
 [node name="ResetButton" type="Button" parent="Panel/MarginContainer/VBox/HBox"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_vpo61")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_70s6q")
 text = "reset"
 
 [node name="CloseButton" type="Button" parent="Panel/MarginContainer/VBox/HBox"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_vpo61")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_70s6q")
 text = "close"

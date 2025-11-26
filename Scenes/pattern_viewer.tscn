@@ -1,6 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://s1oom67juc28"]
+[gd_scene load_steps=9 format=3 uid="uid://bs7e27bu31p5t"]
 
 [ext_resource type="Script" uid="uid://dhllaq24c1q3r" path="res://Script/PatternViewer.gd" id="1_ihc23"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_7h53j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uoya6"]
+font = ExtResource("2_7h53j")
+font_size = 32
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nj7mg"]
+bg_color = Color(0.19215687, 0.101960786, 0.06666667, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8509804, 0.6509804, 0.28235295, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c2k8q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x76mk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_45n8y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_43a3k"]
 
 [node name="PatternViewer" type="CanvasLayer"]
 process_mode = 3
@@ -26,12 +56,24 @@ offset_right = 24.0
 offset_bottom = 44.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 20
 
-[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 
-[node name="InstructionsLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer/VBoxContainer"]
+z_index = 1
+texture_filter = 1
 layout_mode = 2
+size_flags_horizontal = 0
+label_settings = SubResource("LabelSettings_uoya6")
+
+[node name="InstructionsLabel" type="Label" parent="Panel/VBoxContainer/VBoxContainer"]
+z_index = 1
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+label_settings = SubResource("LabelSettings_uoya6")
 
 [node name="PatternGrid" type="GridContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -43,4 +85,11 @@ layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
-text = "CLOSE"
+theme_override_fonts/font = ExtResource("2_7h53j")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_nj7mg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_c2k8q")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_x76mk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_45n8y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_43a3k")
+text = "close"

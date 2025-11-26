@@ -29,7 +29,7 @@ func _ready():
 	label.visible = false
 	sfx_chest_open.stop()
 
-func _process(delta):
+func _process(_delta):
 	if player_in_area and not chest_opened:
 		
 		# Jika puzzle belum selesai → buka puzzle
@@ -42,15 +42,14 @@ func _process(delta):
 				GameData.golden_keys -= 1
 				buka_chest()
 			else:
+				sfx_chest_locked.play()
 				label.text = "You need a Golden Key to open this chest"
 				label.visible = true
-
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not chest_opened:
 		player_in_area = true
-		var revealed = PuzzleManager.get_revealed_count()
-		label.text = "[E] Solve Puzzle (%d/3 hints)" % revealed
+		label.text = "[E] Solve"
 		label.visible = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
@@ -60,29 +59,24 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func open_puzzle():
 	print("=== OPENING GOLD CHEST PUZZLE ===")
-
 	puzzle_active = true
 	label.visible = false
-
 	get_tree().paused = true
 	GameData.is_popup_open = true
-	# 🎯 LOAD SCENE, BUKAN SCRIPT
+	
+	# Load puzzle scene
 	var PuzzleScene = load("res://Scenes/gold_chest_puzzle.tscn")
 	var puzzle = PuzzleScene.instantiate()
-
-	# Tambah ke root / ke canvas UI
 	get_tree().root.add_child(puzzle)
-
-	# Connect signals (asumsi GoldChestPuzzle.gd punya signal ini)
+	
+	# Connect signals
 	puzzle.puzzle_solved.connect(_on_puzzle_solved)
 	puzzle.puzzle_failed.connect(_on_puzzle_failed)
-
 	print("=== PUZZLE ADDED TO TREE ===")
 
 func _on_puzzle_solved():
 	get_tree().paused = false
 	puzzle_active = false
-	
 	puzzle_completed = true
 	
 	# Cek apakah player punya golden key
@@ -92,17 +86,16 @@ func _on_puzzle_solved():
 		buka_chest()
 	else:
 		# Kalau puzzle berhasil tapi belum punya key
+		sfx_chest_locked.play()
 		label.text = "You solved the puzzle!\nBut you need a Golden Key"
 		label.visible = true
-
 
 func _on_puzzle_failed():
 	get_tree().paused = false
 	puzzle_active = false
 	
 	if player_in_area and not chest_opened:
-		var revealed = PuzzleManager.get_revealed_count()
-		label.text = "[E] Solve Puzzle (%d/3 hints)" % revealed
+		label.text = "[E] Solve"
 		label.visible = true
 
 func buka_chest():
@@ -122,7 +115,7 @@ func buka_chest():
 	
 	# Reward lebih besar untuk golden chest
 	var reward = randi_range(15, 25)
-	var skull_keys = randi_range(1, 1)
+	var skull_keys = 1
 	
 	GameData.add_coin(reward)
 	GameData.add_skull_key(skull_keys)
@@ -138,7 +131,7 @@ func buka_chest():
 	var message = "You gained %s coins!" % reward
 	message += "\nYou received %s Skull Keys!" % skull_keys
 	
-	hud.text = ""
+	hud.text = message
 	hud.visible = true
 	hud.modulate.a = 1.0
 	

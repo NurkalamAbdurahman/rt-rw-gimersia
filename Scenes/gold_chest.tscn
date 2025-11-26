@@ -109,12 +109,12 @@ volume_db = 11.0
 
 [node name="Label" type="Label" parent="."]
 z_index = 1
-offset_left = -9.0
+offset_left = -10.0
 offset_top = -19.0
-offset_right = 119.0
+offset_right = 126.0
 offset_bottom = 28.0
 scale = Vector2(0.15, 0.15)
-text = "[E] Open"
+text = "[E] Solve"
 label_settings = SubResource("LabelSettings_dhmrq")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
