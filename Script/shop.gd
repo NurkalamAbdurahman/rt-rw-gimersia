@@ -69,7 +69,7 @@ func _show_shop() -> void:
 	container_tween.set_parallel(true)
 	
 	# Animasi posisi - turun dari atas
-	container_tween.tween_property(container, "position:y", original_container_position.y, 0.8)\
+	container_tween.tween_property(container, "position:y", original_container_position.y, 0.5)\
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
 	# Animasi fade in
