@@ -157,8 +157,8 @@ func buka_chest():
 	terbuka.visible = true
 	
 	# Show reward message
-	var message = "You gained %s coins!" % reward
-	message += "\nYou received %s Skull Keys!" % skull_keys
+	var message = ""
+	message += ""
 	
 	hud.text = message
 	hud.visible = true
