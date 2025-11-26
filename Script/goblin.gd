@@ -8,7 +8,7 @@ extends CharacterBody2D
 @onready var sfx_walk: AudioStreamPlayer2D = $SFX_Walk
 @onready var hud: Label = $"../Hud/Label"
 @onready var sfx_hurt: AudioStreamPlayer2D = $SFX_Hurt
-@onready var qte_system: CanvasLayer = $"../QTE_System"
+@onready var qte_system: CanvasLayer = get_node_or_null("/root/Game/QTE_System")  # Adjust path to your scene structure
 @onready var qte_bgm: AudioStreamPlayer = $QteBgm
 @onready var player_2: AudioStreamPlayer2D = $"../Player2/BGM"
 
@@ -16,67 +16,63 @@ extends CharacterBody2D
 var is_qte_active = false
 var qte_target_player = null
 var qte_engagement_count = 0
-var max_qte_engagements = 3  # Number of QTEs before cooldown
+var max_qte_engagements = 3
 var qte_cooldown_timer = 0.0
-var qte_cooldown_duration = 1.0  # Seconds between QTE sequences
-# Add this with your other QTE variables
-# Add with other QTE variables
+var qte_cooldown_duration = 1.0
 var qte_start_position = Vector2.ZERO
 var is_position_locked = false
-
-@export var max_silver_keys_dropped = 3
-@export var qte_speed = 300
-@export var hb_size :float = 35
-# Add with other QTE variables
+var qte_windup_timer = 0.0
+var qte_windup_duration = 0.8
 var qte_attack_playing = false
 var qte_attack_timer = 0.0
-var qte_attack_duration = 0.6  # Duration of attack animation
-# Raycasts for wall detection
-var wall_raycast: RayCast2D
-var left_raycast: RayCast2D
-var right_raycast: RayCast2D
-signal goblin_die
-signal battle
-# Speed settings
+var qte_attack_duration = 0.6
+
+# Export variables
+@export var max_silver_keys_dropped = 3
+@export var qte_speed = 300
+@export var hb_size: float = 35
 @export var patrol_speed = 30.0
 @export var chase_speed = 80.0
-
-# Area settings
 @export var wander_range = 200.0
 @export var detection_radius = 150.0
-@export var qte_trigger_range = 60.0  # Range to trigger QTE
-
-# AI settings
+@export var qte_trigger_range = 60.0
 @export var wall_check_distance = 30.0
 @export var stuck_threshold = 5.0
-
 @export var enemy_id: String = "SceneA_Goblin_1"
 @export var max_health = 3
 @export var min_coin = 1
 @export var max_coin = 5
 @export var level = 1
-@export var qte_damage = 1  # Damage per successful QTE
-
-var is_dead = false
+@export var qte_damage = 1
 @export var skyes = 1
+
+# State variables
+var is_dead = false
 var is_invulnerable = false
+var current_health: int
 
-# State machine - REMOVED ATTACK STATE
-# Add to existing QTE variables
-var qte_windup_timer = 0.0
-var qte_windup_duration = 0.8  # Time to face each other before QTE starts
+# Raycasts
+var wall_raycast: RayCast2D
+var left_raycast: RayCast2D
+var right_raycast: RayCast2D
 
-# Add this new state
+# Signals
+signal goblin_die
+signal battle
+
+# State machine
 enum State { IDLE, PATROL, CHASE, HURT, QTE_ENGAGE, QTE_WINDUP }
 var current_state = State.IDLE
 var last_direction = Vector2.DOWN
 
-# Timers - REMOVED ATTACK COOLDOWN
+# Timers
 var idle_timer = 0.0
 var patrol_timer = 0.0
 var stuck_timer = 0.0
 var hurt_timer = 0.0
 var invulnerability_timer = 0.0
+var interlude_timer = 0.0
+var interlude_duration = 0.5
 
 # Targets
 var target_position = Vector2.ZERO
@@ -84,21 +80,52 @@ var player = null
 var patrol_center = Vector2.ZERO
 var last_position = Vector2.ZERO
 
+# Movement smoothing
+var movement_enabled = true
+var physics_enabled = true
+
 func _ready():
 	randomize()
 	add_to_group("Enemies")
 	patrol_center = global_position
 	last_position = global_position
+	current_health = max_health
 	
 	if GameData.is_enemy_killed(enemy_id):
 		print("Enemy ", enemy_id, " already defeated. Removing...")
 		queue_free()
 		return
-		
+	
 	setup_raycasts()
 	setup_areas()
-	
 	call_deferred("setup_player_exception")
+	
+	# Try to find QTE system if not already set
+	if not qte_system:
+		print("⚠️ QTE System not found with @onready, searching...")
+		# Try different paths
+		var possible_paths = [
+			"/root/Game/QTE_System",
+			"../QTE_System",
+			"/root/QTE_System",
+			"../../QTE_System"
+		]
+		
+		for path in possible_paths:
+			qte_system = get_node_or_null(path)
+			if qte_system:
+				print("✅ Found QTE System at:", path)
+				break
+		
+		# Last resort: search for it
+		if not qte_system:
+			var qte_nodes = get_tree().get_nodes_in_group("QTE_System")
+			if qte_nodes.size() > 0:
+				qte_system = qte_nodes[0]
+				print("✅ Found QTE System in group")
+			else:
+				print("❌ QTE System not found anywhere!")
+	
 	change_to_idle()
 
 func setup_player_exception():
@@ -109,7 +136,6 @@ func setup_player_exception():
 			p.add_collision_exception_with(self)
 
 func setup_areas():
-	# Setup detection area
 	if not detection_area:
 		detection_area = Area2D.new()
 		var collision = CollisionShape2D.new()
@@ -122,7 +148,6 @@ func setup_areas():
 	detection_area.body_entered.connect(_on_detection_body_entered)
 	detection_area.body_exited.connect(_on_detection_body_exited)
 	
-	# Setup QTE trigger area (replaces attack area)
 	if not qte_trigger_area:
 		qte_trigger_area = Area2D.new()
 		var collision = CollisionShape2D.new()
@@ -135,11 +160,17 @@ func setup_areas():
 	qte_trigger_area.body_entered.connect(_on_qte_trigger_body_entered)
 
 func _on_qte_trigger_body_entered(body):
-	if body.is_in_group("Player") and not is_dead and not is_qte_active and qte_cooldown_timer <= 0:
-		qte_bgm.play()
-		player_2.stop()
+	print("🎯 QTE Trigger entered by: ", body.name)
+	if body.is_in_group("Player") and not is_dead and not is_qte_active and qte_cooldown_timer <= 0 and movement_enabled:
+		print("✅ QTE conditions met! Starting QTE...")
+		if qte_bgm:
+			qte_bgm.play()
+		if player_2:
+			player_2.stop()
 		player = body
 		engage_qte(player)
+	else:
+		print("❌ QTE blocked - Dead:", is_dead, " Active:", is_qte_active, " Cooldown:", qte_cooldown_timer, " Movement:", movement_enabled)
 
 func setup_raycasts():
 	wall_raycast = RayCast2D.new()
@@ -164,15 +195,20 @@ func setup_raycasts():
 	add_child(right_raycast)
 
 func _physics_process(delta):
-	# 🔥 NEW: Enforce position lock in all QTE states
-	if is_position_locked:
-		enforce_qte_position()
-	
-	update_raycasts()
-	check_if_stuck(delta)
 	update_timers(delta)
 	
-	# State machine - NO KNOCKBACK HANDLING
+	# Enforce position lock during QTE but still process state machine
+	if is_position_locked and qte_start_position != Vector2.ZERO:
+		global_position = qte_start_position
+		velocity = Vector2.ZERO
+		# Don't return early - continue to state machine
+	
+	# Only skip raycasts and stuck checking if not moving
+	if not is_position_locked:
+		update_raycasts()
+		check_if_stuck(delta)
+	
+	# State machine - ALWAYS process this
 	match current_state:
 		State.IDLE:
 			handle_idle(delta)
@@ -188,45 +224,55 @@ func _physics_process(delta):
 			handle_qte_engage(delta)
 
 func update_timers(delta):
+	# Hurt timer
 	if hurt_timer > 0:
 		hurt_timer -= delta
 		if hurt_timer <= 0 and current_state == State.HURT:
 			recover_from_hurt()
 	
+	# Invulnerability timer with proper flashing
 	if invulnerability_timer > 0:
 		invulnerability_timer -= delta
-		animated_sprite.modulate.a = 0.5 if int(invulnerability_timer * 20) % 2 == 0 else 1.0
+		var flash_speed = 10.0  # Reduced from 20 to prevent seizure-inducing flashing
+		animated_sprite.modulate.a = 0.5 if int(invulnerability_timer * flash_speed) % 2 == 0 else 1.0
 		
 		if invulnerability_timer <= 0:
 			is_invulnerable = false
-			animated_sprite.modulate.a = 1.0
+			animated_sprite.modulate = Color(1, 1, 1, 1)
 	
 	# QTE cooldown timer
 	if qte_cooldown_timer > 0:
 		qte_cooldown_timer -= delta
+	
+	# Interlude timer (between QTE engagements)
+	if interlude_timer > 0:
+		interlude_timer -= delta
 
 # ============ QTE SYSTEM ============
 func engage_qte(player_target):
-	if is_dead or is_qte_active or qte_cooldown_timer > 0:
+	if is_dead or is_qte_active or qte_cooldown_timer > 0 or not movement_enabled:
 		return
 	
+	# Configure QTE system
 	qte_system.target_speed = qte_speed
 	qte_system.hitbox_size = hb_size
 	
+	# Lock all movement and position
 	current_state = State.QTE_WINDUP
 	is_qte_active = true
 	is_position_locked = true
+	physics_enabled = false
+	movement_enabled = false
 	qte_target_player = player_target
 	velocity = Vector2.ZERO
 	
-	# Save the enemy's position when QTE starts
+	# Save locked position
 	qte_start_position = global_position
 	
-	# Lock the player and make them face this enemy
+	# Lock the player
 	if player_target.has_method("lock_movement"):
 		player_target.lock_movement(global_position)
 	
-	# 🔥 NEW: Notify player that QTE is starting
 	if player_target.has_method("engage_qte"):
 		player_target.engage_qte()
 	
@@ -234,47 +280,42 @@ func engage_qte(player_target):
 	last_direction = (player_target.global_position - global_position).normalized()
 	
 	play_animation("idle")
-	print("🎯 Enemy facing player before QTE...")
-	
-	# Start windup timer
 	qte_windup_timer = qte_windup_duration
 	emit_signal("battle")
 
-# Add this function to enforce position during QTE
-func enforce_qte_position():
-	if is_qte_active and qte_start_position != Vector2.ZERO:
-		global_position = qte_start_position
-
 func handle_qte_windup(delta):
-	# 🔥 NEW: Keep enemy in position
-	enforce_qte_position()
+	# Keep position absolutely locked
+	if qte_start_position != Vector2.ZERO:
+		global_position = qte_start_position
+	velocity = Vector2.ZERO
 	
-	# Keep facing the player during windup
+	# Keep facing the player
 	if qte_target_player and is_instance_valid(qte_target_player):
 		last_direction = (qte_target_player.global_position - global_position).normalized()
 		
-		# Make player keep facing this enemy
 		if qte_target_player.has_method("update_facing_during_qte"):
 			qte_target_player.update_facing_during_qte(global_position)
 	
-	# Countdown windup timer
+	# Countdown
 	qte_windup_timer -= delta
 	
-	# Optional: Play a special windup animation
-	play_animation("idle")  # Or "prepare_attack" if you have it
+	# Debug output every 0.2 seconds
+	if int(qte_windup_timer * 5) != int((qte_windup_timer + delta) * 5):
+		print("⏱️ QTE Windup timer:", qte_windup_timer, " State:", State.keys()[current_state])
 	
-	# Visual effect: pulsating glow during windup
-	var pulse = sin(qte_windup_timer * 20) * 0.3 + 0.7
-	animated_sprite.modulate = Color(1, pulse, pulse)
+	# Visual feedback with smooth pulsing
+	var pulse = (sin(qte_windup_timer * 8.0) * 0.15) + 0.85
+	animated_sprite.modulate = Color(1, pulse, pulse, 1)
+	
+	play_animation("idle")
 	
 	if qte_windup_timer <= 0:
-		# Reset visual effect
-		animated_sprite.modulate = Color(1, 1, 1)
+		print("✅ Windup complete! Starting QTE sequence...")
+		animated_sprite.modulate = Color(1, 1, 1, 1)
 		start_qte_sequence()
 
 func start_qte_sequence():
 	current_state = State.QTE_ENGAGE
-	print("⚡ QTE sequence starting!")
 	
 	# Start QTE system
 	if qte_system and not qte_system.is_qte_active():
@@ -283,16 +324,14 @@ func start_qte_sequence():
 		qte_system.connect("qte_failed", Callable(self, "_on_enemy_qte_failed"))
 	
 	play_animation("attack" + get_direction_suffix(last_direction))
+
 func _on_enemy_qte_success():
-	# Player succeeded QTE - enemy takes damage
 	print("💥 QTE Success! Enemy takes damage!")
 	
-	# Hitung damage berdasarkan strength buff player
 	var final_damage = calculate_player_damage_to_enemy()
 	print("🎯 Player deals damage: ", final_damage)
-	take_damage(final_damage, qte_target_player.global_position)
+	take_damage(final_damage, qte_target_player.global_position if qte_target_player else global_position)
 	
-	# Check if enemy died from damage
 	if is_dead:
 		end_qte_engagement()
 	else:
@@ -302,9 +341,9 @@ func calculate_player_damage_to_enemy() -> int:
 	if not qte_target_player:
 		return qte_damage
 	
-	var base_damage = 1  # Damage dasar player
+	var base_damage = 1
 	
-	# Cek strength buff dari player
+	# Check for strength buff
 	if qte_target_player.has_method("has_strength_buff") and qte_target_player.has_strength_buff():
 		print("💪 Strength buff active! Player damage doubled")
 		return base_damage * 2
@@ -314,12 +353,9 @@ func calculate_player_damage_to_enemy() -> int:
 	
 	return base_damage
 
-
 func _on_enemy_qte_failed():
-	# Player failed QTE - enemy attacks player
 	print("❌ QTE Failed! Enemy attacks player!")
 	
-	# Set attack state and play attack animation
 	qte_attack_playing = true
 	play_qte_attack_animation()
 	
@@ -327,58 +363,59 @@ func _on_enemy_qte_failed():
 	if qte_target_player and qte_target_player.has_method("take_damage"):
 		qte_target_player.take_damage(qte_damage)
 	
-	# Wait for attack animation to complete before continuing
+	# Wait for attack animation
 	await get_tree().create_timer(qte_attack_duration).timeout
 	
-	# Reset attack state
 	qte_attack_playing = false
-	
-	# Increment engagement count
 	qte_engagement_count += 1
 	
-	# Continue QTE engagements even on failure
 	prepare_next_qte_engagement()
 
 func play_qte_attack_animation():
-	print("💥 Enemy playing attack animation!")
 	play_animation("attack" + get_direction_suffix(last_direction))
 	
-	# Optional: Add visual effects for attack
-	animated_sprite.modulate = Color(1.5, 1.5, 1.5)  # Bright flash
+	# Smooth flash effect
 	var tween = create_tween()
-	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1), 0.2)
+	tween.tween_property(animated_sprite, "modulate", Color(1.5, 1.5, 1.5, 1), 0.1)
+	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), 0.2)
 
 func prepare_next_qte_engagement():
-	# Reset attack state first
 	reset_qte_attack_state()
 	
-	# Check if we should continue QTE engagements
 	if is_dead:
 		end_qte_engagement()
 		return
 	
-	# Check if we've reached max engagements for this sequence
+	# Check engagement limit
 	if qte_engagement_count >= max_qte_engagements:
 		print("⏳ QTE sequence completed, starting cooldown")
 		qte_cooldown_timer = qte_cooldown_duration
 		end_qte_engagement()
 		return
 	
-	# Brief pause before next QTE
-	get_tree().create_timer(0.8).timeout.connect(func():
-		if not is_dead and player and is_instance_valid(player):
-			# Re-engage QTE with same player
-			var current_player = qte_target_player
-			end_qte_engagement()  # Clean up current engagement
-			engage_qte(current_player)  # Start new engagement
-	)
+	# Start interlude period - goblin stays completely still
+	interlude_timer = interlude_duration
+	is_position_locked = true
+	velocity = Vector2.ZERO
+	play_animation("idle")
+	
+	# Wait for interlude to complete
+	await get_tree().create_timer(interlude_duration).timeout
+	
+	if not is_dead and qte_target_player and is_instance_valid(qte_target_player):
+		var current_player = qte_target_player
+		end_qte_engagement()
+		engage_qte(current_player)
 
 func end_qte_engagement():
 	is_qte_active = false
 	is_position_locked = false
+	physics_enabled = true
+	movement_enabled = true
 	qte_windup_timer = 0.0
 	qte_start_position = Vector2.ZERO
-	qte_attack_playing = false  # Reset attack state
+	qte_attack_playing = false
+	interlude_timer = 0.0
 	
 	# Unlock the player
 	if qte_target_player and qte_target_player.has_method("unlock_movement"):
@@ -402,26 +439,24 @@ func end_qte_engagement():
 		change_to_idle()
 
 func handle_qte_engage(delta):
-	# Keep enemy in position
-	enforce_qte_position()
-	
-	# Complete stop during QTE
+	# Absolute position lock
+	if qte_start_position != Vector2.ZERO:
+		global_position = qte_start_position
 	velocity = Vector2.ZERO
 	
-	# Keep facing the player
-	if player and is_instance_valid(player):
-		last_direction = (player.global_position - global_position).normalized()
+	# Keep facing player
+	if qte_target_player and is_instance_valid(qte_target_player):
+		last_direction = (qte_target_player.global_position - global_position).normalized()
 	
-	# Only play attack animation if we're specifically in an attack state
+	# Animation based on state
 	if qte_attack_playing:
 		play_animation("attack" + get_direction_suffix(last_direction))
 	else:
-		# Default to idle or prepare animation during normal QTE
 		play_animation("idle" + get_direction_suffix(last_direction))
 
 func reset_qte_attack_state():
 	qte_attack_playing = false
-	animated_sprite.modulate = Color(1, 1, 1)
+	animated_sprite.modulate = Color(1, 1, 1, 1)
 
 func update_raycasts():
 	if last_direction.length() > 0.1:
@@ -431,9 +466,12 @@ func update_raycasts():
 		right_raycast.target_position = Vector2(wall_check_distance * 0.7, 0).rotated(angle)
 
 func check_if_stuck(delta):
+	if not movement_enabled or is_position_locked:
+		return
+	
 	var distance_moved = global_position.distance_to(last_position)
 	
-	if distance_moved < stuck_threshold:
+	if distance_moved < stuck_threshold * delta:
 		stuck_timer += delta
 		if stuck_timer > 1.0:
 			if current_state == State.PATROL:
@@ -477,14 +515,18 @@ func is_direction_clear(direction: Vector2) -> bool:
 
 # ============ IDLE STATE ============
 func handle_idle(delta):
-	velocity = velocity.lerp(Vector2.ZERO, 10 * delta)
+	if not movement_enabled:
+		velocity = Vector2.ZERO
+		return
+	
+	velocity = velocity.lerp(Vector2.ZERO, 10.0 * delta)
 	idle_timer -= delta
 	play_animation("idle")
-
+	
 	if sfx_walk and sfx_walk.playing:
 		sfx_walk.stop()
 	
-	if player and is_instance_valid(player):
+	if player and is_instance_valid(player) and not is_qte_active:
 		change_to_chase()
 		return
 	
@@ -492,11 +534,18 @@ func handle_idle(delta):
 		change_to_patrol()
 
 func change_to_idle():
+	if is_qte_active:
+		return
 	current_state = State.IDLE
 	idle_timer = randf_range(1.0, 3.0)
+	velocity = Vector2.ZERO
 
 # ============ PATROL STATE ============
 func handle_patrol(delta):
+	if not movement_enabled:
+		velocity = Vector2.ZERO
+		return
+	
 	patrol_timer -= delta
 	
 	if is_wall_ahead():
@@ -511,22 +560,24 @@ func handle_patrol(delta):
 	
 	# Smooth acceleration
 	var target_velocity = direction * patrol_speed
-	velocity = velocity.lerp(target_velocity, 5 * delta)
+	velocity = velocity.lerp(target_velocity, 5.0 * delta)
 	last_direction = direction
 	
 	play_animation("walk")
 	move_and_slide()
-
-	if sfx_walk and not sfx_walk.playing:
+	
+	if sfx_walk and not sfx_walk.playing and not is_dead:
 		sfx_walk.play()
 	
-	if is_dead == true:
+	if is_dead and sfx_walk:
 		sfx_walk.stop()
 	
-	if global_position.distance_to(target_position) < 10 or patrol_timer <= 0:
+	if global_position.distance_to(target_position) < 10.0 or patrol_timer <= 0:
 		change_to_idle()
 
 func change_to_patrol():
+	if is_qte_active:
+		return
 	current_state = State.PATROL
 	pick_patrol_target()
 	patrol_timer = randf_range(2.0, 5.0)
@@ -541,8 +592,9 @@ func pick_patrol_target():
 			randf_range(-wander_range, wander_range)
 		)
 		var potential_target = patrol_center + random_offset
+		var direction_to_target = (potential_target - global_position).normalized()
 		
-		if is_direction_clear((potential_target - global_position).normalized()):
+		if is_direction_clear(direction_to_target):
 			target_position = potential_target
 			valid_target = true
 			break
@@ -553,6 +605,10 @@ func pick_patrol_target():
 
 # ============ CHASE STATE ============
 func handle_chase(delta):
+	if not movement_enabled:
+		velocity = Vector2.ZERO
+		return
+	
 	if not player or not is_instance_valid(player):
 		change_to_idle()
 		return
@@ -564,11 +620,9 @@ func handle_chase(delta):
 		change_to_idle()
 		return
 	
-	# No traditional attack check - QTE is triggered by area instead
-	
 	var direction = (player.global_position - global_position).normalized()
 	
-	# Smart pathfinding around walls
+	# Smart pathfinding
 	if is_wall_ahead():
 		if not left_raycast.is_colliding():
 			direction = direction.rotated(-PI / 4)
@@ -577,50 +631,58 @@ func handle_chase(delta):
 		else:
 			direction = get_clear_direction()
 	
-	# Smooth acceleration for chase
+	# Smooth acceleration
 	var target_velocity = direction * chase_speed
-	velocity = velocity.lerp(target_velocity, 8 * delta)
+	velocity = velocity.lerp(target_velocity, 8.0 * delta)
 	last_direction = direction
 	
 	play_animation("run")
 	move_and_slide()
 
 func change_to_chase():
+	if is_qte_active:
+		return
 	current_state = State.CHASE
 
 # ============ HURT STATE & DAMAGE SYSTEM ============
 func handle_hurt(delta):
-	# Smooth deceleration during hurt state
-	velocity = velocity.lerp(Vector2.ZERO, 8 * delta)
-	move_and_slide()
+	# Smooth deceleration during hurt
+	velocity = velocity.lerp(Vector2.ZERO, 8.0 * delta)
+	
+	if movement_enabled and not is_position_locked:
+		move_and_slide()
 
 func take_damage(amount: int, damage_source_position: Vector2):
-	print("🎯 Enemy taking damage: ", amount, " current health: ", max_health)
+	print("🎯 Enemy taking damage: ", amount, " current health: ", current_health)
 	
 	if is_invulnerable or is_dead:
-		print("🎯 Enemy damage blocked - invulnerable or dead")
+		print("🛡️ Damage blocked - invulnerable or dead")
 		return
-
+	
+	# Prevent multiple damage calls in same frame
+	if hurt_timer > 0:
+		return
+	
 	# Enter hurt state
 	current_state = State.HURT
 	is_invulnerable = true
 	invulnerability_timer = 0.5
 	hurt_timer = 0.3
-
+	
 	sfx_hurt.play()
 	play_animation("hurt")
-	max_health -= amount
+	current_health -= amount
 	
-	print("🎯 Enemy health after damage: ", max_health)
+	print("🎯 Enemy health after damage: ", current_health)
 	
-	if max_health <= 0:
-		print("🎯 Enemy should die now!")
+	if current_health <= 0:
+		print("💀 Enemy should die now!")
 		die()
 
 func recover_from_hurt():
 	if is_dead:
 		return
-		
+	
 	if player and is_instance_valid(player):
 		change_to_chase()
 	else:
@@ -628,17 +690,22 @@ func recover_from_hurt():
 
 # ============ DEATH ============
 func die():
+	if is_dead:
+		return
+	
 	is_dead = true
 	velocity = Vector2.ZERO
 	current_state = State.HURT
+	physics_enabled = false
+	movement_enabled = false
+	
 	qte_bgm.stop()
 	player_2.play()
 	emit_signal("goblin_die")
-
 	
 	sfx_death.play()
-
-	# Disable all interactions immediately
+	
+	# Disable all interactions
 	collision_layer = 0
 	collision_mask = 0
 	wall_raycast.enabled = false
@@ -647,23 +714,21 @@ func die():
 	detection_area.set_deferred("monitoring", false)
 	qte_trigger_area.set_deferred("monitoring", false)
 	
-	# If in QTE, end it immediately
+	# End QTE if active
 	if is_qte_active:
 		end_qte_engagement()
 	
 	GameData.set_enemy_killed(enemy_id)
 	var reward_message = try_drop_item()
 	
-	# Death animation - use "died" prefix for animation names
+	# Play death animation
 	var death_anim_name = "died" + get_direction_suffix(last_direction)
 	
-	# Play death animation
 	if animated_sprite.sprite_frames.has_animation(death_anim_name):
 		animated_sprite.play(death_anim_name)
 		await animated_sprite.animation_finished
 	else:
-		# Fallback to hurt animation if death animation not found
-		print("⚠️ No death animation found: ", death_anim_name, " - using hurt animation")
+		print("⚠️ No death animation: ", death_anim_name)
 		play_animation("hurt")
 		await get_tree().create_timer(0.5).timeout
 	
@@ -675,57 +740,51 @@ func die():
 	await visual_fade_tween.finished
 	
 	# Show reward message
-	hud.text = reward_message
-	hud.visible = true
-	hud.modulate.a = 1.0
-	
-	var wait_duration = 2.5 if reward_message.contains("Silver Key") else 2.0
-	await get_tree().create_timer(wait_duration).timeout
-	
-	# Fade out HUD
-	var hud_tween = create_tween()
-	hud_tween.tween_property(hud, "modulate:a", 0.0, 0.3)
-	await hud_tween.finished
+	if hud:
+		hud.text = reward_message
+		hud.visible = true
+		hud.modulate.a = 1.0
+		
+		var wait_duration = 2.5 if reward_message.contains("Silver Key") else 2.0
+		await get_tree().create_timer(wait_duration).timeout
+		
+		# Fade out HUD
+		var hud_tween = create_tween()
+		hud_tween.tween_property(hud, "modulate:a", 0.0, 0.3)
+		await hud_tween.finished
 	
 	queue_free()
 
 func try_drop_item() -> String:
 	var reward = randi_range(min_coin, max_coin)
 	GameData.add_coin(reward)
-
+	
 	var message = ""
 	var drop_chance := 1.0
-
+	
 	if randf() <= drop_chance:
 		match level:
 			1:
-				# Check if we've already dropped the maximum number of silver keys
-				if not GameData.has_method("get_silver_key_drop_count"):
-					# Fallback: always drop if GameData doesn't track this
-					GameData.add_silver_key(skyes)
-					message += ""
-				elif GameData.get_silver_key_drop_count() < max_silver_keys_dropped:
-					# Still under the limit, drop the key
-					GameData.add_silver_key(skyes)
-					GameData.increment_silver_key_drop_count(skyes)
-					message += ""
+				if GameData.has_method("get_silver_key_drop_count"):
+					if GameData.get_silver_key_drop_count() < max_silver_keys_dropped:
+						GameData.add_silver_key(skyes)
+						GameData.increment_silver_key_drop_count(skyes)
+						message += ""
+					else:
+						print("🔒 Silver key drop limit reached")
 				else:
-					# Reached the limit, don't drop
-					print("🔒 Silver key drop limit reached (", max_silver_keys_dropped, ")")
+					GameData.add_silver_key(skyes)
 					message += ""
-
 			2:
 				GameData.add_golden_key(skyes)
 				message += ""
-
 			_:
 				pass
-
+	
 	return message
 
 # ============ ANIMATION HELPER ============
 func play_animation(anim_type: String):
-	# Don't change animation if dead (except for death animations)
 	if is_dead and not anim_type.begins_with("died") and not anim_type.begins_with("hurt"):
 		return
 	
@@ -733,7 +792,6 @@ func play_animation(anim_type: String):
 	var anim_name = anim_type + direction_suffix
 	
 	if not animated_sprite.sprite_frames.has_animation(anim_name):
-		# Try fallback animations
 		if anim_type.begins_with("attack"):
 			anim_name = "attack" + direction_suffix
 		elif anim_type.begins_with("died"):
@@ -760,9 +818,9 @@ func get_direction_suffix(direction: Vector2) -> String:
 
 # ============ DETECTION ============
 func _on_detection_body_entered(body):
-	if body.is_in_group("Player") and not is_dead:
+	if body.is_in_group("Player") and not is_dead and movement_enabled:
 		player = body
-		if current_state != State.HURT and current_state != State.QTE_ENGAGE:
+		if current_state != State.HURT and current_state != State.QTE_ENGAGE and current_state != State.QTE_WINDUP:
 			change_to_chase()
 
 func _on_detection_body_exited(body):
