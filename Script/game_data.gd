@@ -5,7 +5,7 @@ signal use_potion
 
 var health: int = 10
 var max_health: int = 10
-var coins: int = 0
+var coins: int = 110
 var silver_keys: int = 0
 var golden_keys: int = 0
 var skull_keys: int = 1
