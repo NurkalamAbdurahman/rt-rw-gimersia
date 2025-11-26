@@ -87,7 +87,14 @@ func _add_log_entry(item_type: String, amount: int) -> void:
 	# Create label
 	var label = Label.new()
 	label.text = "+%d" % amount
-	label.add_theme_font_size_override("font_size", 20)
+	var settings = LabelSettings.new()
+	settings.font = load("res://Assets/Font/Pixels.ttf") 
+	settings.font_size = 32
+	settings.shadow_size = 0 
+	settings.shadow_color = Color.BLACK
+	settings.shadow_offset = Vector2(2, 2)
+	label.label_settings = settings
+	label.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	
 	# Add to container
 	entry.add_child(icon)
