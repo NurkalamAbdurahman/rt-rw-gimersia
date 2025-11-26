@@ -29,5 +29,5 @@ offset_top = -7.0
 offset_right = 194.0
 offset_bottom = 40.0
 scale = Vector2(0.15, 0.15)
-text = "[e] Interect"
+text = "[e] Interact"
 label_settings = SubResource("LabelSettings_hiv2i")

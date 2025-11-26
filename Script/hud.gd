@@ -23,10 +23,14 @@ func _ready() -> void:
 		control.modulate.a = 0.0
 	
 	# Initialize last known values
+	GameData.item_changed.connect(_on_item_changed)
 	last_coins = GameData.coins
 	last_silver_keys = GameData.silver_keys
 	last_golden_keys = GameData.golden_keys
 	last_skull_keys = GameData.skull_keys
+
+func _on_item_changed(item_type: String, amount: int) -> void:
+	_add_log_entry(item_type, amount)
 
 func _process(_delta: float) -> void:
 	_check_potion_changes()
@@ -83,10 +87,16 @@ func _add_log_entry(item_type: String, amount: int) -> void:
 			icon.texture = preload("res://Assets/collecitions/Golden_Key/Golden_Key.png")
 		"skull_key":
 			icon.texture = preload("res://Assets/collecitions/skull_key/Skull_Key.png")
-	
+		"hp_potion":
+			icon.texture = preload("res://Assets/collecitions/Potion/HP_Potion.png")
+		"speed_potion":
+			icon.texture = preload("res://Assets/collecitions/Potion/Speed_Potion.png")
+		"strength_potion":
+			icon.texture = preload("res://Assets/collecitions/Potion/strength_Potion.png")
+
 	# Create label
 	var label = Label.new()
-	label.text = "+%d" % amount
+	label.text = ("%+d" % amount)
 	var settings = LabelSettings.new()
 	settings.font = load("res://Assets/Font/Pixels.ttf") 
 	settings.font_size = 32

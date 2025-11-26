@@ -4295,7 +4295,6 @@ zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.06053035, 0.06053035, 0.060530342, 1)
 
 [node name="Obor3" parent="." instance=ExtResource("30_eppvb")]
@@ -4321,7 +4320,13 @@ position = Vector2(413, -84)
 
 [node name="Obor10" parent="." instance=ExtResource("30_eppvb")]
 z_index = -1
-position = Vector2(362, 0)
+position = Vector2(362, -47)
+
+[node name="PointLight2D" parent="Obor10/OborHidup" index="0"]
+position = Vector2(-4.0000057, 3.3708792)
+scale = Vector2(0.5608973, 0.53228015)
 
 [node name="GhostAltar" parent="." instance=ExtResource("32_kqc3a")]
 position = Vector2(359, -93)
+
+[editable path="Obor10"]
