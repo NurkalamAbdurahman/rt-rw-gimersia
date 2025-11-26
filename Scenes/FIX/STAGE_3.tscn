@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://b7m8vs284vta0"]
+[gd_scene load_steps=37 format=4 uid="uid://b7m8vs284vta0"]
 
 [ext_resource type="Texture2D" uid="uid://dm85dm4l42b10" path="res://Assets/Tileset/PNG/walls_floor.png" id="1_44rs4"]
 [ext_resource type="Script" uid="uid://bkwx6h81slc5t" path="res://Script/stage_3.gd" id="1_c0g3p"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/ui/Trap/Trap_4.tscn" id="22_roq63"]
 [ext_resource type="PackedScene" uid="uid://b348lvmq7jtev" path="res://Scenes/obor-nyala.tscn" id="23_ethec"]
 [ext_resource type="PackedScene" uid="uid://d3upyn87bfdo0" path="res://Scenes/pintu_stage_1.tscn" id="23_tfjkt"]
+[ext_resource type="PackedScene" uid="uid://ckg4xnullubp8" path="res://Scenes/trap_chest.tscn" id="25_mf7yf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mf7yf"]
 texture = ExtResource("3_tfjkt")
@@ -1033,14 +1034,14 @@ color = Color(0.029506557, 0.029506557, 0.029506557, 1)
 [node name="SceneObor" type="Node2D" parent="."]
 
 [node name="Obor" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(990, 241)
+position = Vector2(975, 238)
 
 [node name="Obor3" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(155, 112)
+position = Vector2(155, 110)
 torch_id = "Torch_4"
 
 [node name="Obor4" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(1670, 483)
+position = Vector2(1672, 478)
 torch_id = "Torch_5"
 
 [node name="Obor6" parent="SceneObor" instance=ExtResource("5_8m5oa")]
@@ -1048,23 +1049,23 @@ position = Vector2(1159, 316)
 torch_id = "Torch_7"
 
 [node name="Obor7" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(1764, 799)
+position = Vector2(1765, 798)
 torch_id = "Torch_8"
 
 [node name="Obor8" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(263, 916)
+position = Vector2(266, 910)
 torch_id = "Torch_9"
 
 [node name="Obor9" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(418, -12)
+position = Vector2(415, -18)
 torch_id = "Torch_10"
 
 [node name="Obor10" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(864, -12)
+position = Vector2(864, -18)
 torch_id = "Torch_11"
 
 [node name="Obor11" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(1120, 1009)
+position = Vector2(1122, 1005)
 torch_id = "Torch_12"
 
 [node name="Obor12" parent="SceneObor" instance=ExtResource("5_8m5oa")]
@@ -1072,23 +1073,23 @@ position = Vector2(1909, 1102)
 torch_id = "Torch_13"
 
 [node name="Obor13" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(105, 536)
+position = Vector2(113, 526)
 torch_id = "Torch_14"
 
 [node name="Obor14" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(333, 1189)
+position = Vector2(333, 1183)
 torch_id = "Torch_15"
 
 [node name="Obor15" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(790, 1092)
+position = Vector2(789, 1087)
 torch_id = "Torch_16"
 
 [node name="Obor16" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(751, 613)
+position = Vector2(746, 606)
 torch_id = "Torch_17"
 
 [node name="Obor17" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(796, 853)
+position = Vector2(800, 847)
 torch_id = "Torch_18"
 
 [node name="Obor19" parent="SceneObor" instance=ExtResource("5_8m5oa")]
@@ -1096,19 +1097,19 @@ position = Vector2(1600, 222)
 torch_id = "Torch_20"
 
 [node name="Obor20" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(1624, 428)
+position = Vector2(1618, 430)
 torch_id = "Torch_21"
 
 [node name="Obor21" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(1304, 672)
+position = Vector2(1298, 670)
 torch_id = "Torch_22"
 
 [node name="Obor22" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(1881, 369)
+position = Vector2(1877, 366)
 torch_id = "Torch_23"
 
 [node name="Obor23" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(1286, 1184)
+position = Vector2(1287, 1182)
 torch_id = "Torch_24"
 
 [node name="Obor24" parent="SceneObor" instance=ExtResource("5_8m5oa")]
@@ -1116,7 +1117,7 @@ position = Vector2(1930, 686)
 torch_id = "Torch_25"
 
 [node name="Obor25" parent="SceneObor" instance=ExtResource("5_8m5oa")]
-position = Vector2(508, 1090)
+position = Vector2(507, 1086)
 torch_id = "Torch_26"
 
 [node name="Chest" type="Node2D" parent="."]
@@ -1125,20 +1126,23 @@ scale = Vector2(1.3344294, 1.6611495)
 
 [node name="silverchest3" parent="Chest" instance=ExtResource("6_w3a7i")]
 position = Vector2(983.1918, 715.7694)
+scale = Vector2(0.7, 0.7)
 puzzle_section = 1
 
 [node name="silverchest" parent="Chest" instance=ExtResource("6_w3a7i")]
 position = Vector2(-65.19638, 976.4323)
+scale = Vector2(0.7, 0.7)
 chest_id = "SceneA_Chest_2"
 
 [node name="silverchest2" parent="Chest" instance=ExtResource("6_w3a7i")]
 position = Vector2(542.554, 620.05255)
+scale = Vector2(0.7, 0.7)
 chest_id = "SceneA_Chest_3"
 puzzle_section = 2
 
 [node name="gold_chest" parent="." instance=ExtResource("7_jkifs")]
 position = Vector2(2014, 1120)
-scale = Vector2(1.662591, 1.7165759)
+scale = Vector2(1, 1.032)
 
 [node name="Hud" parent="." instance=ExtResource("8_c0g3p")]
 
@@ -1186,7 +1190,7 @@ enemy_id = "SceneA_Goblin_9"
 
 [node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("4_wybf0")]
 z_index = 10
-position = Vector2(104, 573)
+position = Vector2(90, 562)
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(5, 5)
@@ -1283,3 +1287,6 @@ position = Vector2(-630, 945.00006)
 min_coin = 0
 max_coin = 0
 puzzle_section = 4
+
+[node name="TrapChest" parent="." instance=ExtResource("25_mf7yf")]
+position = Vector2(1186, 690)
