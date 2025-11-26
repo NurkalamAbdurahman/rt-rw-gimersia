@@ -82,10 +82,15 @@ func _show_shop() -> void:
 func _setup_buttons() -> void:
 	navigable_buttons = [hp_button, speed_button, strength_button, exit_button]
 	
+	# ✅ NONAKTIFKAN INTERAKSI MOUSE PADA SEMUA TOMBOL
 	for btn in navigable_buttons:
 		btn.focus_mode = Control.FOCUS_NONE
-		btn.mouse_entered.connect(_on_button_mouse_entered.bind(btn))
-		btn.mouse_exited.connect(_on_button_mouse_exited.bind(btn))
+		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	# ❌ HAPUS KONEKSI MOUSE SIGNALS
+	# for btn in navigable_buttons:
+	#     btn.mouse_entered.connect(_on_button_mouse_entered.bind(btn))
+	#     btn.mouse_exited.connect(_on_button_mouse_exited.bind(btn))
 	
 	# Set labels as top level
 	#not_enough_label.top_level = true
@@ -178,21 +183,22 @@ func _animate_button_press(btn: Button) -> void:
 	tween.tween_property(btn, "scale", PRESS_SCALE, ANIMATION_DURATION * 0.5)
 	tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION * 0.5)
 
-func _on_button_mouse_entered(btn: Button) -> void:
-	if is_animating:
-		return
-		
-	selected_index = navigable_buttons.find(btn)
-	_play_hover_sound()
-	_update_button_focus()
+# ❌ HAPUS FUNGSI MOUSE HANDLER
+# func _on_button_mouse_entered(btn: Button) -> void:
+#     if is_animating:
+#         return
+#         
+#     selected_index = navigable_buttons.find(btn)
+#     _play_hover_sound()
+#     _update_button_focus()
 
-func _on_button_mouse_exited(btn: Button) -> void:
-	# Reset to normal state when mouse exits
-	var tween: Tween = create_tween().set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(btn, "modulate", NORMAL_MODULATE, ANIMATION_DURATION)
-	tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
+# func _on_button_mouse_exited(btn: Button) -> void:
+#     # Reset to normal state when mouse exits
+#     var tween: Tween = create_tween().set_parallel(true)
+#     tween.set_trans(Tween.TRANS_CUBIC)
+#     tween.set_ease(Tween.EASE_OUT)
+#     tween.tween_property(btn, "modulate", NORMAL_MODULATE, ANIMATION_DURATION)
+#     tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
 
 func _play_hover_sound() -> void:
 	if sfx_hover:
