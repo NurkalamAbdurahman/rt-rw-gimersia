@@ -14,10 +14,10 @@ var pintu_to_stage :int = 2
 
 # Animation constants
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
-const HOVER_SCALE: Vector2 = Vector2(1.01, 1.01)
+const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
 const PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
-const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
-const HOVER_MODULATE: Color = Color(1.0, 0.84, 0.0)  # Gold
+const NORMAL_MODULATE: Color = Color(0.6, 0.65, 0.7) 
+const HOVER_MODULATE: Color = Color(0.9, 0.95, 1.0)
 const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
 const ANIMATION_DURATION: float = 0.15
 
@@ -127,6 +127,8 @@ func _animate_button_focus() -> void:
 		tween.set_trans(Tween.TRANS_CUBIC)
 		tween.set_ease(Tween.EASE_OUT)
 		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		
+		btn.pivot_offset = btn.size / 2
 		
 		if i == selected_index:
 			tween.tween_property(btn, "modulate", HOVER_MODULATE, ANIMATION_DURATION)

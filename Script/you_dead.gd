@@ -13,10 +13,10 @@ var buttons: Array[Button]
 var selected_index := 0
 
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
-const HOVER_SCALE: Vector2 = Vector2(1.01, 1.01)
+const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
 const PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
-const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
-const HOVER_MODULATE: Color = Color(1.0, 1.0, 1.0) 
+const NORMAL_MODULATE: Color = Color(0.6, 0.65, 0.7) 
+const HOVER_MODULATE: Color = Color(0.9, 0.95, 1.0)
 const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
 const ANIMATION_DURATION: float = 0.15
 
@@ -91,6 +91,8 @@ func _animate_buttons_in() -> void:
 		var tween := create_tween().set_parallel(true)
 		tween.set_trans(Tween.TRANS_BACK)
 		tween.set_ease(Tween.EASE_OUT)
+		
+		btn.pivot_offset = btn.size / 2
 		
 		tween.tween_property(btn, "modulate:a", 1.0, 0.4).set_delay(i * 0.1)
 		tween.tween_property(btn, "scale", NORMAL_SCALE, 0.4).set_delay(i * 0.1)
@@ -173,6 +175,8 @@ func _animate_button_focus() -> void:
 		var tween := create_tween().set_parallel(true)
 		tween.set_trans(Tween.TRANS_CUBIC)
 		tween.set_ease(Tween.EASE_OUT)
+		
+		btn.pivot_offset = btn.size / 2
 		
 		if i == selected_index:
 			tween.tween_property(btn, "modulate", HOVER_MODULATE, ANIMATION_DURATION)

@@ -16,10 +16,10 @@ var selected_index: int = 0
 
 # Animation and color variables - now consistent with fountain
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
-const HOVER_SCALE: Vector2 = Vector2(1.01, 1.01)
+const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
 const PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
-const NORMAL_MODULATE: Color = Color(0.7, 0.7, 0.7)
-const HOVER_MODULATE: Color = Color(1.0, 1.0, 1.0)  
+const NORMAL_MODULATE: Color = Color(0.6, 0.65, 0.7) 
+const HOVER_MODULATE: Color = Color(0.9, 0.95, 1.0)
 const ANIMATION_DURATION: float = 0.15
 
 # Animation variables
@@ -167,6 +167,9 @@ func _update_button_focus():
 		var tween: Tween = create_tween().set_parallel(true)
 		tween.set_trans(Tween.TRANS_CUBIC)
 		tween.set_ease(Tween.EASE_OUT)
+		
+		btn.pivot_offset = btn.size / 2
+
 		
 		if i == selected_index:
 			tween.tween_property(btn, "modulate", HOVER_MODULATE, ANIMATION_DURATION)

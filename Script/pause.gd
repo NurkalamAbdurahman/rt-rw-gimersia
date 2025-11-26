@@ -22,9 +22,9 @@ extends Control
 
 # Animation constants
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
-const HOVER_SCALE: Vector2 = Vector2(1.01, 1.01)
-const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
-const HOVER_MODULATE: Color = Color(1.0, 1.0, 1.0)
+const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
+const NORMAL_MODULATE: Color = Color(0.6, 0.65, 0.7) 
+const HOVER_MODULATE: Color = Color(0.9, 0.95, 1.0)
 const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
 const ANIMATION_DURATION: float = 0.15
 const BUTTON_PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
@@ -71,8 +71,12 @@ func _init_ui() -> void:
 	confirm_buttons = [yes_button, no_button]
 	
 	for btn in buttons + confirm_buttons:
+		
 		btn.focus_mode = Control.FOCUS_NONE
 		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
+		btn.pivot_offset = btn.size / 2
+		
 	
 	# Simpan posisi original dan set posisi awal di atas layar
 	original_margin_position = margin_container.position
@@ -312,6 +316,8 @@ func _animate_button_focus(target_buttons: Array[Button], focus_index: int) -> v
 		var tween: Tween = create_tween().set_parallel(true)
 		tween.set_trans(TWEEN_TRANS)
 		tween.set_ease(TWEEN_EASE)
+		
+		btn.pivot_offset = btn.size / 2
 		
 		if i == focus_index:
 			tween.tween_property(btn, "modulate", HOVER_MODULATE, ANIMATION_DURATION)
