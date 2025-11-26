@@ -204,7 +204,7 @@ func reset():
 	maze_stage_1 = false
 	maze_stage_2 = false
 	maze_stage_3 = false
-	silver_key_drop_count
+	silver_key_drop_count = 0
 	persistent_strength_buff_active = false
 	persistent_strength_buff_time = 0.0
 	persistent_speed_buff_active = false    

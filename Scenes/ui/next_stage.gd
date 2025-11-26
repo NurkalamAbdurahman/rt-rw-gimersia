@@ -197,6 +197,7 @@ func _change_to_next_stage() -> void:
 	GameData.reset()
 	GameData.clear_data()
 	GameData.clear_torch()
+	PuzzleManager.reset_puzzle()
 	GameData.is_popup_open = false
 	match pintu_to_stage:
 		1:
