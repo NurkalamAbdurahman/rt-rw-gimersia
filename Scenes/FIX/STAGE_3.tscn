@@ -1143,3 +1143,5 @@ position = Vector2(1551, 45)
 [node name="Pintu_stage1" parent="." instance=ExtResource("23_tfjkt")]
 position = Vector2(128, 111)
 pintu_ke_stage = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

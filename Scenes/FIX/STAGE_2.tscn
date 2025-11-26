@@ -576,3 +576,5 @@ position = Vector2(1438, 382)
 [node name="Pintu_stage1" parent="." instance=ExtResource("24_p56gx")]
 position = Vector2(1832, 1168)
 pintu_ke_stage = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

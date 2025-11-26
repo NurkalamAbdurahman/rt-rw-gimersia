@@ -82,19 +82,13 @@ func buka_pintu():
 
 	# --- Referensi player ---
 	var player = get_tree().get_first_node_in_group("player")
-	if player and animation_player:
-
-		# ➤ Gerakkan player ke depan pintu dulu
+	if player:
+		# ➤ Gerakkan player ke depan pintu (stand_point)
 		var target_pos = stand_point.global_position
 		await move_player_to_position(player, target_pos)
-
-		# Jalankan animasi pintu
-		animation_player.play("Open_Door")
-		await animation_player.animation_finished
-
-		# Reset player setelah animasi
-		reset_player_animation(player)
-
+		
+		# ➤ Gerakkan player ke posisi node pintu dan hilangkan
+		await move_player_into_door(player)
 
 	# --- Celebration popup ---
 	var celebration = preload("res://Scenes/ui/NextStageCelebration.tscn").instantiate()
@@ -129,6 +123,29 @@ func move_player_to_position(player: CharacterBody2D, target_pos: Vector2) -> vo
 	# berhenti animasi setelah sampai
 	var anim = player.get_node("AnimatedSprite2D") 
 	anim.play("idle_down")  # atau idle sesuai arah terakhir
+
+
+func move_player_into_door(player: CharacterBody2D) -> void:
+	"""Gerakkan player ke posisi pintu dan hilangkan"""
+	
+	var door_pos = global_position  # posisi node pintu
+	var direction = (door_pos - player.global_position).normalized()
+	
+	# Mainkan animasi berjalan ke pintu
+	play_run_animation(player, direction)
+	
+	# Tween untuk gerak masuk pintu
+	var enter_tween = create_tween()
+	enter_tween.set_parallel(true)
+	enter_tween.tween_property(player, "global_position", door_pos, 0.5)
+	# Fade out sambil bergerak
+	enter_tween.tween_property(player, "modulate:a", 0.0, 0.5)
+	
+	await enter_tween.finished
+	
+	# Sembunyikan player
+	player.visible = false
+	player.set_physics_process(true)
 
 
 func reset_player_animation(player: CharacterBody2D):
