@@ -5,6 +5,7 @@ signal respawn_pressed
 @onready var root_control: Control = $Control
 @onready var respawn: Button = $Control/Panel/MarginContainer/VBoxContainer/HBoxContainer/Respawn
 @onready var quit: Button = $"Control/Panel/MarginContainer/VBoxContainer/HBoxContainer/Main menu"
+@onready var kontainer: MarginContainer = $Control/Panel/MarginContainer
 @onready var panel: Panel = $Control/Panel
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
 
@@ -18,7 +19,6 @@ const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
 const HOVER_MODULATE: Color = Color(1.0, 1.0, 1.0) 
 const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
 const ANIMATION_DURATION: float = 0.15
-
 
 func _ready() -> void:
 	_init_ui()
@@ -40,8 +40,10 @@ func hide_you_dead() -> void:
 func _init_ui() -> void:
 	root_control.hide()
 	root_control.modulate.a = 0.0
-	root_control.scale = Vector2(0.8, 0.8)
-	panel.modulate.a = 0.0
+	
+	# Set posisi awal margin container di atas layar
+	kontainer.position.y = -500
+	kontainer.modulate.a = 0.0
 	
 	buttons = [respawn, quit]
 	for btn in buttons:
@@ -62,18 +64,26 @@ func _connect_signals() -> void:
 func _animate_show() -> void:
 	_disable_buttons()
 	
-	var tween := create_tween().set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_OUT)
+	# Fade in background
+	var bg_tween := create_tween()
+	bg_tween.set_trans(Tween.TRANS_CUBIC)
+	bg_tween.set_ease(Tween.EASE_OUT)
+	bg_tween.tween_property(root_control, "modulate:a", 1.0, 0.3)
 	
-	tween.tween_property(root_control, "modulate:a", 1.0, 0.5)
-	tween.tween_property(root_control, "scale", Vector2.ONE, 0.5).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(panel, "modulate:a", 1.0, 0.4).set_delay(0.1)
+	await bg_tween.finished
+	
+	# Animate margin container dari atas ke tengah
+	var container_tween := create_tween().set_parallel(true)
+	container_tween.set_trans(Tween.TRANS_BACK)
+	container_tween.set_ease(Tween.EASE_OUT)
+	
+	container_tween.tween_property(kontainer, "position:y", 0, 0.6)
+	container_tween.tween_property(kontainer, "modulate:a", 1.0, 0.4)
 	
 	await get_tree().create_timer(0.3).timeout
 	_animate_buttons_in()
 	
-	await tween.finished
+	await container_tween.finished
 
 func _animate_buttons_in() -> void:
 	for i in buttons.size():
@@ -86,20 +96,33 @@ func _animate_buttons_in() -> void:
 		tween.tween_property(btn, "scale", NORMAL_SCALE, 0.4).set_delay(i * 0.1)
 
 func _animate_hide() -> void:
-	var tween := create_tween().set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_IN)
-	
+	# Animate buttons out
 	for i in buttons.size():
 		var btn := buttons[i]
-		tween.tween_property(btn, "modulate:a", 0.0, 0.3)
-		tween.tween_property(btn, "scale", Vector2(0.8, 0.8), 0.3)
+		var btn_tween := create_tween().set_parallel(true)
+		btn_tween.set_trans(Tween.TRANS_CUBIC)
+		btn_tween.set_ease(Tween.EASE_IN)
+		
+		btn_tween.tween_property(btn, "modulate:a", 0.0, 0.2)
+		btn_tween.tween_property(btn, "scale", Vector2(0.8, 0.8), 0.2)
 	
-	tween.tween_property(panel, "modulate:a", 0.0, 0.4).set_delay(0.1)
-	tween.tween_property(root_control, "modulate:a", 0.0, 0.5).set_delay(0.2)
-	tween.tween_property(root_control, "scale", Vector2(0.9, 0.9), 0.5).set_delay(0.2)
+	await get_tree().create_timer(0.2).timeout
 	
-	await tween.finished
+	# Animate margin container ke atas
+	var container_tween := create_tween().set_parallel(true)
+	container_tween.set_trans(Tween.TRANS_BACK)
+	container_tween.set_ease(Tween.EASE_IN)
+	
+	container_tween.tween_property(kontainer, "position:y", -500, 0.5)
+	container_tween.tween_property(kontainer, "modulate:a", 0.0, 0.3)
+	
+	await container_tween.finished
+	
+	# Fade out background
+	var bg_tween := create_tween()
+	bg_tween.tween_property(root_control, "modulate:a", 0.0, 0.2)
+	
+	await bg_tween.finished
 
 func _enable_buttons() -> void:
 	for btn in buttons:
