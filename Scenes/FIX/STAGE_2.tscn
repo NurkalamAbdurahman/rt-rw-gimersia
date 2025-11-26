@@ -486,10 +486,6 @@ position = Vector2(588, -27)
 position = Vector2(1733, 977)
 enemy_id = "SceneA_Goblin_2"
 
-[node name="Goblin3" parent="." instance=ExtResource("12_jsvtg")]
-position = Vector2(1944, 1200)
-enemy_id = "SceneA_Goblin_3"
-
 [node name="Goblin4" parent="." instance=ExtResource("13_nk1b1")]
 position = Vector2(785, 770)
 hb_size = 35.0
@@ -562,6 +558,30 @@ position = Vector2(1248, 209)
 
 [node name="Trap_14" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
 position = Vector2(1278, 1150)
+
+[node name="Trap_15" parent="sceneTrap" instance=ExtResource("24_dmqeq")]
+position = Vector2(1807, 1185)
+
+[node name="Trap_16" parent="sceneTrap" instance=ExtResource("24_dmqeq")]
+position = Vector2(1855, 1185)
+
+[node name="Trap_17" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
+position = Vector2(1809, 1302)
+
+[node name="Trap_18" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
+position = Vector2(1835, 1271)
+
+[node name="Trap_19" parent="sceneTrap" instance=ExtResource("21_b6f5h")]
+position = Vector2(1885, 1238)
+
+[node name="Trap_20" parent="sceneTrap" instance=ExtResource("21_b6f5h")]
+position = Vector2(1730, 1237)
+
+[node name="Trap_21" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
+position = Vector2(1760, 1258)
+
+[node name="Trap_22" parent="sceneTrap" instance=ExtResource("21_b6f5h")]
+position = Vector2(1919, 1171)
 
 [node name="HiddenToMaze" parent="." instance=ExtResource("24_svih5")]
 position = Vector2(1412, 387)

@@ -22,6 +22,7 @@ const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
 const ANIMATION_DURATION: float = 0.15
 
 func _ready() -> void:
+	GameData.is_popup_open = true
 	_init_ui()
 	_connect_signals()
 	_set_process_mode_recursive(self)
@@ -31,15 +32,6 @@ func _set_process_mode_recursive(node: Node) -> void:
 	node.process_mode = Node.PROCESS_MODE_ALWAYS
 	for child in node.get_children():
 		_set_process_mode_recursive(child)
-
-func _unhandled_input(event: InputEvent) -> void:
-	# Gunakan _unhandled_input agar lebih prioritas
-	if event.is_action_pressed("ui_cancel"):
-		if is_paused:
-			hide_popup()
-		else:
-			show_popup()
-		get_viewport().set_input_as_handled()
 
 func _input(event: InputEvent) -> void:
 	if not root_control.visible:
@@ -214,6 +206,7 @@ func _change_to_main_menu() -> void:
 	GameData.reset()
 	GameData.clear_data()
 	GameData.clear_torch()
+	GameData.is_popup_open = false
 	match pintu_to_stage:
 		1:
 			GameData.set_finish_stage3()
