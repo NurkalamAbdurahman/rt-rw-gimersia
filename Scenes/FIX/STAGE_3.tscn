@@ -1143,6 +1143,7 @@ puzzle_section = 2
 [node name="gold_chest" parent="." instance=ExtResource("7_jkifs")]
 position = Vector2(2014, 1120)
 scale = Vector2(1, 1.032)
+chest_id = "SceneAG_GoldChest_4"
 
 [node name="Hud" parent="." instance=ExtResource("8_c0g3p")]
 

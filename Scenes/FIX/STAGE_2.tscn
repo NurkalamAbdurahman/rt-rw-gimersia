@@ -443,7 +443,6 @@ position = Vector2(2179, 654)
 torch_id = "Torch_27"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -472,6 +471,7 @@ position = Vector2(1569, -110)
 [node name="gold_chest" parent="." instance=ExtResource("6_d7vc3")]
 position = Vector2(853, 814.00006)
 scale = Vector2(1, 1.032)
+chest_id = "SceneAG_GoldChest_3"
 
 [node name="Hud" parent="." instance=ExtResource("7_jsvtg")]
 

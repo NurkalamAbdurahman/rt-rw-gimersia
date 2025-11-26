@@ -206,9 +206,11 @@ func _change_to_next_stage() -> void:
 		2:
 			get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
 			GameData.set_finish_stage1()
+			PuzzleManager.reset_puzzle()
 		3:
 			get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_3.tscn")
 			GameData.set_finish_stage2()
+			PuzzleManager.reset_puzzle()
 
 func _change_to_main_menu() -> void:
 	get_tree().paused = false
