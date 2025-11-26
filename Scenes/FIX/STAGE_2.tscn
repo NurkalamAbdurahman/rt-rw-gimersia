@@ -98,7 +98,7 @@ texture = ExtResource("2_uuii6")
 [sub_resource type="TileSet" id="TileSet_6aaft"]
 sources/0 = SubResource("TileSetAtlasSource_ydjq1")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b6f5h"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dmqeq"]
 texture = ExtResource("5_nufcf")
 0:0/0 = 0
 2:0/0 = 0
@@ -292,7 +292,7 @@ texture = ExtResource("5_nufcf")
 
 [sub_resource type="TileSet" id="TileSet_y7p4m"]
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_b6f5h")
+sources/1 = SubResource("TileSetAtlasSource_dmqeq")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rnawo"]
 texture = ExtResource("3_x1rkt")
@@ -468,6 +468,7 @@ chest_id = "SceneA_Chest_3"
 
 [node name="TrapChest" parent="." instance=ExtResource("19_x42nt")]
 position = Vector2(1569, -110)
+chest_id = "SceneA_Chest_100"
 
 [node name="gold_chest" parent="." instance=ExtResource("6_d7vc3")]
 position = Vector2(853, 814.00006)
