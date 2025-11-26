@@ -41,8 +41,8 @@ var is_mouse_control: bool = false  # Flag untuk mendeteksi kontrol mouse
 # ============================================================
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
 const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
-const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
-const HOVER_MODULATE: Color = Color(1.0, 1.0, 1.0)
+const NORMAL_MODULATE: Color = Color(0.6, 0.65, 0.7) 
+const HOVER_MODULATE: Color = Color(0.9, 0.95, 1.0)
 const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
 const ANIMATION_DURATION: float = 0.15 
 
