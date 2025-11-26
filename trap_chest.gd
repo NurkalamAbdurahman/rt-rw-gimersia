@@ -10,7 +10,7 @@ extends Node2D
 
 # === Tambahan untuk trap ===
 @onready var sfx_trap: AudioStreamPlayer2D = $SFX_Trap
-@onready var screen_fade: ColorRect = $"../../HUD/ScreenFade"
+@onready var screen_fade: ColorRect = $"../HUD/ScreenFade"
 
 @export var chest_id: String = "SceneA_Chest_1"
 
@@ -99,7 +99,7 @@ func play_trap_effect():
 
 	# === SCREEN SHAKE ===
 	var player_cam := get_tree().get_first_node_in_group("camera")
-	if player_cam:
+	if player_cam and player_cam is Camera2D:
 		shake_camera(player_cam)
 
 	# === FLASH LOOP ===
