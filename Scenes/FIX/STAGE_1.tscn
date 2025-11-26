@@ -4898,7 +4898,6 @@ position = Vector2(-179, 0)
 torch_id = "Torch_45"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -4978,6 +4977,7 @@ wander_range = 0.0
 enemy_id = "SceneA_Goblin_12"
 min_coin = 0
 max_coin = 0
+skyes = 0
 
 [node name="Hud" parent="." instance=ExtResource("22_oof0y")]
 
@@ -5022,6 +5022,7 @@ position = Vector2(1216, -593)
 [node name="gold_chest2" parent="." instance=ExtResource("13_lmh3y")]
 position = Vector2(-183, 254)
 chest_id = "SceneAG_GoldChest_2"
+skyes = 0
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 10.0
