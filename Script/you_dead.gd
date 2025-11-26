@@ -113,7 +113,7 @@ func _animate_hide() -> void:
 	container_tween.set_trans(Tween.TRANS_BACK)
 	container_tween.set_ease(Tween.EASE_IN)
 	
-	container_tween.tween_property(kontainer, "position:y", -500, 0.5)
+	container_tween.tween_property(kontainer, "position:y", -500, 0.3)
 	container_tween.tween_property(kontainer, "modulate:a", 0.0, 0.3)
 	
 	await container_tween.finished

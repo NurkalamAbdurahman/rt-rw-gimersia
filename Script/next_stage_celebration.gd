@@ -44,7 +44,7 @@ func show_celebration():
 		.set_trans(TWEEN_TRANS).set_ease(TWEEN_EASE)
 	
 	# Animasi fade in
-	margin_tween.tween_property(margin_container, "modulate:a", 1.0, ANIMATION_DURATION * 0.5)\
+	margin_tween.tween_property(margin_container, "modulate:a", 1.0, ANIMATION_DURATION * 0.3)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	
 	# Tunggu sampai animasi margin_container selesai

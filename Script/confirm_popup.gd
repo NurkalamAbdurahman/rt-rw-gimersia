@@ -74,7 +74,7 @@ func show_popup(message: String = ""):
 	margin_tween.set_parallel(true)
 	
 	# Animasi posisi - turun dari atas
-	margin_tween.tween_property(margin_container, "position:y", original_margin_position.y, 0.5)\
+	margin_tween.tween_property(margin_container, "position:y", original_margin_position.y, 0.3)\
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
 	# Animasi fade in

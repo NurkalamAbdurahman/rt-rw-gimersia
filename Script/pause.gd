@@ -150,7 +150,7 @@ func _show_pause() -> void:
 	container_tween.set_trans(Tween.TRANS_BACK)
 	container_tween.set_ease(Tween.EASE_OUT)
 	
-	container_tween.tween_property(margin_container, "position:y", original_margin_position.y, 0.5)
+	container_tween.tween_property(margin_container, "position:y", original_margin_position.y, 0.3)
 	container_tween.tween_property(margin_container, "modulate:a", 1.0, 0.4)
 	
 	await get_tree().create_timer(0.3).timeout
