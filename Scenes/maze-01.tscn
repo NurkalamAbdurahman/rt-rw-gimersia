@@ -3797,7 +3797,6 @@ script = ExtResource("1_eppvb")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 2
-visible = false
 
 [node name="Pause" parent="HUD" instance=ExtResource("30_muvn5")]
 offset_left = 7.0
@@ -3878,7 +3877,6 @@ offset_right = 65.66666
 offset_bottom = 98.0
 
 [node name="Hud" parent="." instance=ExtResource("21_23c0y")]
-visible = false
 
 [node name="sfx_trompet" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_2vkx8")
@@ -3912,7 +3910,6 @@ zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.06053035, 0.06053035, 0.060530342, 1)
 
 [node name="Obor3" parent="." instance=ExtResource("30_eppvb")]
