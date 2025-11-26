@@ -151,6 +151,7 @@ func _update_button_focus() -> void:
 
 func _on_stage_1_pressed() -> void:
 	GameData.hard_reset()
+	PuzzleManager.reset_puzzle()
 	_load_stage("res://Scenes/FIX/STAGE_1.tscn")
 
 func _on_stage_2_pressed() -> void:
@@ -158,6 +159,8 @@ func _on_stage_2_pressed() -> void:
 		print("Stage 2 is locked")
 		return
 	GameData.hard_reset()
+	PuzzleManager.reset_puzzle()
+	
 	_load_stage("res://Scenes/FIX/STAGE_2.tscn")
 
 func _on_stage_3_pressed() -> void:
@@ -165,6 +168,8 @@ func _on_stage_3_pressed() -> void:
 		print("Stage 3 is locked")
 		return
 	GameData.hard_reset()
+	PuzzleManager.reset_puzzle()
+	
 	_load_stage("res://Scenes/FIX/STAGE_3.tscn")
 
 func _load_stage(scene_path: String) -> void:
