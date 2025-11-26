@@ -22,7 +22,7 @@ extends Control
 
 # Animation constants
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
-const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
+const HOVER_SCALE: Vector2 = Vector2(1.01, 1.01)
 const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
 const HOVER_MODULATE: Color = Color(1.0, 1.0, 1.0)
 const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
@@ -150,7 +150,7 @@ func _show_pause() -> void:
 	container_tween.set_trans(Tween.TRANS_BACK)
 	container_tween.set_ease(Tween.EASE_OUT)
 	
-	container_tween.tween_property(margin_container, "position:y", original_margin_position.y, 0.6)
+	container_tween.tween_property(margin_container, "position:y", original_margin_position.y, 0.5)
 	container_tween.tween_property(margin_container, "modulate:a", 1.0, 0.4)
 	
 	await get_tree().create_timer(0.3).timeout

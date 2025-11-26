@@ -14,7 +14,7 @@ var pintu_to_stage :int = 2
 
 # Animation constants
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
-const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
+const HOVER_SCALE: Vector2 = Vector2(1.01, 1.01)
 const PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
 const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
 const HOVER_MODULATE: Color = Color(1.0, 0.84, 0.0)  # Gold
