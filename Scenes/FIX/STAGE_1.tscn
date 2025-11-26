@@ -5070,7 +5070,7 @@ position = Vector2(-243.3291, 174.71222)
 shape = SubResource("RectangleShape2D_3x7lv")
 
 [node name="barrierCollision4" type="CollisionShape2D" parent="Barrier/Barrier3"]
-position = Vector2(-53.3291, 233.71222)
+position = Vector2(-54.3291, 233.71222)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_3x7lv")
 
@@ -5115,7 +5115,7 @@ instruction_text = "Open the Silver Chest first. You can try Gold Chest as well,
 [node name="TutorialStep5" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(-31, 304)
 rotation = 1.5707964
-scale = Vector2(1.6, 1.6)
+scale = Vector2(1.5, 1.5)
 step_id = "5"
 instruction_text = "Press 1, 2, or 3 to use a potion"
 
