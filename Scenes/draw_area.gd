@@ -99,8 +99,8 @@ func _process(delta):
 			player_stroke.append(mapped)
 
 			# 🔥 Batasi jumlah titik agar tetap ringan
-			if player_stroke.size() > player_max_points:
-				player_stroke.pop_front()
+			#if player_stroke.size() > player_max_points:
+				#player_stroke.pop_front()
 
 			queue_redraw()
 
