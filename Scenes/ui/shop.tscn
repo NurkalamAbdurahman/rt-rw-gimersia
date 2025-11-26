@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://cc42d5pig7030"]
+[gd_scene load_steps=17 format=3 uid="uid://cc42d5pig7030"]
 
 [ext_resource type="Script" uid="uid://blk5mpmc1i16x" path="res://Script/shop.gd" id="1_ovj2j"]
 [ext_resource type="FontFile" uid="uid://bpfmd61ecxqfq" path="res://Assets/Font/CyberpunkCraftpixPixel.otf" id="2_jf40h"]
 [ext_resource type="Texture2D" uid="uid://crjev3iwej8s6" path="res://Assets/collecitions/ui/UI_SHOP.png" id="2_mj3m1"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_ovj2j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mj3m1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jf40h"]
 font = ExtResource("2_jf40h")
@@ -71,6 +73,7 @@ expand_margin_right = 30.0
 expand_margin_bottom = 10.0
 
 [node name="Shop" type="CanvasLayer"]
+layer = 2
 script = ExtResource("1_ovj2j")
 
 [node name="Control" type="Control" parent="."]
@@ -89,45 +92,58 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UiShop" type="Sprite2D" parent="Control/Panel"]
-position = Vector2(582, 297)
+[node name="Container" type="Panel" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 159.0
+offset_top = 105.0
+offset_right = -156.0
+offset_bottom = -124.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_mj3m1")
+
+[node name="UiShop" type="Sprite2D" parent="Control/Panel/Container"]
+position = Vector2(416.5, 199.6)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_mj3m1")
 region_enabled = true
 region_rect = Rect2(358, 200, 1210, 616)
 
-[node name="Label" type="Label" parent="Control/Panel"]
+[node name="Label" type="Label" parent="Control/Panel/Container"]
 layout_mode = 0
-offset_left = 469.0
-offset_top = 110.0
-offset_right = 697.0
-offset_bottom = 144.0
+offset_left = 303.5
+offset_top = 12.599976
+offset_right = 531.5
+offset_bottom = 46.599976
 text = "Potion Shop"
 label_settings = SubResource("LabelSettings_jf40h")
 
-[node name="HP" type="VBoxContainer" parent="Control/Panel"]
+[node name="HP" type="VBoxContainer" parent="Control/Panel/Container"]
 layout_mode = 0
-offset_left = 261.0
-offset_top = 370.0
-offset_right = 403.0
-offset_bottom = 432.0
+offset_left = 95.5
+offset_top = 272.59998
+offset_right = 237.5
+offset_bottom = 334.59998
 theme_override_constants/separation = 10
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Control/Panel/HP"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Control/Panel/Container/HP"]
 layout_mode = 2
 
-[node name="desc" type="Label" parent="Control/Panel/HP/VBoxContainer"]
+[node name="desc" type="Label" parent="Control/Panel/Container/HP/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "HP Potion - "
 label_settings = SubResource("LabelSettings_gq2pb")
 
-[node name="count" type="Label" parent="Control/Panel/HP/VBoxContainer"]
+[node name="count" type="Label" parent="Control/Panel/Container/HP/VBoxContainer"]
 layout_mode = 2
 text = "10G"
 label_settings = SubResource("LabelSettings_8vxot")
 
-[node name="buy_button" type="Button" parent="Control/Panel/HP"]
+[node name="buy_button" type="Button" parent="Control/Panel/Container/HP"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -142,29 +158,29 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_gk2um")
 text = "Buy"
 autowrap_trim_flags = 0
 
-[node name="Speed" type="VBoxContainer" parent="Control/Panel"]
+[node name="Speed" type="VBoxContainer" parent="Control/Panel/Container"]
 layout_mode = 0
-offset_left = 502.0
-offset_top = 371.0
-offset_right = 656.0
-offset_bottom = 433.0
+offset_left = 336.5
+offset_top = 273.59998
+offset_right = 490.5
+offset_bottom = 335.59998
 theme_override_constants/separation = 10
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Control/Panel/Speed"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Control/Panel/Container/Speed"]
 layout_mode = 2
 
-[node name="desc" type="Label" parent="Control/Panel/Speed/VBoxContainer"]
+[node name="desc" type="Label" parent="Control/Panel/Container/Speed/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Speed Potion -"
 label_settings = SubResource("LabelSettings_gq2pb")
 
-[node name="count" type="Label" parent="Control/Panel/Speed/VBoxContainer"]
+[node name="count" type="Label" parent="Control/Panel/Container/Speed/VBoxContainer"]
 layout_mode = 2
 text = "15G"
 label_settings = SubResource("LabelSettings_8vxot")
 
-[node name="buy_button" type="Button" parent="Control/Panel/Speed"]
+[node name="buy_button" type="Button" parent="Control/Panel/Container/Speed"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -179,29 +195,29 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_gk2um")
 text = "Buy"
 autowrap_trim_flags = 0
 
-[node name="Strength" type="VBoxContainer" parent="Control/Panel"]
+[node name="Strength" type="VBoxContainer" parent="Control/Panel/Container"]
 layout_mode = 0
-offset_left = 735.0
-offset_top = 371.0
-offset_right = 927.0
-offset_bottom = 433.0
+offset_left = 569.5
+offset_top = 273.59998
+offset_right = 761.5
+offset_bottom = 335.59998
 theme_override_constants/separation = 10
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Control/Panel/Strength"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Control/Panel/Container/Strength"]
 layout_mode = 2
 
-[node name="desc" type="Label" parent="Control/Panel/Strength/VBoxContainer"]
+[node name="desc" type="Label" parent="Control/Panel/Container/Strength/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Strength Potion - "
 label_settings = SubResource("LabelSettings_gq2pb")
 
-[node name="count" type="Label" parent="Control/Panel/Strength/VBoxContainer"]
+[node name="count" type="Label" parent="Control/Panel/Container/Strength/VBoxContainer"]
 layout_mode = 2
 text = "20G"
 label_settings = SubResource("LabelSettings_8vxot")
 
-[node name="buy_button" type="Button" parent="Control/Panel/Strength"]
+[node name="buy_button" type="Button" parent="Control/Panel/Container/Strength"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -215,6 +231,11 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_8vxot")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gk2um")
 text = "Buy"
 autowrap_trim_flags = 0
+
+[node name="BoxContainer" type="BoxContainer" parent="Control/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="NotEnough" type="Label" parent="."]
 z_index = 10

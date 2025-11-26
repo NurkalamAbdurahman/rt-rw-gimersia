@@ -1,10 +1,11 @@
 extends CanvasLayer
 
 # Node references
-@onready var hp_button: Button = $Control/Panel/HP/buy_button
-@onready var speed_button: Button = $Control/Panel/Speed/buy_button
-@onready var strength_button: Button = $Control/Panel/Strength/buy_button
+@onready var hp_button: Button = $Control/Panel/Container/HP/buy_button
+@onready var speed_button: Button = $Control/Panel/Container/Speed/buy_button
+@onready var strength_button: Button = $Control/Panel/Container/Strength/buy_button
 @onready var exit_button: Button = $Exit
+@onready var container: Panel = $Control/Panel/Container
 
 #@onready var not_enough_label: Label = $NotEnough
 @onready var buy_potion_label: Label = $BuyPotion
@@ -23,7 +24,7 @@ extends CanvasLayer
 
 # Animation constants
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
-const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
+const HOVER_SCALE: Vector2 = Vector2(1.01, 1.01)
 const PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
 const NORMAL_MODULATE: Color = Color(0.7, 0.7, 0.7)
 const HOVER_MODULATE: Color = Color(1.0, 0.84, 0.0)  # Gold color
@@ -33,16 +34,50 @@ const ANIMATION_DURATION: float = 0.15
 var navigable_buttons: Array[Button] = []
 var selected_index: int = 0
 
+# Animation variables
+var original_container_position: Vector2
+var is_animating: bool = false
+
 func _ready() -> void:
 	# Tandai bahwa popup sedang terbuka
 	GameData.is_popup_open = true
 	
+	_setup_animations()
 	_setup_buttons()
 	_connect_signals()
 	_hide_messages()
 	
 	# Fokus input ke shop
 	set_process_input(true)
+
+func _setup_animations() -> void:
+	# Simpan posisi asli container
+	original_container_position = container.position
+	
+	# Setup awal untuk container - posisi di atas layar
+	container.position.y = -container.size.y
+	container.modulate.a = 0.0
+	
+	# Mulai animasi show
+	_show_shop()
+
+func _show_shop() -> void:
+	is_animating = true
+	
+	# Animasi container turun dari atas sambil fade in
+	var container_tween = create_tween()
+	container_tween.set_parallel(true)
+	
+	# Animasi posisi - turun dari atas
+	container_tween.tween_property(container, "position:y", original_container_position.y, 0.5)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	
+	# Animasi fade in
+	container_tween.tween_property(container, "modulate:a", 1.0, 0.5)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	
+	await container_tween.finished
+	is_animating = false
 
 func _setup_buttons() -> void:
 	navigable_buttons = [hp_button, speed_button, strength_button, exit_button]
@@ -69,7 +104,7 @@ func _hide_messages() -> void:
 	buy_potion_label.hide()
 
 func _input(event: InputEvent) -> void:
-	if not visible:
+	if not visible or is_animating:
 		return
 		
 	# Navigasi horizontal untuk potion (kiri/kanan)
@@ -124,6 +159,9 @@ func _update_button_focus() -> void:
 			tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
 
 func _press_selected_button() -> void:
+	if is_animating:
+		return
+		
 	var btn: Button = navigable_buttons[selected_index]
 	_animate_button_press(btn)
 	await get_tree().create_timer(ANIMATION_DURATION).timeout
@@ -138,6 +176,9 @@ func _animate_button_press(btn: Button) -> void:
 	tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION * 0.5)
 
 func _on_button_mouse_entered(btn: Button) -> void:
+	if is_animating:
+		return
+		
 	selected_index = navigable_buttons.find(btn)
 	_play_hover_sound()
 	_update_button_focus()
@@ -156,6 +197,9 @@ func _play_hover_sound() -> void:
 
 # Purchase functions
 func _on_buy_hp_pressed() -> void:
+	if is_animating:
+		return
+		
 	if GameData.coins >= hp_potion_price:
 		GameData.coins -= hp_potion_price
 		GameData.add_hp_potion(potion_amount)
@@ -166,6 +210,9 @@ func _on_buy_hp_pressed() -> void:
 		_play_error_sound()
 
 func _on_buy_speed_pressed() -> void:
+	if is_animating:
+		return
+		
 	if GameData.coins >= speed_potion_price:
 		GameData.coins -= speed_potion_price
 		GameData.add_speed_potion(potion_amount)
@@ -176,6 +223,9 @@ func _on_buy_speed_pressed() -> void:
 		_play_error_sound()
 
 func _on_buy_strength_pressed() -> void:
+	if is_animating:
+		return
+		
 	if GameData.coins >= strength_potion_price:
 		GameData.coins -= strength_potion_price
 		GameData.add_strength_potion(potion_amount)
@@ -185,10 +235,30 @@ func _on_buy_strength_pressed() -> void:
 		_play_error_sound()
 
 func _on_exit_pressed() -> void:
+	if is_animating:
+		return
+		
 	_close_shop()
 
 func _close_shop() -> void:
 	print("Shop: Closing shop and resetting flag")
+	
+	is_animating = true
+	
+	# Animasi container naik ke atas sambil fade out sebelum menutup
+	var hide_tween = create_tween()
+	hide_tween.set_parallel(true)
+	
+	# Animasi posisi - naik ke atas
+	hide_tween.tween_property(container, "position:y", -container.size.y, 0.6)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	
+	# Animasi fade out
+	hide_tween.tween_property(container, "modulate:a", 0.0, 0.4)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	
+	await hide_tween.finished
+	
 	# Reset flag sebelum menutup
 	GameData.is_popup_open = false
 	

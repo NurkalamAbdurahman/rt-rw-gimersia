@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://opird46yc6y8"]
+[gd_scene load_steps=6 format=3 uid="uid://opird46yc6y8"]
 
 [ext_resource type="Script" uid="uid://b162lv6hl6e7s" path="res://Script/next_stage_celebration.gd" id="1_5nun5"]
-[ext_resource type="Texture2D" uid="uid://byyvr43r3cmlb" path="res://Assets/collecitions/ui/Congratulations.png" id="2_2cxba"]
+[ext_resource type="Texture2D" uid="uid://b0yi70i4d5p4v" path="res://Assets/collecitions/ui/Congrats_notext.png" id="2_neot8"]
 [ext_resource type="AudioStream" uid="uid://6tljypbwr03x" path="res://Assets/Audio/winning-218995.ogg" id="3_2cxba"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_lwx7j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_15v1l"]
+font = ExtResource("3_lwx7j")
+font_size = 64
 
 [node name="NextStageCelebration" type="CanvasLayer"]
 process_mode = 3
@@ -26,24 +31,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -85.0
-offset_top = -11.5
-offset_right = 85.0
-offset_bottom = 11.5
+offset_left = -130.0
+offset_top = -23.5
+offset_right = 130.0
+offset_bottom = 23.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Congratulations" type="Sprite2D" parent="Control/MarginContainer"]
+[node name="CongratsNotext" type="Sprite2D" parent="Control/Panel/MarginContainer"]
 texture_filter = 1
-position = Vector2(85, 23.5)
-texture = ExtResource("2_2cxba")
+position = Vector2(130, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_neot8")
+region_enabled = true
+region_rect = Rect2(266, 421, 1401, 640)
+
+[node name="Label" type="Label" parent="Control/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Congratulations"
+label_settings = SubResource("LabelSettings_15v1l")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_2cxba")

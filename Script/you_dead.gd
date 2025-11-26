@@ -13,7 +13,7 @@ var buttons: Array[Button]
 var selected_index := 0
 
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
-const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
+const HOVER_SCALE: Vector2 = Vector2(1.01, 1.01)
 const PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
 const NORMAL_MODULATE: Color = Color(0.6, 0.6, 0.6)
 const HOVER_MODULATE: Color = Color(1.0, 1.0, 1.0) 
@@ -77,7 +77,7 @@ func _animate_show() -> void:
 	container_tween.set_trans(Tween.TRANS_BACK)
 	container_tween.set_ease(Tween.EASE_OUT)
 	
-	container_tween.tween_property(kontainer, "position:y", 0, 0.6)
+	container_tween.tween_property(kontainer, "position:y", 0, 0.5)
 	container_tween.tween_property(kontainer, "modulate:a", 1.0, 0.4)
 	
 	await get_tree().create_timer(0.3).timeout

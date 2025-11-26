@@ -100,7 +100,7 @@ grow_vertical = 2
 theme_override_constants/separation = 20
 
 [node name="StageCleared" type="Sprite2D" parent="Control/Panel/VBoxContainer"]
-position = Vector2(146, 34)
+position = Vector2(152, 34)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_s7msi")
 
