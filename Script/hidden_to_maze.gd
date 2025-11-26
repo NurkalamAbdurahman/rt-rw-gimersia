@@ -12,6 +12,8 @@ var player_in_area = false
 var is_door_visible = false
 var chest_opened = false
 
+@export var maze_stage :int = 1
+
 func _ready():
 	# PASTIKAN DI EDITOR, KEDUA TIMER DISETEL ONE-SHOT DAN AUTOSTART NONAKTIF
 	
@@ -94,4 +96,19 @@ func buka_pintu():
 	wait_timer.stop()
 	print("[SISTEM] Pintu dibuka. Timer dihentikan.")
 	GameData.next_spawn_location = "IRON_DOOR_EXIT"
+	
+	match maze_stage:
+		1:
+			GameData.maze_stage_1 = true
+			GameData.maze_stage_2 = false
+			GameData.maze_stage_3 = false
+		2: 
+			GameData.maze_stage_1 = false
+			GameData.maze_stage_2 = true
+			GameData.maze_stage_3 = false
+		3:
+			GameData.maze_stage_1 = false
+			GameData.maze_stage_2 = false
+			GameData.maze_stage_3 = true
+	
 	get_tree().change_scene_to_file("res://Scenes/maze-01.tscn")

@@ -28,6 +28,9 @@ var is_finish_stage2 = false
 var is_finish_stage3 = false
 var is_scene_changing: bool = false
 var is_enter_stage = false
+var maze_stage_1 = false
+var maze_stage_2 = false
+var maze_stage_3 = false
 
 signal drawing_cleared
 
@@ -39,8 +42,11 @@ func set_finish_stage1():
 	
 func set_finish_stage2():
 	is_finish_stage2 = true
+	is_finish_stage1 = true
 	
 func set_finish_stage3():
+	is_finish_stage1 = true
+	is_finish_stage2 = true
 	is_finish_stage3 = true
 
 func save_drawing_data(strokes_to_save: Array, color: Color, size: float):
@@ -172,6 +178,9 @@ func reset():
 	speed_potion = 0
 	chest_states = {}
 	enemy_states = {}
+	maze_stage_1 = false
+	maze_stage_2 = false
+	maze_stage_3 = false
 
 func clear_torch():
 	torch_states = {}

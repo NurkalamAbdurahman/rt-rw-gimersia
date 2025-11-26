@@ -29,7 +29,7 @@
 [ext_resource type="AudioStream" uid="uid://b4uechw4ub0t4" path="res://Assets/Audio/buying_item.mp3" id="26_lh8jf"]
 [ext_resource type="PackedScene" uid="uid://b348lvmq7jtev" path="res://Scenes/obor-nyala.tscn" id="30_eppvb"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="30_muvn5"]
-[ext_resource type="PackedScene" uid="uid://jjnbpwvi8ovn" path="res://Scenes/ghost_altar.tscn" id="32_kqc3a"]
+[ext_resource type="PackedScene" uid="uid://bxi1v7ov31gpt" path="res://Scenes/ghost_altar.tscn" id="32_kqc3a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3njpm"]
 texture = ExtResource("1_hfi47")
@@ -4187,7 +4187,6 @@ script = ExtResource("1_eppvb")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 2
-visible = false
 
 [node name="Pause" parent="HUD" instance=ExtResource("30_muvn5")]
 offset_left = 7.0

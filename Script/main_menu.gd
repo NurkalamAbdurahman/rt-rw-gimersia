@@ -277,7 +277,7 @@ func _on_start_pressed() -> void:
 	get_tree().root.add_child(fade_scene)
 	await fade_scene.fade_out()
 	GameData.enter_stage()
-	GameData.hard_reset()
+	#GameData.hard_reset()
 	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_1.tscn")
 
 func _on_stage_pressed() -> void:

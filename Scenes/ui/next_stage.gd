@@ -10,6 +10,7 @@ extends CanvasLayer
 var buttons: Array[Button] = []
 var selected_index := 0
 var is_paused := false
+var pintu_to_stage :int = 2
 
 # Animation constants
 const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
@@ -195,9 +196,17 @@ func _change_to_next_stage() -> void:
 	GameData.reset()
 	GameData.clear_data()
 	GameData.clear_torch()
-	GameData.set_finish_stage1()
 	GameData.is_popup_open = false
-	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
+	match pintu_to_stage:
+		1:
+			get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
+			GameData.set_finish_stage3()
+		2:
+			get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
+			GameData.set_finish_stage1()
+		3:
+			get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_3.tscn")
+			GameData.set_finish_stage2()
 
 func _change_to_main_menu() -> void:
 	get_tree().paused = false
@@ -205,7 +214,13 @@ func _change_to_main_menu() -> void:
 	GameData.reset()
 	GameData.clear_data()
 	GameData.clear_torch()
-	GameData.set_finish_stage1()
+	match pintu_to_stage:
+		1:
+			GameData.set_finish_stage3()
+		2:
+			GameData.set_finish_stage1()
+		3:
+			GameData.set_finish_stage2()
 	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
 
 # Public methods untuk kontrol dari luar

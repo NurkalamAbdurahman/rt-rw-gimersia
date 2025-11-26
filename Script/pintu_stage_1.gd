@@ -8,10 +8,10 @@ extends Node2D
 @onready var sfx_pintu_terkunci: AudioStreamPlayer2D = $SFX_DoorLocked
 
 @export var popup_scene: PackedScene = preload("res://Scenes/ui/Next_Stage.tscn")
-
+@onready var next_stage: CanvasLayer = $NextStage
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 @onready var player_2: CharacterBody2D = $"../Player2"
-
+@export var pintu_ke_stage :int = 2
 @onready var stand_point: Node2D = $StandPoint   # ← titik berdiri di depan pintu
 
 var player_in_area = false
@@ -102,6 +102,7 @@ func buka_pintu():
 	await celebration.show_celebration()
 
 	var popup_instance = popup_scene.instantiate()
+	popup_instance.pintu_to_stage = pintu_ke_stage
 	get_tree().current_scene.add_child(popup_instance)
 	popup_instance.show_popup()
 

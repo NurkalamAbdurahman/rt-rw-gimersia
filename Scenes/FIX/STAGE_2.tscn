@@ -14,9 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://4mya8le2nvu5" path="res://Scenes/ui/You_Dead.tscn" id="9_r847v"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="12_jsvtg"]
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="13_nk1b1"]
-[ext_resource type="PackedScene" uid="uid://l0xtm8g5v8pd" path="res://Scenes/hidden_to_maze02.tscn" id="14_nk1b1"]
-[ext_resource type="PackedScene" path="res://Scenes/pintu_stage_2.tscn" id="15_r847v"]
-[ext_resource type="PackedScene" uid="uid://cwst4tasxjw1r" path="res://Scenes/ui/Next_Stage_2.tscn" id="16_5koqb"]
 [ext_resource type="PackedScene" uid="uid://de8ve0uu3hqol" path="res://Scenes/map_editor_layer.tscn" id="17_lh8bj"]
 [ext_resource type="PackedScene" uid="uid://dv0nx4kjchj7i" path="res://Scenes/qte_system.tscn" id="18_bvlfc"]
 [ext_resource type="PackedScene" uid="uid://ckg4xnullubp8" path="res://Scenes/trap_chest.tscn" id="19_x42nt"]
@@ -24,6 +21,9 @@
 [ext_resource type="PackedScene" uid="uid://bry4hbs4i45ix" path="res://Scenes/ui/Trap/trap_2.tscn" id="22_y7p4m"]
 [ext_resource type="PackedScene" uid="uid://qcn55v170xnx" path="res://Scenes/ui/Trap/Trap_3.tscn" id="23_yxyi2"]
 [ext_resource type="PackedScene" path="res://Scenes/ui/Trap/Trap_4.tscn" id="24_dmqeq"]
+[ext_resource type="PackedScene" uid="uid://d3upyn87bfdo0" path="res://Scenes/pintu_stage_1.tscn" id="24_p56gx"]
+[ext_resource type="PackedScene" uid="uid://djubpvo76vscy" path="res://Scenes/hidden_to_maze.tscn" id="24_svih5"]
+[ext_resource type="PackedScene" uid="uid://b348lvmq7jtev" path="res://Scenes/obor-nyala.tscn" id="25_svih5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c248w"]
 texture = ExtResource("1_rsbcv")
@@ -366,10 +366,6 @@ torch_id = "Torch_6"
 position = Vector2(1177, -62)
 torch_id = "Torch_7"
 
-[node name="Obor7" parent="SceneObor" instance=ExtResource("4_nyjbp")]
-position = Vector2(1455, 386)
-torch_id = "Torch_8"
-
 [node name="Obor8" parent="SceneObor" instance=ExtResource("4_nyjbp")]
 position = Vector2(1046, 388)
 torch_id = "Torch_9"
@@ -377,10 +373,6 @@ torch_id = "Torch_9"
 [node name="Obor9" parent="SceneObor" instance=ExtResource("4_nyjbp")]
 position = Vector2(672, 146)
 torch_id = "Torch_10"
-
-[node name="Obor10" parent="SceneObor" instance=ExtResource("4_nyjbp")]
-position = Vector2(1367, 386)
-torch_id = "Torch_11"
 
 [node name="Obor11" parent="SceneObor" instance=ExtResource("4_nyjbp")]
 position = Vector2(731, 1125)
@@ -451,7 +443,16 @@ position = Vector2(2179, 659)
 torch_id = "Torch_27"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
+
+[node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("8_nk1b1")]
+z_index = 21
+position = Vector2(1718.0775, -100.3844)
+
+[node name="Camera2D" type="Camera2D" parent="Player2" groups=["camera"]]
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
 
 [node name="Chest" type="Node2D" parent="."]
 position = Vector2(389.99997, -692.00006)
@@ -478,14 +479,6 @@ scale = Vector2(1.662591, 1.7165759)
 
 [node name="Hud" parent="." instance=ExtResource("7_jsvtg")]
 
-[node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("8_nk1b1")]
-z_index = 21
-position = Vector2(1718, -82)
-
-[node name="Camera2D" type="Camera2D" parent="Player2" groups=["camera"]]
-zoom = Vector2(5, 5)
-position_smoothing_enabled = true
-
 [node name="Goblin" parent="." instance=ExtResource("12_jsvtg")]
 position = Vector2(588, -27)
 
@@ -499,6 +492,7 @@ enemy_id = "SceneA_Goblin_3"
 
 [node name="Goblin4" parent="." instance=ExtResource("13_nk1b1")]
 position = Vector2(785, 770)
+hb_size = 35.0
 enemy_id = "SceneA_Goblin_4"
 
 [node name="Goblin5" parent="." instance=ExtResource("12_jsvtg")]
@@ -517,15 +511,8 @@ enemy_id = "SceneA_Goblin_7"
 position = Vector2(320, 701)
 enemy_id = "SceneA_Goblin_8"
 
-[node name="HiddenToMaze" parent="." instance=ExtResource("14_nk1b1")]
-position = Vector2(1406, 387)
-
 [node name="YouDead" parent="." instance=ExtResource("9_r847v")]
 visible = false
-
-[node name="Pintu_stage1" parent="." instance=ExtResource("15_r847v")]
-position = Vector2(1833, 1167)
-popup_scene = ExtResource("16_5koqb")
 
 [node name="MapEditorLayer" parent="." instance=ExtResource("17_lh8bj")]
 
@@ -575,3 +562,17 @@ position = Vector2(1248, 209)
 
 [node name="Trap_14" parent="sceneTrap" instance=ExtResource("22_y7p4m")]
 position = Vector2(1278, 1150)
+
+[node name="HiddenToMaze" parent="." instance=ExtResource("24_svih5")]
+position = Vector2(1412, 387)
+maze_stage = 2
+
+[node name="Obor3" parent="." instance=ExtResource("25_svih5")]
+position = Vector2(1391, 383)
+
+[node name="Obor4" parent="." instance=ExtResource("25_svih5")]
+position = Vector2(1438, 382)
+
+[node name="Pintu_stage1" parent="." instance=ExtResource("24_p56gx")]
+position = Vector2(1832, 1168)
+pintu_ke_stage = 3
