@@ -1,5 +1,4 @@
 extends Node2D
-
 @onready var tertutup: Sprite2D = $gold_chest
 @onready var anim_sprite: AnimatedSprite2D = $gold_chest_openanimation
 @onready var terbuka: Sprite2D = $gold_chest_open
@@ -21,7 +20,10 @@ func _ready():
 		print("Chest ", chest_id, " sudah dibuka sebelumnya. Menghapus...")
 		queue_free()
 		return
-		
+	
+	# Check if puzzle was already solved for this chest
+	puzzle_completed = PuzzleManager.is_chest_puzzle_solved(chest_id)
+	
 	tertutup.visible = true
 	terbuka.visible = false
 	anim_sprite.visible = false
@@ -32,24 +34,35 @@ func _ready():
 func _process(_delta):
 	if player_in_area and not chest_opened:
 		
-		# Jika puzzle belum selesai → buka puzzle
-		if Input.is_action_just_pressed("e") and not puzzle_completed and not puzzle_active:
-			open_puzzle()
-		
-		# Jika puzzle selesai → cek key
-		elif Input.is_action_just_pressed("e") and puzzle_completed:
-			if GameData.golden_keys > 0:
-				GameData.golden_keys -= 1
-				buka_chest()
+		if Input.is_action_just_pressed("e"):
+			# If puzzle already solved
+			if puzzle_completed:
+				# Check if has key
+				if GameData.golden_keys > 0:
+					GameData.golden_keys -= 1
+					buka_chest()
+				else:
+					sfx_chest_locked.play()
+					label.text = "Puzzle solved!"
+					label.visible = true
 			else:
-				sfx_chest_locked.play()
-				label.text = "You need a Golden Key to open this chest"
-				label.visible = true
+				# Puzzle not solved yet, open puzzle
+				if not puzzle_active:
+					open_puzzle()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not chest_opened:
 		player_in_area = true
-		label.text = "[E] Solve"
+		
+		# Update label based on puzzle status
+		if puzzle_completed:
+			if GameData.golden_keys > 0:
+				label.text = "[E] Open Chest (1 Golden Key)"
+			else:
+				label.text = "[E] Need Golden Key"
+		else:
+			label.text = "[E] Solve Puzzle"
+		
 		label.visible = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
@@ -78,24 +91,39 @@ func _on_puzzle_solved():
 	get_tree().paused = false
 	puzzle_active = false
 	puzzle_completed = true
+	GameData.is_popup_open = false
 	
-	# Cek apakah player punya golden key
+	# Mark puzzle as solved in PuzzleManager
+	PuzzleManager.mark_chest_puzzle_solved(chest_id)
+	
+	print("Puzzle solved for chest: ", chest_id)
+	
+	# Check if player has golden key
 	if GameData.golden_keys > 0:
 		GameData.golden_keys -= 1
-		GameData.is_popup_open = false
 		buka_chest()
 	else:
-		# Kalau puzzle berhasil tapi belum punya key
+		# Puzzle solved but no key
 		sfx_chest_locked.play()
-		label.text = "You solved the puzzle!\nBut you need a Golden Key"
+		label.text = "Puzzle solved!"
 		label.visible = true
+		
+		# Auto update label after 3 seconds
+		await get_tree().create_timer(3.0).timeout
+		if player_in_area and not chest_opened:
+			label.text = "[E] Need Golden Key"
+			label.visible = true
 
 func _on_puzzle_failed():
 	get_tree().paused = false
 	puzzle_active = false
+	GameData.is_popup_open = false
 	
 	if player_in_area and not chest_opened:
-		label.text = "[E] Solve"
+		if puzzle_completed:
+			label.text = "[E] Need Golden Key" if GameData.golden_keys == 0 else "[E] Open Chest (1 Golden Key)"
+		else:
+			label.text = "[E] Solve Puzzle"
 		label.visible = true
 
 func buka_chest():
