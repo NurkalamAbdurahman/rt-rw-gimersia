@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://d2fkbxfwnyw1c"]
+[gd_scene load_steps=53 format=4 uid="uid://d2fkbxfwnyw1c"]
 
 [ext_resource type="Script" uid="uid://bgnvhifq7g7kf" path="res://Script/stage_1.gd" id="1_ihc3j"]
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_w6c7r"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://ldileuwixmb" path="res://Scenes/tutorial_step.tscn" id="30_ab3l0"]
 [ext_resource type="PackedScene" uid="uid://bry4hbs4i45ix" path="res://Scenes/ui/Trap/trap_2.tscn" id="30_e2qlx"]
 [ext_resource type="PackedScene" uid="uid://c3rikq3n8hh6h" path="res://Scenes/ui/Trap/trap_1.tscn" id="31_65dr2"]
+[ext_resource type="PackedScene" uid="uid://ckg4xnullubp8" path="res://Scenes/trap_chest.tscn" id="32_e2qlx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixf22"]
 texture = ExtResource("2_lmh3y")
@@ -4909,6 +4910,9 @@ puzzle_section = 1
 
 [node name="silverchest2" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(431.99994, 736.00006)
+
+[node name="TrapChest" parent="Chest" instance=ExtResource("32_e2qlx")]
+position = Vector2(905, 470.00006)
 
 [node name="gold_chest" parent="." instance=ExtResource("13_lmh3y")]
 position = Vector2(2277, -481)
