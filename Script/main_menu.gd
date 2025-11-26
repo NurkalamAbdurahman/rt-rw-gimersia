@@ -148,6 +148,7 @@ func _on_start_pressed() -> void:
 	await fade_scene.fade_out()
 	GameData.enter_stage()
 	GameData.hard_reset()
+	PuzzleManager.reset_puzzle()
 	get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_1.tscn")
 
 func _on_stage_pressed() -> void:
