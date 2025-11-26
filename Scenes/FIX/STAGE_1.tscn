@@ -5022,6 +5022,7 @@ position = Vector2(1216, -593)
 [node name="gold_chest2" parent="." instance=ExtResource("13_lmh3y")]
 position = Vector2(-183, 254)
 chest_id = "SceneAG_GoldChest_2"
+skyes = 0
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 10.0

@@ -9,6 +9,7 @@ extends Node2D
 @onready var hud: Label = $"../Hud/Label"
 
 @export var chest_id: String = "SceneAG_GoldChest_1"
+@export var skyes :int = 1
 
 var player_in_area = false
 var chest_opened = false
@@ -143,7 +144,7 @@ func buka_chest():
 	
 	# Reward lebih besar untuk golden chest
 	var reward = randi_range(15, 25)
-	var skull_keys = 1
+	var skull_keys = skyes
 	
 	GameData.add_coin(reward)
 	GameData.add_skull_key(skull_keys)
