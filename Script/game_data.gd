@@ -11,7 +11,7 @@ var golden_keys: int = 0
 var skull_keys: int = 1
 var pity: int = 0
 var max_pity: int = 3
-var hp_potion: int = 1
+var hp_potion: int = 2
 var strength_potion: int = 2
 var speed_potion: int = 1
 var chest_states = {}
@@ -127,7 +127,7 @@ func remove_coins(amount: int):
 func use_hp_potion() -> bool:
 	if hp_potion > 0 and health < max_health:
 		hp_potion -= 1
-		health = clamp(health + 1, 0, max_health)
+		health = clamp(health + 2, 0, max_health)
 		emit_signal("stats_updated")
 		emit_signal("use_potion")
 		return true
