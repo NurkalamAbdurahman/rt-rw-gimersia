@@ -4888,6 +4888,7 @@ position = Vector2(-179, 0)
 torch_id = "Torch_45"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -4897,6 +4898,7 @@ position = Vector2(389.99997, -692.00006)
 position = Vector2(-630, 945.00006)
 min_coin = 0
 max_coin = 0
+puzzle_section = 4
 
 [node name="silverchest3" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(1228, 115.00006)
@@ -5074,7 +5076,7 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_3x7lv")
 
 [node name="barrierCollision5" type="CollisionShape2D" parent="Barrier/Barrier3"]
-position = Vector2(128.6709, 194.71222)
+position = Vector2(127.6709, 204.71222)
 shape = SubResource("RectangleShape2D_3x7lv")
 
 [node name="barrierCollision6" type="CollisionShape2D" parent="Barrier/Barrier3"]
@@ -5119,16 +5121,16 @@ step_id = "5"
 instruction_text = "Press 1, 2, or 3 to use a potion"
 
 [node name="TutorialStep6" parent="." instance=ExtResource("30_ab3l0")]
-position = Vector2(280, 206)
+position = Vector2(329, 204)
 rotation = 1.5707964
-scale = Vector2(5, 5)
+scale = Vector2(6, 6)
 step_id = "7"
 instruction_text = "Defeat the Goblin Boss to obtain the Golden Key"
 
 [node name="TutorialStep7" parent="." instance=ExtResource("30_ab3l0")]
-position = Vector2(115, 303)
+position = Vector2(147, 300)
 rotation = 1.5707964
-scale = Vector2(1.4, 1.4)
+scale = Vector2(2, 2)
 step_id = "6"
 instruction_text = "Sometimes strange things may appear, such as this lit torch. Try to approach it"
 

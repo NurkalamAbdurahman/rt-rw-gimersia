@@ -35,6 +35,11 @@ func is_section_revealed(section_index: int) -> bool:
 func get_revealed_count() -> int:
 	return revealed_sections.size()
 
+func reveal_all():
+	for i in range(3):
+		reveal_section(i)
+
+
 func reset_puzzle():
 	generate_puzzle()
 	revealed_sections.clear()

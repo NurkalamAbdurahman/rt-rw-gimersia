@@ -91,13 +91,28 @@ func buka_chest():
 
 
 func show_pattern_section():
-	# Tandai section sudah di-reveal
+	# Section 4 = tampilkan seluruh pattern
+	if puzzle_section == 4:
+		PuzzleManager.reveal_all()  # <-- Kamu buat method ini di PuzzleManager
+		get_tree().paused = true
+		
+		var PatternViewerScene = load("res://Scenes/pattern_viewer.tscn")
+		var viewer = PatternViewerScene.instantiate()
+		viewer.section_index = -1  # -1 = kode khusus untuk "full pattern"
+		
+		get_tree().root.add_child(viewer)
+		viewer.viewer_closed.connect(_on_pattern_viewer_closed)
+
+		print("=== SHOWING FULL PATTERN ===")
+		return
+
+	# ============================
+	# Section 0–2 tetap memakai logic lama
+	# ============================
 	PuzzleManager.reveal_section(puzzle_section)
 	
-	# Pause game
 	get_tree().paused = true
 	
-	# Instance viewer pattern
 	var PatternViewerScene = load("res://Scenes/pattern_viewer.tscn")
 	var viewer = PatternViewerScene.instantiate()
 	viewer.section_index = puzzle_section
@@ -106,6 +121,7 @@ func show_pattern_section():
 	viewer.viewer_closed.connect(_on_pattern_viewer_closed)
 	
 	print("=== SHOWING PATTERN SECTION ", puzzle_section, " ===")
+
 
 
 
