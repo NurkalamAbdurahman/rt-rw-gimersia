@@ -37,9 +37,10 @@ func _ready():
 	yes.pressed.connect(_on_confirm_pressed)
 	no.pressed.connect(_on_cancel_pressed)
 	
-	# Setup button focus mode and signals
+	# ✅ NONAKTIFKAN INTERAKSI MOUSE PADA TOMBOL
 	for btn in buttons:
 		btn.focus_mode = Control.FOCUS_NONE
+		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	_update_button_focus()
 
