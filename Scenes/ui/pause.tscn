@@ -84,7 +84,6 @@ grow_vertical = 2
 script = ExtResource("1_o80xk")
 
 [node name="Panel" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,40 +91,39 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UiPaused" type="Sprite2D" parent="Panel"]
-position = Vector2(575.00006, 324.00003)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("8_m37m4")
-region_enabled = true
-region_rect = Rect2(612, 209, 694, 707)
-
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 519.0
-offset_top = 189.0
-offset_right = 635.0
-offset_bottom = 223.0
-size_flags_horizontal = 4
-text = "Pause"
-label_settings = SubResource("LabelSettings_arwdj")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -86.0
-offset_top = -74.5
-offset_right = 86.0
-offset_bottom = 74.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="UiPaused" type="Sprite2D" parent="Panel/MarginContainer/VBoxContainer2"]
+position = Vector2(85, 135.49998)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_m37m4")
+region_enabled = true
+region_rect = Rect2(612, 209, 694, 707)
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Pause"
+label_settings = SubResource("LabelSettings_arwdj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer2"]
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="resume" type="Button" parent="Panel/VBoxContainer"]
+[node name="resume" type="Button" parent="Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ohc50")
 theme_override_font_sizes/font_size = 64
@@ -137,7 +135,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_joncy")
 text = "Resume"
 alignment = 0
 
-[node name="controls" type="Button" parent="Panel/VBoxContainer"]
+[node name="controls" type="Button" parent="Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ohc50")
 theme_override_font_sizes/font_size = 64
@@ -148,7 +146,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiib")
 text = "Controls"
 alignment = 0
 
-[node name="quit" type="Button" parent="Panel/VBoxContainer"]
+[node name="quit" type="Button" parent="Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ohc50")
 theme_override_font_sizes/font_size = 64
@@ -327,5 +325,5 @@ offset_bottom = 442.75
 text = "Potion"
 label_settings = SubResource("LabelSettings_ha2cy")
 
-[connection signal="pressed" from="Panel/VBoxContainer/resume" to="." method="_on_resume_pressed"]
-[connection signal="toggled" from="Panel/VBoxContainer/resume" to="." method="_on_resume_toggled"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer2/VBoxContainer/resume" to="." method="_on_resume_pressed"]
+[connection signal="toggled" from="Panel/MarginContainer/VBoxContainer2/VBoxContainer/resume" to="." method="_on_resume_toggled"]
