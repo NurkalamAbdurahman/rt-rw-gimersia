@@ -7,7 +7,6 @@ extends CanvasLayer
 @onready var exit_button: Button = $Exit
 @onready var container: Panel = $Control/Panel/Container
 
-#@onready var not_enough_label: Label = $NotEnough
 @onready var buy_potion_label: Label = $BuyPotion
 
 # SFX references
@@ -38,7 +37,18 @@ var selected_index: int = 0
 var original_container_position: Vector2
 var is_animating: bool = false
 
+# ✅ ANTI-STACK PROTECTION
+var is_closing: bool = false
+static var shop_instance: CanvasLayer = null
+
 func _ready() -> void:
+	# ✅ CEK JIKA SHOP SUDAH ADA, HINDARI DUPLIKAT
+	if shop_instance != null and shop_instance != self:
+		queue_free()
+		return
+	
+	shop_instance = self
+	
 	# Tandai bahwa popup sedang terbuka
 	GameData.is_popup_open = true
 	
@@ -87,13 +97,7 @@ func _setup_buttons() -> void:
 		btn.focus_mode = Control.FOCUS_NONE
 		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
-	# ❌ HAPUS KONEKSI MOUSE SIGNALS
-	# for btn in navigable_buttons:
-	#     btn.mouse_entered.connect(_on_button_mouse_entered.bind(btn))
-	#     btn.mouse_exited.connect(_on_button_mouse_exited.bind(btn))
-	
 	# Set labels as top level
-	#not_enough_label.top_level = true
 	buy_potion_label.top_level = true
 	
 	_update_button_focus()
@@ -105,11 +109,10 @@ func _connect_signals() -> void:
 	exit_button.pressed.connect(_on_exit_pressed)
 
 func _hide_messages() -> void:
-	#not_enough_label.hide()
 	buy_potion_label.hide()
 
 func _input(event: InputEvent) -> void:
-	if not visible or is_animating:
+	if not visible or is_animating or is_closing:
 		return
 		
 	# Navigasi horizontal untuk potion (kiri/kanan)
@@ -167,7 +170,7 @@ func _update_button_focus() -> void:
 			tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
 
 func _press_selected_button() -> void:
-	if is_animating:
+	if is_animating or is_closing:
 		return
 		
 	var btn: Button = navigable_buttons[selected_index]
@@ -183,30 +186,13 @@ func _animate_button_press(btn: Button) -> void:
 	tween.tween_property(btn, "scale", PRESS_SCALE, ANIMATION_DURATION * 0.5)
 	tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION * 0.5)
 
-# ❌ HAPUS FUNGSI MOUSE HANDLER
-# func _on_button_mouse_entered(btn: Button) -> void:
-#     if is_animating:
-#         return
-#         
-#     selected_index = navigable_buttons.find(btn)
-#     _play_hover_sound()
-#     _update_button_focus()
-
-# func _on_button_mouse_exited(btn: Button) -> void:
-#     # Reset to normal state when mouse exits
-#     var tween: Tween = create_tween().set_parallel(true)
-#     tween.set_trans(Tween.TRANS_CUBIC)
-#     tween.set_ease(Tween.EASE_OUT)
-#     tween.tween_property(btn, "modulate", NORMAL_MODULATE, ANIMATION_DURATION)
-#     tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
-
 func _play_hover_sound() -> void:
 	if sfx_hover:
 		sfx_hover.play()
 
 # Purchase functions
 func _on_buy_hp_pressed() -> void:
-	if is_animating:
+	if is_animating or is_closing:
 		return
 		
 	if GameData.coins >= hp_potion_price:
@@ -215,11 +201,10 @@ func _on_buy_hp_pressed() -> void:
 		_show_success_message("HP Potion purchased!")
 		_play_buy_sound()
 	else:
-		#_show_error_message("Not enough gold!")
 		_play_error_sound()
 
 func _on_buy_speed_pressed() -> void:
-	if is_animating:
+	if is_animating or is_closing:
 		return
 		
 	if GameData.coins >= speed_potion_price:
@@ -228,11 +213,10 @@ func _on_buy_speed_pressed() -> void:
 		_show_success_message("Speed Potion purchased!")
 		_play_buy_sound()
 	else:
-		#_show_error_message("Not enough gold!")
 		_play_error_sound()
 
 func _on_buy_strength_pressed() -> void:
-	if is_animating:
+	if is_animating or is_closing:
 		return
 		
 	if GameData.coins >= strength_potion_price:
@@ -244,14 +228,18 @@ func _on_buy_strength_pressed() -> void:
 		_play_error_sound()
 
 func _on_exit_pressed() -> void:
-	if is_animating:
+	if is_animating or is_closing:
 		return
 		
 	_close_shop()
 
 func _close_shop() -> void:
-	print("Shop: Closing shop and resetting flag")
+	# ✅ CEK JIKA SUDAH DALAM PROSES CLOSING
+	if is_closing:
+		return
 	
+	print("Shop: Closing shop and resetting flag")
+	is_closing = true
 	is_animating = true
 	
 	# Animasi container naik ke atas sambil fade out sebelum menutup
@@ -273,6 +261,10 @@ func _close_shop() -> void:
 	
 	if sfx_close:
 		sfx_close.play()
+	
+	# ✅ CLEANUP STATIC VARIABLE
+	shop_instance = null
+	
 	queue_free()
 
 # Cleanup ketika node dihapus
@@ -280,14 +272,14 @@ func _exit_tree() -> void:
 	print("Shop: Exit tree, ensuring flag is reset")
 	# Pastikan flag direset bahkan jika shop ditutup dengan cara lain
 	GameData.is_popup_open = false
+	
+	# ✅ PASTIKAN STATIC VARIABLE DI RESET
+	if shop_instance == self:
+		shop_instance = null
 
 func _show_success_message(message: String) -> void:
 	buy_potion_label.text = message
 	show_temp_message(buy_potion_label, 2.0)
-
-#func _show_error_message(message: String) -> void:
-	#not_enough_label.text = message
-	#show_temp_message(not_enough_label, 2.0)
 
 func _play_buy_sound() -> void:
 	if sfx_buy_potion:
