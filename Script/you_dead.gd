@@ -50,6 +50,9 @@ func _init_ui() -> void:
 		btn.modulate = NORMAL_MODULATE
 		btn.modulate.a = 0.0
 		btn.scale = Vector2(0.8, 0.8)
+		# ✅ NONAKTIFKAN INTERAKSI MOUSE
+		btn.focus_mode = Control.FOCUS_NONE
+		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	_update_button_focus()
 
@@ -57,9 +60,9 @@ func _connect_signals() -> void:
 	respawn.pressed.connect(_on_respawn_pressed)
 	quit.pressed.connect(_on_quit_pressed)
 	
-	# Connect mouse enter signals for hover effect
-	for btn in buttons:
-		btn.mouse_entered.connect(_on_button_mouse_entered.bind(btn))
+	# ❌ HAPUS KONEKSI MOUSE SIGNALS
+	# for btn in buttons:
+	#     btn.mouse_entered.connect(_on_button_mouse_entered.bind(btn))
 
 func _animate_show() -> void:
 	_disable_buttons()
@@ -192,13 +195,6 @@ func _animate_button_press(btn: Button) -> void:
 	
 	tween.tween_property(btn, "scale", PRESS_SCALE, ANIMATION_DURATION * 0.5)
 	tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION * 0.5)
-
-func _on_button_mouse_entered(btn: Button) -> void:
-	var index = buttons.find(btn)
-	if index != -1:
-		selected_index = index
-		sfx_hover.play()
-		_animate_button_focus()
 
 func _on_respawn_pressed() -> void:
 	get_tree().paused = false
