@@ -300,7 +300,7 @@ offset_top = -6.0
 offset_right = 147.0
 offset_bottom = 41.0
 scale = Vector2(0.15, 0.15)
-text = "[e] Interect"
+text = "[e] Interact"
 label_settings = SubResource("LabelSettings_uame5")
 
 [node name="zonkMessage" type="Label" parent="."]
