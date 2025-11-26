@@ -3,12 +3,13 @@ extends Control
 @export var pause_key: String = "esc"
 
 @onready var panel: Panel = $Panel
-@onready var texture_rect: Sprite2D = $Panel/UiPaused
-@onready var text_edit: Label = $Panel/Label
+@onready var margin_container: MarginContainer = $Panel/MarginContainer
+@onready var texture_rect: Sprite2D = $Panel/MarginContainer/VBoxContainer2/UiPaused
+@onready var text_edit: Label = $Panel/MarginContainer/VBoxContainer2/Label
 
-@onready var resume_button: Button = $Panel/VBoxContainer/resume
-@onready var controls_button: Button = $Panel/VBoxContainer/controls
-@onready var quit_button: Button = $Panel/VBoxContainer/quit
+@onready var resume_button: Button =$Panel/MarginContainer/VBoxContainer2/VBoxContainer/resume
+@onready var controls_button: Button = $Panel/MarginContainer/VBoxContainer2/VBoxContainer/controls
+@onready var quit_button: Button = $Panel/MarginContainer/VBoxContainer2/VBoxContainer/quit
 
 @onready var confirm_panel: Panel = $Confirm
 @onready var yes_button: Button = $Confirm/VBoxContainer/HBoxContainer/ya
@@ -39,6 +40,11 @@ var selected_index := 0
 var confirm_buttons: Array[Button] = []
 var confirm_index := 0
 
+# Proteksi terhadap spam ESC dan animasi
+var is_animating := false
+var can_toggle_pause := true
+var original_margin_position: Vector2
+
 
 func _ready() -> void:
 	_init_ui()
@@ -46,12 +52,12 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed(pause_key) and not GameData.is_popup_open:
+	if Input.is_action_just_pressed(pause_key) and can_toggle_pause and not GameData.is_popup_open:
 		_handle_escape()
 
 
 func _input(event: InputEvent) -> void:
-	if not visible:
+	if not visible or is_animating:
 		return
 	
 	if confirm_panel.visible:
@@ -68,7 +74,19 @@ func _init_ui() -> void:
 		btn.focus_mode = Control.FOCUS_NONE
 		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
+	# Simpan posisi original dan set posisi awal di atas layar
+	original_margin_position = margin_container.position
+	margin_container.position.y = -600
+	margin_container.modulate.a = 0.0
+	
+	# Set initial button states
+	for btn in buttons:
+		btn.modulate = NORMAL_MODULATE
+		btn.modulate.a = 0.0
+		btn.scale = Vector2(0.8, 0.8)
+	
 	visible = false
+	modulate.a = 0.0
 	confirm_panel.visible = false
 	control_menu.visible = false
 
@@ -82,6 +100,9 @@ func _connect_signals() -> void:
 
 
 func _handle_escape() -> void:
+	if is_animating:
+		return
+	
 	if control_menu.visible:
 		_close_controls()
 		return
@@ -94,29 +115,102 @@ func _handle_escape() -> void:
 
 
 func _toggle_pause() -> void:
+	# Proteksi terhadap spam
+	can_toggle_pause = false
+	
 	get_tree().paused = not get_tree().paused
 	
 	if get_tree().paused:
 		_show_pause()
 	else:
 		_hide_pause()
+	
+	# Reset proteksi setelah animasi selesai
+	await get_tree().create_timer(0.5).timeout
+	can_toggle_pause = true
 
 
 func _show_pause() -> void:
+	is_animating = true
 	visible = true
 	panel.visible = true
 	text_edit.visible = true
 	texture_rect.visible = true
 	
 	selected_index = 0
-	_update_focus()
+	
+	# Fade in background
+	var bg_tween := create_tween()
+	bg_tween.tween_property(self, "modulate:a", 1.0, 0.3)
+	
+	await bg_tween.finished
+	
+	# Animate margin container dari atas ke posisi original
+	var container_tween := create_tween().set_parallel(true)
+	container_tween.set_trans(Tween.TRANS_BACK)
+	container_tween.set_ease(Tween.EASE_OUT)
+	
+	container_tween.tween_property(margin_container, "position:y", original_margin_position.y, 0.6)
+	container_tween.tween_property(margin_container, "modulate:a", 1.0, 0.4)
+	
+	await get_tree().create_timer(0.3).timeout
+	_animate_buttons_in()
+	
+	is_animating = false
 
 
 func _hide_pause() -> void:
+	is_animating = true
+	
+	# Animate buttons out
+	for btn in buttons:
+		var btn_tween := create_tween().set_parallel(true)
+		btn_tween.set_trans(Tween.TRANS_CUBIC)
+		btn_tween.set_ease(Tween.EASE_IN)
+		
+		btn_tween.tween_property(btn, "modulate:a", 0.0, 0.2)
+		btn_tween.tween_property(btn, "scale", Vector2(0.8, 0.8), 0.2)
+	
+	await get_tree().create_timer(0.2).timeout
+	
+	# Animate margin container kembali ke atas
+	var container_tween := create_tween().set_parallel(true)
+	container_tween.set_trans(Tween.TRANS_BACK)
+	container_tween.set_ease(Tween.EASE_IN)
+	
+	container_tween.tween_property(margin_container, "position:y", -600, 0.5)
+	container_tween.tween_property(margin_container, "modulate:a", 0.0, 0.3)
+	
+	await container_tween.finished
+	
+	# Fade out background
+	var bg_tween := create_tween()
+	bg_tween.tween_property(self, "modulate:a", 0.0, 0.2)
+	
+	await bg_tween.finished
+	
 	visible = false
+	is_animating = false
+
+
+func _animate_buttons_in() -> void:
+	for i in buttons.size():
+		var btn := buttons[i]
+		var tween := create_tween().set_parallel(true)
+		tween.set_trans(Tween.TRANS_BACK)
+		tween.set_ease(Tween.EASE_OUT)
+		
+		tween.tween_property(btn, "modulate:a", 1.0, 0.4).set_delay(i * 0.1)
+		tween.tween_property(btn, "scale", NORMAL_SCALE, 0.4).set_delay(i * 0.1)
+	
+	await get_tree().create_timer(0.5).timeout
+	_update_focus()
 
 
 func _show_confirm() -> void:
+	if is_animating:
+		return
+		
 	panel.visible = false
 	text_edit.visible = false
 	texture_rect.visible = false
@@ -127,6 +221,9 @@ func _show_confirm() -> void:
 
 
 func _close_confirm() -> void:
+	if is_animating:
+		return
+		
 	confirm_panel.visible = false
 	panel.visible = true
 	text_edit.visible = true
@@ -134,6 +231,9 @@ func _close_confirm() -> void:
 
 
 func _show_controls() -> void:
+	if is_animating:
+		return
+		
 	panel.visible = false
 	text_edit.visible = false
 	texture_rect.visible = false
@@ -141,6 +241,9 @@ func _show_controls() -> void:
 
 
 func _close_controls() -> void:
+	if is_animating:
+		return
+		
 	control_menu.visible = false
 	panel.visible = true
 	text_edit.visible = true
@@ -148,6 +251,9 @@ func _close_controls() -> void:
 
 
 func _handle_pause_input(event: InputEvent) -> void:
+	if is_animating:
+		return
+		
 	if event.is_action_pressed("menu_up"):
 		_move_selection(-1)
 	elif event.is_action_pressed("menu_down"):
@@ -157,6 +263,9 @@ func _handle_pause_input(event: InputEvent) -> void:
 
 
 func _handle_confirm_input(event: InputEvent) -> void:
+	if is_animating:
+		return
+		
 	if event.is_action_pressed("menu_left"):
 		_move_confirm(-1)
 	elif event.is_action_pressed("menu_right"):
@@ -203,6 +312,9 @@ func _animate_button_focus(target_buttons: Array[Button], focus_index: int) -> v
 
 
 func _press_selected_button(btn: Button) -> void:
+	if is_animating:
+		return
+		
 	_animate_button_press(btn)
 	await get_tree().create_timer(ANIMATION_DURATION).timeout
 	btn.emit_signal("pressed")
@@ -218,27 +330,42 @@ func _animate_button_press(btn: Button) -> void:
 
 
 func _on_resume_pressed() -> void:
+	if is_animating:
+		return
+		
 	sfx_button.play()
 	get_tree().paused = false
 	_hide_pause()
 
 
 func _on_controls_pressed() -> void:
+	if is_animating:
+		return
+		
 	sfx_button.play()
 	_show_controls()
 
 
 func _on_exit_control_pressed() -> void:
+	if is_animating:
+		return
+		
 	sfx_button.play()
 	_close_controls()
 
 
 func _on_quit_pressed() -> void:
+	if is_animating:
+		return
+		
 	sfx_button.play()
 	_show_confirm()
 
 
 func _on_yes_pressed() -> void:
+	if is_animating:
+		return
+		
 	sfx_button.play()
 	get_tree().paused = false
 	GameData.reset()
@@ -249,5 +376,8 @@ func _on_yes_pressed() -> void:
 
 
 func _on_no_pressed() -> void:
+	if is_animating:
+		return
+		
 	sfx_button.play()
 	_close_confirm()
