@@ -443,7 +443,6 @@ position = Vector2(2179, 659)
 torch_id = "Torch_27"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -452,10 +451,12 @@ scale = Vector2(1.3344294, 1.6611495)
 
 [node name="silverchest3" parent="Chest" instance=ExtResource("5_e7ynj")]
 position = Vector2(1365.3777, 820.5162)
+puzzle_section = 2
 
 [node name="silverchest" parent="Chest" instance=ExtResource("5_e7ynj")]
 position = Vector2(-87.6779, 553.8334)
 chest_id = "SceneA_Chest_2"
+puzzle_section = 1
 
 [node name="silverchest2" parent="Chest" instance=ExtResource("5_e7ynj")]
 position = Vector2(523.07, 660.3861)

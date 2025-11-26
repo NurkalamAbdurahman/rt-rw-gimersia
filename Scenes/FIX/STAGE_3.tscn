@@ -1125,6 +1125,7 @@ scale = Vector2(1.3344294, 1.6611495)
 
 [node name="silverchest3" parent="Chest" instance=ExtResource("6_w3a7i")]
 position = Vector2(983.1918, 715.7694)
+puzzle_section = 1
 
 [node name="silverchest" parent="Chest" instance=ExtResource("6_w3a7i")]
 position = Vector2(-65.19638, 976.4323)
@@ -1133,6 +1134,7 @@ chest_id = "SceneA_Chest_2"
 [node name="silverchest2" parent="Chest" instance=ExtResource("6_w3a7i")]
 position = Vector2(542.554, 620.05255)
 chest_id = "SceneA_Chest_3"
+puzzle_section = 2
 
 [node name="gold_chest" parent="." instance=ExtResource("7_jkifs")]
 position = Vector2(2014, 1120)
