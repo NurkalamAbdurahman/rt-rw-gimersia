@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://chbycjn7huonb"]
+[gd_scene load_steps=17 format=3 uid="uid://chbycjn7huonb"]
 
 [ext_resource type="Script" uid="uid://cdlb5kn7uv7ql" path="res://Script/ghost.gd" id="1_3mxmt"]
 [ext_resource type="Texture2D" uid="uid://d4d5tjhdv3nlp" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_001.png" id="2_ax0xk"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://srrb0c8cmn6m" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_009.png" id="11_w60pv"]
 [ext_resource type="Texture2D" uid="uid://bsjlkxro52em6" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_010.png" id="12_yo8bj"]
 [ext_resource type="Texture2D" uid="uid://cih6068yd62pn" path="res://Assets/Tileset/asset_bonus_stage/PNG/NPC/ghost_1/walking/Wraith_03_Moving Forward_011.png" id="13_awks0"]
+[ext_resource type="AudioStream" uid="uid://djhqs0225u14t" path="res://Assets/Audio/ghost-breath.mp3" id="14_pe55a"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d3atw"]
 animations = [{
@@ -77,3 +78,7 @@ frame_progress = 0.48322612
 shape = SubResource("CircleShape2D_j6jnv")
 
 [node name="ChaseTimer" type="Timer" parent="."]
+
+[node name="SFX_Breath" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_pe55a")
+volume_db = 24.0

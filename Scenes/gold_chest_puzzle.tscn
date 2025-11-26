@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://07vs520maogt"]
+[gd_scene load_steps=21 format=3 uid="uid://d2d7kuwoylspy"]
 
 [ext_resource type="Script" uid="uid://cfro873vrox3k" path="res://Script/GoldChestPuzzle.gd" id="1_3erbd"]
 [ext_resource type="AudioStream" uid="uid://dm0axowvu4x7w" path="res://Assets/Audio/puzzle-berhasil.mp3" id="2_gqg8n"]

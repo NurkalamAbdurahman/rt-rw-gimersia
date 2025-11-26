@@ -7,6 +7,9 @@ var puzzle_solution: Array[bool] = []
 # Track which sections have been revealed (0, 1, 2 for the 3 vertical sections)
 var revealed_sections: Array[int] = []
 
+# Track which chests have had their puzzles solved
+var solved_chests: Dictionary = {}
+
 # Initialize puzzle on first load
 func _ready():
 	if puzzle_solution.is_empty():
@@ -36,3 +39,11 @@ func reset_puzzle():
 	generate_puzzle()
 	revealed_sections.clear()
 	print("=== PUZZLE RESET ===")
+
+# New functions for tracking puzzle completion per chest
+func mark_chest_puzzle_solved(chest_id: String):
+	solved_chests[chest_id] = true
+	print("=== CHEST PUZZLE SOLVED: ", chest_id, " ===")
+
+func is_chest_puzzle_solved(chest_id: String) -> bool:
+	return solved_chests.get(chest_id, false)
