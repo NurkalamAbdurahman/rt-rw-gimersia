@@ -253,6 +253,8 @@ func engage_qte(player_target):
 	if is_dead or is_qte_active or qte_cooldown_timer > 0 or not movement_enabled:
 		return
 	
+	sfx_walk.stop()
+	
 	# Configure QTE system
 	qte_system.target_speed = qte_speed
 	qte_system.hitbox_size = hb_size
@@ -542,6 +544,11 @@ func change_to_idle():
 
 # ============ PATROL STATE ============
 func handle_patrol(delta):
+	if patrol_speed <= 0:
+		velocity = Vector2.ZERO
+		play_animation("idle")
+		return
+		
 	if not movement_enabled:
 		velocity = Vector2.ZERO
 		return
@@ -605,6 +612,11 @@ func pick_patrol_target():
 
 # ============ CHASE STATE ============
 func handle_chase(delta):
+	if chase_speed <= 0:
+		velocity = Vector2.ZERO
+		play_animation("idle")
+		return
+		
 	if not movement_enabled:
 		velocity = Vector2.ZERO
 		return
