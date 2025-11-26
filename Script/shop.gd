@@ -204,7 +204,7 @@ func _on_buy_hp_pressed() -> void:
 		return
 		
 	if GameData.coins >= hp_potion_price:
-		GameData.coins -= hp_potion_price
+		GameData.remove_coins(hp_potion_price)
 		GameData.add_hp_potion(potion_amount)
 		_show_success_message("HP Potion purchased!")
 		_play_buy_sound()
@@ -217,7 +217,7 @@ func _on_buy_speed_pressed() -> void:
 		return
 		
 	if GameData.coins >= speed_potion_price:
-		GameData.coins -= speed_potion_price
+		GameData.remove_coins(speed_potion_price)
 		GameData.add_speed_potion(potion_amount)
 		_show_success_message("Speed Potion purchased!")
 		_play_buy_sound()
@@ -230,7 +230,7 @@ func _on_buy_strength_pressed() -> void:
 		return
 		
 	if GameData.coins >= strength_potion_price:
-		GameData.coins -= strength_potion_price
+		GameData.remove_coins(strength_potion_price)
 		GameData.add_strength_potion(potion_amount)
 		_show_success_message("Strength Potion purchased!")
 		_play_buy_sound()

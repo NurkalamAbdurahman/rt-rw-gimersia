@@ -5,7 +5,7 @@ signal use_potion
 
 var health: int = 10
 var max_health: int = 10
-var coins: int = 0
+var coins: int = 100
 var silver_keys: int = 3
 var golden_keys: int = 0
 var skull_keys: int = 0
@@ -34,6 +34,11 @@ var maze_stage_3 = false
 var silver_key_drop_count: int = 0
 
 signal drawing_cleared
+signal item_changed(item_type, amount)
+
+func log_change(item_type: String, amount: int) -> void:
+	emit_signal("item_changed", item_type, amount)
+
 
 func enter_stage():
 	is_enter_stage = true
@@ -97,16 +102,22 @@ func add_coin(amount: int = 1):
 	coins += amount
 	emit_signal("stats_updated")
 
-func add_hp_potion(amount: int = 1):
+func add_hp_potion(amount: int):
 	hp_potion += amount
-	emit_signal("stats_updated")
+	log_change("hp_potion", amount)
 
-func add_strength_potion(amount: int = 1):
-	strength_potion += amount
-	emit_signal("stats_updated")
-
-func add_speed_potion(amount: int = 1):
+func add_speed_potion(amount: int):
 	speed_potion += amount
+	log_change("speed_potion", amount)
+
+func add_strength_potion(amount: int):
+	strength_potion += amount
+	log_change("strength_potion", amount)
+	
+	
+func remove_coins(amount: int):
+	coins -= amount
+	log_change("coin", -amount)
 	emit_signal("stats_updated")
 
 func use_hp_potion() -> bool:
