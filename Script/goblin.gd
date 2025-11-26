@@ -285,13 +285,34 @@ func start_qte_sequence():
 func _on_enemy_qte_success():
 	# Player succeeded QTE - enemy takes damage
 	print("💥 QTE Success! Enemy takes damage!")
-	take_damage(qte_damage, qte_target_player.global_position)
+	
+	# Hitung damage berdasarkan strength buff player
+	var final_damage = calculate_player_damage_to_enemy()
+	print("🎯 Player deals damage: ", final_damage)
+	take_damage(final_damage, qte_target_player.global_position)
 	
 	# Check if enemy died from damage
 	if is_dead:
 		end_qte_engagement()
 	else:
 		prepare_next_qte_engagement()
+
+func calculate_player_damage_to_enemy() -> int:
+	if not qte_target_player:
+		return qte_damage
+	
+	var base_damage = 1  # Damage dasar player
+	
+	# Cek strength buff dari player
+	if qte_target_player.has_method("has_strength_buff") and qte_target_player.has_strength_buff():
+		print("💪 Strength buff active! Player damage doubled")
+		return base_damage * 2
+	elif qte_target_player.get("strength_buff_active"):
+		print("💪 Strength buff active! Player damage doubled")
+		return base_damage * 2
+	
+	return base_damage
+
 
 func _on_enemy_qte_failed():
 	# Player failed QTE - enemy attacks player
