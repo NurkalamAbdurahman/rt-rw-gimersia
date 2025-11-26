@@ -23,6 +23,12 @@ const ANIMATION_DURATION: float = 0.15
 
 func _ready() -> void:
 	GameData.is_popup_open = true
+	
+	if pintu_to_stage == 1:
+		next_stage_button.text = "Finish"
+	else:
+		next_stage_button.text = "Next Stage"
+		
 	_init_ui()
 	_connect_signals()
 	_set_process_mode_recursive(self)
@@ -52,6 +58,11 @@ func show_popup() -> void:
 	is_paused = true
 	root_control.show()
 	get_tree().paused = true
+	
+	if pintu_to_stage == 1:
+		next_stage_button.text = "Finish"
+	else:
+		next_stage_button.text = "Next Stage"
 	
 	selected_index = 0
 	_update_button_focus()

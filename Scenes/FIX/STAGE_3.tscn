@@ -1139,6 +1139,13 @@ scale = Vector2(0.7, 0.7)
 chest_id = "SceneA_Chest_3"
 puzzle_section = 2
 
+[node name="SilverChest3" parent="Chest" instance=ExtResource("6_w3a7i")]
+position = Vector2(-630, 945.00006)
+min_coin = 0
+max_coin = 0
+chest_id = "SceneA_Chest_4"
+puzzle_section = 4
+
 [node name="gold_chest" parent="." instance=ExtResource("7_jkifs")]
 position = Vector2(2014, 1120)
 scale = Vector2(1, 1.032)
@@ -1283,9 +1290,3 @@ position = Vector2(128, 111)
 pintu_ke_stage = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="SilverChest3" parent="." instance=ExtResource("6_w3a7i")]
-position = Vector2(-630, 945.00006)
-min_coin = 0
-max_coin = 0
-puzzle_section = 4
