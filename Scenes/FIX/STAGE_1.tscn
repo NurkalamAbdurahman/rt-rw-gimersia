@@ -4901,14 +4901,17 @@ puzzle_section = 4
 
 [node name="silverchest3" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(1228, 115.00006)
+chest_id = "SceneA_Chest_2"
 puzzle_section = 2
 
 [node name="silverchest" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(1, 3.000061)
+chest_id = "SceneA_Chest_3"
 puzzle_section = 1
 
 [node name="silverchest2" parent="Chest" instance=ExtResource("11_jcn7v")]
 position = Vector2(431.99994, 736.00006)
+chest_id = "SceneA_Chest_4"
 
 [node name="gold_chest" parent="." instance=ExtResource("13_lmh3y")]
 position = Vector2(2277, -481)
