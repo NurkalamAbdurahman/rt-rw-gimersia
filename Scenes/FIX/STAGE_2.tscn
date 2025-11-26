@@ -446,14 +446,6 @@ torch_id = "Torch_27"
 visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
-[node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("8_nk1b1")]
-z_index = 21
-position = Vector2(1718.0775, -100.3844)
-
-[node name="Camera2D" type="Camera2D" parent="Player2" groups=["camera"]]
-zoom = Vector2(5, 5)
-position_smoothing_enabled = true
-
 [node name="Chest" type="Node2D" parent="."]
 position = Vector2(389.99997, -692.00006)
 scale = Vector2(1.3344294, 1.6611495)
@@ -512,6 +504,14 @@ enemy_id = "SceneA_Goblin_8"
 [node name="MapEditorLayer" parent="." instance=ExtResource("17_lh8bj")]
 
 [node name="QTE_System" parent="." instance=ExtResource("18_bvlfc")]
+
+[node name="Player2" parent="." groups=["Player", "player"] instance=ExtResource("8_nk1b1")]
+z_index = 21
+position = Vector2(1718.0775, -100.3844)
+
+[node name="Camera2D" type="Camera2D" parent="Player2" groups=["camera"]]
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
 
 [node name="sceneTrap" type="Node2D" parent="."]
 
