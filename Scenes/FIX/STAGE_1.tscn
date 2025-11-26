@@ -20,14 +20,14 @@
 [ext_resource type="PackedScene" uid="uid://djubpvo76vscy" path="res://Scenes/hidden_to_maze.tscn" id="15_juu8l"]
 [ext_resource type="PackedScene" uid="uid://bylus0hm52lh" path="res://Scenes/goblin.tscn" id="16_oof0y"]
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="17_ihc3j"]
-[ext_resource type="PackedScene" path="res://Scenes/hidden_to_maze_tutorial.tscn" id="18_3x7lv"]
+[ext_resource type="PackedScene" uid="uid://bvt5nkty5xa8u" path="res://Scenes/hidden_to_maze_tutorial.tscn" id="18_3x7lv"]
 [ext_resource type="PackedScene" uid="uid://dawyh7xl0svwt" path="res://Scenes/ui/Hud.tscn" id="22_oof0y"]
 [ext_resource type="PackedScene" uid="uid://4mya8le2nvu5" path="res://Scenes/ui/You_Dead.tscn" id="24_b8g7p"]
 [ext_resource type="PackedScene" uid="uid://de8ve0uu3hqol" path="res://Scenes/map_editor_layer.tscn" id="26_dswwp"]
 [ext_resource type="Texture2D" uid="uid://ci4luw2pj25uo" path="res://Assets/collecitions/Tutorial/sign.png" id="27_3x7lv"]
 [ext_resource type="PackedScene" uid="uid://dv0nx4kjchj7i" path="res://Scenes/qte_system.tscn" id="27_cx13s"]
 [ext_resource type="PackedScene" uid="uid://b348lvmq7jtev" path="res://Scenes/obor-nyala.tscn" id="28_6i5px"]
-[ext_resource type="PackedScene" path="res://Scenes/ui/Trap/Trap_3.tscn" id="29_r50df"]
+[ext_resource type="PackedScene" uid="uid://qcn55v170xnx" path="res://Scenes/ui/Trap/Trap_3.tscn" id="29_r50df"]
 [ext_resource type="PackedScene" uid="uid://ldileuwixmb" path="res://Scenes/tutorial_step.tscn" id="30_ab3l0"]
 [ext_resource type="PackedScene" uid="uid://bry4hbs4i45ix" path="res://Scenes/ui/Trap/trap_2.tscn" id="30_e2qlx"]
 [ext_resource type="PackedScene" uid="uid://c3rikq3n8hh6h" path="res://Scenes/ui/Trap/trap_1.tscn" id="31_65dr2"]
@@ -4887,6 +4887,7 @@ position = Vector2(-179, 0)
 torch_id = "Torch_45"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -4961,7 +4962,6 @@ wander_range = 0.0
 enemy_id = "SceneA_Goblin_12"
 min_coin = 0
 max_coin = 0
-skyes = 0
 
 [node name="Hud" parent="." instance=ExtResource("22_oof0y")]
 
@@ -5074,7 +5074,7 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_3x7lv")
 
 [node name="barrierCollision5" type="CollisionShape2D" parent="Barrier/Barrier3"]
-position = Vector2(128.6709, 185.71222)
+position = Vector2(130.6709, 211.71222)
 shape = SubResource("RectangleShape2D_3x7lv")
 
 [node name="barrierCollision6" type="CollisionShape2D" parent="Barrier/Barrier3"]
@@ -5089,40 +5089,47 @@ shape = SubResource("RectangleShape2D_3x7lv")
 [node name="TutorialStep" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(-83, 100)
 step_id = "1"
-instruction_text = "Light the torch to start"
+instruction_text = "Light the torch to begin"
 
 [node name="TutorialStep2" parent="." instance=ExtResource("30_ab3l0")]
-position = Vector2(-122, 77)
+position = Vector2(-434, 73)
+rotation = 1.5707964
+scale = Vector2(7, 7)
 step_id = "2"
-instruction_text = "Approach and kill the goblin"
+instruction_text = "Approach and defeat the goblin to obtain the Silver Key"
 
 [node name="TutorialStep3" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(-295, 247)
 scale = Vector2(2, 2)
 step_id = "3"
-instruction_text = "Press M to open Map  "
+instruction_text = "Press M to open the map"
 
 [node name="TutorialStep4" parent="." instance=ExtResource("30_ab3l0")]
-position = Vector2(-313, 261)
+position = Vector2(-345, 302)
 rotation = 1.5707964
+scale = Vector2(5, 5)
 step_id = "4"
-instruction_text = "open silver chest and  try gold chest if you want"
+instruction_text = "Open the Silver Chest first. You can try Gold Chest as well, but make sure you have a key to unlock it"
 
 [node name="TutorialStep5" parent="." instance=ExtResource("30_ab3l0")]
-position = Vector2(-86, 308)
+position = Vector2(-31, 304)
+rotation = 1.5707964
+scale = Vector2(1.6, 1.6)
 step_id = "5"
-instruction_text = "press 1 or 2 or 3 to use potion"
+instruction_text = "Press 1, 2, or 3 to use a potion"
 
 [node name="TutorialStep6" parent="." instance=ExtResource("30_ab3l0")]
-position = Vector2(78, 238)
-rotation = 1.5707964
+position = Vector2(76, 185)
+scale = Vector2(2, 2)
 step_id = "7"
-instruction_text = "kill goblin boss"
+instruction_text = "Defeat the Goblin Boss to obtain the Golden Key"
 
 [node name="TutorialStep7" parent="." instance=ExtResource("30_ab3l0")]
-position = Vector2(64, 311)
+position = Vector2(115, 303)
+rotation = 1.5707964
+scale = Vector2(1.4, 1.4)
 step_id = "6"
-instruction_text = "sometimes something strange appear, for example this burning torch"
+instruction_text = "Sometimes strange things may appear, such as this lit torch. Try to approach it"
 
 [node name="TutorialStep8" parent="." instance=ExtResource("30_ab3l0")]
 position = Vector2(78, 86)

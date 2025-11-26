@@ -180,7 +180,6 @@ func _on_reset():
 	_animate_action_button_press(reset_btn)
 	await get_tree().create_timer(ANIMATION_DURATION).timeout
 	
-	sfx_button_click.play()
 	for i in range(CELL_COUNT):
 		player_input[i] = false
 		buttons[i].button_pressed = false

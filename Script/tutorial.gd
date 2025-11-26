@@ -92,16 +92,14 @@ func stop_typing_animation():
 # ===============================
 
 func _on_torch_lit():
-	if step_id != "1": return
+	if step_id != "1" or not is_active: return
 	barrier2.set_deferred("disabled", true)
-	if is_active:
-		complete_step()
+	complete_step()
 
 func _on_goblin_die():
-	if step_id != "2": return
+	if step_id != "2" or not is_active: return
 	barrier_collision.set_deferred("disabled", true)
-	if is_active:
-		complete_step()
+	complete_step()
 
 func _on_battle():
 	if step_id != "2": return
@@ -109,35 +107,32 @@ func _on_battle():
 	barrier_collision_2.set_deferred("disabled", false)
 
 func _on_map_opened():
-	if step_id != "3": return
+	if step_id != "3" or not is_active: return
 	barrier_collision_3.set_deferred("disabled", true)
-	if is_active:
-		complete_step()
+	complete_step()
 
 func _on_chest_opened():
-	if step_id != "4": return
+	if step_id != "4" or not is_active: return
 	barrier_collision_4.set_deferred("disabled", true)
-	if is_active:
-		complete_step()
+	complete_step()
 
 func _on_use_potion():
-	if step_id != "5": return
+	if step_id != "5" or not is_active: return
 	barrier_collision_6.set_deferred("disabled", true)
-	if is_active:
-		complete_step()
+	complete_step()
 
 func _on_body_player_entered():
 	# Ini step 6
-	if step_id != "6": return
+	if step_id != "6" or not is_active: return
 	barrier_collision_5.set_deferred("disabled", true)
-	if is_active:
-		complete_step()
+	complete_step()
 
 # BOSS GOBLIN (STEP 7)
 func _on_goblin_boss_die():
 	if step_id == "8": detection_area.set_deferred("disabled", false)
 	barrier_collision_7.set_deferred("disabled", true)
 	if is_active:
+		GameData.golden_keys -= 1
 		sfx_finish.play()
 		complete_step()
 
