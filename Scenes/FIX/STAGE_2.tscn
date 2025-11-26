@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://dl8ysiup7jwhn"]
+[gd_scene load_steps=33 format=4 uid="uid://dl8ysiup7jwhn"]
 
 [ext_resource type="PackedScene" uid="uid://ca2s775rnfl2p" path="res://Scenes/ui/pause.tscn" id="1_e7ynj"]
 [ext_resource type="Script" uid="uid://bao1phb8sqr4e" path="res://Script/stage_2.gd" id="1_r847v"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://3o7cj0bs1out" path="res://Scenes/goblin_level2.tscn" id="13_nk1b1"]
 [ext_resource type="PackedScene" uid="uid://de8ve0uu3hqol" path="res://Scenes/map_editor_layer.tscn" id="17_lh8bj"]
 [ext_resource type="PackedScene" uid="uid://dv0nx4kjchj7i" path="res://Scenes/qte_system.tscn" id="18_bvlfc"]
+[ext_resource type="PackedScene" uid="uid://ckg4xnullubp8" path="res://Scenes/trap_chest.tscn" id="19_x42nt"]
 [ext_resource type="PackedScene" uid="uid://c3rikq3n8hh6h" path="res://Scenes/ui/Trap/trap_1.tscn" id="21_b6f5h"]
 [ext_resource type="PackedScene" uid="uid://bry4hbs4i45ix" path="res://Scenes/ui/Trap/trap_2.tscn" id="22_y7p4m"]
 [ext_resource type="PackedScene" uid="uid://qcn55v170xnx" path="res://Scenes/ui/Trap/Trap_3.tscn" id="23_yxyi2"]
@@ -442,6 +443,7 @@ position = Vector2(2179, 654)
 torch_id = "Torch_27"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Chest" type="Node2D" parent="."]
@@ -463,6 +465,9 @@ puzzle_section = 1
 position = Vector2(523.07, 660.3861)
 scale = Vector2(0.7, 0.7)
 chest_id = "SceneA_Chest_3"
+
+[node name="TrapChest" parent="." instance=ExtResource("19_x42nt")]
+position = Vector2(1569, -110)
 
 [node name="gold_chest" parent="." instance=ExtResource("6_d7vc3")]
 position = Vector2(853, 814.00006)
