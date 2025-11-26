@@ -77,11 +77,17 @@ func hide_popup() -> void:
 func _init_ui() -> void:
 	buttons = [next_stage_button, main_menu_button]
 	
+	# ✅ NONAKTIFKAN INTERAKSI MOUSE PADA TOMBOL
 	for btn in buttons:
 		btn.focus_mode = Control.FOCUS_NONE
-		btn.mouse_filter = Control.MOUSE_FILTER_PASS
-		btn.mouse_entered.connect(_on_button_mouse_entered.bind(btn))
-		btn.mouse_exited.connect(_on_button_mouse_exited.bind(btn))
+		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE  # ✅ GANTI DARI MOUSE_FILTER_PASS
+	
+	# ❌ HAPUS KONEKSI MOUSE SIGNALS
+	# for btn in buttons:
+	#     btn.mouse_entered.connect(_on_button_mouse_entered.bind(btn))
+	#     btn.mouse_exited.connect(_on_button_mouse_exited.bind(btn))
+	
+	for btn in buttons:
 		btn.modulate.a = 0.0
 		btn.scale = Vector2(0.8, 0.8)
 	
@@ -152,27 +158,28 @@ func _animate_button_press(btn: Button) -> void:
 	tween.tween_property(btn, "scale", PRESS_SCALE, ANIMATION_DURATION * 0.5)
 	tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION * 0.5)
 
-func _on_button_mouse_entered(btn: Button) -> void:
-	if not is_paused:
-		return
-		
-	var index = buttons.find(btn)
-	if index != -1:
-		selected_index = index
-		sfx_hover.play()
-		_update_button_focus()
+# ❌ HAPUS FUNGSI MOUSE HANDLER
+# func _on_button_mouse_entered(btn: Button) -> void:
+#     if not is_paused:
+#         return
+#         
+#     var index = buttons.find(btn)
+#     if index != -1:
+#         selected_index = index
+#         sfx_hover.play()
+#         _update_button_focus()
 
-func _on_button_mouse_exited(btn: Button) -> void:
-	if not is_paused:
-		return
-		
-	var tween := create_tween().set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	
-	tween.tween_property(btn, "modulate", NORMAL_MODULATE, ANIMATION_DURATION)
-	tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
+# func _on_button_mouse_exited(btn: Button) -> void:
+#     if not is_paused:
+#         return
+#         
+#     var tween := create_tween().set_parallel(true)
+#     tween.set_trans(Tween.TRANS_CUBIC)
+#     tween.set_ease(Tween.EASE_OUT)
+#     tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+#     
+#     tween.tween_property(btn, "modulate", NORMAL_MODULATE, ANIMATION_DURATION)
+#     tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
 
 func _on_button_pressed() -> void:
 	sfx_button.play()
