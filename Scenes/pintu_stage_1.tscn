@@ -71,6 +71,11 @@ shadow_offset = Vector2(2, 2)
 process_mode = 3
 script = ExtResource("1_lp2m2")
 
+[node name="SFX_DoorLocked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_2kh73")
+volume_db = 11.0
+max_distance = 4000.0
+
 [node name="Terkunci" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_2kh73")
 

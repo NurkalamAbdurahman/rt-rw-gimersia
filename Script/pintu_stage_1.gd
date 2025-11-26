@@ -8,7 +8,7 @@ extends Node2D
 @onready var sfx_pintu_terkunci: AudioStreamPlayer2D = $SFX_DoorLocked
 
 @export var popup_scene: PackedScene = preload("res://Scenes/ui/Next_Stage.tscn")
-@onready var next_stage: CanvasLayer = $NextStage
+#@onready var next_stage: CanvasLayer = $NextStage
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 @onready var player_2: CharacterBody2D = $"../Player2"
 @export var pintu_ke_stage :int = 2
