@@ -508,7 +508,6 @@ position = Vector2(320, 701)
 enemy_id = "SceneA_Goblin_8"
 
 [node name="YouDead" parent="." instance=ExtResource("9_r847v")]
-visible = false
 
 [node name="MapEditorLayer" parent="." instance=ExtResource("17_lh8bj")]
 
