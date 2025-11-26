@@ -24,6 +24,7 @@ var qte_cooldown_duration = 1.0  # Seconds between QTE sequences
 var qte_start_position = Vector2.ZERO
 var is_position_locked = false
 
+@export var max_silver_keys_dropped = 3
 @export var qte_speed = 300
 @export var hb_size :float = 35
 # Add with other QTE variables
@@ -693,21 +694,31 @@ func try_drop_item() -> String:
 	GameData.add_coin(reward)
 
 	var message = ""
-
-	var drop_chance := 1.0  # atau sesuain nanti
+	var drop_chance := 1.0
 
 	if randf() <= drop_chance:
 		match level:
 			1:
-				GameData.add_silver_key(skyes)
-				message += ""
+				# Check if we've already dropped the maximum number of silver keys
+				if not GameData.has_method("get_silver_key_drop_count"):
+					# Fallback: always drop if GameData doesn't track this
+					GameData.add_silver_key(skyes)
+					message += ""
+				elif GameData.get_silver_key_drop_count() < max_silver_keys_dropped:
+					# Still under the limit, drop the key
+					GameData.add_silver_key(skyes)
+					GameData.increment_silver_key_drop_count(skyes)
+					message += ""
+				else:
+					# Reached the limit, don't drop
+					print("🔒 Silver key drop limit reached (", max_silver_keys_dropped, ")")
+					message += ""
 
 			2:
 				GameData.add_golden_key(skyes)
 				message += ""
 
 			_:
-				# level lainnya bebas mau drop apa
 				pass
 
 	return message

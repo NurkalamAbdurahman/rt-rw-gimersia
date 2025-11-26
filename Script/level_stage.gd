@@ -150,18 +150,21 @@ func _update_button_focus() -> void:
 			tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
 
 func _on_stage_1_pressed() -> void:
+	GameData.hard_reset()
 	_load_stage("res://Scenes/FIX/STAGE_1.tscn")
 
 func _on_stage_2_pressed() -> void:
 	if stage_2.disabled:
 		print("Stage 2 is locked")
 		return
+	GameData.hard_reset()
 	_load_stage("res://Scenes/FIX/STAGE_2.tscn")
 
 func _on_stage_3_pressed() -> void:
 	if stage_3.disabled:
 		print("Stage 3 is locked")
 		return
+	GameData.hard_reset()
 	_load_stage("res://Scenes/FIX/STAGE_3.tscn")
 
 func _load_stage(scene_path: String) -> void:

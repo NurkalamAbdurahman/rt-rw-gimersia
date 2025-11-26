@@ -31,6 +31,7 @@ var is_enter_stage = false
 var maze_stage_1 = false
 var maze_stage_2 = false
 var maze_stage_3 = false
+var silver_key_drop_count: int = 0
 
 signal drawing_cleared
 
@@ -160,6 +161,13 @@ func add_pity(amount: int):
 	print(pity)
 	emit_signal("stats_updated")
 
+func get_silver_key_drop_count() -> int:
+	return silver_key_drop_count
+	
+func increment_silver_key_drop_count(skyes):
+	silver_key_drop_count += skyes
+	print("Count: ", silver_key_drop_count)
+
 func set_death(bool):
 	has_dead = bool
 	
@@ -181,6 +189,7 @@ func reset():
 	maze_stage_1 = false
 	maze_stage_2 = false
 	maze_stage_3 = false
+	silver_key_drop_count
 
 func clear_torch():
 	torch_states = {}

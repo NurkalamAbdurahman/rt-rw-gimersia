@@ -133,6 +133,7 @@ func _on_goblin_boss_die():
 	barrier_collision_7.set_deferred("disabled", true)
 	if is_active:
 		GameData.golden_keys -= 1
+		GameData.silver_key_drop_count -=1
 		sfx_finish.play()
 		complete_step()
 
