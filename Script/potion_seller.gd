@@ -3,6 +3,7 @@ extends Node2D
 @onready var area = $Area2D
 @onready var label = $Label
 @onready var sfx_open_shop = $SFX_OpenShop 
+@onready var player: AudioStreamPlayer2D = $"../Player/SFX_Run_Stone"
 
 var player_in_range = false
 var shop_opened = false
@@ -33,6 +34,7 @@ func _process(delta):
 
 func open_shop():
 	GameData.is_popup_open = true
+	player.stop()
 	if shop_opened:
 		return
 

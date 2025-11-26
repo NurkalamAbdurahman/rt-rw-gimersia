@@ -136,6 +136,7 @@ func unlock_movement() -> void:
 func engage_qte() -> void:
 	waiting_for_qte = true
 	qte_engaged = true
+	sfx_run.stop()
 	print("🎯 QTE engaged")
 
 func take_damage(amount: int) -> void:
