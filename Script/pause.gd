@@ -92,11 +92,21 @@ func _init_ui() -> void:
 
 
 func _connect_signals() -> void:
-	resume_button.pressed.connect(_on_resume_pressed)
-	controls_button.pressed.connect(_on_controls_pressed)
-	quit_button.pressed.connect(_on_quit_pressed)
-	yes_button.pressed.connect(_on_yes_pressed)
-	no_button.pressed.connect(_on_no_pressed)
+	if not resume_button.pressed.is_connected(_on_resume_pressed):
+		resume_button.pressed.connect(_on_resume_pressed)
+
+	if not controls_button.pressed.is_connected(_on_controls_pressed):
+		controls_button.pressed.connect(_on_controls_pressed)
+
+	if not quit_button.pressed.is_connected(_on_quit_pressed):
+		quit_button.pressed.connect(_on_quit_pressed)
+
+	if not yes_button.pressed.is_connected(_on_yes_pressed):
+		yes_button.pressed.connect(_on_yes_pressed)
+
+	if not no_button.pressed.is_connected(_on_no_pressed):
+		no_button.pressed.connect(_on_no_pressed)
+
 
 
 func _handle_escape() -> void:
