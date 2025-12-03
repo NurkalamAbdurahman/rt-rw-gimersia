@@ -44,7 +44,7 @@ func cek_buka_chest():
 		label.visible = true
 		await get_tree().create_timer(1.3).timeout
 		if player_in_area and not chest_opened:
-			label.text = "Press E to open"
+			label.text = "[E] Enter"
 		else:
 			label.visible = false
 		

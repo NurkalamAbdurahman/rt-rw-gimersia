@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://ch6do4lqk3be3"]
+
+[ext_resource type="Script" uid="uid://csdl40kp8rlo8" path="res://Script/speed_potion.gd" id="1_k683w"]
+[ext_resource type="Texture2D" uid="uid://b5ow1v820tlon" path="res://Assets/collecitions/Potion/Speed_Potion.png" id="1_rq3aa"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_hcnu2"]
+[ext_resource type="Texture2D" uid="uid://bssybnls8w1gn" path="res://Assets/collecitions/ui/backgroung menu.png" id="2_k683w"]
+[ext_resource type="AudioStream" uid="uid://ukidfn26e336" path="res://Assets/Audio/potion-used.mp3" id="5_l77e6"]
+[ext_resource type="AudioStream" uid="uid://nvu0eomc8crc" path="res://Assets/Audio/click_deep.mp3" id="6_u8yd5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l77e6"]
+font = ExtResource("2_hcnu2")
+font_size = 32
+
+[node name="SpeedPotion" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k683w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_rq3aa")
+region_rect = Rect2(-2, 0, 102, 100)
+region_filter_clip_enabled = true
+
+[node name="BackgroungMenu" type="Sprite2D" parent="."]
+position = Vector2(15, 18)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_k683w")
+region_enabled = true
+region_rect = Rect2(16, 16, 32, 32)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -10.0
+offset_right = 26.0
+offset_bottom = 37.0
+theme_override_constants/line_spacing = 0
+text = "0"
+label_settings = SubResource("LabelSettings_l77e6")
+horizontal_alignment = 1
+vertical_alignment = 1
+paragraph_separator = ""
+
+[node name="ClickDeep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_u8yd5")
+
+[node name="PotionUsed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_l77e6")

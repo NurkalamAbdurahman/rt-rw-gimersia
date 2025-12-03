@@ -1,0 +1,106 @@
+[gd_scene load_steps=8 format=3 uid="uid://dv0nx4kjchj7i"]
+
+[ext_resource type="Script" uid="uid://chsbjjoblcpom" path="res://Script/qte_system.gd" id="1_2mhh1"]
+[ext_resource type="Texture2D" uid="uid://dkhav4adcjlsh" path="res://Assets/collecitions/Sword/pedang.png" id="2_ke0mf"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="3_ebsip"]
+[ext_resource type="AudioStream" uid="uid://68klvf6ts01i" path="res://Assets/Audio/qte-bgm.mp3" id="4_3t6yg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ebsip"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3t6yg"]
+font = ExtResource("3_ebsip")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l8svy"]
+font = ExtResource("3_ebsip")
+font_size = 32
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[node name="QTE_System" type="CanvasLayer"]
+script = ExtResource("1_2mhh1")
+
+[node name="QTEContainer" type="Panel" parent="."]
+anchors_preset = -1
+anchor_left = 0.47924867
+anchor_top = 0.4631088
+anchor_right = 0.47924867
+anchor_bottom = 0.46521685
+offset_left = 392.0
+offset_top = 168.90903
+offset_right = 586.2168
+offset_bottom = 242.90906
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ebsip")
+metadata/_edit_use_anchors_ = true
+
+[node name="Pedang" type="Sprite2D" parent="QTEContainer"]
+position = Vector2(123.00354, 38)
+scale = Vector2(5, 5)
+texture = ExtResource("2_ke0mf")
+region_enabled = true
+region_rect = Rect2(64.94446, 18.137194, 62.127205, 21.257452)
+
+[node name="TargetBox" type="ColorRect" parent="QTEContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.12357324
+anchor_right = 0.12357324
+offset_left = -25.456959
+offset_top = 24.802124
+offset_right = -15.456959
+offset_bottom = 48.683563
+color = Color(0.61844593, 0.041675135, 9.62615e-08, 1)
+
+[node name="HitZone" type="ColorRect" parent="QTEContainer"]
+layout_mode = 0
+offset_left = 67.00354
+offset_top = 4.0
+offset_right = 109.00354
+offset_bottom = 69.0
+color = Color(0, 0.75686276, 0.3764706, 0.75686276)
+
+[node name="QteBgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_3t6yg")
+parameters/looping = true
+
+[node name="TimerLabel" type="Label" parent="."]
+z_index = 1
+offset_left = 1024.0
+offset_top = 446.0
+offset_right = 1156.0
+offset_bottom = 493.0
+scale = Vector2(0.5, 0.5)
+text = "59"
+label_settings = SubResource("LabelSettings_3t6yg")
+
+[node name="messege" type="Label" parent="."]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -23.5
+offset_right = 40.0
+offset_bottom = 23.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_3t6yg")
+
+[node name="InstructionLabel" type="Label" parent="."]
+z_index = 1
+texture_filter = 1
+offset_left = 688.0
+offset_top = 105.0
+offset_right = 992.0
+offset_bottom = 129.0
+size_flags_horizontal = 0
+label_settings = SubResource("LabelSettings_l8svy")
+horizontal_alignment = 2
+vertical_alignment = 1

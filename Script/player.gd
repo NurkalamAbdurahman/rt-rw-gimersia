@@ -1,295 +1,431 @@
 extends CharacterBody2D
 
 const SPEED = 100.0
-const ATTACK_DURATION = 0.25
-const ATTACK_OFFSET = 15.0
-@onready var map_editor_ui: Control = $MapEditorLayer/MapEditorUI
-@onready var you_dead_ui: CanvasLayer = get_tree().get_current_scene().get_node("YouDead")
+const WARNING_TIME: float = 10.0
+const BLINK_INTERVAL: float = 0.3
 
-# --- ONREADY VARIAN ---
+@export var invincible_default_duration: float = 2.0
+@export var invincible_forever: bool = false
+
+var is_invincible := false
+var invincible_timer := 0.0
+
+@onready var map_editor_ui: Control = $"../MapEditorLayer/MapEditorUI"
+@onready var you_dead_ui: CanvasLayer = get_tree().get_current_scene().get_node("YouDead")
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sfx_run: AudioStreamPlayer2D = $SFX_Run_Stone
-@onready var attack_area: Area2D = $AttackArea2D
-@onready var attack_shape: CollisionShape2D = $AttackArea2D/CollisionShape2D
-@onready var sfx_attack: AudioStreamPlayer2D = $SFX_Attack
 @onready var sfx_attacked: AudioStreamPlayer2D = $SFX_Attacked
 @onready var sfx_death: AudioStreamPlayer2D = $SFX_Death
+@onready var qte_system: CanvasLayer = $"../QTE_System"
 
-# --- VARIABEL STATE ---
-var invincible := false
-var invincible_time := 0.4
-var has_torch = false
+var qte_damage_multiplier: float = 1.0
+var qte_lock_position := Vector2.ZERO
+var qte_engaged := false
+var waiting_for_qte := false
+var qte_attack_playing := false
+var qte_attack_duration := 0.6
+
+var has_torch := false
 var held_torch = null
-var is_dead: bool = false	
+var is_dead := false	
+var is_locked := false
 
-var is_locked: bool = false
+var last_direction := Vector2.DOWN
+var current_anim_direction := "down"
 
-var last_direction: Vector2 = Vector2.DOWN
-var is_attacking: bool = false
-var current_anim_direction: String = "down" 
+var strength_buff_active := false
+var strength_buff_time := 0.0
+var strength_buff_duration := 60.0
+var strength_damage_multiplier := 2.0
 
-var is_knocked_back: bool = false
-const KNOCKBACK_STRENGTH = 200.0 # Kecepatan dorongan
-const KNOCKBACK_DURATION = 0.2 # Durasi dorongan (detik)
+var speed_buff_active := false
+var speed_buff_time := 0.0
+var speed_buff_duration := 60.0
+var speed_multiplier := 1.5
 
-# --- FUNGSI INIT ---
+var blink_timer := 0.0
+var is_blinking := false
+var is_flashing := false
+
 func _ready() -> void:
-	for torch in get_tree().get_nodes_in_group("torches"):
-		torch.connect("torch_picked_up", Callable(self, "_on_torch_picked_up"))
-		
-	attack_shape.disabled = true
-	
-	# PENTING: Tambahkan player ke group "Player"
 	add_to_group("Player")
+	_connect_signals()
 	
-	# Debug: print untuk cek apakah attack_area ada
-	if attack_area:
-		print("✅ AttackArea2D found!")
-	else:
-		print("❌ AttackArea2D NOT FOUND!")
+	# ✅ LOAD PERSISTENT BUFFS DARI GAMEDATA
+	strength_buff_active = GameData.persistent_strength_buff_active
+	strength_buff_time = GameData.persistent_strength_buff_time
+	speed_buff_active = GameData.persistent_speed_buff_active  
+	speed_buff_time = GameData.persistent_speed_buff_time
 	
-#	fungsi you dead
-	if you_dead_ui:
-		you_dead_ui.connect("respawn_pressed", Callable(self, "_on_respawn_selected"))
+	update_buff_visuals()
+	if strength_buff_active or speed_buff_active:
+		print("🎯 Persistent buffs loaded! Strength:", strength_buff_time, "s Speed:", speed_buff_time, "s")
 
-func _on_torch_picked_up(torch_node):
-	if not has_torch:
-		held_torch = torch_node
-		has_torch = true
-		held_torch.get_parent().remove_child(held_torch)
-		add_child(held_torch)
-		held_torch.position = Vector2(0, 10)
-
-# --- FUNGSI FISIKA & INPUT ---
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	if is_dead:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
-		
-	# ⚠️ TIDAK PERLU CEK GameData.health di sini. Cukup andalkan is_dead.
-	# if GameData.health <= 1:
-	# 	velocity = Vector2.ZERO
-	# 	move_and_slide()
-	# 	return
-		
-	if is_attacking:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		update_animation(Vector2.ZERO)
-		return
 	
-	# >>> KNOCKBACK LOGIC <<<
-	if is_knocked_back:
-		# Pergerakan sudah diatur di take_damage, hanya perlu geser
-		move_and_slide()
-		return
-	# <<< END KNOCKBACK >>>
-	
-	var input_vector = Vector2.ZERO
+	_update_buffs(delta)
 	
 	if is_locked:
-		velocity = Vector2.ZERO
-		move_and_slide()
+		_enforce_lock()
 		return
 	
-	input_vector.x = Input.get_axis("left", "right")
-	input_vector.y = Input.get_axis("up", "down")
-	var normalized_input = input_vector.normalized()
+	_update_invincibility(delta)
+	_handle_movement()
+	_update_animation_state()
+	_handle_footstep_sfx()
+
+func _update_invincibility(delta: float) -> void:
+	if not is_invincible:
+		return
+
+	if invincible_forever:
+		return  # Tak pernah habis
+
+	invincible_timer -= delta
+
+	if invincible_timer <= 0:
+		remove_invincible()
+
+func apply_strength_potion() -> bool:
+	if not GameData.use_strength_potion():
+		return false
 	
-	if normalized_input != Vector2.ZERO:
-		velocity = normalized_input * SPEED
-		last_direction = normalized_input
+	if strength_buff_active:
+		strength_buff_time += strength_buff_duration
+	else:
+		strength_buff_active = true
+		strength_buff_time = strength_buff_duration
+	
+	update_buff_visuals()  # ✅ STANDARDIZED NAME
+	print("💪 Strength buff applied! Time:", strength_buff_time)
+	return true
+
+func apply_speed_potion() -> bool:
+	if not GameData.use_speed_potion():
+		return false
+	
+	if speed_buff_active:
+		speed_buff_time += speed_buff_duration
+	else:
+		speed_buff_active = true
+		speed_buff_time = speed_buff_duration
+	
+	update_buff_visuals()  # ✅ STANDARDIZED NAME
+	print("⚡ Speed buff applied! Time:", speed_buff_time)
+	return true
+
+func lock_movement(enemy_position: Vector2 = Vector2.ZERO) -> void:
+	is_locked = true
+	velocity = Vector2.ZERO
+	qte_lock_position = global_position
+	
+	if enemy_position != Vector2.ZERO:
+		_face_enemy(enemy_position)
+	
+	print("🔒 Player locked")
+
+func unlock_movement() -> void:
+	is_locked = false
+	qte_lock_position = Vector2.ZERO
+	print("🔓 Player unlocked")
+
+func engage_qte() -> void:
+	waiting_for_qte = true
+	qte_engaged = true
+	sfx_run.stop()
+	print("🎯 QTE engaged")
+
+func take_damage(amount: int) -> void:
+	if is_dead:
+		return
+	if is_invincible:
+		sfx_attacked.play()
+		return
+
+	sfx_attacked.play()
+	GameData.set_health(GameData.health - amount)
+	map_editor_ui.close()
+	
+	_flash_damage()
+	
+	if GameData.health <= 0:
+		_die()
+
+func ghost_success() -> void:
+	print("Player selamat! +3 coins")
+	GameData.add_coin(3)
+
+func ghost_failed() -> void:
+	print("Player tertangkap! -1 coin")
+	if GameData.coins > 0:
+		GameData.coins -= 1
+		GameData.emit_signal("stats_updated")
+
+func _connect_signals() -> void:
+	for torch in get_tree().get_nodes_in_group("torches"):
+		torch.connect("torch_picked_up", Callable(self, "_on_torch_picked_up"))
+	
+	qte_system = get_tree().get_first_node_in_group("QTE_System")
+	if qte_system:
+		qte_system.qte_success.connect(_on_qte_success)
+		qte_system.qte_failed.connect(_on_qte_failed)
+	
+	if you_dead_ui:
+		you_dead_ui.respawn_pressed.connect(_on_respawn_selected)
+
+func _update_buffs(delta: float) -> void:
+	_update_buff_timer(delta, "strength")
+	_update_buff_timer(delta, "speed")
+	
+	# ✅ SAVE PERSISTENT BUFFS KE GAMEDATA
+	GameData.persistent_strength_buff_active = strength_buff_active
+	GameData.persistent_strength_buff_time = strength_buff_time
+	GameData.persistent_speed_buff_active = speed_buff_active
+	GameData.persistent_speed_buff_time = speed_buff_time
+	
+	if is_blinking:
+		blink_timer += delta
+		if blink_timer >= BLINK_INTERVAL:
+			blink_timer = 0.0
+			_toggle_blink()
+
+func _update_buff_timer(delta: float, buff_type: String) -> void:
+	var is_active := strength_buff_active if buff_type == "strength" else speed_buff_active
+	if not is_active:
+		return
+	
+	if buff_type == "strength":
+		strength_buff_time -= delta
+		if strength_buff_time <= WARNING_TIME and not is_blinking:
+			is_blinking = true
+		if strength_buff_time <= 0:
+			_deactivate_buff("strength")
+	else:
+		speed_buff_time -= delta
+		if speed_buff_time <= WARNING_TIME and not is_blinking:
+			is_blinking = true
+		if speed_buff_time <= 0:
+			_deactivate_buff("speed")
+
+func _deactivate_buff(buff_type: String) -> void:
+	if buff_type == "strength":
+		strength_buff_active = false
+		strength_buff_time = 0.0
+	else:
+		speed_buff_active = false
+		speed_buff_time = 0.0
+	
+	is_blinking = false
+	update_buff_visuals()  # ✅ STANDARDIZED NAME
+	print("❌ %s buff expired!" % buff_type.capitalize())
+
+# ✅ FUNCTION YANG BENAR - STANDARD NAME
+func update_buff_visuals() -> void:
+	if is_flashing:
+		return
 		
-		if abs(last_direction.x) > abs(last_direction.y):
-			current_anim_direction = "right"
-		else:
-			if last_direction.y < 0:
-				current_anim_direction = "up"
-			else:
-				current_anim_direction = "down"
+	if not strength_buff_active and not speed_buff_active:
+		player.modulate = Color.WHITE
+	elif strength_buff_active and speed_buff_active:
+		player.modulate = Color(1.3, 0.7, 1.3)
+	elif strength_buff_active:
+		player.modulate = Color(1.3, 0.5, 0.5)
+	else:
+		player.modulate = Color(0.5, 1.3, 1.3)
+
+func _toggle_blink() -> void:
+	if is_flashing:
+		return
+		
+	if player.modulate == Color.WHITE:
+		update_buff_visuals()  # ✅ STANDARDIZED NAME
+	else:
+		player.modulate = Color.WHITE
+
+func _handle_movement() -> void:
+	var input := Vector2(
+		Input.get_axis("left", "right"),
+		Input.get_axis("up", "down")
+	).normalized()
+	
+	if input != Vector2.ZERO:
+		var current_speed := SPEED * (speed_multiplier if speed_buff_active else 1.0)
+		velocity = input * current_speed
+		last_direction = input
+		_update_direction(input)
 	else:
 		velocity = Vector2.ZERO
-
+	
 	move_and_slide()
 
-	if Input.is_action_just_pressed("attack") and not is_attacking:
-		attack()
-		
-	update_animation(normalized_input)
+func _update_direction(input: Vector2) -> void:
+	if abs(input.x) > abs(input.y):
+		current_anim_direction = "right"
+		player.flip_h = input.x < 0
+	else:
+		current_anim_direction = "up" if input.y < 0 else "down"
 
-	if input_vector.x != 0:
-		player.flip_h = input_vector.x < 0
-		
-	if normalized_input.length() > 0 and not is_attacking:
+func _update_animation_state() -> void:
+	if qte_attack_playing or is_locked:
+		return
+	
+	var prefix := "run" if velocity.length() > 0 else "idle"
+	player.play("%s_%s" % [prefix, current_anim_direction])
+
+func _handle_footstep_sfx() -> void:
+	if velocity.length() > 0:
 		if not sfx_run.playing:
 			sfx_run.play()
 	else:
-		if sfx_run.playing:
-			sfx_run.stop()
+		sfx_run.stop()
 
-func lock_movement():
-	is_locked = true
-	
-func unlock_movement():
-	is_locked = false
-
-# --- FUNGSI ANIMASI ---
-func update_animation(input_vector: Vector2):
-	if is_attacking:
-		return
-
-	var anim_prefix = ""
-	
-	if input_vector.length() == 0:
-		anim_prefix = "idle"
-	else:
-		anim_prefix = "run"
-		
-	var anim_name = "%s_%s" % [anim_prefix, current_anim_direction]
-	
-	player.play(anim_name)
-
-# --- FUNGSI ATTACK ---
-func attack():
-	is_attacking = true
-	velocity = Vector2.ZERO
-	sfx_run.stop()
-
-	print("🗡️ Player attacking!")
-	sfx_attack.play()
-
-	var attack_position = last_direction * ATTACK_OFFSET
-	attack_shape.position = attack_position
-	attack_shape.disabled = false
-
-	var attack_anim_name = "attack_%s" % current_anim_direction
-	player.play(attack_anim_name)
-
-	# --- Tunggu sedikit agar area aktif ---
-	await get_tree().create_timer(0.1).timeout
-	if is_dead:
-		is_attacking = false
-		attack_shape.disabled = true
-		return
-
-	var enemies_in_range = attack_area.get_overlapping_bodies()
-	for enemy in enemies_in_range:
-		if enemy.has_method("take_damage") and enemy != self:
-			enemy.take_damage(1, global_position)
-
-	# --- Tunggu durasi serangan ---
-	await get_tree().create_timer(ATTACK_DURATION).timeout
-	if is_dead:
-		is_attacking = false
-		attack_shape.disabled = true
-		return
-
-	if player.is_playing() and player.animation == attack_anim_name:
-		await player.animation_finished
-		if is_dead:
-			is_attacking = false
-			attack_shape.disabled = true
-			return
-
-	is_attacking = false
-	attack_shape.disabled = true
-	update_animation(Vector2.ZERO)
-
-
-# --- FUNGSI KERUSAKAN ---
-func take_damage(amount, damage_source_position: Vector2):
-	sfx_attacked.play()
-	if invincible or is_dead: # ✅ Cek is_dead di awal
-		return
-
-	var new_health = GameData.health - amount
-	GameData.set_health(new_health)
-	print("Player health:", GameData.health)
-	map_editor_ui.close()
-	
-	flash_red()
-
-	if new_health <= 1:
-		die()
-		return # ✅ PENTING: Segera keluar setelah memanggil die()
-		
-	# --- LOGIKA KNOCKBACK ---
-	# 1. Hitung arah dorongan (dari sumber damage ke pemain)
-	var knockback_direction = (global_position - damage_source_position).normalized()
-	
-	# 2. Terapkan velocity dan set state knockback
-	velocity = knockback_direction * KNOCKBACK_STRENGTH
-	is_knocked_back = true
-	is_attacking = false # Batalkan serangan jika sedang menyerang
-	sfx_run.stop()
-	
-	# 3. Nonaktifkan knockback setelah durasi
-	await get_tree().create_timer(KNOCKBACK_DURATION).timeout
-	
-	# Reset state dan velocity
-	if is_knocked_back and not is_dead: # ✅ Cek is_dead lagi sebelum reset
-		is_knocked_back = false
-		velocity = Vector2.ZERO
-
-func die():
-	if is_dead:
-		return
-		
-	is_dead = true # ✅ Atur status mati segera
-	print("💀 Player died")
-
-	is_locked = true
+func _enforce_lock() -> void:
+	global_position = qte_lock_position
 	velocity = Vector2.ZERO
 	move_and_slide()
 
+func _face_enemy(enemy_position: Vector2) -> void:
+	var direction := (enemy_position - global_position).normalized()
+	last_direction = direction
+	
+	if abs(direction.x) > abs(direction.y):
+		current_anim_direction = "right"
+		player.flip_h = direction.x < 0
+	else:
+		current_anim_direction = "down" if direction.y > 0 else "up"
+	
+	player.play("idle_%s" % current_anim_direction)
+
+func _on_qte_success() -> void:
+	if not waiting_for_qte or not qte_engaged:
+		return
+	
+	waiting_for_qte = false
+	qte_engaged = false
+	
+	qte_damage_multiplier = strength_damage_multiplier if strength_buff_active else 1.0
+	print("✨ QTE SUCCESS! Multiplier:", qte_damage_multiplier)
+	
+	_play_attack_animation()
+
+func _play_attack_animation() -> void:
+	qte_attack_playing = true
+	
+	var attack_anim := "attack_%s" % current_anim_direction
+	if player.sprite_frames.has_animation(attack_anim):
+		player.play(attack_anim)
+	else:
+		player.play("attack")
+	
+	_flash_color(Color(1.2, 1.2, 1.0), 0.3)
+	
+	await get_tree().create_timer(qte_attack_duration).timeout
+	qte_attack_playing = false
+
+func _on_qte_failed() -> void:
+	if not waiting_for_qte or not qte_engaged:
+		return
+	
+	waiting_for_qte = false
+	qte_engaged = false
+	qte_damage_multiplier = 0.5
+	print("❌ QTE FAILED!")
+	
+	_flash_color(Color(1.0, 0.4, 0.4), 0.15)
+
+func _flash_damage() -> void:
+	_flash_color(Color(1.0, 0.4, 0.4), 0.15)
+
+func _flash_color(flash_color: Color, duration: float) -> void:
+	is_flashing = true
+	
+	var buff_color := _get_current_buff_color()
+	
+	player.modulate = flash_color
+	await get_tree().create_timer(duration).timeout
+	player.modulate = buff_color
+	
+	is_flashing = false
+
+func _get_current_buff_color() -> Color:
+	if not strength_buff_active and not speed_buff_active:
+		return Color.WHITE
+	elif strength_buff_active and speed_buff_active:
+		return Color(1.3, 0.7, 1.3)
+	elif strength_buff_active:
+		return Color(1.3, 0.5, 0.5)
+	else:
+		return Color(0.5, 1.3, 1.3)
+
+func _die() -> void:
+	if is_dead:
+		return
+	
+	is_dead = true
+	is_locked = true
+	velocity = Vector2.ZERO
+	PuzzleManager.reset_puzzle()
+	PuzzleManager.reset_solved_chest()
+	
 	if sfx_death:
 		sfx_death.play()
-
-	# 🎬 Tentukan nama animasi sesuai arah
-	var death_anim_name = ""
-	match current_anim_direction:
-		"up":
-			death_anim_name = "death_up"
-		"down":
-			death_anim_name = "death_down"
-		"left":
-			death_anim_name = "death_left"
-		"right":
-			death_anim_name = "death_right"
-		_:
-			death_anim_name = "death_down"
-
-	# 🎞️ Cek apakah animasi tersebut ada di AnimatedSprite2D
-	var frames = player.sprite_frames
-	if frames.has_animation(death_anim_name):
-		player.play(death_anim_name)
-		await player.animation_finished
+	
+	var death_anim := "death_%s" % current_anim_direction
+	if player.sprite_frames.has_animation(death_anim):
+		player.play(death_anim)
+		player.animation_finished.connect(_on_death_animation_finished, CONNECT_ONE_SHOT)
 	else:
-		print("⚠️ Tidak ada animasi", death_anim_name, "pakai default death_d. Menggunakan fallback timer.")
 		player.play("death_d")
-		# ⏱️ Fallback timer: Tunggu 1.0 detik jika animasi bermasalah
-		await get_tree().create_timer(1.0).timeout 
+		await get_tree().create_timer(1.0).timeout
+		_show_death_ui()
 
-	# 🩸 Tampilkan UI "You Dead"
+func _on_death_animation_finished() -> void:
+	player.stop()
+	_show_death_ui()
+
+func _show_death_ui() -> void:
 	if you_dead_ui:
 		you_dead_ui.show_you_dead()
 
+func _on_torch_picked_up(torch_node) -> void:
+	if has_torch:
+		return
+	
+	held_torch = torch_node
+	has_torch = true
+	held_torch.get_parent().remove_child(held_torch)
+	add_child(held_torch)
+	held_torch.position = Vector2(0, 10)
 
-func _on_respawn_selected():
-	print("⚡ Respawn pressed — respawn player!")
+func _on_respawn_selected() -> void:
+	print("⚡ Respawn!")
 	GameData.reset()
 	GameData.set_death(true)
 	get_tree().reload_current_scene()
 
+func make_invincible(duration: float = -1.0) -> void:
+	if invincible_forever:
+		is_invincible = true
+		is_blinking = true
+		print("🛡️ Player Invincible FOREVER")
+		return
 
-func flash_red():
-	print("FLASH CALLED")  # Debug
-	$AnimatedSprite2D.modulate = Color(1, 0.4, 0.4)
-	await get_tree().create_timer(0.15).timeout
-	$AnimatedSprite2D.modulate = Color(1, 1, 1)
+	# Kalau duration = -1 → pakai default export
+	if duration <= 0:
+		duration = invincible_default_duration
 
-var map_scene_instance = null
+	is_invincible = true
+	invincible_timer = duration
+	is_blinking = true
+	print("🛡️ Player Invincible for ", duration, " seconds")
 
-func _on_Button_Map_pressed() -> void:
-	pass # Replace with function body.as
+func remove_invincible() -> void:
+	is_invincible = false
+	invincible_timer = 0.0
+	is_blinking = false
+	update_buff_visuals()  # ✅ STANDARDIZED NAME
+	print("🛑 Invincibility removed")

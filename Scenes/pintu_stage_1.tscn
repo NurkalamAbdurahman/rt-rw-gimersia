@@ -59,13 +59,22 @@ region = Rect2(129, 96, 31, 31)
 [sub_resource type="CircleShape2D" id="CircleShape2D_igtpo"]
 radius = 24.020824
 
-[sub_resource type="LabelSettings" id="LabelSettings_lp2m2"]
+[sub_resource type="LabelSettings" id="LabelSettings_2kh73"]
 font = ExtResource("3_m0ohj")
+font_size = 64
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [node name="Pintu_stage1" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_lp2m2")
+
+[node name="SFX_DoorLocked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_2kh73")
+volume_db = 11.0
+max_distance = 4000.0
 
 [node name="Terkunci" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_2kh73")
@@ -87,18 +96,22 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_igtpo")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -36.0
-offset_top = -31.0
-offset_right = 37.0
-offset_bottom = -18.0
-theme_override_font_sizes/font_size = 8
-text = "Press [e] to open"
-label_settings = SubResource("LabelSettings_lp2m2")
-
 [node name="SFX_ChestLocked" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_2kh73")
 volume_db = 11.0
+
+[node name="StandPoint" type="Node2D" parent="."]
+position = Vector2(0, 24)
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_left = -10.0
+offset_top = -26.0
+offset_right = 122.0
+offset_bottom = 21.0
+scale = Vector2(0.15, 0.15)
+text = "[E] Enter"
+label_settings = SubResource("LabelSettings_2kh73")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

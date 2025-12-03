@@ -1,76 +1,176 @@
-[gd_scene load_steps=8 format=3 uid="uid://dawyh7xl0svwt"]
+[gd_scene load_steps=22 format=3 uid="uid://dawyh7xl0svwt"]
 
+[ext_resource type="Script" uid="uid://befld0wic10r3" path="res://Script/hud.gd" id="1_iatva"]
 [ext_resource type="PackedScene" uid="uid://d30rdhwoxnw0c" path="res://Scenes/ui/Coin.tscn" id="2_so6r4"]
-[ext_resource type="PackedScene" uid="uid://dcw7aevagshe5" path="res://Scenes/ui/Silver_Key.tscn" id="4_0jl3m"]
+[ext_resource type="PackedScene" uid="uid://dcw7aevagshe5" path="res://Scenes/ui/Silver_Key.tscn" id="4_iatva"]
 [ext_resource type="PackedScene" uid="uid://cfbgos7kse1lm" path="res://Scenes/ui/Golden_Key.tscn" id="4_lskfp"]
-[ext_resource type="PackedScene" path="res://Scenes/ui/skull_Key.tscn" id="5_so6r4"]
+[ext_resource type="PackedScene" uid="uid://1vnkas3s3dt3" path="res://Scenes/ui/skull_Key.tscn" id="5_so6r4"]
 [ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="6_1usb2"]
 [ext_resource type="PackedScene" uid="uid://bm3ddrutfeyyp" path="res://Scenes/ui/Health.tscn" id="7_0jl3m"]
+[ext_resource type="PackedScene" uid="uid://b8neso2qx72fy" path="res://Scenes/ui/HP_Potion.tscn" id="8_2c6vo"]
+[ext_resource type="PackedScene" uid="uid://2xk2mfy62su7" path="res://Scenes/ui/strength_Potion.tscn" id="9_b62v5"]
+[ext_resource type="PackedScene" uid="uid://ch6do4lqk3be3" path="res://Scenes/ui/Speed_Potion.tscn" id="10_iatva"]
+[ext_resource type="AudioStream" uid="uid://c7b2jht2bkpr0" path="res://Assets/Audio/timer-lambat.mp3" id="12_pvy6a"]
+[ext_resource type="PackedScene" uid="uid://c5k1haemi4e74" path="res://Scenes/ui/BuffStrength.tscn" id="12_uws1n"]
+[ext_resource type="PackedScene" uid="uid://gjenvbll4ig6" path="res://Scenes/ui/BuffSpeed.tscn" id="13_cdjaw"]
+[ext_resource type="Texture2D" uid="uid://ccqialaewf8b2" path="res://Assets/collecitions/Map/Map.png" id="14_cycpj"]
+[ext_resource type="Script" uid="uid://v0xxo1bvg162" path="res://Scenes/button_map.gd" id="15_q25ml"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0jl3m"]
 font = ExtResource("6_1usb2")
 font_size = 64
 shadow_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uhytm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfuco"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gutcg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hv048"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gncwd"]
+
 [node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_iatva")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-offset_left = -38.999992
-offset_top = -40.0
-offset_right = 46.000015
-offset_bottom = -15.0
-scale = Vector2(5, 5)
+offset_right = 320.0
+offset_bottom = 180.0
 pivot_offset = Vector2(-10, -10)
 size_flags_horizontal = 4
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 100
 
 [node name="Health" parent="MarginContainer/VBoxContainer" instance=ExtResource("7_0jl3m")]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 13
+theme_override_constants/separation = 75
 
-[node name="SilverKey" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4_0jl3m")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 150
+
+[node name="SilverKey" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_iatva")]
 layout_mode = 2
 
-[node name="GoldenKey" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4_lskfp")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="GoldenKey" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("4_lskfp")]
 layout_mode = 2
 
-[node name="Skullkey" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_so6r4")]
+[node name="Skullkey" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("5_so6r4")]
 layout_mode = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="."]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -81.0
-offset_right = -6.0
-offset_bottom = -71.0
-grow_vertical = 0
-scale = Vector2(5, 5)
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Coin" parent="MarginContainer3" instance=ExtResource("2_so6r4")]
+[node name="Coin" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_so6r4")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="."]
 show_behind_parent = true
-z_index = 12
+z_index = 101
 offset_left = 374.0
 offset_top = 117.0
 offset_right = 808.0
 offset_bottom = 191.0
 label_settings = SubResource("LabelSettings_0jl3m")
 horizontal_alignment = 1
+
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -283.0
+offset_top = -52.0
+offset_right = -83.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer4"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 75
+
+[node name="StrengthPotion" parent="MarginContainer4/HBoxContainer" instance=ExtResource("9_b62v5")]
+visible = false
+layout_mode = 2
+
+[node name="SpeedPotion" parent="MarginContainer4/HBoxContainer" instance=ExtResource("10_iatva")]
+visible = false
+layout_mode = 2
+
+[node name="HpPotion" parent="MarginContainer4/HBoxContainer" instance=ExtResource("8_2c6vo")]
+layout_mode = 2
+
+[node name="TimerLambat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_pvy6a")
+parameters/looping = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+scale = Vector2(1.15, 1.15)
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="Log" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -87.0
+offset_right = 1.0
+offset_bottom = 202.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="BuffStrength" parent="MarginContainer3/VBoxContainer" instance=ExtResource("12_uws1n")]
+layout_mode = 2
+
+[node name="BuffSpeed" parent="MarginContainer3/VBoxContainer" instance=ExtResource("13_cdjaw")]
+layout_mode = 2
+
+[node name="Button_Map" type="Button" parent="."]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -102.0
+offset_top = 62.0
+offset_right = -2.0
+offset_bottom = 162.0
+grow_horizontal = 0
+scale = Vector2(0.6, 0.6)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uhytm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jfuco")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_gutcg")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hv048")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gncwd")
+icon = ExtResource("14_cycpj")
+script = ExtResource("15_q25ml")

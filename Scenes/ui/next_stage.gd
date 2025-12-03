@@ -1,79 +1,250 @@
 extends CanvasLayer
 
-@onready var next_stage_button: Button = $Control/Panel/VBoxContainer/VBoxContainer/Next_Stage_Button
-@onready var main_menu_button: Button = $Control/Panel/VBoxContainer/VBoxContainer/Main_Menu_Button
-
+@onready var next_stage_button: Button = $Control/Panel/VBoxContainer/HBoxContainer/Next_Stage_Button
+@onready var main_menu_button: Button = $Control/Panel/VBoxContainer/HBoxContainer/Main_Menu_Button
+@onready var panel: Panel = $Control/Panel
 @onready var root_control: Control = $Control
 @onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
 
-var buttons: Array = []
-var selected_index: int = 0
+var buttons: Array[Button] = []
+var selected_index := 0
+var is_paused := false
+var pintu_to_stage :int = 2
 
-func _ready():
-	# Masukkan tombol ke array
+# Animation constants
+const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
+const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
+const PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
+const NORMAL_MODULATE: Color = Color(0.6, 0.65, 0.7) 
+const HOVER_MODULATE: Color = Color(0.9, 0.95, 1.0)
+const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
+const ANIMATION_DURATION: float = 0.15
+
+func _ready() -> void:
+	GameData.is_popup_open = true
+	
+	if pintu_to_stage == 1:
+		next_stage_button.text = "Finish"
+	else:
+		next_stage_button.text = "Next Stage"
+		
+	_init_ui()
+	_connect_signals()
+	_set_process_mode_recursive(self)
+
+func _set_process_mode_recursive(node: Node) -> void:
+	# Set semua child nodes agar tetap process saat paused
+	node.process_mode = Node.PROCESS_MODE_ALWAYS
+	for child in node.get_children():
+		_set_process_mode_recursive(child)
+
+func _input(event: InputEvent) -> void:
+	if not root_control.visible:
+		return
+	
+	if event.is_action_pressed("menu_right"):
+		_move_selection(1)
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("menu_left"):
+		_move_selection(-1)
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("ui_accept"):
+		_press_selected_button()
+		get_viewport().set_input_as_handled()
+
+func show_popup() -> void:
+	print("Showing Pause Menu")
+	is_paused = true
+	root_control.show()
+	get_tree().paused = true
+	
+	if pintu_to_stage == 1:
+		next_stage_button.text = "Finish"
+	else:
+		next_stage_button.text = "Next Stage"
+	
+	selected_index = 0
+	_update_button_focus()
+
+	panel.modulate.a = 1.0
+	panel.scale = Vector2.ONE
+
+	_animate_buttons_in()
+
+func hide_popup() -> void:
+	print("Hiding Pause Menu")
+	is_paused = false
+	
+	_animate_buttons_out()
+	
+	# Tunggu animasi selesai
+	var timer = get_tree().create_timer(0.25, true, false, true)
+	await timer.timeout
+	
+	root_control.hide()
+	get_tree().paused = false
+
+func _init_ui() -> void:
 	buttons = [next_stage_button, main_menu_button]
+	
+	# ✅ NONAKTIFKAN INTERAKSI MOUSE PADA TOMBOL
+	for btn in buttons:
+		btn.focus_mode = Control.FOCUS_NONE
+		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE  # ✅ GANTI DARI MOUSE_FILTER_PASS
+	
+	# ❌ HAPUS KONEKSI MOUSE SIGNALS
+	# for btn in buttons:
+	#     btn.mouse_entered.connect(_on_button_mouse_entered.bind(btn))
+	#     btn.mouse_exited.connect(_on_button_mouse_exited.bind(btn))
+	
+	for btn in buttons:
+		btn.modulate.a = 0.0
+		btn.scale = Vector2(0.8, 0.8)
+	
+	root_control.visible = false
 
-	# Connect signal tombol mouse klik
+func _connect_signals() -> void:
 	for btn in buttons:
 		btn.pressed.connect(_on_button_pressed)
 
-	# Set fokus awal
+func _animate_buttons_in() -> void:
+	for i in buttons.size():
+		var btn := buttons[i]
+		var tween := create_tween().set_parallel(true)
+		tween.set_trans(Tween.TRANS_BACK)
+		tween.set_ease(Tween.EASE_OUT)
+		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+
+		tween.tween_property(btn, "modulate:a", 1.0, 0.3).set_delay(i * 0.1)
+		tween.tween_property(btn, "scale", Vector2.ONE, 0.3).set_delay(i * 0.1)
+
+func _animate_buttons_out() -> void:
+	for btn in buttons:
+		var tween := create_tween().set_parallel(false)
+		tween.set_trans(Tween.TRANS_CUBIC)
+		tween.set_ease(Tween.EASE_IN)
+		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		
+		tween.tween_property(btn, "modulate:a", 0.0, 0.2)
+		tween.tween_property(btn, "scale", Vector2(0.8, 0.8), 0.2)
+
+func _move_selection(direction: int) -> void:
+	selected_index = wrapi(selected_index + direction, 0, buttons.size())
+	sfx_hover.play()
 	_update_button_focus()
 
-	# Awal popup disembunyikan
-	root_control.visible = false
-
-# Panggil fungsi ini dari pintu saat buka
-func show_popup():
-	root_control.visible = true
-	print("pause ini!!!")
-	get_tree().paused = true  # Pause game
-
-func hide_popup():
-	root_control.visible = false
-	print("lewat bang")
-	get_tree().paused = false 
-
-func _process(delta):
-	if not root_control.visible:
-		return
-
-	if Input.is_action_just_pressed("menu_up"):
-		selected_index = (selected_index + 1) % buttons.size()
-		_update_button_focus()
-	elif Input.is_action_just_pressed("menu_down"):
-		selected_index = (selected_index - 1 + buttons.size()) % buttons.size()
-		_update_button_focus()
-	elif Input.is_action_just_pressed("ui_accept"):
-		buttons[selected_index].emit_signal("pressed")
-
 func _update_button_focus() -> void:
-	for i in range(buttons.size()):
-		var btn = buttons[i]
-		if i == selected_index:
-			sfx_hover.play()
-			btn.add_theme_color_override("font_color", Color(1.0, 0.84, 0.0)) # teks emas
-			btn.scale = Vector2(1.12, 1.12)
-		else:
-			btn.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7)) # teks abu-abu
-			btn.scale = Vector2(1, 1)
+	_animate_button_focus()
 
-func _on_button_pressed():
+func _animate_button_focus() -> void:
+	for i in buttons.size():
+		var btn := buttons[i]
+		var tween := create_tween().set_parallel(true)
+		tween.set_trans(Tween.TRANS_CUBIC)
+		tween.set_ease(Tween.EASE_OUT)
+		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		
+		btn.pivot_offset = btn.size / 2
+		
+		if i == selected_index:
+			tween.tween_property(btn, "modulate", HOVER_MODULATE, ANIMATION_DURATION)
+			tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION)
+		else:
+			tween.tween_property(btn, "modulate", NORMAL_MODULATE, ANIMATION_DURATION)
+			tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
+
+func _press_selected_button() -> void:
+	_animate_button_press(buttons[selected_index])
+	var timer = get_tree().create_timer(ANIMATION_DURATION, true, false, true)
+	await timer.timeout
+	buttons[selected_index].emit_signal("pressed")
+
+func _animate_button_press(btn: Button) -> void:
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+
+	tween.tween_property(btn, "scale", PRESS_SCALE, ANIMATION_DURATION * 0.5)
+	tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION * 0.5)
+
+# ❌ HAPUS FUNGSI MOUSE HANDLER
+# func _on_button_mouse_entered(btn: Button) -> void:
+#     if not is_paused:
+#         return
+#         
+#     var index = buttons.find(btn)
+#     if index != -1:
+#         selected_index = index
+#         sfx_hover.play()
+#         _update_button_focus()
+
+# func _on_button_mouse_exited(btn: Button) -> void:
+#     if not is_paused:
+#         return
+#         
+#     var tween := create_tween().set_parallel(true)
+#     tween.set_trans(Tween.TRANS_CUBIC)
+#     tween.set_ease(Tween.EASE_OUT)
+#     tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+#     
+#     tween.tween_property(btn, "modulate", NORMAL_MODULATE, ANIMATION_DURATION)
+#     tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
+
+func _on_button_pressed() -> void:
 	sfx_button.play()
+	
 	if buttons[selected_index] == next_stage_button:
-		hide_popup()
-		GameData.is_scene_changing = true
-		GameData.reset()
-		GameData.clear_data()
-		GameData.clear_torch()
-		GameData.set_finish_stage1()
-		get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
+		await hide_popup()
+		_change_to_next_stage()
 	elif buttons[selected_index] == main_menu_button:
-		hide_popup()
-		GameData.is_scene_changing = true
-		GameData.reset()
-		GameData.clear_data()
-		GameData.clear_torch()
-		GameData.set_finish_stage1()
-		get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
+		await hide_popup()
+		_change_to_main_menu()
+
+func _change_to_next_stage() -> void:
+	get_tree().paused = false
+	GameData.is_scene_changing = true
+	GameData.reset()
+	GameData.clear_data()
+	GameData.clear_torch()
+	PuzzleManager.reset_puzzle()
+	GameData.is_popup_open = false
+	match pintu_to_stage:
+		1:
+			get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
+			GameData.set_finish_stage3()
+		2:
+			get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_2.tscn")
+			GameData.set_finish_stage1()
+			PuzzleManager.reset_puzzle()
+		3:
+			get_tree().change_scene_to_file("res://Scenes/FIX/STAGE_3.tscn")
+			GameData.set_finish_stage2()
+			PuzzleManager.reset_puzzle()
+
+func _change_to_main_menu() -> void:
+	get_tree().paused = false
+	GameData.is_scene_changing = true
+	GameData.reset()
+	GameData.clear_data()
+	GameData.clear_torch()
+	GameData.is_popup_open = false
+	match pintu_to_stage:
+		1:
+			GameData.set_finish_stage3()
+		2:
+			GameData.set_finish_stage1()
+		3:
+			GameData.set_finish_stage2()
+	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
+
+# Public methods untuk kontrol dari luar
+func force_show_popup() -> void:
+	show_popup()
+
+func force_hide_popup() -> void:
+	hide_popup()
+
+func get_pause_state() -> bool:
+	return is_paused

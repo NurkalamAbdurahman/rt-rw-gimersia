@@ -1,0 +1,163 @@
+[gd_scene load_steps=21 format=3 uid="uid://d2d7kuwoylspy"]
+
+[ext_resource type="Script" uid="uid://cfro873vrox3k" path="res://Script/GoldChestPuzzle.gd" id="1_3erbd"]
+[ext_resource type="AudioStream" uid="uid://dm0axowvu4x7w" path="res://Assets/Audio/puzzle-berhasil.mp3" id="2_gqg8n"]
+[ext_resource type="AudioStream" uid="uid://3m61pve03yws" path="res://Assets/Audio/puzzle-gagal.mp3" id="3_gjdi6"]
+[ext_resource type="AudioStream" uid="uid://mkee0pbwx7rb" path="res://Assets/Audio/click_button.mp3" id="4_gjdi6"]
+[ext_resource type="AudioStream" uid="uid://5tonn2pgstj3" path="res://Assets/Audio/puzzle-klik-2_TAsmsfS6.mp3" id="5_e8lyi"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="6_4s2bs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4s2bs"]
+font = ExtResource("6_4s2bs")
+font_size = 32
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qc8go"]
+bg_color = Color(0.19215687, 0.101960786, 0.06666667, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8509804, 0.6509804, 0.28235295, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4s2bs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qc8go"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8fouv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qk0pf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d3jex"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ckcb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tf7er"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_484lw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dl35j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1utd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7t14m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iva43"]
+
+[node name="GoldChestPuzzle" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_3erbd")
+
+[node name="SFX_Puzzle_Solved" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_gqg8n")
+volume_db = 20.0
+autoplay = true
+
+[node name="SFX_Puzzle_Failed" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gjdi6")
+volume_db = 20.0
+autoplay = true
+
+[node name="SFX_Button_Click" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_gjdi6")
+volume_db = 20.0
+max_distance = 4000.0
+
+[node name="SFX_Puzzle_Klik" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_e8lyi")
+volume_db = 20.0
+max_distance = 4000.0
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -46.5
+offset_right = 16.0
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="NotificationLabel" type="Label" parent="Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Hint" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+z_index = 1
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+label_settings = SubResource("LabelSettings_4s2bs")
+
+[node name="Instructions" type="Label" parent="Panel/VBoxContainer"]
+z_index = 1
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+label_settings = SubResource("LabelSettings_4s2bs")
+
+[node name="InputGrid" type="GridContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+columns = 81
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 75
+
+[node name="Submit" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_4s2bs")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_qc8go")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4s2bs")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qc8go")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8fouv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qk0pf")
+text = "submit"
+
+[node name="Reset" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_4s2bs")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_qc8go")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_d3jex")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_0ckcb")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_tf7er")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_484lw")
+text = "reset"
+
+[node name="Close" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_4s2bs")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_qc8go")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dl35j")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_y1utd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_7t14m")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iva43")
+text = "close"

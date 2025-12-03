@@ -1,16 +1,19 @@
 extends Node
 
 signal stats_updated
+signal use_potion
 
-var health: int = 6
-var max_health: int = 6
+var health: int = 10
+var max_health: int = 10
 var coins: int = 0
 var silver_keys: int = 0
 var golden_keys: int = 0
 var skull_keys: int = 0
 var pity: int = 0
 var max_pity: int = 3
-var potion: int = 0
+var hp_potion: int = 0
+var strength_potion: int = 0
+var speed_potion: int = 0
 var chest_states = {}
 var torch_states = {}
 var enemy_states = {}
@@ -20,27 +23,47 @@ var is_popup_open: bool = false
 var saved_strokes: Array = []
 var saved_brush_color: Color = Color.BLACK
 var saved_brush_size: float = 2.0
-var is_finish_stage1 = false;
-var is_finish_stage2 = false;
-var is_finish_stage3 = false;
+var is_finish_stage1 = false
+var is_finish_stage2 = false
+var is_finish_stage3 = false
 var is_scene_changing: bool = false
+var is_enter_stage = false
+var maze_stage_1 = false
+var maze_stage_2 = false
+var maze_stage_3 = false
+var silver_key_drop_count: int = 0
+var persistent_strength_buff_active: bool = false
+var persistent_strength_buff_time: float = 0.0
+var persistent_speed_buff_active: bool = false
+var persistent_speed_buff_time: float = 0.0
+
+signal drawing_cleared
+signal item_changed(item_type, amount)
+
+func log_change(item_type: String, amount: int) -> void:
+	emit_signal("item_changed", item_type, amount)
+
+
+func enter_stage():
+	is_enter_stage = true
 
 func set_finish_stage1():
 	is_finish_stage1 = true
 	
 func set_finish_stage2():
 	is_finish_stage2 = true
-
+	is_finish_stage1 = true
+	
 func set_finish_stage3():
+	is_finish_stage1 = true
+	is_finish_stage2 = true
 	is_finish_stage3 = true
 
-# Fungsi untuk menyimpan data yang dikirim dari Node2D gambar
 func save_drawing_data(strokes_to_save: Array, color: Color, size: float):
-	saved_strokes = strokes_to_save.duplicate(true) # Penting: Gunakan duplicate(true)
+	saved_strokes = strokes_to_save.duplicate(true)
 	saved_brush_color = color
 	saved_brush_size = size
 
-# Fungsi untuk mengambil data saat Node2D gambar dimuat
 func load_drawing_data() -> Dictionary:
 	return {
 		"strokes": saved_strokes.duplicate(true),
@@ -52,19 +75,19 @@ func clear_data():
 	saved_strokes = []
 	saved_brush_color = Color.BLACK
 	saved_brush_size = 2.0
+	emit_signal("drawing_cleared")
 
 func set_enemy_killed(enemy_id: String):
 	enemy_states[enemy_id] = true
 	print("STATUS PERSISTED: Enemy ", enemy_id, " sudah mati.")
 
-# Fungsi untuk mengecek apakah enemy sudah mati sebelumnya
 func is_enemy_killed(enemy_id: String) -> bool:
-	return enemy_states.get(enemy_id, false) # Defaultnya false (belum mati)
+	return enemy_states.get(enemy_id, false)
 
 func set_chest_opened(chest_id: String):
 	chest_states[chest_id] = true
 	print("STATUS PERSISTED: Chest ", chest_id, " sudah dibuka.")
-# Fungsi untuk mengecek apakah chest sudah dibuka sebelumnya
+
 func is_chest_opened(chest_id: String) -> bool:
 	return chest_states.get(chest_id, false)
 	
@@ -75,19 +98,59 @@ func set_torch_lighted(torch_id: String):
 func is_torch_lighted(torch_id: String) -> bool:
 	return torch_states.get(torch_id, false)
 
-
 func set_health(value: int):
-	health = clamp(value, 0, 100)
+	health = clamp(value, 0, max_health)
 	emit_signal("stats_updated")
 
 func add_coin(amount: int = 1):
 	coins += amount
 	emit_signal("stats_updated")
 
-func add_potion(amount: int = 1):
-	potion += amount
-	health += 1
+func add_hp_potion(amount: int):
+	hp_potion += amount
+	log_change("hp_potion", amount)
+
+func add_speed_potion(amount: int):
+	speed_potion += amount
+	log_change("speed_potion", amount)
+
+func add_strength_potion(amount: int):
+	strength_potion += amount
+	log_change("strength_potion", amount)
+	
+	
+func remove_coins(amount: int):
+	coins -= amount
+	log_change("coin", -amount)
 	emit_signal("stats_updated")
+
+func use_hp_potion() -> bool:
+	if hp_potion > 0 and health < max_health:
+		hp_potion -= 1
+		health = clamp(health + 2, 0, max_health)
+		emit_signal("stats_updated")
+		emit_signal("use_potion")
+		return true
+	return false
+
+func use_strength_potion() -> bool:
+	if strength_potion > 0:
+		strength_potion -= 1
+		emit_signal("stats_updated")
+		emit_signal("use_potion")
+		return true
+	return false
+
+func use_speed_potion() -> bool:
+	if speed_potion > 0:
+		speed_potion -= 1
+		emit_signal("stats_updated")
+		emit_signal("use_potion")
+		return true
+	return false
+
+func reset_potion():
+	emit_signal("reset_potion")
 
 func check_if_max_health():
 	if health >= max_health:
@@ -108,27 +171,49 @@ func add_silver_key(amount: int = 1):
 	silver_keys += amount
 	emit_signal("stats_updated")
 
-func add_pity(amount: int) :
+func add_pity(amount: int):
 	pity += amount
 	print(pity)
 	emit_signal("stats_updated")
 
-func set_death(bool):
-	has_dead = true
+func get_silver_key_drop_count() -> int:
+	return silver_key_drop_count
 	
+func increment_silver_key_drop_count(skyes):
+	silver_key_drop_count += skyes
+	print("Count: ", silver_key_drop_count)
 
+func set_death(bool):
+	has_dead = bool
+	
 func set_not_death(bool):
 	has_dead = false
 
-func reset() :
+func reset():
 	health = max_health
 	coins = 0
 	silver_keys = 0
 	golden_keys = 0
 	skull_keys = 0
 	pity = 0
+	hp_potion = 0
+	strength_potion = 0
+	speed_potion = 0
 	chest_states = {}
 	enemy_states = {}
+	maze_stage_1 = false
+	maze_stage_2 = false
+	maze_stage_3 = false
+	silver_key_drop_count = 0
+	persistent_strength_buff_active = false
+	persistent_strength_buff_time = 0.0
+	persistent_speed_buff_active = false    
+	persistent_speed_buff_time = 0.0
 
 func clear_torch():
 	torch_states = {}
+
+func hard_reset():
+	reset()
+	clear_data()
+	clear_torch()

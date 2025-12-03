@@ -1,24 +1,18 @@
 extends Button
 
-var is_open: bool = false  # status map, false = tertutup
+@onready var map_editor_ui: Control = get_node("/root/Node2D/MapEditorLayer/MapEditorUI")  # Use absolute path
 
 func _ready():
 	connect("pressed", Callable(self, "_on_pressed"))
-	set_process(true) # agar _process dijalankan terus
+	# Remove set_process(true) - we don't need _process anymore
 
-func _process(_delta):
-	# jika tombol M ditekan
-	if Input.is_action_just_pressed("open_map"):
-		_on_pressed()
+# Remove the entire _process function - it's causing the conflict
 
 func _on_pressed():
-	var editor_ui = get_parent().get_node("../MapEditorLayer/MapEditorUI")
-	if editor_ui:
-		if is_open:
-			editor_ui.close()
-			is_open = false
+	if map_editor_ui:
+		if map_editor_ui.visible:
+			map_editor_ui.close()
 		else:
-			editor_ui.open()    
-			is_open = true
+			map_editor_ui.open()
 	else:
 		print("❌ MapEditorUI not found!")

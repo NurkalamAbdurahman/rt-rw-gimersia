@@ -2,217 +2,386 @@ extends Control
 
 @export var pause_key: String = "esc"
 
-@onready var resume_button = $Panel/VBoxContainer/resume
-@onready var controls_button = $Panel/VBoxContainer/controls
-@onready var quit_button = $Panel/VBoxContainer/quit
+@onready var panel: Panel = $Panel
+@onready var margin_container: MarginContainer = $Panel/MarginContainer
+@onready var texture_rect: Sprite2D = $Panel/MarginContainer/VBoxContainer2/UiPaused
+@onready var text_edit: Label = $Panel/MarginContainer/VBoxContainer2/Label
 
-@onready var confirm_panel = $Confirm
+@onready var resume_button: Button =$Panel/MarginContainer/VBoxContainer2/VBoxContainer/resume
+@onready var controls_button: Button = $Panel/MarginContainer/VBoxContainer2/VBoxContainer/controls
+@onready var quit_button: Button = $Panel/MarginContainer/VBoxContainer2/VBoxContainer/quit
+
+@onready var confirm_panel: Panel = $Confirm
 @onready var yes_button: Button = $Confirm/VBoxContainer/HBoxContainer/ya
 @onready var no_button: Button = $Confirm/VBoxContainer/HBoxContainer/tidak
 
-@onready var control_menu = $Control
-@onready var exit_control = $Control/Panel/HBoxContainer/exit
+@onready var control_menu: Panel = $Control
 
 @onready var sfx_button: AudioStreamPlayer2D = $SFX_Button
 @onready var sfx_hover: AudioStreamPlayer2D = $SFX_Hover
-@onready var sfx_chest_locked: AudioStreamPlayer2D = $SFX_ChestLocked
 
+# Animation constants
+const NORMAL_SCALE: Vector2 = Vector2(1.0, 1.0)
+const HOVER_SCALE: Vector2 = Vector2(1.12, 1.12)
+const NORMAL_MODULATE: Color = Color(0.6, 0.65, 0.7) 
+const HOVER_MODULATE: Color = Color(0.9, 0.95, 1.0)
+const DISABLED_MODULATE: Color = Color(0.3, 0.3, 0.3, 0.5)
+const ANIMATION_DURATION: float = 0.15
+const BUTTON_PRESS_SCALE: Vector2 = Vector2(0.95, 0.95)
 
+# Tween settings
+const TWEEN_TRANS: Tween.TransitionType = Tween.TRANS_CUBIC
+const TWEEN_EASE: Tween.EaseType = Tween.EASE_OUT
+const PRESS_TWEEN_EASE: Tween.EaseType = Tween.EASE_IN_OUT
 
-# ========= NAVIGASI BUTTON PAUSE =========
 var buttons: Array[Button] = []
-var selected_index: int = 0
+var selected_index := 0
 
-# ========= NAVIGASI BUTTON CONFIRM =========
 var confirm_buttons: Array[Button] = []
-var confirm_index: int = 0
+var confirm_index := 0
+
+# Proteksi terhadap spam ESC dan animasi
+var is_animating := false
+var can_toggle_pause := true
+var original_margin_position: Vector2
 
 
 func _ready() -> void:
-	# Tombol untuk pause menu
+	_init_ui()
+	_connect_signals()
+
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed(pause_key) and can_toggle_pause and not GameData.is_popup_open:
+		_handle_escape()
+
+
+func _input(event: InputEvent) -> void:
+	if not visible or is_animating:
+		return
+	
+	if confirm_panel.visible:
+		_handle_confirm_input(event)
+	elif panel.visible:
+		_handle_pause_input(event)
+
+
+func _init_ui() -> void:
 	buttons = [resume_button, controls_button, quit_button]
-
-	# Tombol untuk confirm menu
 	confirm_buttons = [yes_button, no_button]
-
-	# Disable focus
+	
+	for btn in buttons + confirm_buttons:
+		
+		btn.focus_mode = Control.FOCUS_NONE
+		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
+		btn.pivot_offset = btn.size / 2
+		
+	
+	# Simpan posisi original dan set posisi awal di atas layar
+	original_margin_position = margin_container.position
+	margin_container.position.y = -600
+	margin_container.modulate.a = 0.0
+	
+	# Set initial button states
 	for btn in buttons:
-		btn.focus_mode = Control.FOCUS_NONE
-		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	for btn in confirm_buttons:
-		btn.focus_mode = Control.FOCUS_NONE
-		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	_update_focus()
-	_update_confirm_focus()
-
-	# Connect tombol
-	resume_button.pressed.connect(_on_resume_pressed)
-	controls_button.pressed.connect(_on_controls_pressed)
-	quit_button.pressed.connect(_on_quit_pressed)
-	yes_button.pressed.connect(_on_yes_pressed)
-	no_button.pressed.connect(_on_no_pressed)
-	exit_control.pressed.connect(_on_exit_control_pressed)
-
+		btn.modulate = NORMAL_MODULATE
+		btn.modulate.a = 0.0
+		btn.scale = Vector2(0.8, 0.8)
+	
 	visible = false
+	modulate.a = 0.0
 	confirm_panel.visible = false
 	control_menu.visible = false
 
 
-func _process(delta):
-	# Cek apakah ada popup/shop aktif
-	if Input.is_action_just_pressed(pause_key) and not GameData.is_popup_open:
-		toggle_pause()
+func _connect_signals() -> void:
+	if not resume_button.pressed.is_connected(_on_resume_pressed):
+		resume_button.pressed.connect(_on_resume_pressed)
+
+	if not controls_button.pressed.is_connected(_on_controls_pressed):
+		controls_button.pressed.connect(_on_controls_pressed)
+
+	if not quit_button.pressed.is_connected(_on_quit_pressed):
+		quit_button.pressed.connect(_on_quit_pressed)
+
+	if not yes_button.pressed.is_connected(_on_yes_pressed):
+		yes_button.pressed.connect(_on_yes_pressed)
+
+	if not no_button.pressed.is_connected(_on_no_pressed):
+		no_button.pressed.connect(_on_no_pressed)
 
 
 
-func toggle_pause():
-	# ESC di control → balik ke pause
-	if control_menu.visible:
-		control_menu.visible = false
-		$Panel.visible = true
-		$TextEdit.visible = true
-		$TextureRect.visible = true
+func _handle_escape() -> void:
+	if is_animating:
 		return
-
-	# ESC di confirm → balik ke pause
-	if confirm_panel.visible:
-		confirm_panel.visible = false
-		$Panel.visible = true
-		$TextEdit.visible = true
-		$TextureRect.visible = true
-		return
-
-	get_tree().paused = not get_tree().paused
-	visible = get_tree().paused
-	$Panel.visible = get_tree().paused
-
-	if visible:
-		selected_index = 0
-		_update_focus()
-		confirm_index = 0
-		_update_confirm_focus()
-
-
-# ====================== INPUT NAVIGASI ==========================
-func _input(event: InputEvent) -> void:
-	if not visible:
-		return
-
-	# ======= Navigasi Confirm Menu (YES / NO) =======
-	if confirm_panel.visible:
-		# Left / A
-		if event.is_action_pressed("menu_left"):
-			_move_confirm(-1)
-
-		# Right / D
-		elif event.is_action_pressed("menu_right"):
-			_move_confirm(1)
-
-		# TAB → geser kanan terus
-		elif event is InputEventKey and event.keycode == KEY_TAB and event.pressed:
-			_move_confirm(1)
-
-		# Enter
-		elif event.is_action_pressed("resume"):
-			confirm_buttons[confirm_index].emit_signal("pressed")
-
-		return
-
-	# ======= Navigasi Pause Menu =======
-	if $Panel.visible:
-		if event.is_action_pressed("menu_up"):
-			_move_selection(-1)
-
-		elif event.is_action_pressed("menu_down"):
-			_move_selection(1)
-
-		elif event.is_action_pressed("resume"):
-			buttons[selected_index].emit_signal("pressed")
-
-
-
-# ====================== PAUSE BUTTON NAV ==========================
-func _move_selection(dir: int) -> void:
-	selected_index += dir
-
-	if selected_index < 0:
-		selected_index = buttons.size() - 1
-	elif selected_index >= buttons.size():
-		selected_index = 0
 	
-	if sfx_hover.playing:
-		sfx_hover.stop()
-	sfx_hover.play()
+	if control_menu.visible:
+		_close_controls()
+		return
+	
+	if confirm_panel.visible:
+		_close_confirm()
+		return
+	
+	_toggle_pause()
+
+
+func _toggle_pause() -> void:
+	# Proteksi terhadap spam
+	can_toggle_pause = false
+	
+	get_tree().paused = not get_tree().paused
+	
+	if get_tree().paused:
+		_show_pause()
+	else:
+		_hide_pause()
+	
+	# Reset proteksi setelah animasi selesai
+	await get_tree().create_timer(0.5).timeout
+	can_toggle_pause = true
+
+
+func _show_pause() -> void:
+	is_animating = true
+	visible = true
+	panel.visible = true
+	text_edit.visible = true
+	texture_rect.visible = true
+	
+	selected_index = 0
+	
+	# Fade in background
+	var bg_tween := create_tween()
+	bg_tween.tween_property(self, "modulate:a", 1.0, 0.3)
+	
+	await bg_tween.finished
+	
+	# Animate margin container dari atas ke posisi original
+	var container_tween := create_tween().set_parallel(true)
+	container_tween.set_trans(Tween.TRANS_BACK)
+	container_tween.set_ease(Tween.EASE_OUT)
+	
+	container_tween.tween_property(margin_container, "position:y", original_margin_position.y, 0.3)
+	container_tween.tween_property(margin_container, "modulate:a", 1.0, 0.4)
+	
+	await get_tree().create_timer(0.3).timeout
+	_animate_buttons_in()
+	
+	is_animating = false
+
+
+func _hide_pause() -> void:
+	is_animating = true
+	
+	# Animate buttons out
+	for btn in buttons:
+		var btn_tween := create_tween().set_parallel(true)
+		btn_tween.set_trans(Tween.TRANS_CUBIC)
+		btn_tween.set_ease(Tween.EASE_IN)
+		
+		btn_tween.tween_property(btn, "modulate:a", 0.0, 0.2)
+		btn_tween.tween_property(btn, "scale", Vector2(0.8, 0.8), 0.2)
+	
+	await get_tree().create_timer(0.2).timeout
+	
+	# Animate margin container kembali ke atas
+	var container_tween := create_tween().set_parallel(true)
+	container_tween.set_trans(Tween.TRANS_BACK)
+	container_tween.set_ease(Tween.EASE_IN)
+	
+	container_tween.tween_property(margin_container, "position:y", -600, 0.5)
+	container_tween.tween_property(margin_container, "modulate:a", 0.0, 0.3)
+	
+	await container_tween.finished
+	
+	# Fade out background
+	var bg_tween := create_tween()
+	bg_tween.tween_property(self, "modulate:a", 0.0, 0.2)
+	
+	await bg_tween.finished
+	
+	visible = false
+	is_animating = false
+
+
+func _animate_buttons_in() -> void:
+	for i in buttons.size():
+		var btn := buttons[i]
+		var tween := create_tween().set_parallel(true)
+		tween.set_trans(Tween.TRANS_BACK)
+		tween.set_ease(Tween.EASE_OUT)
+		
+		tween.tween_property(btn, "modulate:a", 1.0, 0.4).set_delay(i * 0.1)
+		tween.tween_property(btn, "scale", NORMAL_SCALE, 0.4).set_delay(i * 0.1)
+	
+	await get_tree().create_timer(0.5).timeout
 	_update_focus()
 
 
-func _update_focus() -> void:
-	for i in range(buttons.size()):
-		var btn = buttons[i]
-		if i == selected_index:
-			btn.modulate = Color(1.0, 0.84, 0.0)
-			btn.scale = Vector2(1.12, 1.12)
-		else:
-			btn.modulate = Color(1, 1, 1)
-			btn.scale = Vector2(1, 1)
-
-
-# ====================== CONFIRM YES/NO NAV ==========================
-func _move_confirm(dir: int) -> void:
-	confirm_index += dir
-
-	if confirm_index < 0:
-		confirm_index = confirm_buttons.size() - 1
-	elif confirm_index >= confirm_buttons.size():
-		confirm_index = 0
-
-	_update_confirm_focus()
-
-
-func _update_confirm_focus() -> void:
-	for i in range(confirm_buttons.size()):
-		var btn = confirm_buttons[i]
-		if i == confirm_index:
-			btn.modulate = Color(1.0, 0.84, 0.0)
-			btn.scale = Vector2(1.12, 1.12)
-		else:
-			btn.modulate = Color(1, 1, 1)
-			btn.scale = Vector2(1, 1)
-
-
-# ======================== BUTTON FUNCTIONS =========================
-
-func _on_resume_pressed():
-	sfx_button.play()
-	get_tree().paused = false
-	visible = false
-
-func _on_controls_pressed():
-	sfx_button.play()
-	$Panel.visible = false
-	$TextEdit.visible = false
-	$TextureRect.visible = false
-	control_menu.visible = true
-
-func _on_exit_control_pressed():
-	sfx_button.play()
-	control_menu.visible = false
-	$Panel.visible = true
-	$TextEdit.visible = true
-	$TextureRect.visible = true
-
-func _on_quit_pressed():
-	sfx_button.play()
-	$Panel.visible = false
-	$TextEdit.visible = false
-	$TextureRect.visible = false
+func _show_confirm() -> void:
+	if is_animating:
+		return
+		
+	panel.visible = false
+	text_edit.visible = false
+	texture_rect.visible = false
 	confirm_panel.visible = true
+	
 	confirm_index = 0
 	_update_confirm_focus()
 
-func _on_yes_pressed():
+
+func _close_confirm() -> void:
+	if is_animating:
+		return
+		
+	confirm_panel.visible = false
+	panel.visible = true
+	text_edit.visible = true
+	texture_rect.visible = true
+
+
+func _show_controls() -> void:
+	if is_animating:
+		return
+		
+	panel.visible = false
+	text_edit.visible = false
+	texture_rect.visible = false
+	control_menu.visible = true
+
+
+func _close_controls() -> void:
+	if is_animating:
+		return
+		
+	control_menu.visible = false
+	panel.visible = true
+	text_edit.visible = true
+	texture_rect.visible = true
+
+
+func _handle_pause_input(event: InputEvent) -> void:
+	if is_animating:
+		return
+		
+	if event.is_action_pressed("menu_up"):
+		_move_selection(-1)
+	elif event.is_action_pressed("menu_down"):
+		_move_selection(1)
+	elif event.is_action_pressed("resume"):
+		_press_selected_button(buttons[selected_index])
+
+
+func _handle_confirm_input(event: InputEvent) -> void:
+	if is_animating:
+		return
+		
+	if event.is_action_pressed("menu_left"):
+		_move_confirm(-1)
+	elif event.is_action_pressed("menu_right"):
+		_move_confirm(1)
+	elif event is InputEventKey and event.keycode == KEY_TAB and event.pressed:
+		_move_confirm(1)
+	elif event.is_action_pressed("resume"):
+		_press_selected_button(confirm_buttons[confirm_index])
+
+
+func _move_selection(direction: int) -> void:
+	selected_index = wrapi(selected_index + direction, 0, buttons.size())
+	sfx_hover.play()
+	_animate_button_focus(buttons, selected_index)
+
+
+func _move_confirm(direction: int) -> void:
+	confirm_index = wrapi(confirm_index + direction, 0, confirm_buttons.size())
+	sfx_hover.play()
+	_animate_button_focus(confirm_buttons, confirm_index)
+
+
+func _update_focus() -> void:
+	_animate_button_focus(buttons, selected_index)
+
+
+func _update_confirm_focus() -> void:
+	_animate_button_focus(confirm_buttons, confirm_index)
+
+
+func _animate_button_focus(target_buttons: Array[Button], focus_index: int) -> void:
+	for i in target_buttons.size():
+		var btn: Button = target_buttons[i]
+		var tween: Tween = create_tween().set_parallel(true)
+		tween.set_trans(TWEEN_TRANS)
+		tween.set_ease(TWEEN_EASE)
+		
+		btn.pivot_offset = btn.size / 2
+		
+		if i == focus_index:
+			tween.tween_property(btn, "modulate", HOVER_MODULATE, ANIMATION_DURATION)
+			tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION)
+		else:
+			tween.tween_property(btn, "modulate", NORMAL_MODULATE, ANIMATION_DURATION)
+			tween.tween_property(btn, "scale", NORMAL_SCALE, ANIMATION_DURATION)
+
+
+func _press_selected_button(btn: Button) -> void:
+	if is_animating:
+		return
+		
+	_animate_button_press(btn)
+	await get_tree().create_timer(ANIMATION_DURATION).timeout
+	btn.emit_signal("pressed")
+
+
+func _animate_button_press(btn: Button) -> void:
+	var tween: Tween = create_tween()
+	tween.set_trans(TWEEN_TRANS)
+	tween.set_ease(PRESS_TWEEN_EASE)
+	
+	tween.tween_property(btn, "scale", BUTTON_PRESS_SCALE, ANIMATION_DURATION * 0.5)
+	tween.tween_property(btn, "scale", HOVER_SCALE, ANIMATION_DURATION * 0.5)
+
+
+func _on_resume_pressed() -> void:
+	if is_animating:
+		return
+		
+	sfx_button.play()
+	get_tree().paused = false
+	_hide_pause()
+
+
+func _on_controls_pressed() -> void:
+	if is_animating:
+		return
+		
+	sfx_button.play()
+	_show_controls()
+
+
+func _on_exit_control_pressed() -> void:
+	if is_animating:
+		return
+		
+	sfx_button.play()
+	_close_controls()
+
+
+func _on_quit_pressed() -> void:
+	if is_animating:
+		return
+		
+	sfx_button.play()
+	_show_confirm()
+
+
+func _on_yes_pressed() -> void:
+	if is_animating:
+		return
+		
 	sfx_button.play()
 	get_tree().paused = false
 	GameData.reset()
@@ -221,9 +390,10 @@ func _on_yes_pressed():
 	GameData.clear_torch()
 	get_tree().change_scene_to_file("res://Scenes/FIX/MainMenu.tscn")
 
-func _on_no_pressed():
+
+func _on_no_pressed() -> void:
+	if is_animating:
+		return
+		
 	sfx_button.play()
-	confirm_panel.visible = false
-	$Panel.visible = true
-	$TextEdit.visible = true
-	$TextureRect.visible = true
+	_close_confirm()

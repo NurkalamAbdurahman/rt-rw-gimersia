@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxi1v7ov31gpt"]
+
+[ext_resource type="Script" uid="uid://vk1lgsojct61" path="res://Script/ghost_altar.gd" id="1_h4ec4"]
+[ext_resource type="FontFile" uid="uid://cpmtt72gu4l38" path="res://Assets/Font/Pixels.ttf" id="2_5s3op"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i5qli"]
+radius = 138.17743
+
+[sub_resource type="LabelSettings" id="LabelSettings_hiv2i"]
+font = ExtResource("2_5s3op")
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[node name="GhostAltar" type="Node2D"]
+position = Vector2(1, 0)
+script = ExtResource("1_h4ec4")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.08, 0.08)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_i5qli")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_left = 14.000001
+offset_top = -7.0
+offset_right = 194.0
+offset_bottom = 40.0
+scale = Vector2(0.15, 0.15)
+text = "[e] Interact"
+label_settings = SubResource("LabelSettings_hiv2i")

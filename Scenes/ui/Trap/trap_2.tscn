@@ -1,0 +1,96 @@
+[gd_scene load_steps=13 format=3 uid="uid://bry4hbs4i45ix"]
+
+[ext_resource type="Script" uid="uid://bnpf2y6r71mtu" path="res://Script/trap_2.gd" id="1_l64oy"]
+[ext_resource type="Texture2D" uid="uid://bpr45yy3gximc" path="res://Assets/Tileset/asset_bonus_stage/PNG/Building/full.png" id="2_bc11n"]
+[ext_resource type="AudioStream" uid="uid://btqrd7usqfjoo" path="res://Assets/Audio/Trap/batu-trap.mp3" id="3_bc11n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffqg3"]
+atlas = ExtResource("2_bc11n")
+region = Rect2(752, 171, 16, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_meajd"]
+atlas = ExtResource("2_bc11n")
+region = Rect2(768, 171, 16, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_382co"]
+atlas = ExtResource("2_bc11n")
+region = Rect2(784, 171, 16, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyebd"]
+atlas = ExtResource("2_bc11n")
+region = Rect2(672, 171, 16, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vt4sb"]
+atlas = ExtResource("2_bc11n")
+region = Rect2(688, 171, 16, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mynd"]
+atlas = ExtResource("2_bc11n")
+region = Rect2(704, 171, 16, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tj6uj"]
+atlas = ExtResource("2_bc11n")
+region = Rect2(720, 171, 16, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv7y4"]
+atlas = ExtResource("2_bc11n")
+region = Rect2(736, 171, 16, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7lks8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffqg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_meajd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_382co")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyebd")
+}],
+"loop": true,
+"name": &"close",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyebd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vt4sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mynd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tj6uj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iv7y4")
+}],
+"loop": true,
+"name": &"open",
+"speed": 10.0
+}]
+
+[node name="Trap_2" type="Node2D"]
+script = ExtResource("1_l64oy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7lks8")
+animation = &"open"
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+position = Vector2(-655.0754, -298.83923)
+scale = Vector2(1.0156207, 1.1160713)
+polygon = PackedVector2Array(637, 277, 653, 277, 653, 263, 637, 263)
+
+[node name="BatuTrap" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bc11n")
+volume_db = 6.0
+max_distance = 100.0

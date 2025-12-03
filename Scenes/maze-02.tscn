@@ -29,7 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://cc42d5pig7030" path="res://Scenes/ui/shop.tscn" id="28_yqs81"]
 [ext_resource type="PackedScene" uid="uid://csfl8xj1ahryf" path="res://Scenes/confirm_popup.tscn" id="29_sv103"]
 [ext_resource type="PackedScene" uid="uid://bwlqt7awopi1s" path="res://Scenes/pintu_balik02.tscn" id="30_3gtoy"]
-[ext_resource type="PackedScene" uid="uid://cv2xnq8w24twi" path="res://Scenes/torch.tscn" id="30_3gtwa"]
+[ext_resource type="PackedScene" uid="uid://b348lvmq7jtev" path="res://Scenes/obor-nyala.tscn" id="30_12lqi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3njpm"]
 texture = ExtResource("2_12lqi")
@@ -4300,44 +4300,30 @@ visible = false
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.06053035, 0.06053035, 0.060530342, 1)
 
-[node name="Torch3" parent="." instance=ExtResource("30_3gtwa")]
-z_index = 1
-position = Vector2(231.00002, 68)
-scale = Vector2(0.3, 0.3)
-
-[node name="Torch2" parent="." instance=ExtResource("30_3gtwa")]
-z_index = 1
-position = Vector2(455.00003, 68)
-scale = Vector2(0.3, 0.3)
-
-[node name="Torch" parent="." instance=ExtResource("30_3gtwa")]
-position = Vector2(538, 67)
-scale = Vector2(0.3, 0.3)
-
-[node name="Torch4" parent="." instance=ExtResource("30_3gtwa")]
-z_index = 1
-position = Vector2(127, 70)
-scale = Vector2(0.3, 0.3)
-
-[node name="Torch5" parent="." instance=ExtResource("30_3gtwa")]
-z_index = 1
-position = Vector2(327, 67)
-scale = Vector2(0.3, 0.3)
-
-[node name="Torch6" parent="." instance=ExtResource("30_3gtwa")]
-z_index = 1
-position = Vector2(309, -83)
-scale = Vector2(0.3, 0.3)
-
-[node name="Torch7" parent="." instance=ExtResource("30_3gtwa")]
-z_index = 1
-position = Vector2(411.00003, -83)
-scale = Vector2(0.3, 0.3)
-
-[node name="Torch8" parent="." instance=ExtResource("30_3gtwa")]
-z_index = -1
-position = Vector2(360, -9)
-scale = Vector2(0.3, 0.3)
-
 [node name="PintuBalik" parent="." instance=ExtResource("30_3gtoy")]
 position = Vector2(513, 76)
+
+[node name="Obor3" parent="." instance=ExtResource("30_12lqi")]
+position = Vector2(135, 79)
+
+[node name="Obor4" parent="." instance=ExtResource("30_12lqi")]
+position = Vector2(235, 79)
+
+[node name="Obor5" parent="." instance=ExtResource("30_12lqi")]
+position = Vector2(329, 76)
+
+[node name="Obor6" parent="." instance=ExtResource("30_12lqi")]
+position = Vector2(465, 80)
+
+[node name="Obor7" parent="." instance=ExtResource("30_12lqi")]
+position = Vector2(537, 77)
+
+[node name="Obor8" parent="." instance=ExtResource("30_12lqi")]
+position = Vector2(312, -82)
+
+[node name="Obor9" parent="." instance=ExtResource("30_12lqi")]
+position = Vector2(411, -84)
+
+[node name="Obor10" parent="." instance=ExtResource("30_12lqi")]
+z_index = -1
+position = Vector2(361, -10)
